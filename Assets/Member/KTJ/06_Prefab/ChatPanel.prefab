@@ -173,7 +173,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 58.58}
+  m_SizeDelta: {x: 650.2, y: 58.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5991869831668947564
 CanvasRenderer:
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 27.45
+  m_PixelsPerUnitMultiplier: 57.47
 --- !u!95 &2383729884100938055
 Animator:
   serializedVersion: 7

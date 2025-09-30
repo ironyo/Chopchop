@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &251488893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251488894}
+  - component: {fileID: 251488895}
+  m_Layer: 0
+  m_Name: BubbleChatPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &251488894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251488893}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.5063817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803980046}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &251488895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251488893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d2b18e2de6f0e4a9f943b953d394a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxChatCount: 3
+  chatDistance: 0.8
+  ChatPref: {fileID: 3262996014140753238, guid: 102c401eacc575546a459f7fb2247b9f, type: 3}
+  ChatParent: {fileID: 251488894}
+  moveDuration: 0.25
+  messageLifeTime: 3
+  activeChats: []
+  testMessages:
+  - "\uC624\uB298\uC740 \uAE30\uBD84\uC774 \uCC38 \uC88B\uB124!"
+  - "\uC9D1\uC5D0 \uAC00\uC57C\uC9C0!"
+  - "\uC624\uB298\uC740 \uC880 \uD798\uB4DC\uB124"
+  - "w\uAE4C"
+  - your mom
 --- !u!1 &364500638
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &364500639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -246,7 +303,7 @@ Transform:
   m_GameObject: {fileID: 426249254}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15600757, y: 1.2109821, z: -146.57681}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,8 +370,8 @@ MonoBehaviour:
   - "\uC624\uB298\uC740 \uAE30\uBD84\uC774 \uCC38 \uC88B\uB124!"
   - "\uC9D1\uC5D0 \uAC00\uC57C\uC9C0!"
   - "\uC624\uB298\uC740 \uC880 \uD798\uB4DC\uB124"
-  - "\uB0A0\uC528\uAC00 \uC88B\uC544\uC694"
-  - "\uD654\uB098\uC694."
+  - "w\uAE4C"
+  - your mom
 --- !u!1 &588765877
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +482,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1895725139}
+  - {fileID: 251488894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &803980048
@@ -1175,7 +1233,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1490531789}
-  - {fileID: 364500639}
   - {fileID: 803980046}
   - {fileID: 588765880}
   - {fileID: 426249255}
+  - {fileID: 364500639}
