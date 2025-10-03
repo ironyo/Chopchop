@@ -18,11 +18,12 @@ public class InventoryCreate : MonoBehaviour
         for(int i = 0; i < _invCount; i++)
         {
             if(i == 0)
-                _invBoxes[i] = Instantiate(_firstPref);
+                _invBoxes.Add(Instantiate(_firstPref, transform.position, Quaternion.identity));
+
             else if(i == _invCount - 1)
-                _invBoxes[i] = Instantiate(_lastPref);
+                _invBoxes.Add(Instantiate(_lastPref, transform.position, Quaternion.identity));
             else
-                _invBoxes[i] = Instantiate(_normalPref);
+                _invBoxes.Add(Instantiate(_normalPref, transform.position, Quaternion.identity));
         }
     }
 }
