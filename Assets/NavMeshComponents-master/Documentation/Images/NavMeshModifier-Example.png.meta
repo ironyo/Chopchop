@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NavMeshModifier-Example_0: 123118669118921003
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
