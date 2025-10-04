@@ -30,13 +30,17 @@ public class InventoryManager : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         for(int i = 0; i < _maxPage; i++)
         {
-            _invPrefObj.Add(Instantiate(_pagePrefab, GameObject.Find("InvGroup").transform).GetComponent<InventoryCreate>());
+            GameObject obj = Instantiate(_pagePrefab, gameObject.transform);
+            _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
         }
-        _oneButton = _invPrefObj[0]._needed[0].GetComponent<Button>();
-        _twoButton = _invPrefObj[_maxPage]._needed[1].GetComponent<Button>();
-        _pageTex = _invPrefObj[0]._needed[2].GetComponent<TextMeshProUGUI>();
     }
 
+    private void Start()
+    {
+        _oneButton = _invPrefObj[0]._needed[0].GetComponent<Button>();
+        _twoButton = _invPrefObj[_maxPage - 1]._needed[1].GetComponent<Button>();
+        _pageTex = _invPrefObj[0]._needed[2].GetComponent<TextMeshProUGUI>();
+    }
     private void Update()
     {
 
