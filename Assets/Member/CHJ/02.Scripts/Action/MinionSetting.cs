@@ -1,6 +1,8 @@
 using System;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class MinionSetting : MonoBehaviour
@@ -9,18 +11,21 @@ public class MinionSetting : MonoBehaviour
     [SerializeField] private int patrol;
     [SerializeField] private int secondWork;
     [SerializeField] private int sleep;
-    [SerializeField]private float _currentTime;
+    [SerializeField] private float _currentTime;
 
     private BehaviorGraphAgent behaviorGraph;
     private AiStates _currentState;
     
-    private float _maxTime;
     private MinionStats _stats;
+    private NavMeshAgent _navMesh;
+    private float _maxTime;
     private void Awake()
     {
         _stats = new MinionStats();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
-
+        _navMesh = GetComponent<NavMeshAgent>();
+        _navMesh.updateUpAxis = false;
+        _navMesh.updateRotation = false;
         SetDayTime();
         
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
@@ -81,7 +86,15 @@ public class MinionSetting : MonoBehaviour
 
     public void GetJob(WorkActionScr scr )
     {
-        behaviorGraph.BlackboardReference.SetVariableValue("Work Action Scr", scr);
-        _stats.Job = scr;
     }
+
+    private void OnAttack(InputValue value)
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        worldPos.z = 0;
+
+        _navMesh.SetDestination(worldPos);
+    }
+    
 }
