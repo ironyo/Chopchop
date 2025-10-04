@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7ae11ae4ecc7a0f449def62d908b9d10
+guid: 57050dfa345dfae4daae72a9f3fd03d3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2407822543892288524
-    second: NavMeshSurface-Advanced_0
+      213: 365327503207165475
+    second: IMG_6296_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NavMeshSurface-Advanced_0
+      name: IMG_6296_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 600
-        height: 786
+        width: 2048
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c0490e2b8dd4a6120800000000000000
-      internalID: 2407822543892288524
+      spriteID: 32ee757bd67e11500800000000000000
+      internalID: 365327503207165475
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      NavMeshSurface-Advanced_0: 2407822543892288524
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

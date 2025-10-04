@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NavMeshLink-Example_0: -9146495091596342239
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
