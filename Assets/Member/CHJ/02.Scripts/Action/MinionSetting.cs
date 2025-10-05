@@ -13,7 +13,7 @@ public class MinionSetting : MonoBehaviour
     [SerializeField] private int sleep;
     [SerializeField] private float _currentTime;
 
-    private BehaviorGraphAgent behaviorGraph;
+    public BehaviorGraphAgent behaviorGraph {get; private set;}
     private AiStates _currentState;
     
     private MinionStats _stats;

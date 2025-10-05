@@ -22,6 +22,7 @@ public class JobManager : MonoBehaviour
         {
             // Baby action 지우기
             var job = minion.gameObject.AddComponent(jobType);
+            minion.behaviorGraph.SetVariableValue("Work Action Scr", jobType);
         }
     }
 }

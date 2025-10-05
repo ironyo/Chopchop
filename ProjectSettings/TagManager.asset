@@ -6,6 +6,14 @@ TagManager:
   tags:
   - House
   - Mine
+  - Army
+  - Restaurant
+  - Lumberyard
+  - Hospital
+  - Construction_Site
+  - School
+  - Village_Hall
+  - telescope
   layers:
   - Default
   - TransparentFX
