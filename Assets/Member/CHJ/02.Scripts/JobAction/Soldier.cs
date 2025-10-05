@@ -1,13 +1,11 @@
-using System;
 using Unity.Behavior;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Miner : WorkActionScr
+public class Soldier : WorkActionScr
 {
     private void Awake()
     {
-        Name = "Miner";
+        Name = "Soldier";
     }
 
     public override void DoWork()
@@ -15,7 +13,7 @@ public class Miner : WorkActionScr
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 6);
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Mine"))
+            if (hit.CompareTag("Army"))
             {
                 GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
                 break;
