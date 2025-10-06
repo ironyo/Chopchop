@@ -15,12 +15,11 @@ public partial class WorkAction : Action
     [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
     protected override Status OnStart()
     {
-        while (Target == null)
+        Work.Value.DoWork();
+        if (Target.Value != null)
         {
-            Work.Value.DoWork();
-            //순찰 상태 지속
+            Navmesh.Value.SetDestination(Target.Value.position);
         }
-        Navmesh.Value.SetDestination(Target.Value.position);
         return Status.Running;
     }
 

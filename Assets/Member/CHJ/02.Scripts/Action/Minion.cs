@@ -2,10 +2,11 @@ using System;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class MinionSetting : MonoBehaviour
+public class Minion : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private int firstWork;
     [SerializeField] private int patrol;
@@ -26,12 +27,13 @@ public class MinionSetting : MonoBehaviour
         _navMesh = GetComponent<NavMeshAgent>();
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
-        SetDayTime();
+        
+        TimeManager.Instance.OnDayStarted += InitializeDay;
         
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
     }
 
-    private void SetDayTime()
+    private void InitializeDay()
     {
         while(true)
         {
@@ -47,26 +49,17 @@ public class MinionSetting : MonoBehaviour
         }
         patrol += firstWork;
         secondWork += patrol;
+        _stats.Age++;
     }
 
     private void Update()
     {
-        _currentTime += Time.deltaTime;
-
-        if (_currentTime > 60)
-        {
-            _currentTime = 0;
-            _stats.Age++;
-            SetDayTime();
-        }
-
-        AiStates newState = Check(_currentTime);
+        AiStates newState = Check(TimeManager.Instance.currentTime);
         
         if (_currentState != newState)
         {
             SetState(newState);
         }
-        Debug.Log( $"{Check(_currentTime)}, {(int)_currentTime}");
     }
 
     private AiStates Check(float time)
@@ -84,10 +77,6 @@ public class MinionSetting : MonoBehaviour
         Debug.Log("상태 변경");
     }
 
-    public void GetJob(WorkActionScr scr )
-    {
-    }
-
     private void OnAttack(InputValue value)
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
@@ -96,5 +85,13 @@ public class MinionSetting : MonoBehaviour
 
         _navMesh.SetDestination(worldPos);
     }
-    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked");
+        if (JobButtonManager.Instance.Minion != this)
+        {
+            JobButtonManager.Instance.OnValueChanged?.Invoke(this);
+        }
+    }
 }

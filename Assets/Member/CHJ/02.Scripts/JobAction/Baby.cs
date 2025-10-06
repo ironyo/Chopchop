@@ -1,11 +1,12 @@
+using System;
 using Unity.Behavior;
 using UnityEngine;
 
-public class Soldier : WorkActionScr
+public class Baby : WorkActionScr
 {
     private void Awake()
     {
-        Type = JobType.Soldier;
+        Type = JobType.Baby;
     }
 
     public override void DoWork()
@@ -13,18 +14,13 @@ public class Soldier : WorkActionScr
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 6);
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Army"))
+            if (hit.CompareTag("School"))
             {
                 GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
                 break;
             }
         }
         base.DoWork();
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, 6);
     }
 
     public override void ExitWork()
