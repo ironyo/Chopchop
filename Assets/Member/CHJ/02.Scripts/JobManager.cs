@@ -1,25 +1,28 @@
 using System;
 using System.Collections.Generic;
+using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 public class JobManager : MonoBehaviour
 {
     [SerializeField] private List<WorkActionScr> jobList = new List<WorkActionScr>();
-    public Dictionary<String, WorkActionScr> JobDictionary= new Dictionary<String, WorkActionScr>();
+    public Dictionary<string, Type> JobDictionary= new Dictionary<String, Type>();
 
     private void Awake()
     {
         foreach (var jobScr in jobList)
-        {
-            if (!JobDictionary.ContainsKey(jobScr.Name))
-            {
-                JobDictionary.Add(jobScr.Name, jobScr);
-            }
+        { 
+            JobDictionary.Add("Miner", typeof(Miner));
         }
     }
 
     public void AddJob(MinionSetting minion, string jobName)
     {
-        minion.GetJob(JobDictionary[jobName]);
+        if (JobDictionary.TryGetValue(jobName, out Type jobType))
+        {
+            // Baby action 지우기
+            var job = minion.gameObject.AddComponent(jobType);
+            minion.behaviorGraph.SetVariableValue("Work Action Scr", jobType);
+        }
     }
 }
