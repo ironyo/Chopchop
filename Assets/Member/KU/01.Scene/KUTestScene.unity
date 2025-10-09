@@ -168,13 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbfe4dc9e90c8e459374d68cb4aff26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _durTime: 0.3
-  _fallPo: 1900
+  _durTime: 0.4
+  _fallPo: 2000
   _oneButton: {fileID: 0}
   _twoButton: {fileID: 0}
   _pageTex: {fileID: 0}
   _pagePrefab: {fileID: 5736882769278271623, guid: cd80b4a7e73e57847b54182768c14fb4, type: 3}
-  _subTransform: {fileID: 0}
   _nowPage: 1
   _maxPage: 2
 --- !u!114 &205571357

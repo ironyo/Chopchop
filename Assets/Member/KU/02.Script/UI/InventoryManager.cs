@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -15,13 +16,12 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Button _twoButton;
     [SerializeField] private TextMeshProUGUI _pageTex;
     [SerializeField] private GameObject _pagePrefab;
-    [SerializeField] private RectTransform _subTransform;
     private RectTransform _rectTransform;
 
-    [SerializeField] private int _nowPage = 1;
+    [SerializeField] public int _nowPage = 1;
     [SerializeField] private int _maxPage = 2;
 
-    List<InventoryCreate> _invPrefObj = new List<InventoryCreate>();
+    static List<InventoryCreate> _invPrefObj = new List<InventoryCreate>();
 
     bool isNowClose = false;
     bool _isMoveInv = false;
@@ -30,17 +30,16 @@ public class InventoryManager : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         for(int i = 0; i < _maxPage; i++)
         {
-            GameObject obj = Instantiate(_pagePrefab, gameObject.transform);
+            GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
             _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
+        }
+        for (int i = 0; i < _invPrefObj.Count; i++)
+        {
+            _invPrefObj[i].pageNum = i;
+            _invPrefObj[i].manager = this;
         }
     }
 
-    private void Start()
-    {
-        _oneButton = _invPrefObj[0]._needed[0].GetComponent<Button>();
-        _twoButton = _invPrefObj[_maxPage - 1]._needed[1].GetComponent<Button>();
-        _pageTex = _invPrefObj[0]._needed[2].GetComponent<TextMeshProUGUI>();
-    }
     private void Update()
     {
 
@@ -53,7 +52,14 @@ public class InventoryManager : MonoBehaviour
             InvPageChange(true);
         }
     }
-    
+
+    public void InvChange(Button _oneB, Button _twoB, TextMeshProUGUI _tex)
+    {
+        _oneButton = _oneB;
+        _twoButton = _twoB;
+        _pageTex = _tex;
+    }
+
     public void InvPageChange(bool isNowOne)
     {
         _isMoveInv = true;
@@ -61,26 +67,25 @@ public class InventoryManager : MonoBehaviour
         {
             if (_nowPage < _maxPage)
                 _nowPage++;
-            _pageTex.text = $"{_nowPage} / {_maxPage} Page";
-            _twoButton.gameObject.SetActive(false);
-            _subTransform.DOAnchorPosX(-_fallPo, _durTime).OnComplete(() =>
+            //_twoButton.gameObject.SetActive(false);
+            _rectTransform.DOAnchorPosX(-_fallPo, _durTime).OnComplete(() =>
             {
                 _isMoveInv = false;
-                _oneButton.gameObject.SetActive(true);
+                //_oneButton.gameObject.SetActive(true);
             });
         }
         else if (!isNowOne)
         {
             if (_nowPage > 1)
                 _nowPage--;
-            _pageTex.text = $"{_nowPage} / {_maxPage} Page";
-            _oneButton.gameObject.SetActive(false);
-            _subTransform.DOAnchorPosX(0, _durTime).OnComplete(() =>
+            //_oneButton.gameObject.SetActive(false);
+            _rectTransform.DOAnchorPosX(0, _durTime).OnComplete(() =>
             {
                 _isMoveInv = false;
-                _twoButton.gameObject.SetActive(true);
+                //_twoButton.gameObject.SetActive(true);
             });
         }
+        _pageTex.text = $"{_nowPage} / {_maxPage} Page";
     }
 
     public void CloseInv()
