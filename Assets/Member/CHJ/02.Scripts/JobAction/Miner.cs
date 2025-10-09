@@ -7,7 +7,7 @@ public class Miner : WorkActionScr
 {
     private void Awake()
     {
-        Name = "Miner";
+        Type = JobType.Miner;
     }
 
     public override void DoWork()

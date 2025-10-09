@@ -2,36 +2,40 @@ using System;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class MinionSetting : MonoBehaviour
+public class Minion : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private int firstWork;
     [SerializeField] private int patrol;
     [SerializeField] private int secondWork;
     [SerializeField] private int sleep;
-    [SerializeField] private float _currentTime;
+    [SerializeField] private bool isCanMate;
 
     public BehaviorGraphAgent behaviorGraph {get; private set;}
     private AiStates _currentState;
     
-    private MinionStats _stats;
+    public MinionStats stat;
     private NavMeshAgent _navMesh;
-    private float _maxTime;
-    private void Awake()
+    private void Start()
     {
-        _stats = new MinionStats();
+        stat = new MinionStats();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
         _navMesh = GetComponent<NavMeshAgent>();
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
-        SetDayTime();
+        
+        Debug.Log(TimeManager.Instance);
+        
+        InitializeDay();
+        TimeManager.Instance.OnDayStarted += InitializeDay;
         
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
     }
 
-    private void SetDayTime()
+    private void InitializeDay()
     {
         while(true)
         {
@@ -47,26 +51,16 @@ public class MinionSetting : MonoBehaviour
         }
         patrol += firstWork;
         secondWork += patrol;
+        stat.Age++;
     }
 
     private void Update()
     {
-        _currentTime += Time.deltaTime;
-
-        if (_currentTime > 60)
-        {
-            _currentTime = 0;
-            _stats.Age++;
-            SetDayTime();
-        }
-
-        AiStates newState = Check(_currentTime);
-        
+        AiStates newState = Check(TimeManager.Instance.currentTime);
         if (_currentState != newState)
         {
             SetState(newState);
         }
-        Debug.Log( $"{Check(_currentTime)}, {(int)_currentTime}");
     }
 
     private AiStates Check(float time)
@@ -80,12 +74,8 @@ public class MinionSetting : MonoBehaviour
     private void SetState(AiStates newState)
     {
         _currentState = newState;
-        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(_currentTime));
+        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(TimeManager.Instance.currentTime));
         Debug.Log("상태 변경");
-    }
-
-    public void GetJob(WorkActionScr scr )
-    {
     }
 
     private void OnAttack(InputValue value)
@@ -96,5 +86,18 @@ public class MinionSetting : MonoBehaviour
 
         _navMesh.SetDestination(worldPos);
     }
-    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked");
+        if (JobButtonManager.Instance.Minion != this)
+        {
+            JobButtonManager.Instance.OnValueChanged?.Invoke(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        TimeManager.Instance.OnDayStarted -= InitializeDay;
+    }
 }
