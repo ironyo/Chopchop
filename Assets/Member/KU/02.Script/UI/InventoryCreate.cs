@@ -14,16 +14,12 @@ public class InventoryCreate : MonoBehaviour
     [SerializeField] private GameObject _normalPref;
     [SerializeField] private GameObject _firstPref;
     [SerializeField] private GameObject _lastPref;
-    [SerializeField] private GameObject _texPref;
-    [SerializeField] List<GameObject> _invBoxes = new List<GameObject>();
+    public List<InvBuild> invBoxes = new();
 
     public int pageNum;
     public InventoryManager manager;
-
-    [Header("ÂüÁ¶")]
     [SerializeField] Button _oneB;
     [SerializeField] Button _twoB;
-    [SerializeField] TextMeshProUGUI _tex;
 
     private void Awake()
     {
@@ -33,9 +29,7 @@ public class InventoryCreate : MonoBehaviour
             if (i == 0)
             {
                 pref = Instantiate(_firstPref, transform.position, Quaternion.identity, transform);
-                GameObject tex = Instantiate(_texPref, transform.position, Quaternion.identity, transform);
                 _oneB = pref.GetComponent<Button>();
-                _tex = tex.GetComponent<TextMeshProUGUI>();
             }
 
             else if (i == _invCount - 1)
@@ -44,8 +38,10 @@ public class InventoryCreate : MonoBehaviour
                 _twoB = pref.GetComponent<Button>();
             }
             else
+            {
                 pref = Instantiate(_normalPref, transform.position, Quaternion.identity, transform);
-            _invBoxes.Add(pref);
+                invBoxes.Add(pref.GetComponent<InvBuild>());
+            }
         }
 
     }
@@ -53,7 +49,5 @@ public class InventoryCreate : MonoBehaviour
     {
         _oneB.onClick.AddListener(() => manager.InvPageChange(false));
         _twoB.onClick.AddListener(() => manager.InvPageChange(true));
-        if (pageNum == 0)
-            manager.InvChange(_oneB, _twoB, _tex);
     }
 }
