@@ -12,22 +12,24 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int patrol;
     [SerializeField] private int secondWork;
     [SerializeField] private int sleep;
-    [SerializeField] private float _currentTime;
+    [SerializeField] private bool isCanMate;
 
     public BehaviorGraphAgent behaviorGraph {get; private set;}
     private AiStates _currentState;
     
-    private MinionStats _stats;
+    public MinionStats stat;
     private NavMeshAgent _navMesh;
-    private float _maxTime;
-    private void Awake()
+    private void Start()
     {
-        _stats = new MinionStats();
+        stat = new MinionStats();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
         _navMesh = GetComponent<NavMeshAgent>();
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
         
+        Debug.Log(TimeManager.Instance);
+        
+        InitializeDay();
         TimeManager.Instance.OnDayStarted += InitializeDay;
         
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
@@ -49,13 +51,12 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         }
         patrol += firstWork;
         secondWork += patrol;
-        _stats.Age++;
+        stat.Age++;
     }
 
     private void Update()
     {
         AiStates newState = Check(TimeManager.Instance.currentTime);
-        
         if (_currentState != newState)
         {
             SetState(newState);
@@ -73,7 +74,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void SetState(AiStates newState)
     {
         _currentState = newState;
-        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(_currentTime));
+        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(TimeManager.Instance.currentTime));
         Debug.Log("상태 변경");
     }
 
@@ -93,5 +94,10 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         {
             JobButtonManager.Instance.OnValueChanged?.Invoke(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        TimeManager.Instance.OnDayStarted -= InitializeDay;
     }
 }

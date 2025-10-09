@@ -14,7 +14,10 @@ public class TimeManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-        
+    }
+
+    private void Start()
+    {
         OnDayStarted?.Invoke();
     }
 
