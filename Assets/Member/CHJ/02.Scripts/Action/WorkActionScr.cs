@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class WorkActionScr : MonoBehaviour
 {
-    public string Name { get; protected set; }
+    public JobType Type { get; protected set; }
 
     public bool isWorking;
 
