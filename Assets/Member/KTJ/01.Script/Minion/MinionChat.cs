@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MinionChat : MonoBehaviour // 해당 코드는 GPT가 80% 이상 가담하였습니다.
+public class MinionChat : MonoBehaviour // 해당 코드는 GPT가 70% 이상 가담하였습니다.
 {
     [Header("설정")]
     [SerializeField] private int maxChatCount = 4;       // 화면에 보일 최대 개수
@@ -19,14 +19,11 @@ public class MinionChat : MonoBehaviour // 해당 코드는 GPT가 80% 이상 가담하였습
 
     private bool isFirstMessage = true;
 
-    [SerializeField] private List<string> testMessages = new List<string>();
-
     private Coroutine clearRoutine; // 전체 삭제 코루틴
 
     private void Start()
     {
         InitializePool();
-        StartCoroutine(TestRoutine()); // 테스트용
     }
 
     private void InitializePool()
@@ -40,14 +37,6 @@ public class MinionChat : MonoBehaviour // 해당 코드는 GPT가 80% 이상 가담하였습
         }
     }
 
-    private IEnumerator TestRoutine()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            AddMessage(testMessages[Random.Range(0, testMessages.Count)]);
-            yield return new WaitForSeconds(Random.Range(0f, 4f));
-        }
-    }
 
     public void AddMessage(string text)
     {
