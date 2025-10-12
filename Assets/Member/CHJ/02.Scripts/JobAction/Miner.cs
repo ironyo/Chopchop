@@ -18,6 +18,7 @@ public class Miner : WorkActionScr
             if (hit.CompareTag("Mine"))
             {
                 GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
+                Debug.Log("Find");
                 break;
             }
         }

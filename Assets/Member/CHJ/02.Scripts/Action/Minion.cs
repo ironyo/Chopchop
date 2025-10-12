@@ -13,26 +13,32 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int secondWork;
     [SerializeField] private int sleep;
     [SerializeField] private bool isCanMate;
-
+    
     public BehaviorGraphAgent behaviorGraph {get; private set;}
-    private AiStates _currentState;
+
     
     public MinionStats stat;
+    
+    public AiStates currentState;
     private NavMeshAgent _navMesh;
-    private void Start()
+
+    private void Awake()
     {
         stat = new MinionStats();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
+        behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh = GetComponent<NavMeshAgent>();
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
-        
-        Debug.Log(TimeManager.Instance);
-        
+
+        currentState = AiStates.None;
+        SetState(currentState);
+    }
+
+    private void Start()
+    {
         InitializeDay();
         TimeManager.Instance.OnDayStarted += InitializeDay;
-        
-        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
     }
 
     private void InitializeDay()
@@ -57,7 +63,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void Update()
     {
         AiStates newState = Check(TimeManager.Instance.currentTime);
-        if (_currentState != newState)
+        if (currentState != newState)
         {
             SetState(newState);
         }
@@ -73,9 +79,9 @@ public class Minion : MonoBehaviour, IPointerClickHandler
 
     private void SetState(AiStates newState)
     {
-        _currentState = newState;
-        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(TimeManager.Instance.currentTime));
-        Debug.Log("상태 변경");
+        currentState = newState;
+        Debug.Log(newState);
+        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
     private void OnAttack(InputValue value)
@@ -83,7 +89,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         worldPos.z = 0;
-
+        
         _navMesh.SetDestination(worldPos);
     }
 
@@ -96,8 +102,13 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void OnDestroy()
+    private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
+    
+
+    private void LateUpdate()
     {
-        TimeManager.Instance.OnDayStarted -= InitializeDay;
+        var p = transform.position;
+        p.z = 0;
+        transform.position = p;
     }
 }
