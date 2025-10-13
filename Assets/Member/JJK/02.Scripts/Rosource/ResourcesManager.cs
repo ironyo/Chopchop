@@ -22,9 +22,9 @@ public enum ResourcesType
 public class ResourcesManager : MonoBehaviour
 {
     public static ResourcesManager Instance;
-    private Dictionary<ResourcesType, int> resources = new Dictionary<ResourcesType, int>();
+    public Dictionary<ResourcesType, int> resources = new Dictionary<ResourcesType, int>();
     
-    [SerializeField] TextMeshProUGUI[] resourceText;
+    [SerializeField] TextMeshProUGUI[] text;
 
     private void Awake()
     {
@@ -67,7 +67,7 @@ public class ResourcesManager : MonoBehaviour
     {
         for (int i = 0; i < resources.Count; i++)
         {
-            resourceText[i].text = (ResourcesType)i + ": " + resources[(ResourcesType)i];
+            text[i].text = (ResourcesType)i + ": " + resources[(ResourcesType)i];
         }
     }
 }
