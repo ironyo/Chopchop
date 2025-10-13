@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: HospitalBuildSO
   m_EditorClassIdentifier: 
-  buildName: Hospital
+  buildName: "\uBCD1\uC6D0"
   Health: 300

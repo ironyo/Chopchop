@@ -1,0 +1,103 @@
+using System;
+using Unity.Behavior;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
+
+public class Minion : MonoBehaviour, IPointerClickHandler
+{
+    [SerializeField] private int firstWork;
+    [SerializeField] private int patrol;
+    [SerializeField] private int secondWork;
+    [SerializeField] private int sleep;
+    [SerializeField] private bool isCanMate;
+
+    public BehaviorGraphAgent behaviorGraph {get; private set;}
+    private AiStates _currentState;
+    
+    public MinionStats stat;
+    private NavMeshAgent _navMesh;
+    private void Start()
+    {
+        stat = new MinionStats();
+        behaviorGraph = GetComponent<BehaviorGraphAgent>();
+        _navMesh = GetComponent<NavMeshAgent>();
+        _navMesh.updateUpAxis = false;
+        _navMesh.updateRotation = false;
+        
+        Debug.Log(TimeManager.Instance);
+        
+        InitializeDay();
+        TimeManager.Instance.OnDayStarted += InitializeDay;
+        
+        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", AiStates.Patrol);
+    }
+
+    private void InitializeDay()
+    {
+        while(true)
+        {
+            firstWork = Random.Range(10, 21);
+            patrol = Random.Range(10, 16);
+            secondWork = Random.Range(25,31);
+            sleep = 55;
+
+            if (firstWork + patrol + secondWork == 55)
+            {
+                break;
+            }        
+        }
+        patrol += firstWork;
+        secondWork += patrol;
+        stat.Age++;
+    }
+
+    private void Update()
+    {
+        AiStates newState = Check(TimeManager.Instance.currentTime);
+        if (_currentState != newState)
+        {
+            SetState(newState);
+        }
+    }
+
+    private AiStates Check(float time)
+    {
+        if (time < firstWork) return AiStates.Work;
+        else if (time < patrol) return AiStates.Patrol;
+        else if (time < secondWork) return AiStates.Work;
+        else return AiStates.Sleep;
+    }
+
+    private void SetState(AiStates newState)
+    {
+        _currentState = newState;
+        behaviorGraph.BlackboardReference.SetVariableValue("AiStates", Check(TimeManager.Instance.currentTime));
+        Debug.Log("상태 변경");
+    }
+
+    private void OnAttack(InputValue value)
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        worldPos.z = 0;
+
+        _navMesh.SetDestination(worldPos);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked");
+        if (JobButtonManager.Instance.Minion != this)
+        {
+            JobButtonManager.Instance.OnValueChanged?.Invoke(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        TimeManager.Instance.OnDayStarted -= InitializeDay;
+    }
+}
