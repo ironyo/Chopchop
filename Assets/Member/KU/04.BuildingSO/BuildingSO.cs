@@ -9,4 +9,9 @@ public class BuildingSO : ScriptableObject
     public string buildName;
     [Header("체력")]
     public int Health = 300;
+    [Header("건물스탯")]
+    public int width;
+    public int maxW;
+    [Header("건물인원수")]
+    public int minionCount;
 }

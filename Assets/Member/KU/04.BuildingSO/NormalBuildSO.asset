@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildName: "\uAE30\uBCF8 \uC8FC\uD0DD"
   Health: 300
+  width: 4
+  maxW: 2
+  minionCount: 0
