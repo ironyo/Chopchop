@@ -16,9 +16,10 @@ public class BuildManager : MonoBehaviour
 
     [SerializeField] private Grid grid;
 
-    [SerializeField] private GameObject clone;
-    [SerializeField] private GameObject buildClone;
+    [SerializeField] private GameObject _clone;
+    [SerializeField] private GameObject _buildClone;
     [SerializeField] private GameObject _helpUI;
+    [SerializeField] private GameObject _buildingUI;
 
     [SerializeField] private List<GameObject> newParent = new();
 
@@ -87,7 +88,7 @@ public class BuildManager : MonoBehaviour
 
             Vector3 spawnPos = new Vector3(baseX + offsetX, baseY + offsetY, 0f);
 
-            GameObject obj = Instantiate(clone, spawnPos, Quaternion.identity, transform);
+            GameObject obj = Instantiate(_clone, spawnPos, Quaternion.identity, transform);
             spawnGrid.Add(obj);
         }
 
@@ -105,12 +106,16 @@ public class BuildManager : MonoBehaviour
     }
     private void BuildedClear()
     {
-        newParent.Add(new GameObject(buildingSO.name));
+        
+        GameObject par = new GameObject(buildingSO.name);
+        par.transform.parent = GameObject.Find("BuildingUICanvas").transform;
+        par.transform.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        newParent.Add(par);
         _helpUI.SetActive(false);
         isBuilding = false;
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            Instantiate(buildClone, spawnGrid[i].transform.position, Quaternion.identity, newParent[buildingCount].transform);
+            Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, newParent[buildingCount].transform);
             Destroy(spawnGrid[i]);
         }
         spawnGrid.Clear();
@@ -119,6 +124,11 @@ public class BuildManager : MonoBehaviour
         {
             obj.transform.SetParent(newParent[buildingCount].transform);
         }
+        float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
+        float xIf = maxW % 2 == 1 ? 0f : -0.5f;
+        GameObject ui = Instantiate(_buildingUI, newParent[buildingCount].transform);
+        ui.transform.position = new Vector3(transform.position.x + xIf,
+            transform.position.y + width/maxW * 0.5f + yIf, 0);
         buildingCount++;
     }
 }
