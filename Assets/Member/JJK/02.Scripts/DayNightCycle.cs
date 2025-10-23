@@ -56,9 +56,11 @@ public class DayNightCycle : MonoBehaviour
                 {
                     timer = 0f;
                     state = CycleState.Transitioning;
+                    
                     startColor = globalLight.color;
                     targetColor = isDay ? nightColor : dayColor;
-                    targetVignette = vignette.intensity.value;
+                    
+                    startVignette = vignette.intensity.value;
                     targetVignette = isDay ? nightVignetteIntensity : dayVignetteIntensity;
                 }
                 break;
