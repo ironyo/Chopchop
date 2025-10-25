@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: FarmBuildSO
   m_EditorClassIdentifier: 
+  level: 1
   buildName: "\uB18D\uC7A5"
   Health: 300
+  width: 6
+  maxW: 3
+  minionCount: 0
+  maxMinion: 3

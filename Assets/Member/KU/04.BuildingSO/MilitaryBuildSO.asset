@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: MilitaryBuildSO
   m_EditorClassIdentifier: 
+  level: 1
   buildName: "\uAD70\uC0AC \uD6C8\uB828\uC18C"
   Health: 300
+  width: 8
+  maxW: 4
+  minionCount: 0
+  maxMinion: 4
