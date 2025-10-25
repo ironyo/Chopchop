@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using Member.CHJ._02.Scripts.SO;
 using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 public enum JobType
 {
-    Miner,Soldier,Baby
+    Miner,Soldier,Baby,Farmer,
 }
 public class JobManager : MonoBehaviour
 {
-    [SerializeField] private List<WorkActionScr> jobList = new List<WorkActionScr>();
-    public Dictionary<JobType, Type> JobDictionary= new Dictionary<JobType, Type>();
+    [SerializeField] private JobDataListSO _jobDataListSo;
+    public Dictionary<JobType, JobDataSO> JobDictionary= new();
     public static JobManager Instance;
 
     private void Awake()
@@ -19,22 +20,17 @@ public class JobManager : MonoBehaviour
             Instance = this;
         else if(Instance != null)
             Destroy(gameObject);
-        foreach (var jobScr in jobList)
+        foreach (var jobScr in _jobDataListSo.list)
         { 
-            JobDictionary.Add(jobScr.Type, jobScr.GetType());
+            JobDictionary.Add(jobScr.JobType, jobScr);
         }
     }
 
     public void AddJob(Minion minion, JobType type)
     {
-        if (JobDictionary.TryGetValue(type, out Type jobType))
+        if (JobDictionary.TryGetValue(type, out JobDataSO jobSO))
         {
-            if (minion.gameObject.TryGetComponent<Baby>(out Baby baby))
-            {
-                Destroy(baby);
-            }
-            var job = (WorkActionScr)minion.gameObject.AddComponent(jobType);
-            minion.behaviorGraph.SetVariableValue("Work Action Scr", job);
+            minion.GetComponent<WorkActionScr>().jobData = jobSO;
         }
     }
 }
