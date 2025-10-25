@@ -3,12 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Apple", menuName = "Scriptable Objects/Apple")]
 public class Apple : ToolSO
 {
-    public int Amount;
-    public override void Use(GameObject target)
+    public override void ToolApply(TestMinion minion, int amount)
     {
-        if (target.TryGetComponent<TestMinion>(out TestMinion minion))
-        {
-            minion.EatFood(Amount);
-        }
+        minion.EatApple(amount);
+        Debug.Log("aa");
     }
 }
