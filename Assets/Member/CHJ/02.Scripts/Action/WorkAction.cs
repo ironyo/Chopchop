@@ -51,12 +51,16 @@ public partial class WorkAction : Action
             }
         }
 
+        if (Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
+            _minion.visualObj.SetActive(false);
+
         if (_minion.currentState != AiStates.Work) return Status.Success;
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
+        _minion.visualObj.SetActive(true);
         Work.Value.ExitWork();
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MinionChat : MonoBehaviour // 해당 코드는 GPT가 70% 이상 가담하였습니다.
+public class MinionChat : MonoBehaviour 
 {
     [Header("설정")]
     [SerializeField] private int maxChatCount = 4;       // 화면에 보일 최대 개수
