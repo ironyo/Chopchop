@@ -13,29 +13,54 @@ public partial class WorkAction : Action
     [SerializeReference] public BlackboardVariable<WorkActionScr> Work;
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
+    private Minion _minion;
     protected override Status OnStart()
     {
+        Navmesh.Value.ResetPath();
+        _minion = Self.Value.GetComponent<Minion>();
         Work.Value.DoWork();
         if (Target.Value != null)
         {
-            Navmesh.Value.SetDestination(Target.Value.position);
+            Vector3 targetPos = Target.Value.position;
+            targetPos.z = 0;
+            Navmesh.Value.SetDestination(targetPos);
         }
         return Status.Running;
     }
-
+    private bool CheckTime()
+    {
+        if (_minion.currentState != AiStates.Work) return false;
+        else return true;
+    }
     protected override Status OnUpdate()
     {
-        Debug.Log("OnUpdate");
+        if (!CheckTime()) return Status.Success;
         if (!Work.Value.isWorking)
         {
             return Status.Success;
         }
-        
+        if (Target.Value != null)
+        {
+            // 목적지와 NavMeshAgent의 현재 destination 비교
+            if (Vector3.Distance(Navmesh.Value.destination, Target.Value.position) > 0.1f)
+            {
+                // 목적지가 바뀌었으면 갱신
+                Vector3 targetPos = Target.Value.position;
+                targetPos.z = 0;
+                Navmesh.Value.SetDestination(targetPos);
+            }
+        }
+
+        if (Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
+            _minion.visualObj.SetActive(false);
+
+        if (_minion.currentState != AiStates.Work) return Status.Success;
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
+        _minion.visualObj.SetActive(true);
         Work.Value.ExitWork();
     }
 }

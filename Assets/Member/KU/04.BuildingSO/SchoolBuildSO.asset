@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: SchoolBuildSO
   m_EditorClassIdentifier: 
+  maxLevel: 3
   buildName: "\uD559\uAD50"
   Health: 300
+  width: 12
+  maxW: 3
+  maxMinion: 5
+  countStet: 000000000000000000000000
