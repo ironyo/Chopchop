@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: NormalBuildSO
   m_EditorClassIdentifier: 
+  level: 1
   buildName: "\uAE30\uBCF8 \uC8FC\uD0DD"
   Health: 300
   width: 4
   maxW: 2
   minionCount: 0
+  maxMinion: 2
