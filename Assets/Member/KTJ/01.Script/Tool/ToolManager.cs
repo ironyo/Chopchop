@@ -124,6 +124,8 @@ public class ToolManager : MonoBehaviour
 
     private void ToolGive(int index)
     {
+        if (currentTool != null) return;
+
         if (CanGiveTool(index))
         {
             currentTool = MainTools[index];
