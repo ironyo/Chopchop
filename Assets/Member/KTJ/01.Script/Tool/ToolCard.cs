@@ -31,7 +31,6 @@ public class ToolCard : MonoBehaviour
         NameTxt.text = tool.ToolSO.ToolName[tool.ToolLevel - 1].ToString();
         LevelTxt.text = "도구레벨 " + tool.ToolLevel.ToString();
         DescTxt.text = tool.ToolSO.ToolDesc[tool.ToolLevel - 1].ToString();
-        PriceTxt.text = tool.ToolSO.Price[tool.ToolLevel - 1].ToString() + " 짱돌";
 
         IconImage.sprite = tool.ToolSO.Icon[tool.ToolLevel - 1];
         ShadowIconImage.sprite = tool.ToolSO.Icon[tool.ToolLevel - 1];
@@ -40,5 +39,14 @@ public class ToolCard : MonoBehaviour
         {
             OnPurchase?.Invoke(this);
         });
+
+        if (tool.ToolLevel == 3)
+        {
+            PriceTxt.text = "최대레벨";
+        }
+        else
+        {
+            PriceTxt.text = tool.ToolSO.Price[tool.ToolLevel - 1].ToString() + " 짱돌";
+        }
     }
 }
