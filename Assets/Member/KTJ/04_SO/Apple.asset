@@ -12,7 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d387cbceb4c85b4d9db7abd2ca3d108, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  ToolName: Apple
-  Icon: {fileID: 21300000, guid: 7c5ebd18153d43248a4b898131abb382, type: 3}
-  HighlitedIcon: {fileID: 21300000, guid: e39ae3ea469d8354c9dbf74313289502, type: 3}
-  Amount: 10
+  ToolName:
+  - "\uC0AC\uACFC"
+  - "\uC0AC\uACFC\uBE44"
+  - "\uC0AC\uACFC\uD3ED\uD0C4"
+  Icon:
+  - {fileID: 21300000, guid: 7c5ebd18153d43248a4b898131abb382, type: 3}
+  - {fileID: 21300000, guid: c96a437f9148fee4fa61ab86477a2ca5, type: 3}
+  - {fileID: 21300000, guid: 0cc503affc4693140bf122ff42fe232f, type: 3}
+  HighlitedIcon:
+  - {fileID: 21300000, guid: e39ae3ea469d8354c9dbf74313289502, type: 3}
+  - {fileID: 21300000, guid: e39ae3ea469d8354c9dbf74313289502, type: 3}
+  - {fileID: 21300000, guid: e39ae3ea469d8354c9dbf74313289502, type: 3}
+  Amount: 050000000f00000019000000
+  Price: 050000000f00000019000000
+  ToolDesc:
+  - "\uBC30\uACE0\uD514+5"
+  - "\uBC30\uACE0\uD514+15, \uBC94\uC70410"
+  - "\uBC30\uACE0\uD514+25, \uBC94\uC70420"
+  ItemType: 0
+  defaultRadius: 5
