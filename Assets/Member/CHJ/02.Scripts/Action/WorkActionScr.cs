@@ -17,11 +17,14 @@ public class WorkActionScr : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 30);
         foreach (var hit in hits)
         {
-            if (hit.CompareTag(jobData.JobPosName))
+            if (hit.TryGetComponent<Building>(out var building))
             {
-                _target = hit;  
-                GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
-                break;
+                if(building.buildingSO == jobData.BuildingData && building)
+                {
+                    _target = hit;
+                    GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
+                    break;
+                }
             }
         }
     }
