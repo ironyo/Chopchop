@@ -11,7 +11,8 @@ using UnityEditor;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private float _durTime;
-    [SerializeField] private float _fallPo;
+    [SerializeField] private float _fallPos;
+    [SerializeField] private float _closPos;
     [SerializeField] private GameObject _pagePrefab;
     [SerializeField] private GameObject _texPref;
 
@@ -23,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] List<InventoryCreate> _invPrefObj = new();
     [SerializeField] List<BuildingSO> _buildSO = new();
 
-    bool isNowClose = false;
+    public static bool isNowClose = false;
     bool _isMoveInv = false;
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class InventoryManager : MonoBehaviour
             tex.transform.SetParent(_rectTransform, false);
 
             RectTransform rect = tex.GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(i * _fallPo - 550f, -220f);
+            rect.anchoredPosition = new Vector2(i * _fallPos - 550f, -220f);
 
             tex.GetComponent<TextMeshProUGUI>().text = $"{i + 1} / {_maxPage} Page";
         }
@@ -46,7 +47,6 @@ public class InventoryManager : MonoBehaviour
             _invPrefObj[i].pageNum = i;
             _invPrefObj[i].manager = this;
         }
-
     }
     private void Start()
     {
@@ -67,14 +67,12 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-
-        if(!_isMoveInv && Keyboard.current.digit1Key.wasPressedThisFrame && _nowPage > 1)
+        if (!isNowClose && !_isMoveInv)
         {
-            InvPageChange(false);
-        }
-        if (!_isMoveInv && Keyboard.current.digit2Key.wasPressedThisFrame && _nowPage < _maxPage)
-        {
-            InvPageChange(true);
+            if (Keyboard.current.digit1Key.wasPressedThisFrame && _nowPage > 1)
+                InvPageChange(false);
+            if (Keyboard.current.digit2Key.wasPressedThisFrame && _nowPage < _maxPage)
+                InvPageChange(true);
         }
     }
 
@@ -86,7 +84,7 @@ public class InventoryManager : MonoBehaviour
             {
                 _isMoveInv = true;
 
-                _rectTransform.DOAnchorPosX(-_fallPo * _nowPage, _durTime).OnComplete(() =>
+                _rectTransform.DOAnchorPosX(-_fallPos * _nowPage, _durTime).OnComplete(() =>
                 {
                     _isMoveInv = false;
                 });
@@ -99,7 +97,7 @@ public class InventoryManager : MonoBehaviour
             {
                 _isMoveInv = true;
 
-                _rectTransform.DOAnchorPosX(-_fallPo * (_nowPage - 2), _durTime).OnComplete(() =>
+                _rectTransform.DOAnchorPosX(-_fallPos * (_nowPage - 2), _durTime).OnComplete(() =>
                 {
                     _isMoveInv = false;
                 });
@@ -113,19 +111,16 @@ public class InventoryManager : MonoBehaviour
     {
         if (!isNowClose)
         {
-            isNowClose = true;
-            _rectTransform.DOAnchorPosY(-210, _durTime).OnComplete(() =>
+            _rectTransform.DOAnchorPosY(-_closPos, _durTime).OnComplete(() =>
             {
-
+                isNowClose = true;
             });
         }
         else if (isNowClose)
         {
-            isNowClose = false;
-
             _rectTransform.DOAnchorPosY(0, _durTime).OnComplete(() =>
             {
-
+                isNowClose = false;
             });
         }
     }
