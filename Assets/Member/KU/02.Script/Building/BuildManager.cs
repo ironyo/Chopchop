@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class BuildManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;
 
-    [SerializeField] private List<GameObject> buildingParent = new();
+    [SerializeField] private List<Building> buildingParent = new();
 
     private List<GameObject> spawnGrid = new();
     private bool isBuilding;
@@ -78,7 +79,8 @@ public class BuildManager : MonoBehaviour
             GridDestroy();
             width = buildSO.width;
             maxW = buildSO.maxW;
-            boxCollider.size = new Vector2(width-1, width / maxW+2);
+            int wSize = Mathf.RoundToInt(width / maxW);
+            boxCollider.size = new Vector2(maxW+4, wSize+4);
             GridSpawn();
         }
     }
@@ -107,6 +109,18 @@ public class BuildManager : MonoBehaviour
             spawnGrid.Add(obj);
         }
 
+        Vector2 center = Vector2.zero;
+        foreach (var obj in spawnGrid)
+        {
+            center += (Vector2)obj.transform.position;
+        }
+        center /= spawnGrid.Count;
+
+        if (boxCollider != null)
+        {
+            boxCollider.offset = center - (Vector2)transform.position;
+        }
+
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         lastCell = grid.WorldToCell(mouseWorldPos);
     }
@@ -125,35 +139,68 @@ public class BuildManager : MonoBehaviour
 
         GameObject par = new GameObject(buildingSO.name);
         par.transform.parent = _buildingCanvus.transform;
-        par.transform.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        buildingParent.Add(par);
-        buildingParent[buildingParent.Count - 1].AddComponent<Building>().buildingSO = buildingSO;
-        buildingParent[buildingParent.Count - 1].AddComponent<BoxCollider2D>();
-        _helpUI.SetActive(false);
-        isBuilding = false;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        par.transform.position = mousePos;
+
+        Building building = par.AddComponent<Building>();
+        building.buildingSO = buildingSO;
+        BoxCollider2D col = par.AddComponent<BoxCollider2D>();
+        buildingParent.Add(building);
+
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, buildingParent[buildingCount].transform);
+            Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Destroy(spawnGrid[i]);
         }
         spawnGrid.Clear();
 
-        foreach (GameObject obj in spawnGrid)
+        Vector2 center = Vector2.zero;
+        int childCount = par.transform.childCount;
+        for (int i = 0; i < childCount; i++)
         {
-            obj.transform.SetParent(buildingParent[buildingCount].transform);
+            center += (Vector2)par.transform.GetChild(i).position;
         }
+        center /= childCount;
+
+        col.offset = center - (Vector2)par.transform.position;
+
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingSO.minionCount} / {buildingSO.maxMinion}";
+        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         buildingCount++;
     }
     private bool CanSpawn()
     {
-        Collider2D[] colid = Physics2D.OverlapBoxAll(transform.position, boxCollider.size, 0);
-        Building[] boxOnly = colid.OfType<Building>().ToArray();
-        return boxOnly.Length == 0;
+        Vector2 center = boxCollider.bounds.center;
+        Vector2 size = boxCollider.bounds.size;
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, size, 0f);
+
+        foreach (var hit in hits)
+        {
+            if (hit.GetComponent<Building>() != null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (boxCollider != null)
+        {
+            Gizmos.color = Color.green;
+
+            Vector3 boxPos = transform.position + (Vector3)boxCollider.offset;
+
+            Vector3 boxSize = new Vector3(boxCollider.size.x, boxCollider.size.y, 0f);
+
+            Gizmos.DrawWireCube(boxPos, boxSize);
+        }
     }
 }
