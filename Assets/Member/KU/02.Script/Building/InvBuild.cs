@@ -21,13 +21,8 @@ public class InvBuild : MonoBehaviour
     {
         if(buildingSO != null)
         {
-            _button.onClick.AddListener(ButtonClick);
             _button.onClick.AddListener(() => { _buildManager.Buildings(true, buildingSO); });
             tex.text = buildingSO.buildName;
         }
-    }
-    public void ButtonClick()
-    {
-        Debug.Log($"º±≈√ : {buildingSO.buildName}");
     }
 }
