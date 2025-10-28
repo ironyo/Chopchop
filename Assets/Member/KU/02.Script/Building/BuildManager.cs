@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -54,9 +54,9 @@ public class BuildManager : MonoBehaviour
             lastCell = currentCell;
         }
         if (isBuilding)
-        {
             _helpUI.SetActive(true);
-        }
+        else
+            _helpUI.SetActive(false);
     }
     private void BuildOrCancle()
     {
@@ -65,7 +65,7 @@ public class BuildManager : MonoBehaviour
             isBuilding = false;
             GridDestroy();
         }
-        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding && !EventSystem.current.IsPointerOverGameObject())
+        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
             BuildedClear();
         }
@@ -126,7 +126,6 @@ public class BuildManager : MonoBehaviour
     }
     private void GridDestroy()
     {
-        _helpUI.SetActive(false);
         for (int i = 0; i < spawnGrid.Count; i++)
         {
             Destroy(spawnGrid[i]);
@@ -137,6 +136,7 @@ public class BuildManager : MonoBehaviour
     {
         if (!CanSpawn()) return;
 
+        isBuilding = false;
         GameObject par = new GameObject(buildingSO.name);
         par.transform.parent = _buildingCanvus.transform;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -154,15 +154,34 @@ public class BuildManager : MonoBehaviour
         }
         spawnGrid.Clear();
 
-        Vector2 center = Vector2.zero;
         int childCount = par.transform.childCount;
+        if (childCount == 0)
+        {
+            Debug.LogWarning($"BuildedClear: No children were created for {par.name}. Aborting collider offset setup.");
+            col.offset = Vector2.zero;
+            return;
+        }
+
+        Vector2 localSum = Vector2.zero;
         for (int i = 0; i < childCount; i++)
         {
-            center += (Vector2)par.transform.GetChild(i).position;
+            Vector3 childWorld = par.transform.GetChild(i).position;
+            Vector3 childLocal = par.transform.InverseTransformPoint(childWorld);
+            localSum += (Vector2)childLocal;
         }
-        center /= childCount;
 
-        col.offset = center - (Vector2)par.transform.position;
+        Vector2 centerLocal = localSum / childCount;
+        Debug.Log($"centerLocal: {centerLocal}, childCount: {childCount}");
+
+        if (float.IsNaN(centerLocal.x) || float.IsNaN(centerLocal.y))
+        {
+            Debug.LogError("Computed centerLocal is NaN — skipping collider offset assignment.");
+            col.offset = Vector2.zero;
+        }
+        else
+        {
+            col.offset = centerLocal;
+        }
 
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
