@@ -37,7 +37,7 @@ public class Building : MonoBehaviour
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
-        boxCollider.size = new Vector2(buildingSO.maxW + 4,  wSize+ 4);
+        boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
     }
     private void OnDrawGizmos()
     {

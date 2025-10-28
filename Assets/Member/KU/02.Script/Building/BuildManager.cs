@@ -35,8 +35,12 @@ public class BuildManager : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
+    public static BuildManager Instance { get; private set; }
+
     private void Awake()
     {
+        if(Instance == null)
+            Instance = this;
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -65,7 +69,7 @@ public class BuildManager : MonoBehaviour
             isBuilding = false;
             GridDestroy();
         }
-        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
+        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding /*&& !EventSystem.current.IsPointerOverGameObject()*/)
         {
             BuildedClear();
         }
@@ -80,7 +84,7 @@ public class BuildManager : MonoBehaviour
             width = buildSO.width;
             maxW = buildSO.maxW;
             int wSize = Mathf.RoundToInt(width / maxW);
-            boxCollider.size = new Vector2(maxW+4, wSize+4);
+            boxCollider.size = new Vector2(maxW+2, wSize+2);
             GridSpawn();
         }
     }
@@ -171,7 +175,6 @@ public class BuildManager : MonoBehaviour
         }
 
         Vector2 centerLocal = localSum / childCount;
-        Debug.Log($"centerLocal: {centerLocal}, childCount: {childCount}");
 
         if (float.IsNaN(centerLocal.x) || float.IsNaN(centerLocal.y))
         {
@@ -221,5 +224,10 @@ public class BuildManager : MonoBehaviour
 
             Gizmos.DrawWireCube(boxPos, boxSize);
         }
+    }
+
+    public BuildingSO GetBuildData()
+    {
+        return buildingSO;
     }
 }
