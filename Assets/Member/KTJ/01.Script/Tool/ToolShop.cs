@@ -16,12 +16,13 @@ public class ToolInfo
     ToolManager toolManager;
 }
 
-public class ToolShop : MonoBehaviour
+public class ToolShop : UIBase
 {
     [SerializeField] private RectTransform toolCardsParent;
     [SerializeField] private GameObject toolCardPref;
     [SerializeField] private Image WhiteBg;
     [SerializeField] private ParticleSystem purchaseParticle;
+    [SerializeField] private Image RotateEffect;
     private List<ToolCard> toolCards = new List<ToolCard>();
 
     private bool canPurchase = true;
@@ -30,6 +31,7 @@ public class ToolShop : MonoBehaviour
     {
         Init();
     }
+
     public void Init()
     {
         List<Tool> tools = ToolManager.Instance.MainTools;
@@ -95,14 +97,21 @@ public class ToolShop : MonoBehaviour
         {
             WhiteBg.gameObject.SetActive(true);
             WhiteBg.color = new Color(WhiteBg.color.r, WhiteBg.color.g, WhiteBg.color.b, 1);
+
+            RotateEffect.color = new Color(WhiteBg.color.r, WhiteBg.color.g, WhiteBg.color.b, 1);
+
             purchaseParticle.Play();
 
             toolCards[idx].Set(tools[idx]);
             ToolManager.Instance.SetToolInven();
         });
 
+
         seq.Append(WhiteBg.DOFade(0f, 3f));
         seq.Join(mainCard.WhiteBg.DOFade(0f, 2f));
+
+        seq.Join(RotateEffect.gameObject.transform.DORotate(new Vector3(0, 0, 360), 3f, RotateMode.FastBeyond360));
+        seq.Join(RotateEffect.DOFade(0, 3f));
 
 
         seq.OnComplete(() =>
