@@ -5471,6 +5471,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 4970615437475043930}
+  AppleParticels: {fileID: 0}
+  WaterParticels: {fileID: 0}
+  CleanParticels: {fileID: 0}
   Hungry: 0
   Thirsty: 0
   Dirty: 0
@@ -5495,7 +5498,7 @@ NavMeshAgent:
   m_Height: 0.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &416969138766278123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5581,7 +5584,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

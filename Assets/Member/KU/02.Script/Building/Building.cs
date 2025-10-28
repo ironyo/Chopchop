@@ -60,4 +60,5 @@ public class Building : MonoBehaviour
     {
         NowMinion += plus;
     }
+    //미니언 인원 수 초과 확인 메소드 작성 필요.
 }

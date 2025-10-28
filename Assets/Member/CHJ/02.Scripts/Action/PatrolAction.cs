@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Member.CHJ._02.Scripts.Action;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -8,19 +10,20 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Patrol", story: "Patrol [NavMesh] [self] at [MinionData]", category: "Action", id: "974f3a2bbe91bb23804f19b98d33062c")]
+[NodeDescription(name: "Patrol", story: "Patrol [NavMesh] [self]", category: "Action", id: "974f3a2bbe91bb23804f19b98d33062c")]
 public partial class PatrolAction : Action
 {
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<MinionData> MinionData;
     private Vector3 _targetPos;
+    private MinionMovementManager _movement;
     private Minion _minion;
 
     protected override Status OnStart()
     {
-        RandomPatrol();
+        _movement = new MinionMovementManager();
         _minion = Self.Value.GetComponent<Minion>();
+        RandomPatrol();
 
         return Status.Running;
     }
@@ -36,6 +39,7 @@ public partial class PatrolAction : Action
         
         if (MateManager.Instance.canMate) FindMatePartner();
         
+        
         // 목적지 도착 체크
         if (!NavMesh.Value.pathPending &&
             NavMesh.Value.remainingDistance <= NavMesh.Value.stoppingDistance &&
@@ -48,15 +52,25 @@ public partial class PatrolAction : Action
         return Status.Running;
     }
 
+    private IEnumerator CheckPatrol()
+    {
+        RandomPatrol();
+        if (!NavMesh.Value.pathPending &&
+            NavMesh.Value.remainingDistance <= NavMesh.Value.stoppingDistance &&
+            !MateManager.Instance.canMate)
+        {
+            RandomPatrol();
+        }
+        yield return new WaitForSeconds(2);
+        RandomPatrol();
+    }
+    protected override void OnEnd() => _minion.ResumeState();
+
     private void RandomPatrol()
     {
-        Debug.Log(MinionData);
-        Vector2 pos= MinionData.Value.patrolSite[Random.Range(0, MinionData.Value.patrolSite.Count)].transform.position;
-        Vector2 target = pos + new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
-        
         NavMesh.Value.ResetPath();
-        
-        NavMesh.Value.SetDestination(target);
+        Debug.Log(_movement);
+        NavMesh.Value.SetDestination(_movement.RandomPatrol());
     }
     
     public void FindMatePartner()

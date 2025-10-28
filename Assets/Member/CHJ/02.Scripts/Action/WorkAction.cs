@@ -34,14 +34,18 @@ public partial class WorkAction : Action
     }
     protected override Status OnUpdate()
     {
-        if (!CheckTime()) return Status.Success;
-        if (!Work.Value.isWorking)
-        {
+        if (!CheckTime() || !Work.Value.isWorking || _minion.currentState != AiStates.Work)
             return Status.Success;
+        if (Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
+        {
+            _minion.visualObj.SetActive(false);
         }
+        
+        Debug.Log($"ONHIT{Work.Value.IsCollisionWithWorkBuilding()} / {Target}");
+        
         if (Target.Value != null)
         {
-            // 목적지와 NavMeshAgent의 현재 destination 비교
+            // 목적지와 NavMeshAgent의 현재 목적지 비교
             if (Vector3.Distance(Navmesh.Value.destination, Target.Value.position) > 0.1f)
             {
                 // 목적지가 바뀌었으면 갱신
@@ -50,11 +54,6 @@ public partial class WorkAction : Action
                 Navmesh.Value.SetDestination(targetPos);
             }
         }
-
-        if (Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
-            _minion.visualObj.SetActive(false);
-
-        if (_minion.currentState != AiStates.Work) return Status.Success;
         return Status.Running;
     }
 
