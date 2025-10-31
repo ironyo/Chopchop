@@ -18,4 +18,7 @@ public class BuildingSO : ScriptableObject
     public int maxMinion;
     [field:Header("레벨마다 증가")]
     public List<int> countStet;
+    [Header("필요 자원")]
+    public List<ResourceTypeSO> resourceTypeSOList;
+    public Dictionary<ResourceTypeSO, int> resourceTypeDic = new();
 }

@@ -8,7 +8,7 @@ public enum UIType
 {
     Central,
     Shop,
-
+    MapUpgrade
 }
 
 [System.Serializable]
@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private List<UiClass> uiList;
     [SerializeField] private RectTransform toolInventory;
+    [SerializeField] private RectTransform miniMap;
+
     private Dictionary<UIType, UIBase> uiDict;
     private UIBase currentUI;
 
@@ -44,6 +46,7 @@ public class UIManager : MonoBehaviour
                 currentUI = null;
 
                 toolInventory.DOAnchorPosY(0, 0.5f);
+                miniMap.DOAnchorPosX(0, 0.5f);
             }
         }
         else // ´ÝÈù»óÅÂ¶ó¸é
@@ -54,6 +57,7 @@ public class UIManager : MonoBehaviour
             currentUI.Open();
 
             toolInventory.DOAnchorPosY(-200, 0.5f);
+            miniMap.DOAnchorPosX(400, 0.5f);
         }
     }
 

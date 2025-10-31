@@ -19,3 +19,7 @@ MonoBehaviour:
   maxW: 3
   maxMinion: 2
   countStet: 000000000000000000000000
+  resourceTypeSOList:
+  - {fileID: 11400000, guid: ebaa3812068d02349aeb0775e9c31eed, type: 2}
+  - {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+  - {fileID: 11400000, guid: 67370b23f00e0984a810b7d63074d683, type: 2}
