@@ -5,16 +5,12 @@ using UnityEngine.UI;
 public class ResourceSs : MonoBehaviour
 {
     public int count = 0;
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Image image;
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private Image _image;
 
     public void ResourceSet(BuildingSO buildData)
     {
-        for (int i = 0; i < buildData.resourceTypeSOList.Count; i++)
-        {
-            Debug.Log(buildData.resourceTypeSOList[i]);
-        }
-        //text.text = $"{ResourceManager.Instance.resourceAmountDictionary[buildData.resourceTypeSOList[count]]} / {buildData.resourceTypeDic[buildData.resourceTypeSOList[count]]}";
-        //image.sprite = buildData.resourceTypeSOList. <- 해당 타입 스프라이트
+        _text.text = $"{0} / {buildData.resourceTypeCost[count].amount}";
+        //image.sprite = buildData.resourceTypeCost. <- 해당 타입 스프라이트
     }
 }

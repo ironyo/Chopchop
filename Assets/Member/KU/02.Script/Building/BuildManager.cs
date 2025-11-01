@@ -140,6 +140,19 @@ public class BuildManager : MonoBehaviour
     {
         if (!CanSpawn()) return;
 
+        //foreach (var item in buildingSO.resourceTypeCost)
+        //{
+        //    if(item.amount > 현재 자원)
+        //    {
+        //        return;
+        //    }
+        //}
+        //foreach (var item in buildingSO.resourceTypeCost)
+        //{
+        //    필요 자원 만큼 현재 자원에서 감소
+        //}
+
+
         isBuilding = false;
         GameObject par = new GameObject(buildingSO.name);
         par.transform.parent = _buildingCanvus.transform;
