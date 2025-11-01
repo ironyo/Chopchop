@@ -1,26 +1,50 @@
-using System.Net.NetworkInformation;
+using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public abstract class UIBase : MonoBehaviour
 {
     [Header("Toggle UI Setting")]
-    [SerializeField] private GameObject toggleObject;
-    [SerializeField] private UIType uiType;
-    private bool isOpen = false; // ÃÊ±â°ª: ´ÝÈû
+    public GameObject toggleObject;
 
-    public void Open()
+    private bool isOpen = false;
+
+    public IEnumerator Open()
     {
-        toggleObject.SetActive(true);
+        if (isOpen) yield break;
         isOpen = true;
+
+        toggleObject.SetActive(true);
+        yield return StartCoroutine(OpenEffect());
     }
-    public void Close()
+
+    public IEnumerator Close()
     {
-        toggleObject.SetActive(false);
+        if (!isOpen) { toggleObject.SetActive(false); yield break; }
         isOpen = false;
+
+        yield return StartCoroutine(CloseEffect());
+        toggleObject.SetActive(false);
     }
+
+    public void SetActiveImmediate(bool active)
+    {
+        isOpen = active;
+        toggleObject.SetActive(active);
+    }
+
+    public abstract IEnumerator OpenEffect();
+    public abstract IEnumerator CloseEffect();
 
     public void ToggleBtn()
     {
-        UIManager.Instance.ToggleUI(this, isOpen);
+        UIManager.Instance?.Toggle(this);
+        SoundManager.instance.ClickSound_01();
+    }
+
+    protected static Tween DoY(RectTransform rt, float y, float duration)
+    {
+        rt.DOKill();
+        return rt.DOAnchorPosY(y, duration);
     }
 }
