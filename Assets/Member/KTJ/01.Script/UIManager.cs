@@ -1,8 +1,9 @@
+using DG.Tweening;
 using NUnit.Framework;
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
+using UnityEngine;
 
 public enum UIType
 {
@@ -25,64 +26,69 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RectTransform toolInventory;
     [SerializeField] private RectTransform miniMap;
 
+    [Header("Anchors")]
+    [SerializeField] private float toolInvShownY = 0f;
+    [SerializeField] private float toolInvHiddenY = -200f;
+    [SerializeField] private float miniMapShownX = 0f;
+    [SerializeField] private float miniMapHiddenX = 400f;
+    [SerializeField] private float uiTweenDuration = 0.5f;
+
     private Dictionary<UIType, UIBase> uiDict;
     private UIBase currentUI;
+    private bool isTransitioning = false;
 
     private void Awake()
     {
         Instance = this;
         uiDict = uiList.ToDictionary(x => x.type, x => x.uibase);
 
-        CloseAll();
-    }
-
-    public void ToggleUI(UIBase uibase, bool isOpen)
-    {
-        if (isOpen) // 열린상태라면
-        {
-            if (currentUI = uibase) // 현재 ui가 눌린 버튼소속의 ui라며ㅑㄴ
-            {
-                currentUI.Close();
-                currentUI = null;
-
-                toolInventory.DOAnchorPosY(0, 0.5f);
-                miniMap.DOAnchorPosX(0, 0.5f);
-            }
-        }
-        else // 닫힌상태라면
-        {
-            CloseAll();
-
-            currentUI = uibase;
-            currentUI.Open();
-
-            toolInventory.DOAnchorPosY(-200, 0.5f);
-            miniMap.DOAnchorPosX(400, 0.5f);
-        }
-    }
-
-    private void CloseAll()
-    {
         foreach (var ui in uiDict.Values)
-            ui.Close();
+            ui.SetActiveImmediate(false);
+
+        toolInventory.anchoredPosition = new Vector2(toolInventory.anchoredPosition.x, toolInvShownY);
+        miniMap.anchoredPosition = new Vector2(miniMapShownX, miniMap.anchoredPosition.y);
     }
 
-    //public void togle(UIType type)
-    //{
-    //    if (currentUI == null)
-    //    {
-    //        toolInventory.DOAnchorPosY(-600, 0.5f);
-    //    }
-    //    currentUI?.Toggle();
+    public void Toggle(UIBase target)
+    {
+        if (isTransitioning) return;
+        StartCoroutine(SwitchRoutine(target));
+    }
 
-    //    currentUI = uiDict[type];
-    //    currentUI.Toggle();
-    //}
+    public void Toggle(UIType type)
+    {
+        if (!uiDict.TryGetValue(type, out var target)) return;
+        Toggle(target);
+    }
 
-    //public void CloseCurrent()
-    //{
-    //    toolInventory.DOAnchorPosY(-415, 0.5f);
-    //    currentUI?.Toggle();
-    //    currentUI = null;
-    //}
+    private IEnumerator SwitchRoutine(UIBase target)
+    {
+        isTransitioning = true;
+
+        if (currentUI == target)
+        {
+            yield return StartCoroutine(currentUI.Close());
+            currentUI = null;
+
+            toolInventory.DOKill(); miniMap.DOKill();
+            toolInventory.DOAnchorPosY(toolInvShownY, uiTweenDuration);
+            miniMap.DOAnchorPosX(miniMapShownX, uiTweenDuration);
+
+            isTransitioning = false;
+            yield break;
+        }
+
+        if (currentUI != null)
+            yield return StartCoroutine(currentUI.Close());
+
+        currentUI = target;
+
+        toolInventory.DOKill(); miniMap.DOKill();
+        toolInventory.DOAnchorPosY(toolInvHiddenY, uiTweenDuration);
+        miniMap.DOAnchorPosX(miniMapHiddenX, uiTweenDuration);
+
+        yield return StartCoroutine(currentUI.Open());
+
+        isTransitioning = false;
+    }
 }
