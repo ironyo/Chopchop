@@ -19,3 +19,12 @@ MonoBehaviour:
   maxW: 4
   maxMinion: 4
   countStet: 000000000000000000000000
+  resourceTypeCost:
+  - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+    amount: 40
+  - resourceTypeSO: {fileID: 11400000, guid: 68784335437fa9c4f85113d47243fe3b, type: 2}
+    amount: 10
+  - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+    amount: 20
+  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+    amount: 50

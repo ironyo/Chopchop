@@ -1,6 +1,7 @@
 using NUnit.Framework;
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildingSO", menuName = "SO/BuildingSO")]
 public class BuildingSO : ScriptableObject
@@ -19,6 +20,13 @@ public class BuildingSO : ScriptableObject
     [field:Header("레벨마다 증가")]
     public List<int> countStet;
     [Header("필요 자원")]
-    public List<ResourceTypeSO> resourceTypeSOList;
-    public Dictionary<ResourceTypeSO, int> resourceTypeDic = new();
+    public ResourceTypeCost[] resourceTypeCost;
+
+}
+
+[Serializable]
+public class ResourceTypeCost
+{
+    public ResourceTypeSO resourceTypeSO;
+    public int amount;
 }
