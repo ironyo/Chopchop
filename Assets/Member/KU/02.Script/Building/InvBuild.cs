@@ -14,7 +14,6 @@ public class InvBuild : MonoBehaviour
     
     private void Awake()
     {
-        //_buildManager = GameObject.Find("BuildManager").GetComponent<BuildManager>();
         _button = GetComponent<Button>();
     }
     private void Start()

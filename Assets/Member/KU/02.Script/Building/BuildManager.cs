@@ -26,10 +26,18 @@ public class BuildManager : MonoBehaviour
 
     [SerializeField] private List<Building> buildingParent = new();
 
+
+    [Header("Collider View Settings")]
+    private bool showCollider = false;
+    [SerializeField] Color colliderColor = Color.green;
+    [SerializeField] float lineWidth = 0.05f;
+
     private List<GameObject> spawnGrid = new();
     private bool isBuilding;
     private BuildingSO buildingSO;
     private int buildingCount = 0;
+
+    private LineRenderer lineRenderer;
 
     private Vector2 spawnPos;
 
@@ -42,10 +50,17 @@ public class BuildManager : MonoBehaviour
         if(Instance == null)
             Instance = this;
         boxCollider = GetComponent<BoxCollider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+    }
+
+    private void Start()
+    {
+        InitializeBuilding();
     }
 
     private void Update()
     {
+        UpdateColliderView();
         BuildOrCancle();
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         currentCell = grid.WorldToCell(mouseWorldPos);
@@ -57,19 +72,28 @@ public class BuildManager : MonoBehaviour
             transform.position = snappedPos;
             lastCell = currentCell;
         }
+        
         if (isBuilding)
+        {
             _helpUI.SetActive(true);
+            boxCollider.enabled = true;
+        }
         else
+        {
             _helpUI.SetActive(false);
+            boxCollider.enabled = false;
+        }
     }
+
     private void BuildOrCancle()
     {
         if (spawnGrid != null && Mouse.current.rightButton.wasPressedThisFrame && isBuilding)
         {
+            showCollider = false;
             isBuilding = false;
             GridDestroy();
         }
-        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding /*&& !EventSystem.current.IsPointerOverGameObject()*/)
+        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding && !EventSystem.current.IsPointerOverGameObject())
         {
             BuildedClear();
         }
@@ -96,6 +120,7 @@ public class BuildManager : MonoBehaviour
     }
     private void GridSpawn()
     {
+        showCollider = true;
         float baseX = transform.position.x;
         float baseY = transform.position.y;
 
@@ -152,7 +177,7 @@ public class BuildManager : MonoBehaviour
         //    필요 자원 만큼 현재 자원에서 감소
         //}
 
-
+        showCollider = false;
         isBuilding = false;
         GameObject par = new GameObject(buildingSO.name);
         par.transform.parent = _buildingCanvus.transform;
@@ -160,6 +185,8 @@ public class BuildManager : MonoBehaviour
         par.transform.position = mousePos;
 
         Building building = par.AddComponent<Building>();
+        building.AddComponent<LineRenderer>();
+        building.AddComponent<BuildingSelector>();
         building.buildingSO = buildingSO;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
@@ -242,5 +269,64 @@ public class BuildManager : MonoBehaviour
     public BuildingSO GetBuildData()
     {
         return buildingSO;
+    }
+
+    public void BuildingMode()
+    {
+        GridDestroy();
+        isBuilding = false;
+        showCollider = false;
+        foreach (var item in buildingParent)
+        {
+            item.showCollider = !item.showCollider;
+        }
+    }
+
+
+
+    private void InitializeBuilding()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+        InitializeLineRenderer();
+    }
+    private void InitializeLineRenderer()
+    {
+        lineRenderer.positionCount = 4;
+
+        lineRenderer.loop = true;
+
+        lineRenderer.useWorldSpace = false;
+
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+
+        lineRenderer.startColor = colliderColor;
+        lineRenderer.endColor = colliderColor;
+
+        lineRenderer.enabled = showCollider;
+    }
+    private void UpdateColliderView()
+    {
+        lineRenderer.enabled = showCollider;
+
+        if (!showCollider || boxCollider == null) return;
+
+        Vector2 size = boxCollider.size;
+        Vector2 offset = boxCollider.offset;
+
+        Vector3[] points = new Vector3[5]
+        {
+            offset + new Vector2(-size.x/2, -size.y/2),
+            offset + new Vector2(-size.x/2, size.y/2),
+            offset + new Vector2(size.x/2, size.y/2),
+            offset + new Vector2(size.x/2, -size.y/2),
+            offset + new Vector2(-size.x/2, -size.y/2)
+        };
+
+        lineRenderer.SetPositions(points);
     }
 }
