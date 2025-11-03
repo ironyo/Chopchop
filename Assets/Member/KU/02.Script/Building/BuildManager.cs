@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -23,6 +24,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject _helpUI;
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;
+    [SerializeField] private GameObject _blockTilemap;
 
     [SerializeField] private List<Building> buildingParent = new();
 
@@ -215,7 +217,8 @@ public class BuildManager : MonoBehaviour
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            //Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            Instantiate(_blockTilemap, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Destroy(spawnGrid[i]);
         }
         spawnGrid.Clear();
