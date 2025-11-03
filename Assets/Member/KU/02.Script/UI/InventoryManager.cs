@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] List<InventoryCreate> _invPrefObj = new();
     [SerializeField] List<BuildingSO> _buildSO = new();
 
-    public static bool isNowClose = false;
+    public bool isNowClose { get; private set; } = true;
     bool _isMoveInv = false;
     private void Awake()
     {
@@ -50,6 +50,8 @@ public class InventoryManager : MonoBehaviour
     }
     private void Start()
     {
+        _rectTransform.Translate(0,-_closPos, 0);
+
         int count = 0;
 
         for (int i = 0; i < _invPrefObj.Count; i++)

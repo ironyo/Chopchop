@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.72975576, g: 0.91320753, b: 0.6030616, a: 1}
+  m_Color: {r: 0.51547354, g: 0.8113208, b: 0.5026106, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1058,8 +1058,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282354780
-  m_fontColor: {r: 0.36050114, g: 0.5509434, b: 0.24532574, a: 1}
+    rgba: 4282019919
+  m_fontColor: {r: 0.30962968, g: 0.44025147, b: 0.22843233, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

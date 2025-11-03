@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221241139037750209}
   - component: {fileID: 3293452011331597156}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1120092295
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 44685c45818286943bda7f345eba53ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6786608072574846119}
   - component: {fileID: 8165553245712099253}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8631304378341643929}
   - component: {fileID: 1200887039252371440}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BubbleChat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 1361391500284929853}
   - component: {fileID: 17523511153031684}
   - component: {fileID: 6250989732188765743}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: MessageTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1120092295
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6250989732188765743

@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ToolName:
   - "\uC0AC\uACFC"
-  - "\uC0AC\uACFC\uBE44"
-  - "\uC0AC\uACFC\uD3ED\uD0C4"
+  - "\uC0AC\uACFC\uD55C\uC90C"
+  - "\uC0AC\uACFC\uB354\uBBF8"
   Icon:
   - {fileID: 21300000, guid: 7c5ebd18153d43248a4b898131abb382, type: 3}
-  - {fileID: 21300000, guid: 30b7f2a46934426428a32670a03ad575, type: 3}
+  - {fileID: 21300000, guid: 52fff64d60826484c8a45bc7509b5473, type: 3}
   - {fileID: 21300000, guid: 30b7f2a46934426428a32670a03ad575, type: 3}
   HighlitedIcon:
   - {fileID: 21300000, guid: e39ae3ea469d8354c9dbf74313289502, type: 3}
-  - {fileID: 21300000, guid: 0c152923b0ea5b04688ed53f6249e354, type: 3}
+  - {fileID: 21300000, guid: 1c8007a70c65d4344b118a3a8f2def56, type: 3}
   - {fileID: 21300000, guid: 0c152923b0ea5b04688ed53f6249e354, type: 3}
   Amount: 050000000f00000019000000
   Price: 050000000f00000019000000

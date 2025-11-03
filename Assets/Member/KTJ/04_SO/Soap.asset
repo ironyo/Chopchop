@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ToolName:
   - "\uBE44\uB204"
-  - "\uBE44\uB204\uBB49\uCE58"
-  - "\uBE44\uB204\uD3ED\uD0C4"
+  - "\uBE44\uB204\uD55C\uC90C"
+  - "\uBE44\uB204\uB354\uBBF8"
   Icon:
   - {fileID: 21300000, guid: ccfab48d59012b8408c6672e82add4ff, type: 3}
-  - {fileID: 21300000, guid: d3b9cb9f4a684544d8ce9d9a8d9ff5e5, type: 3}
+  - {fileID: 21300000, guid: 12994a19d3f21de4a9f2344b3a083010, type: 3}
   - {fileID: 21300000, guid: d3b9cb9f4a684544d8ce9d9a8d9ff5e5, type: 3}
   HighlitedIcon:
   - {fileID: 21300000, guid: 25cbff7f0c8bfbe40af54f3bf90b5a15, type: 3}
-  - {fileID: 21300000, guid: d909eb6720d814442b66168afb16a730, type: 3}
+  - {fileID: 21300000, guid: 6242788098f4e824fbd2bc55160e728a, type: 3}
   - {fileID: 21300000, guid: d909eb6720d814442b66168afb16a730, type: 3}
   Amount: 050000000f00000019000000
   Price: 050000000f00000019000000
