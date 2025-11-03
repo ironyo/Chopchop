@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 3
   buildName: "\uB9C8\uC744 \uD68C\uAD00"
-  Health: 300
+  Health: 500
   width: 6
   maxW: 2
   maxMinion: 10
