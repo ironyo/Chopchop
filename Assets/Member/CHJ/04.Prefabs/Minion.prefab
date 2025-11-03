@@ -5516,7 +5516,7 @@ MonoBehaviour:
   - rid: 761436285459234889
   - rid: 761436285459234890
   - rid: 761436285459234891
-  - rid: 761436310016885194
+  - rid: 5071695324607676588
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -5546,14 +5546,14 @@ MonoBehaviour:
           m_Value1: 15451124681973887906
         Name: Work Action Scr
         m_Value: {fileID: 3332209083453485100}
-    - rid: 761436310016885194
-      type: {class: 'BlackboardVariable`1[[MinionData, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+    - rid: 5071695324607676588
+      type: {class: 'BlackboardVariable`1[[Member.CHJ._02.Scripts.SO.JobDataSO, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 946459540948449722
-          m_Value1: 13471148237593079162
-        Name: WorkPoitsSO
-        m_Value: {fileID: 11400000, guid: b6e433352984d354f8a31ca31ec49ce3, type: 2}
+          m_Value0: 12336206937594313585
+          m_Value1: 10319393612289155133
+        Name: SO
+        m_Value: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
 --- !u!70 &5705784417534035539
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

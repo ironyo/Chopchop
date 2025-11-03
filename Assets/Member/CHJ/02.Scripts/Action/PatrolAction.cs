@@ -69,7 +69,6 @@ public partial class PatrolAction : Action
     private void RandomPatrol()
     {
         NavMesh.Value.ResetPath();
-        Debug.Log(_movement);
         NavMesh.Value.SetDestination(_movement.RandomPatrol());
     }
     

@@ -5,7 +5,6 @@ using Unity.Behavior;
 public enum AiStates
 {
     Patrol,
-	Fight,
 	Sleep,
 	Work,
 	Mate,

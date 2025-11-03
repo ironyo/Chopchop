@@ -58,13 +58,12 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         sleep = 55;
         
         patrol += firstWork;
+        secondWork += patrol;
         Stats.Age++;
     }
 
     private void Update()
     {
-    //     if (!_isCanSchedule)
-    //         return;
         AiStates newState = TimeCheck(TimeManager.Instance.currentTime);
         if (currentState != newState)
         {
@@ -82,7 +81,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
 
     public void SetState(AiStates newState)
     {
-        Debug.Log($"{name} : {newState} 로 Set State");
+        Debug.Log($"{newState} 로 Set State");
         currentState = newState;
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }

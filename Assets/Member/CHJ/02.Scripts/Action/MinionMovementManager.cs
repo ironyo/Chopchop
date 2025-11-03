@@ -14,12 +14,5 @@ namespace Member.CHJ._02.Scripts.Action
             return pos + new Vector2(Random.Range(-3, 3), Random.Range(-3, 3)); // Patrol
         }
 
-        public bool IsCanEnterBuilding(Building building)
-        {
-            return building.NowMinion <= building.buildingSO.maxLevel;
-            // 현재 미니언 수 <= 최대 미니언 수
-            // 즉, true 때 가능.
-        }
-        
     }
 }
