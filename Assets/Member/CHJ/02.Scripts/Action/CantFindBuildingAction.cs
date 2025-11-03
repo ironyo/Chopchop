@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Member.CHJ._02.Scripts.Action;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Patrol", story: "Patrol [NavMesh] [self]", category: "Action", id: "974f3a2bbe91bb23804f19b98d33062c")]
-public partial class PatrolAction : Action
+[NodeDescription(name: "Cant Find Building Action", story: "[Nevmesh] [Self]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
+public partial class CantFindBuildingAction : Action
 {
-    [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
+    [SerializeReference] public BlackboardVariable<NavMeshAgent> Nevmesh;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
+
     private Vector3 _targetPos;
     private MinionMovementManager _movement;
     private Minion _minion;
@@ -22,7 +22,6 @@ public partial class PatrolAction : Action
 
     protected override Status OnStart()
     {
-        Debug.Log("[State] Start Patrol Action");
         _movement = new MinionMovementManager();
         _minion = Self.Value.GetComponent<Minion>();
         RandomPatrol();
@@ -32,15 +31,17 @@ public partial class PatrolAction : Action
 
     private bool CheckTime()
     {
-        if (_minion.currentState != AiStates.Patrol) return false;
-        else return true;
+        if (_minion.currentState == AiStates.Work) return true;
+        else
+        {
+            Debug.Log("Minion does not working");
+            return false;
+        };
     }
     protected override Status OnUpdate()
     {
         if (!CheckTime()) return Status.Success;
-        
-        if (MateManager.Instance.canMate) FindMatePartner();
-        
+        Debug.Log("[State] Start Patrol Update");
         
         // 목적지 도착 체크
         // if (!NavMesh.Value.pathPending &&
@@ -63,8 +64,8 @@ public partial class PatrolAction : Action
     private IEnumerator CheckPatrol()
     {
         RandomPatrol();
-        if (!NavMesh.Value.pathPending &&
-            NavMesh.Value.remainingDistance <= NavMesh.Value.stoppingDistance &&
+        if (!Nevmesh.Value.pathPending &&
+            Nevmesh.Value.remainingDistance <= Nevmesh.Value.stoppingDistance &&
             !MateManager.Instance.canMate)
         {
             RandomPatrol();
@@ -77,8 +78,8 @@ public partial class PatrolAction : Action
     private void RandomPatrol()
     {
         _lastTime = TimeManager.Instance.currentTime;
-        NavMesh.Value.ResetPath();
-        NavMesh.Value.SetDestination(_movement.RandomPatrol());
+        Nevmesh.Value.ResetPath();
+        Nevmesh.Value.SetDestination(_movement.RandomPatrol());
     }
     
     public void FindMatePartner()
@@ -95,5 +96,5 @@ public partial class PatrolAction : Action
             }
         }
     }
-
 }
+
