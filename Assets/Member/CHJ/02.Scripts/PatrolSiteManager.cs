@@ -5,10 +5,16 @@ using UnityEngine;
 public class PatrolSiteManager : MonoBehaviour
 {
     [SerializeField] private MinionData _dataSo;
+    public List<Transform> patrolSite = new List<Transform>();
+
+    public static PatrolSiteManager Instance { get; private set; }
 
     private void Awake()
     {
-        _dataSo.patrolSite.Clear();
+        if (Instance == null)
+            Instance = this;
+        else if(Instance != null)
+            Destroy(gameObject);
         for (int i = 0; i < transform.childCount; i++)
         {
             AddList(transform.GetChild(i).transform);
@@ -17,6 +23,6 @@ public class PatrolSiteManager : MonoBehaviour
 
     public void AddList(Transform site)
     {
-        _dataSo.patrolSite.Add(site);
+        patrolSite.Add(site);
     }
 }

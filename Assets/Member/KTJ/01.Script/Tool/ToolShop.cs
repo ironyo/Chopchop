@@ -4,6 +4,7 @@ using System;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Collections;
 
 [System.Serializable]
 public class ToolInfo
@@ -131,5 +132,15 @@ public class ToolShop : UIBase
             NotifictionManager.Instance.NotifictionEvent.Invoke("도구지급됨", "인벤토리 확인");
         });
 
+    }
+
+    public override IEnumerator OpenEffect()
+    {
+        yield return null;
+    }
+
+    public override IEnumerator CloseEffect()
+    {
+        yield return null;
     }
 }

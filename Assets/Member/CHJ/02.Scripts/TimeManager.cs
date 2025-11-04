@@ -4,7 +4,7 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
-    public float currentTime;
+    public float currentTime = 0;
     public int day;
     public event Action OnDayStarted;
 

@@ -1,9 +1,13 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using System;
 
 public class ResourceUIManager : MonoBehaviour
 {
+    public Dictionary<ResourceTypeSO, int> resourceTypeDic = new();
+
     [SerializeField] private GameObject _resourceUIPref;
 
     [SerializeField] private List<ResourceSs> resourceUIList = new();
@@ -26,15 +30,12 @@ public class ResourceUIManager : MonoBehaviour
 
     private void ResourceSpawn()
     {
-        Debug.Log(resourceUIList.Count);
-
         ResourceListDestroy();
-        for (int i = 0; i < buildData.resourceTypeSOList.Count; i++)
+        for (int i = 0; i < buildData.resourceTypeCost.Length; i++)
         {
-            Debug.Log(buildData.resourceTypeSOList.Count);
             resourceUIList.Add(Instantiate(_resourceUIPref, transform).GetComponent<ResourceSs>());
-            resourceUIList[i].ResourceSet(buildData);
             resourceUIList[i].count = i;
+            resourceUIList[i].ResourceSet(buildData);
         }
     }
 
@@ -45,8 +46,8 @@ public class ResourceUIManager : MonoBehaviour
             for (int i = 0; i < resourceUIList.Count; i++)
             {
                 Destroy(resourceUIList[i].gameObject);
-                resourceUIList.RemoveAt(i);
             }
+            resourceUIList.Clear();
         }
     }
 }

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -15,7 +16,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Volume globalVolume;
     private DepthOfField dof;
 
-    [SerializeField] private Camera cam;
+    [SerializeField] private CinemachineCamera cam;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float zoomSpeed;
 
@@ -40,22 +41,24 @@ public class CameraMovement : MonoBehaviour
 
     private void Movement()
     {
-        cam.transform.position += moveSpeed * moveDir * Time.deltaTime;
-        cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, -10);
+        gameObject.transform.position += moveSpeed * moveDir * Time.deltaTime;
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
     }
 
     private void HandleZoom()
     {
         float zoom = scroll.y * zoomSpeed * Time.deltaTime;
-        if (Mathf.Abs(zoom) > 0.001f) // 스크롤 입력 있을 때만
+        if (Mathf.Abs(zoom) > 0.001f)
         {
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - zoom, 3f, 10f);
-            zoomTxt.text = "x" + cam.orthographicSize.ToString("F1");
+            // OrthographicSize 변경
+            cam.Lens.OrthographicSize = Mathf.Clamp(cam.Lens.OrthographicSize - zoom, 3f, 10f);
+            zoomTxt.text = "x" + cam.Lens.OrthographicSize.ToString("F1");
 
             if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);
             zoomCoroutine = StartCoroutine(ShowZoomUI());
         }
     }
+
 
     private IEnumerator ShowZoomUI()
     {

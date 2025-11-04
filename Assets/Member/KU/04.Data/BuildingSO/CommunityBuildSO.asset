@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 3
   buildName: "\uB9C8\uC744 \uD68C\uAD00"
-  Health: 300
+  Health: 500
   width: 6
   maxW: 2
   maxMinion: 10
   countStet: 000000000000000000000000
-  resourceTypeSOList:
-  - {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-  - {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+  resourceTypeCost:
+  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+    amount: 30
+  - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+    amount: 20

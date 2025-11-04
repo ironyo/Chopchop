@@ -145,17 +145,18 @@ public class ToolManager : MonoBehaviour
         handToolImage.gameObject.SetActive(false);
     }
 
-    public void UseTool(GameObject target)
+    public bool UseTool(GameObject target)
     {
         if (currentTool == null)
         {
             Debug.Log("장착한 도구가 없습니다");
-            return;
+            return false;
         }
         else
         {
             currentTool.Use(target);
             RemoveTool();
+            return true;
         }
     }
 }

@@ -3,5 +3,6 @@
   <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
     <file url="file://$PROJECT_DIR$/Assets/Member/KTJ/01.Script/Minion/MinionChat.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/Member/KTJ/01.Script/Minion/TestMinion.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/Member/KU/04.BuildingSO/BuildingSO.cs" charset="EUC-KR" />
   </component>
 </project>
