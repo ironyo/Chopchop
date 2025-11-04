@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -23,19 +24,37 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject _helpUI;
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;
+    [SerializeField] private GameObject _blockTilemap;
 
     [SerializeField] private List<Building> buildingParent = new();
 
+    [Header("UISetting")]
+    [SerializeField] private float _moveDistance = 600f;
+    [SerializeField] private float _moveSpeed = 2f;
+    [SerializeField] private RectTransform _uiRectTransform;
+    [SerializeField] private TextMeshProUGUI _buildNameTex;
+    [SerializeField] private TextMeshProUGUI _buildHPTex;
+    [SerializeField] private TextMeshProUGUI _levelTex;
+    [SerializeField] private TextMeshProUGUI _spawnKindTex;
 
-    [Header("Collider View Settings")]
-    private bool showCollider = false;
+    private Vector2 _targetPos;
+    private float _time = 0;
+
+    [Header("Collider View Setting")]
     [SerializeField] Color colliderColor = Color.green;
     [SerializeField] float lineWidth = 0.05f;
+    private bool showCollider = false;
 
     private List<GameObject> spawnGrid = new();
+    private List<BuildingSelector> selectorCompo = new();
     private bool isBuilding;
     private BuildingSO buildingSO;
     private int buildingCount = 0;
+
+
+    private int selectCount = 0;
+    private BuildingSO selectSO;
+
 
     private LineRenderer lineRenderer;
 
@@ -55,13 +74,17 @@ public class BuildManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeBuilding();
+        InitializeLineRenderer();
     }
 
     private void Update()
     {
         UpdateColliderView();
         BuildOrCancle();
+        BuildUISetting(!BuildingSelect());
+
+
+
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         currentCell = grid.WorldToCell(mouseWorldPos);
 
@@ -185,15 +208,17 @@ public class BuildManager : MonoBehaviour
         par.transform.position = mousePos;
 
         Building building = par.AddComponent<Building>();
-        building.AddComponent<LineRenderer>();
-        building.AddComponent<BuildingSelector>();
+        building.gameObject.AddComponent<LineRenderer>();
+        building.gameObject.AddComponent<BuildingSelector>();
         building.buildingSO = buildingSO;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
+        selectorCompo.Add(building.GetComponent<BuildingSelector>());
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            //Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            Instantiate(_blockTilemap, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Destroy(spawnGrid[i]);
         }
         spawnGrid.Clear();
@@ -201,7 +226,6 @@ public class BuildManager : MonoBehaviour
         int childCount = par.transform.childCount;
         if (childCount == 0)
         {
-            Debug.LogWarning($"BuildedClear: No children were created for {par.name}. Aborting collider offset setup.");
             col.offset = Vector2.zero;
             return;
         }
@@ -218,7 +242,6 @@ public class BuildManager : MonoBehaviour
 
         if (float.IsNaN(centerLocal.x) || float.IsNaN(centerLocal.y))
         {
-            Debug.LogError("Computed centerLocal is NaN — skipping collider offset assignment.");
             col.offset = Vector2.zero;
         }
         else
@@ -232,6 +255,7 @@ public class BuildManager : MonoBehaviour
         ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
+        building.buildCount = buildingCount;
         buildingCount++;
     }
     private bool CanSpawn()
@@ -266,10 +290,7 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    public BuildingSO GetBuildData()
-    {
-        return buildingSO;
-    }
+
 
     public void BuildingMode()
     {
@@ -281,16 +302,56 @@ public class BuildManager : MonoBehaviour
             item.showCollider = !item.showCollider;
         }
     }
-
-
-
-    private void InitializeBuilding()
+    private bool BuildingSelect()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
-        lineRenderer = GetComponent<LineRenderer>();
+        foreach (var item in selectorCompo)
+        {
+            if (item.isOpen)
+            {
+                if(buildingParent.Count != 0)
+                {
+                    if (item == buildingParent[selectCount].buildingSelector)
+                        return true;
+                }
 
-        InitializeLineRenderer();
+            }
+        }
+        return false;
     }
+    private void BuildUISetting(bool isClose)
+    {
+        if(buildingParent.Count != 0)
+        {
+            Debug.Log(selectCount);
+            _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
+            _buildHPTex.text = $"체력: {buildingParent[selectCount].NowHealth}";
+            _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
+        }
+
+        if (isClose)
+        {
+            _targetPos = new Vector2(_moveDistance, 0);
+            _time += Time.deltaTime * _moveSpeed;
+            _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
+        }
+        else
+        {
+            _targetPos = Vector2.zero;
+            _time += Time.deltaTime * _moveSpeed;
+            _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
+        }
+    }
+
+
+    public BuildingSO GetBuildData() => buildingSO;
+    public void GetSelectData(int count, BuildingSO so)
+    {
+        _time = 0;
+        selectCount = count;
+        selectSO = so;
+    }
+
+
     private void InitializeLineRenderer()
     {
         lineRenderer.positionCount = 4;

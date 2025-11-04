@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
+    public int buildCount = 0;
+    public int NowHealth = 0;
+
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
 
     public BuildingSO buildingSO;
-    
+    public BuildingSelector buildingSelector { get; private set; }
+
     private int level = 1;
     private int minionCount = 0;
 
@@ -43,11 +47,16 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        NowHealth = buildingSO.Health;
+
+        boxCollider = GetComponent<BoxCollider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+        buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
 
-        InitializeBuilding();
+        InitializeLineRenderer();
     }
 
     private void Update()
@@ -79,13 +88,6 @@ public class Building : MonoBehaviour
 
 
 
-    private void InitializeBuilding()
-    {
-        boxCollider = GetComponent<BoxCollider2D>();
-        lineRenderer = GetComponent<LineRenderer>();
-        
-        InitializeLineRenderer();
-    }
     private void InitializeLineRenderer()
     {
         lineRenderer.positionCount = 4;
