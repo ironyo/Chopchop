@@ -32,6 +32,5 @@ public class JobButtonManager : MonoBehaviour
     private void OnDestroy()
     {
         OnValueChanged -= ChangeValue;
-
     }
 }
