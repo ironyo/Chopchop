@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Ship : MonoBehaviour
 {
@@ -24,7 +25,14 @@ public class Ship : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var enemy = Instantiate(enemyPrefab, spawnPoint[i].position, Quaternion.identity);
+            
+            var agent = enemy.GetComponent<NavMeshAgent>();
+            agent.enabled = false;
+            
             enemy.transform.SetParent(transform);
+            var unit = enemy.GetComponent<Unit>();
+            unit._unitType = UnitType.Enemy;
+            EnemyManager.Instance.RegisterEnemy(unit);
             loadedEnemies.Add(enemy);
             
             if (canFlip) FlipY(enemy);
@@ -56,7 +64,13 @@ public class Ship : MonoBehaviour
         {
             enemy.transform.SetParent(null);
             enemy.transform.rotation = Quaternion.identity;
-            Destroy(gameObject);
+            
+            var agent = enemy.GetComponent<NavMeshAgent>();
+            agent.enabled = true;
+            
+            enemy.GetComponent<Unit>().isLanding = true;
         }
+        
+        Destroy(gameObject);
     }
 }

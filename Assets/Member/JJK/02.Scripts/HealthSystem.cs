@@ -1,27 +1,39 @@
 using System;
 using UnityEngine;
 
-public class HealthSystem : MonoBehaviour, IDamageable
+public class HealthSystem : MonoBehaviour
 {
     [field: SerializeField] public int HP { get; private set; }
-    [SerializeField] private int maxHealth;
+    public int maxHealth;
 
-    public event Action OnDead;
+    public Action OnDead;
+    public Action OnDamaged;
+    
+    private HealthBar healthBar;
     
     private void Awake()
     {   
         HP = maxHealth;
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
-    public void GetDamage(int damage, GameObject target)
+    private void Update()
+    {
+        if (healthBar.OnDead)
+        {
+            OnDead?.Invoke();
+        }
+    }
+
+    public void GetDamage(int damage)
     {
         HP -= damage;
         HP = Mathf.Clamp(HP, 0, maxHealth);
+        OnDamaged?.Invoke();
+    }
 
-        if (HP <= 0)
-        {
-            Debug.Log("Dead");
-            OnDead?.Invoke();
-        }
+    public float GetNormalizeHealth()
+    {
+        return (float)HP / maxHealth;   
     }
 }

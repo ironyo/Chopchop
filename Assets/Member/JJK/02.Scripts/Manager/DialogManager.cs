@@ -1,0 +1,159 @@
+using System;
+using System.Collections;
+using System.Data;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class DialogManager : MonoBehaviour
+{
+    public static DialogManager Instance;
+    
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private GameObject choiceBox;
+    [SerializeField] private GameObject dialogBox;
+    [SerializeField] private GameObject spaceBar;
+    [SerializeField] private float typingSpeed = 0.1f;
+
+    [Header("Dialog Data")]
+    [SerializeField] private DialogDataSO tutorialDialogData;
+    [SerializeField] private DialogDataSO invasionDialogData;
+    
+    private int index = 0;
+    private bool isInvasion = false;
+    private bool isTutorial = false;
+    private bool canFight = false;
+
+    private enum DialogState
+    {
+        None,
+        Tutorial,
+        Invasion,
+        Choosing,
+        Finished
+    }
+    
+    private DialogState state = DialogState.None;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(this);
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            if (state == DialogState.Tutorial)
+                NextTutorialLine();
+            else if (state == DialogState.Invasion)
+                NextInvasionLine();
+        }
+    }
+
+    private void NextInvasionLine()
+    {
+        index++;
+        
+        if (index == invasionDialogData.explain.Length - 3)
+        {
+            state = DialogState.Choosing;
+            StopAllCoroutines();
+            StartCoroutine(Typing(invasionDialogData.explain[index]));
+            choiceBox.SetActive(true);
+            spaceBar.SetActive(false);
+            return;
+        }
+        
+        if (index < invasionDialogData.explain.Length - 2)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Typing(invasionDialogData.explain[index]));
+        }
+        else
+        {
+            EndDialog();
+        }
+    }
+
+    private void NextTutorialLine()
+    {
+        index++;
+
+        if (index < tutorialDialogData.explain.Length)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Typing(tutorialDialogData.explain[index]));
+        }
+        else
+        {
+            EndDialog();
+        }
+    }
+    
+    private void EndDialog()
+    {
+        dialogBox.SetActive(false);
+        spaceBar.SetActive(false);
+
+        if (canFight)
+            InvasionManager.Instance.Invasion();
+
+        state = DialogState.Finished;
+    }
+
+    public void Agree()
+    {
+        state = DialogState.Invasion;
+        StopAllCoroutines();
+        StartCoroutine(Typing(invasionDialogData.explain[invasionDialogData.explain.Length - 2]));
+        choiceBox.SetActive(false);
+        spaceBar.SetActive(true);
+        canFight = false;
+    }
+
+    public void Disagree()
+    {
+        state = DialogState.Invasion;
+        StopAllCoroutines();
+        StartCoroutine(Typing(invasionDialogData.explain[invasionDialogData.explain.Length - 1]));
+        choiceBox.SetActive(false);
+        spaceBar.SetActive(true);
+        canFight = true;
+    }
+
+    public void InvasionDialog()
+    {
+        state = DialogState.Invasion;
+        index = 0;
+        dialogBox.SetActive(true);
+        spaceBar.SetActive(true);
+        choiceBox.SetActive(false);
+        StopAllCoroutines();
+        StartCoroutine(Typing(invasionDialogData.explain[index]));
+    }
+    
+    public void TutorialDialog()
+    {
+        state = DialogState.Tutorial;
+        index = 0;
+        dialogBox.SetActive(true);
+        spaceBar.SetActive(true);
+        choiceBox.SetActive(false);
+        StopAllCoroutines();
+        StartCoroutine(Typing(tutorialDialogData.explain[index]));
+    }
+
+    private IEnumerator Typing(string sentence)
+    {
+        _text.text = null;
+
+        for (int i = 0; i < sentence.Length; i++)
+        {
+            _text.text += sentence[i];
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
+}

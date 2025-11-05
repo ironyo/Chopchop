@@ -14,6 +14,7 @@ TagManager:
   - School
   - Village_Hall
   - telescope
+  - HQ
   layers:
   - Default
   - TransparentFX
