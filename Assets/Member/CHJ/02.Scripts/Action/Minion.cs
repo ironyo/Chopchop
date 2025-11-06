@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Member.CHJ._02.Scripts;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
@@ -31,12 +32,15 @@ public class Minion : MonoBehaviour, IPointerClickHandler
 
     private bool _isCanSchedule = true;
 
+    public MinionTime TimeStruct;
+
     private void Awake()
     {
         Stats = new MinionStats();
+        TimeStruct = new MinionTime();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
-        behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh = GetComponent<NavMeshAgent>();
+        behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
         visualObj = transform.GetChild(0).gameObject;
@@ -47,6 +51,14 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         InitializeDay();
+        try
+        {
+            MinionManager.Instance.AddMinion(this);
+        }
+        catch(NullReferenceException)
+        {
+            Debug.Log(MinionManager.Instance);
+        }
         TimeManager.Instance.OnDayStarted += InitializeDay;
     }
 
@@ -60,17 +72,9 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;
+        
+        TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
-
-    private void Update()
-    {
-        AiStates newState = TimeCheck(TimeManager.Instance.currentTime);
-        if (currentState != newState)
-        {
-            SetState(newState); // => 여기에서 미니언의 상태를 계속 바꿔서 Work -> Patrol이 성립하지 않음.
-        }
-    }
-
     private AiStates TimeCheck(float time)
     {
         if (time < firstWork) return AiStates.Work;
@@ -86,22 +90,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
-    public void ForceSetState(AiStates newState)
-    {
-        _isCanSchedule = false;
-        Debug.Log($"{newState} : Force Set State");
-        SetState(newState);
-    }
-
-    public void ResumeState() => _isCanSchedule = true;
-    // private void OnAttack(InputValue value)
-    // {
-    //     Vector2 mousePos = Mouse.current.position.ReadValue();
-    //     Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-    //     worldPos.z = 0;
-    //     
-    //     _navMesh.SetDestination(worldPos);
-    // }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -154,4 +142,19 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         isFoundPartner = false;
     }
     #endregion
+}
+public struct MinionTime
+{
+    public void SetTime(int firstWork, int patrol, int secondWork, int sleep)
+    {
+        FirstWork = firstWork;
+        Patrol = patrol;
+        SecondWork = secondWork;
+        Sleep = sleep;
+        
+    }
+    public int FirstWork;
+    public int Patrol;
+    public int SecondWork;
+    public int Sleep;
 }
