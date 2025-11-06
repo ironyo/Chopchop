@@ -15,35 +15,68 @@ public partial class MateAction : Action
 
     protected override Status OnStart()
     {
+        NavMesh.Value.ResetPath();
+        TimeManager.Instance.OnOneSecond += MateCheck;
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        return Status.Success;
+        if (NavMesh.Value.remainingDistance <= 0.01f)
+        {
+            Minion.Value.visualObj.SetActive(false);
+            return Status.Success;
+        }
+
+        return Status.Running;
     }
-    public void Mate()
+    public void MateCheck(int t)
     {
-        Particle.Value.Play();
+        if (FindMateMinion() && FindHouse() && Minion.Value.isFoundPartner)
+            StartMate();
+    }
+
+    private void StartMate()
+    {
+        Minion.Value.isFoundPartner = false;
+        
+    }
+
+    private bool FindMateMinion()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(Minion.Value.transform.position, 1);
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent<Minion>(out var minion))
+            {
+                if (!minion.isFoundPartner)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private bool FindHouse()
+    {
         Collider2D[] hits = Physics2D.OverlapCircleAll(Minion.Value.transform.position, 6);
         foreach (var hit in hits)
         {
             if (hit.CompareTag("House"))
-                NavMesh.Value.SetDestination(hit.transform.position);
+                return true;
         }
-        if (NavMesh.Value.remainingDistance <= 0.01f)
-        {
-            Minion.Value.visualObj.SetActive(false);
-        }
+
+        return false;
     }
-    
     private void EndMate()
     {
         Minion.Value.visualObj.SetActive(true);
         Particle.Value.Pause();
+        //호이쨔
     }
     protected override void OnEnd()
     {
+        EndMate();
     }
 }
 

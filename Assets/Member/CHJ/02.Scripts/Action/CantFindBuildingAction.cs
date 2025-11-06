@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Cant Find Building Action", story: "[Nevmesh] [Self] After [State]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
@@ -15,15 +16,15 @@ public partial class CantFindBuildingAction : Action
     [SerializeReference] public BlackboardVariable<NavMeshAgent> Nevmesh;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<AiStates> State;
+    
     private Vector3 _targetPos;
-    private MinionMovementManager _movement;
+    private Vector3 _target;
     private Minion _minion;
     private float _lastTime;
 
     protected override Status OnStart()
     {
         Debug.Log("[Patrol] Start Patrol");
-        _movement = new MinionMovementManager();
         _minion = Self.Value.GetComponent<Minion>();
         RandomPatrol();
         
@@ -73,14 +74,25 @@ public partial class CantFindBuildingAction : Action
         RandomPatrol();
     }
 
+
     private void RandomPatrol()
     {
-        Debug.Log("PPPPPPPPPPPPPPAAAAAATROl");
-        _lastTime = TimeManager.Instance.CurrentTime;
-        Nevmesh.Value.ResetPath();
-        Nevmesh.Value.SetDestination(_movement.RandomPatrol());
+        // _lastTime = TimeManager.Instance.CurrentTime;
+        // NavMesh.Value.ResetPath();
+        // Vector2 patrolPos= PatrolSiteManager.Instance.patrolSite[Random.Range(0, PatrolSiteManager.Instance.patrolSite.Count)].transform.position;
+        // if( NavMesh.Value(patrolPos + new Vector2(Random.Range(-3, 3), Random.Range(-3, 3)))
+        // Self.Value.transform.position = Vector3.MoveTowards(Self.Value.transform.position,_movement.RandomPatrol(), 2);
+        do
+        {
+            Vector3 randomPos = Random.insideUnitCircle * 20;
+            randomPos += Self.Value.transform.position;
+            _target = randomPos;
+            _target.z = 0;
+
+        } 
+        while (!NavMesh.SamplePosition(_target, out NavMeshHit hit, 20, NavMesh.AllAreas));
+        Debug.Log($"Patrol Target {_target}");
     }
-    
     public void FindMatePartner()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 1);
