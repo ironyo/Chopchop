@@ -23,7 +23,7 @@ public partial class CanEnterHouseCondition : Condition
             {
                 if (building.buildingSO == null) continue;
                 if (building.buildingSO.name != "NormalBuildSO") continue;
-                if (building.NowMinion >= building.buildingSO.maxMinion) continue;
+                if (building.NowMinion >= building.maxMinion) continue;
 
                 foundTrm = hit.transform;
                 break;
