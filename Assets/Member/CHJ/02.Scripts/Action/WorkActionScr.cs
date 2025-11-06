@@ -1,6 +1,4 @@
-using System;
 using Member.CHJ._02.Scripts.SO;
-using Unity.Behavior;
 using UnityEngine;
 
 public class WorkActionScr : MonoBehaviour

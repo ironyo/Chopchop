@@ -5406,8 +5406,6 @@ GameObject:
   - component: {fileID: 6895683659991300418}
   - component: {fileID: 9068163880146523344}
   - component: {fileID: 416969138766278123}
-  - component: {fileID: 5705784417534035539}
-  - component: {fileID: 3705589989815635013}
   - component: {fileID: 8594335183946320537}
   - component: {fileID: 3179685031478354654}
   - component: {fileID: 3332209083453485100}
@@ -5474,6 +5472,9 @@ MonoBehaviour:
   AppleParticels: {fileID: 0}
   WaterParticels: {fileID: 0}
   CleanParticels: {fileID: 0}
+  EatSound: {fileID: 0}
+  DrinkSound: {fileID: 0}
+  BrushSound: {fileID: 0}
   Hungry: 0
   Thirsty: 0
   Dirty: 0
@@ -5513,16 +5514,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Graph: {fileID: 5057475902575693491, guid: 3cb2f4d090e721748a13e920d330fdf6, type: 2}
   m_BlackboardVariableOverridesList:
-  - rid: 761436285459234889
-  - rid: 761436285459234890
-  - rid: 761436285459234891
-  - rid: 5071695324607676588
+  - rid: 5071695388619046912
+  - rid: 5071695388619046986
+  - rid: 5071695388619046987
+  - rid: 5071695388619046988
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
-    - rid: 761436285459234889
+    - rid: 5071695388619046912
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -5530,7 +5531,7 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 5004249982730692422}
-    - rid: 761436285459234890
+    - rid: 5071695388619046986
       type: {class: 'BlackboardVariable`1[[UnityEngine.AI.NavMeshAgent, UnityEngine.AIModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -5538,7 +5539,7 @@ MonoBehaviour:
           m_Value1: 2735959665744925168
         Name: NavMesh
         m_Value: {fileID: 9068163880146523344}
-    - rid: 761436285459234891
+    - rid: 5071695388619046987
       type: {class: 'BlackboardVariable`1[[WorkActionScr, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -5546,78 +5547,14 @@ MonoBehaviour:
           m_Value1: 15451124681973887906
         Name: Work Action Scr
         m_Value: {fileID: 3332209083453485100}
-    - rid: 5071695324607676588
-      type: {class: 'BlackboardVariable`1[[Member.CHJ._02.Scripts.SO.JobDataSO, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+    - rid: 5071695388619046988
+      type: {class: 'BlackboardVariable`1[[UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 12336206937594313585
-          m_Value1: 10319393612289155133
-        Name: SO
-        m_Value: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
---- !u!70 &5705784417534035539
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5004249982730692422}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.0035055876, y: 0}
-  m_Size: {x: 0.98376036, y: 1}
-  m_Direction: 0
---- !u!50 &3705589989815635013
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5004249982730692422}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+          m_Value0: 16275166883641954395
+          m_Value1: 6542157866879321570
+        Name: Mate Particle
+        m_Value: {fileID: 1321678810294957991}
 --- !u!114 &8594335183946320537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5681,7 +5618,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
-  isWorking: 0
 --- !u!1 &5937559056081135482
 GameObject:
   m_ObjectHideFlags: 0

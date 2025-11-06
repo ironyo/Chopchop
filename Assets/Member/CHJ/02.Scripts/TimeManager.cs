@@ -1,12 +1,16 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance;
-    public float currentTime = 0;
-    public int day;
+    [field: SerializeField]public int CurrentTime { get; private set; }
+    public int Day { get; private set; }
     public event Action OnDayStarted;
+    public Action<int> OnOneSecond;
+    private const float Tick = 1;
+    private WaitForSeconds _waitT = new WaitForSeconds(Tick);
 
     private void Awake()
     {
@@ -18,18 +22,26 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        OnDayStarted?.Invoke();
+        StartCoroutine(TimeLoop());
     }
 
-    private void Update()
+    private IEnumerator TimeLoop()
     {
-        currentTime += Time.deltaTime;
-
-        if (currentTime >= 60)
+        OnDayStarted?.Invoke();
+        while (true)
         {
-            day++;
-            currentTime = 0;
-            OnDayStarted?.Invoke();
+            yield return _waitT;
+            CurrentTime++;
+            OnOneSecond?.Invoke(CurrentTime);
+            if (CurrentTime >= 60)
+            {
+                Day++;
+                CurrentTime = 0;
+                OnDayStarted?.Invoke();
+            }
         }
     }
+
+
+    
 }

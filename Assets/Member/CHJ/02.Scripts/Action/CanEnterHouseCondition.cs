@@ -1,20 +1,17 @@
-using Member.CHJ._02.Scripts.SO;
 using System;
 using Unity.Behavior;
 using UnityEngine;
 
 [Serializable, Unity.Properties.GeneratePropertyBag]
-[Condition(name: "CanWorkBuildingCondition ", story: "[Self] [Job] [Target]", category: "Conditions", id: "77f4bd65fd1b66f7c36a94fd729a6b23")]
-public partial class CanWorkBuildingCondition : Condition
+[Condition(name: "CanEnterHouse", story: "[Self] [Target]", category: "Conditions", id: "6344f805c832a9a1b72d591876557b3d")]
+public partial class CanEnterHouseCondition : Condition
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<JobDataSO> Job;
     [SerializeReference] public BlackboardVariable<Transform> Target;
 
     public override bool IsTrue()
     {
-        
-        if (Self.Value == null || Job.Value == null)
+        if (Self.Value == null)
             return false;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 30f);
@@ -25,7 +22,7 @@ public partial class CanWorkBuildingCondition : Condition
             if (hit.TryGetComponent<Building>(out var building))
             {
                 if (building.buildingSO == null) continue;
-                if (building.buildingSO != Job.Value.BuildingData) continue;
+                if (building.buildingSO.name != "NormalBuildSO") continue;
                 if (building.NowMinion >= building.buildingSO.maxMinion) continue;
 
                 foundTrm = hit.transform;
@@ -36,7 +33,6 @@ public partial class CanWorkBuildingCondition : Condition
         if (foundTrm != null)
         {
             Target.Value = foundTrm;
-            Debug.Log($"[Condition] Found valid building for {Job.Value.name}.");
             return true;
         }
         else
