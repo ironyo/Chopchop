@@ -27,7 +27,7 @@ public class WorkActionScr : MonoBehaviour
             Debug.LogWarning("DoWork Failed: Target has no Building component");
             return;
         }
-        if(building.NowMinion >= building.buildingSO.maxMinion)
+        if(building.NowMinion >= building.maxMinion)
         {
             Debug.LogWarning($"DoWork Failed: Building is full! {building.NowMinion}/{building.buildingSO.maxMinion}");
             return;
