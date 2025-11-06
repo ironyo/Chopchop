@@ -14,6 +14,8 @@ public class NotifictionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DescTxt;
     [SerializeField] private RectTransform AlarmIcon;
 
+    [SerializeField] private AudioClip bellSound;
+
     private float startPosX;
     private Sequence seq;
 
@@ -50,6 +52,11 @@ public class NotifictionManager : MonoBehaviour
 
         seq.Append(NotificAnc.DOAnchorPosX(0f, 1f));
 
+        seq.AppendCallback(() =>
+        {
+            SoundManager.instance.SFXPlay("BellRing", bellSound);
+        }
+        );
         seq.Append(AlarmIcon.DORotate(new Vector3(0, 0, -20), 0.2f));
         seq.Append(AlarmIcon.DORotate(new Vector3(0, 0, 20), 0.1f));
         seq.Append(AlarmIcon.DORotate(new Vector3(0, 0, -20), 0.1f));
