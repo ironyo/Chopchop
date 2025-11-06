@@ -26,7 +26,7 @@ public partial class CanWorkBuildingCondition : Condition
             {
                 if (building.buildingSO == null) continue;
                 if (building.buildingSO != Job.Value.BuildingData) continue;
-                if (building.NowMinion >= building.buildingSO.maxMinion) continue;
+                if (building.NowMinion >= building.maxMinion) continue;
 
                 foundTrm = hit.transform;
                 break;
