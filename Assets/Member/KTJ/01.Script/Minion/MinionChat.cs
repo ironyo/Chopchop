@@ -66,7 +66,6 @@ public class MinionChat : MonoBehaviour
 
         if (isFirstMessage)
         {
-            // 첫 메시지는 그냥 제자리(Vector3.zero)에 두고 애니메이션만
             newChat.localPosition = Vector3.zero;
             var animator = newChat.GetComponent<Animator>();
             if (animator) animator?.SetTrigger("ChatTrigger");
@@ -100,7 +99,6 @@ public class MinionChat : MonoBehaviour
             pool.Enqueue(oldest);
         }
 
-        //  새 메시지 들어오면 삭제 타이머 리셋
         if (clearRoutine != null) StopCoroutine(clearRoutine);
         clearRoutine = StartCoroutine(ClearAfterDelay(messageLifeTime));
     }
@@ -110,22 +108,20 @@ public class MinionChat : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // 위에서부터 하나씩 순서대로 삭제
         while (activeChats.Count > 0)
         {
             Transform oldest = activeChats[0];
             activeChats.RemoveAt(0);
 
-            // 부드럽게 사라지게 하고 싶다면 DOFade 사용 가능
             // oldest.GetComponent<CanvasGroup>()?.DOFade(0f, 0.3f);
 
             oldest.gameObject.SetActive(false);
             pool.Enqueue(oldest);
 
-            yield return new WaitForSeconds(0.5f); //  1초 간격
+            yield return new WaitForSeconds(0.5f);
         }
 
-        isFirstMessage = true; // 초기화
+        isFirstMessage = true;
         clearRoutine = null;
     }
 

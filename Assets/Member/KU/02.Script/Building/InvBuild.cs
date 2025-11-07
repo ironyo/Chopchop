@@ -14,20 +14,15 @@ public class InvBuild : MonoBehaviour
     
     private void Awake()
     {
-        _buildManager = GameObject.Find("BuildManager").GetComponent<BuildManager>();
         _button = GetComponent<Button>();
     }
     private void Start()
     {
         if(buildingSO != null)
         {
-            _button.onClick.AddListener(ButtonClick);
-            _button.onClick.AddListener(() => { _buildManager.Buildings(true, buildingSO); });
+            _button.onClick.AddListener(() => { BuildManager.Instance.Buildings(true, buildingSO); });
+            _button.onClick.AddListener(() => { ResourceUIManager.Instance.ChooseButton(); });
             tex.text = buildingSO.buildName;
         }
-    }
-    public void ButtonClick()
-    {
-        Debug.Log($"º±≈√ : {buildingSO.buildName}");
     }
 }

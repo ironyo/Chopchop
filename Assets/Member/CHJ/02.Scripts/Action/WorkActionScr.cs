@@ -1,3 +1,4 @@
+using System;
 using Member.CHJ._02.Scripts.SO;
 using Unity.Behavior;
 using UnityEngine;
@@ -6,35 +7,61 @@ public class WorkActionScr : MonoBehaviour
 {
 
     [SerializeField] public JobDataSO jobData;
+    private Collider2D _mycollder;
     private Collider2D _target;
+    private Building _building;
+    public bool isWorking { get; private set; }
 
-    public bool isWorking;
-
-
-    public virtual void DoWork()
+    private void Awake()
     {
-        isWorking = true;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 30);
-        foreach (var hit in hits)
+        _mycollder = GetComponent<Collider2D>();
+    }
+
+    public void DoWork(Transform target)
+    {
+        if(target == null)
         {
-            if (hit.CompareTag(jobData.JobPosName))
-            {
-                _target = hit;  
-                GetComponent<BehaviorGraphAgent>().SetVariableValue("Target", hit.transform);
-                break;
-            }
+            Debug.LogWarning("DoWork Failed: Target is null");
+            return;
         }
+        if(!(target.TryGetComponent<Building>(out Building building)))
+        {
+            Debug.LogWarning("DoWork Failed: Target has no Building component");
+            return;
+        }
+        if(building.NowMinion >= building.buildingSO.maxMinion)
+        {
+            Debug.LogWarning($"DoWork Failed: Building is full! {building.NowMinion}/{building.buildingSO.maxMinion}");
+            return;
+        }
+
+        _building = building;
+        _building.MinionPlus(1);
+        _target = target.GetComponent<Collider2D>();
+        isWorking = true;
+        Debug.Log("DoWork Succeeded: isWorking set to true"); // 성공
     }
 
     public bool IsCollisionWithWorkBuilding()
     {
-        return GetComponent<Collider2D>().IsTouching(_target);
+        if (_mycollder == null || _target == null)
+            return false;
+
+        return _mycollder.IsTouching(_target);
     }
     public virtual void ExitWork()
     {
+        Debug.Log("[Work] End Work");
+        _building.MinionPlus(-1);
+        _building = null;
         if(!transform.GetChild(0).gameObject.activeSelf)
             transform.GetChild(0).gameObject.SetActive(true);
-        Debug.Log(transform.GetChild(0).gameObject.activeSelf);
         isWorking = false;
+        _target = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 30);
     }
 }

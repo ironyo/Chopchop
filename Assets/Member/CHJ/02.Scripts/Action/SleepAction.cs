@@ -34,11 +34,13 @@ public partial class SleepAction : Action
 
     protected override Status OnUpdate()
     {
+        Debug.Log("Slllllleeeeeepppppppp");
         return Status.Success;
     }
 
     protected override void OnEnd()
     {
+        Debug.Log("End Sleep");
     }
 }
 

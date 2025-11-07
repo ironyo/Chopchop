@@ -31,6 +31,7 @@ public class JobManager : MonoBehaviour
         if (JobDictionary.TryGetValue(type, out JobDataSO jobSO))
         {
             minion.GetComponent<WorkActionScr>().jobData = jobSO;
+            minion.behaviorGraph.BlackboardReference.SetVariableValue("SO", jobSO);
         }
     }
 }

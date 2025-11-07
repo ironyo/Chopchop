@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
+  m_Name: RestaurantBuildSO
+  m_EditorClassIdentifier: 
+  maxLevel: 3
+  buildName: "\uC2DD\uB2F9"
+  Health: 250
+  width: 12
+  maxW: 2
+  maxMinion: 3
+  countStet: 000000000000000000000000
+  resourceTypeCost:
+  - resourceTypeSO: {fileID: 11400000, guid: ad913e6d78291664dab99fd0df2e2ef6, type: 2}
+    amount: 30
+  - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
+    amount: 20
+  - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+    amount: 10
+  - resourceTypeSO: {fileID: 11400000, guid: 67370b23f00e0984a810b7d63074d683, type: 2}
+    amount: 20
