@@ -11,14 +11,17 @@ public class BuildingSO : ScriptableObject
     [Header("건물이름")]
     public string buildName;
     [Header("체력")]
-    public int Health = 300;
+    public int[] MaxHealth;
     [Header("건물크기")]
     public int width;
     public int maxW;
     [Header("건물인원수")]
-    public int maxMinion;
-    [field:Header("레벨마다 증가")]
-    public List<int> countStet;
+    public int[] maxMinion;
+    [Header("레벨능력치")]
+    public ResourceTypeCost[] levelResourceType;
+    [Header("생산력")]
+    public ResourceTypeCost[] spawnResourceType;
+    public float spawnTime;
     [Header("필요 자원")]
     public ResourceTypeCost[] resourceTypeCost;
 

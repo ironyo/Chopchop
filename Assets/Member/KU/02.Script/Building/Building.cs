@@ -1,10 +1,19 @@
+using NUnit.Framework;
 using UnityEngine;
-
+using System.Collections.Generic;
+using System;
+using Random = UnityEngine.Random;
+using TMPro;
+using UnityEngine.InputSystem;
 
 public class Building : MonoBehaviour
 {
     public int buildCount = 0;
-    public int NowHealth = 0;
+
+    public int nowHealth = 0;
+
+    private int maxHealth = 0;
+    public int maxMinion { get; private set; } = 0;
 
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
@@ -12,8 +21,13 @@ public class Building : MonoBehaviour
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
 
+    public TextMeshProUGUI logPrefab;
+
     private int level = 1;
     private int minionCount = 0;
+    private float spawnTime = 0;
+    private float spawnCurrentTime = 0;
+    [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
 
     [Header("Collider View Settings")]
     public bool showCollider = true;
@@ -28,8 +42,8 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if (buildingSO.maxLevel+1 > value)
-                level = value;
+            if (buildingSO.maxLevel >= level + value)
+                level += value;
         }
     }
     public int NowMinion
@@ -40,14 +54,14 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if(buildingSO.maxMinion+1 > value)
+            if(maxMinion >= minionCount + value)
                 minionCount = value;
         }
     }
 
     private void Start()
     {
-        NowHealth = buildingSO.Health;
+        BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -56,12 +70,32 @@ public class Building : MonoBehaviour
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
 
+
+
         InitializeLineRenderer();
     }
 
     private void Update()
     {
         UpdateColliderView();
+        if (Keyboard.current.nKey.wasPressedThisFrame)
+        {
+            BuildUpgrade();
+        }
+        if(buildingSO.spawnResourceType.Length != 0)
+            UpdateSpawnResource();
+    }
+
+    private void UpdateSpawnResource()
+    {
+        spawnCurrentTime += Time.deltaTime;
+        if(spawnCurrentTime >= spawnTime)
+        {
+            spawnCurrentTime = 0;
+            int random = Random.Range(0, spawnAmount.Count-1);
+            ResourceManager.Instance.AddResource(spawnAmount[random].resourceTypeSO, spawnAmount[random].amount);
+            ResourceLog(random);
+        }
     }
 
     private void OnDrawGizmos()
@@ -80,10 +114,39 @@ public class Building : MonoBehaviour
     public void BuildUpgrade()
     {
         NowLevel++;
+        BuildingSetUp();
     }
     public void MinionPlus(int plus)
     {
         NowMinion += plus;
+    }
+    private void BuildingSetUp()
+    {
+        maxHealth = buildingSO.MaxHealth[level-1];
+        maxMinion = buildingSO.maxMinion[level-1];
+        spawnTime = buildingSO.spawnTime;
+        nowHealth = maxHealth;
+        if (buildingSO.spawnResourceType.Length != 0)
+        {
+            SpawnResourceTypeChange();
+            for (int i = 0; i < buildingSO.spawnResourceType.Length; i++)
+            {
+                spawnAmount.Add(buildingSO.spawnResourceType[i]);
+            }
+        }
+    }
+    private void ResourceLog(int num)
+    {
+        TextMeshProUGUI obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount}";
+    }
+    private void SpawnResourceTypeChange()
+    {
+        for (int i = 0; i < spawnAmount.Count; i++)
+        {
+            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSO;
+            spawnAmount[i].amount = buildingSO.levelResourceType[level].amount;
+        }
     }
 
 
