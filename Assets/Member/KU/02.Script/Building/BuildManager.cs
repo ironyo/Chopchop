@@ -271,7 +271,8 @@ public class BuildManager : MonoBehaviour
     {
         foreach (var item in buildingSO.resourceTypeCost)
         {
-            //if(typeData < item.amount)
+            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
+            if(typeData < item.amount)
             {
                 return false;
             }
@@ -329,7 +330,8 @@ public class BuildManager : MonoBehaviour
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
             _spawnKindTex.text = "자원:" ;
-            _spawnKindTex.text += buildingParent[selectCount].buildingSO.spawnResourceType.Length == 0 ? "생성안함" : " "+ buildingParent[selectCount].buildingSO.spawnResourceType[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.spawnResourceType[0].amount + "/s";
+            if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
+                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].amount + "/s";
         }
 
         if (isClose)
