@@ -23,7 +23,7 @@ public class Building : MonoBehaviour
 
     public TextMeshProUGUI logPrefab;
 
-    private int level = 1;
+    public int level { get; private set; } = 1;
     private int minionCount = 0;
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
@@ -42,8 +42,8 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if (buildingSO.maxLevel >= level + value)
-                level += value;
+            if (buildingSO.maxLevel >= value)
+                level = value;
         }
     }
     public int NowMinion
@@ -81,8 +81,9 @@ public class Building : MonoBehaviour
         if (Keyboard.current.nKey.wasPressedThisFrame)
         {
             BuildUpgrade();
+            Debug.Log($"{NowLevel} { level}");
         }
-        if(buildingSO.spawnResourceType.Length != 0)
+        if(buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
     }
 
@@ -126,14 +127,15 @@ public class Building : MonoBehaviour
         maxMinion = buildingSO.maxMinion[level-1];
         spawnTime = buildingSO.spawnTime;
         nowHealth = maxHealth;
-        if (buildingSO.spawnResourceType.Length != 0)
+        if (buildingSO.levelResourceType.Length != 0)
         {
-            SpawnResourceTypeChange();
-            for (int i = 0; i < buildingSO.spawnResourceType.Length; i++)
+            for (int i = 0; i < buildingSO.levelResourceType[level - 1].resourceTypeSOs.Length; i++)
             {
-                spawnAmount.Add(buildingSO.spawnResourceType[i]);
+                spawnAmount.Add(buildingSO.levelResourceType[level-1].resourceTypeSOs[i]);
             }
         }
+        else if(spawnAmount.Count != 0)
+            SpawnResourceTypeChange();
     }
     private void ResourceLog(int num)
     {
@@ -144,8 +146,8 @@ public class Building : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount.Count; i++)
         {
-            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSO;
-            spawnAmount[i].amount = buildingSO.levelResourceType[level].amount;
+            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
+            spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
         }
     }
 

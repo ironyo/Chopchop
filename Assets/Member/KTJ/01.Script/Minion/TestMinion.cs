@@ -28,7 +28,7 @@ public class TestMinion : MonoBehaviour
         minionChat.AddMessage("¿ì°Æ¿ì°Æ");
         AppleParticels.Play();
 
-        SoundManager.instance.SFXPlay("EatSound",EatSound);
+        SoundManager.Instance.SFXPlay("EatSound",EatSound);
     }
 
     public void EatWater(int amount)
@@ -38,7 +38,7 @@ public class TestMinion : MonoBehaviour
         minionChat.AddMessage("²Ü²©²Ü²©!");
         WaterParticels.Play();
 
-        SoundManager.instance.SFXPlay("DrinkSound", DrinkSound);
+        SoundManager.Instance.SFXPlay("DrinkSound", DrinkSound);
     }
 
     public void Clean(int amount)
@@ -48,6 +48,6 @@ public class TestMinion : MonoBehaviour
         minionChat.AddMessage("±ú²ýÇØÁ³´Ù");
         CleanParticels.Play();
 
-        SoundManager.instance.SFXPlay("BrushSound", BrushSound);
+        SoundManager.Instance.SFXPlay("BrushSound", BrushSound);
     }
 }

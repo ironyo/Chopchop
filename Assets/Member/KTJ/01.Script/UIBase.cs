@@ -39,7 +39,7 @@ public abstract class UIBase : MonoBehaviour
     public void ToggleBtn()
     {
         UIManager.Instance?.Toggle(this);
-        SoundManager.instance.ClickSound_01();
+        SoundManager.Instance.ClickSound_01();
     }
 
     protected static Tween DoY(RectTransform rt, float y, float duration)

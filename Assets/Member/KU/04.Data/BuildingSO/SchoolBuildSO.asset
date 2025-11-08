@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 3
   buildName: "\uD559\uAD50"
-  Health: 500
+  MaxHealth: 2c0100005802000084030000
   width: 12
   maxW: 3
-  maxMinion: 5
-  countStet: 000000000000000000000000
+  maxMinion: 05000000080000000c000000
+  levelResourceType: []
+  spawnTime: 0
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
     amount: 10

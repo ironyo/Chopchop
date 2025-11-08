@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class MapBuilding : UIBase
 {
-    [SerializeField] private int addAmount = 2;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Tilemap visualTilemap;
 
@@ -66,7 +65,7 @@ public class MapBuilding : UIBase
     private void SetTile(Vector2Int anchor) // 타일설치
     {
         cis.GenerateImpulse();
-        SoundManager.instance.SFXPlay("MapSet", MapSetSound);
+        SoundManager.Instance.SFXPlay("MapSet", MapSetSound);
 
         for (int x = 0; x < currentTileSIze; x++)
         {
