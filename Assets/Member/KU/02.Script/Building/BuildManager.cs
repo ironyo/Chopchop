@@ -271,7 +271,7 @@ public class BuildManager : MonoBehaviour
     {
         foreach (var item in buildingSO.resourceTypeCost)
         {
-            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO];
+            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
             if(typeData < item.amount)
             {
                 return false;
