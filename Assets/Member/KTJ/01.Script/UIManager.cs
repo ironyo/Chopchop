@@ -18,9 +18,8 @@ public class UiClass
     public UIBase uibase;
     public UIType type;
 }
-public class UIManager : MonoBehaviour
+public class UIManager : MonoSingleton<UIManager>
 {
-    public static UIManager Instance;
 
     [SerializeField] private List<UiClass> uiList;
     [SerializeField] private RectTransform toolInventory;
@@ -37,9 +36,9 @@ public class UIManager : MonoBehaviour
     private UIBase currentUI;
     private bool isTransitioning = false;
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         uiDict = uiList.ToDictionary(x => x.type, x => x.uibase);
 
         foreach (var ui in uiDict.Values)

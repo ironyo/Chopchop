@@ -10,9 +10,10 @@ public class ResourceManager : MonoBehaviour
 {
     public ResourceTypeListSO _resourceTypeListSO;
     public static ResourceManager Instance;
-    public Dictionary<ResourceTypeSO, int> resourceAmountDictionary = new Dictionary<ResourceTypeSO, int>();
-    
-    [SerializeField] TextMeshProUGUI[] text;
+    public Dictionary<ResourceTypeSO, (int, ResourcePref)> resourceAmountDictionary = new Dictionary<ResourceTypeSO, (int, ResourcePref)> ();
+
+    [SerializeField] private GameObject resourcePref;
+    [SerializeField] private RectTransform prefSpawnPos;
 
     private void Awake()
     {
@@ -21,10 +22,10 @@ public class ResourceManager : MonoBehaviour
         
         foreach (ResourceTypeSO resource in _resourceTypeListSO.list)
         {
-            resourceAmountDictionary.Add(resource, 0);
+            ResourcePref clonedPref = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
+            clonedPref.Set(resource.StartCount, resource.Icon);
+            resourceAmountDictionary.Add(resource, (0, clonedPref));
         }
-
-        TestLog();
     }
 
     private void TestLog()
@@ -37,24 +38,27 @@ public class ResourceManager : MonoBehaviour
 
     public void AddResource(ResourceTypeSO resourceType ,int amount)
     {
-        resourceAmountDictionary[resourceType] += amount;
+        var current = resourceAmountDictionary[resourceType];
+        current.Item1 += amount;
+        resourceAmountDictionary[resourceType] = current;
         TestLog();
     }
     
     public void UseResource(ResourceTypeSO resourceType ,int amount)
     {
-        if (resourceAmountDictionary[resourceType] >= amount)
+        if (resourceAmountDictionary[resourceType].Item1 >= amount)
         {
-            resourceAmountDictionary[resourceType] -= amount;
-            TestLog();
+            var current = resourceAmountDictionary[resourceType];
+            current.Item1 += amount;
+            resourceAmountDictionary[resourceType] = current; TestLog();
         }
     }
 
-    // private void ToText()
-    // {
-    //     for (int i = 0; i < resourceAmountDictionary.Count; i++)
-    //     {
-    //         text[i].text = _resourceTypeListSO.list[i] + ": " + resourceAmountDictionary[_resourceTypeListSO.list[i]];
-    //     }
-    // }
+    //private void ToText()
+    //{
+    //    for (int i = 0; i < resourceAmountDictionary.Count; i++)
+    //    {
+    //        text[i].text = _resourceTypeListSO.list[i] + ": " + resourceAmountDictionary[_resourceTypeListSO.list[i]];
+    //    }
+    //}
 }

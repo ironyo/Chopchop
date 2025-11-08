@@ -1,11 +1,10 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-public class PoolManager : MonoBehaviour
+public class PoolManager : MonoSingleton<PoolManager>
 {
-    public static PoolManager Instance { get; private set; }
-
     [System.Serializable]
     public class Pool
     {
@@ -17,18 +16,6 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private List<Pool> pools = new List<Pool>();
     private Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {

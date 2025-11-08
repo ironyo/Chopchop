@@ -2,28 +2,14 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoSingleton<SoundManager>
 {
     public AudioMixer mixer;
     public AudioSource bgsound;
     public AudioClip[] bglist;
-    public static SoundManager instance;
 
     [Header("Audio clip")]
     [SerializeField] private AudioClip clickSound_01;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void OnEnable()
     {
