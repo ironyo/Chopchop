@@ -9,11 +9,12 @@ using Random = UnityEngine.Random;
 namespace Member.CHJ._02.Scripts.Action
 {
     [Serializable, GeneratePropertyBag]
-    [NodeDescription(name: "Patrol", story: "Patrol [NavMesh] [self]", category: "Action", id: "974f3a2bbe91bb23804f19b98d33062c")]
+    [NodeDescription(name: "MinionPatrol", story: "Patrol [Navmesh] [Self]", category: "Action", id: "974f3a2bbe91bb23804f19b98d33062c")]
     public partial class PatrolAction : Unity.Behavior.Action
     {
-        [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMeshAgent;
+        [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
         [SerializeReference] public BlackboardVariable<GameObject> Self;
+        private const int MaxAttempt = 10;
         private Vector3 _targetPos;
         private Minion _minion;
         private float _lastTime;
@@ -23,9 +24,8 @@ namespace Member.CHJ._02.Scripts.Action
         {
             Debug.Log("[State] Start Patrol Action!!");
             _minion = Self.Value.GetComponent<Minion>();
-            RandomPatrol();
-            // StopNavmesh();
-        
+            RandomPatrol(Self.Value.transform.position, 3);
+            
             return Status.Running;
         }
 
@@ -37,37 +37,38 @@ namespace Member.CHJ._02.Scripts.Action
         protected override Status OnUpdate()
         {
             if (!CheckTime()) return Status.Success;
-        
-            RandomPatrol(); // 순찰
+
+              
+            if (Navmesh.Value.remainingDistance <= 0.1f)
+            {
+                RandomPatrol(Self.Value.transform.position, 3);
+            }
             
             if (_minion.currentState != AiStates.Patrol) return Status.Success;
             return Status.Running;
         }
         
-        private void RandomPatrol()
+        private void RandomPatrol(Vector2 currentPos, float radius)
         {
-            // _lastTime = TimeManager.Instance.CurrentTime;
-            // NavMesh.Value.ResetPath();
-            // Vector2 patrolPos= PatrolSiteManager.Instance.patrolSite[Random.Range(0, PatrolSiteManager.Instance.patrolSite.Count)].transform.position;
-            // if( NavMesh.Value(patrolPos + new Vector2(Random.Range(-3, 3), Random.Range(-3, 3)))
-            // Self.Value.transform.position = Vector3.MoveTowards(Self.Value.transform.position,_movement.RandomPatrol(), 2);
-            do
+            for (int i = 0; i < MaxAttempt; i++)
             {
-                Vector3 randomPos = Random.insideUnitCircle * 20;
-                randomPos += Self.Value.transform.position;
+                Vector3 randomPos = Random.insideUnitCircle * radius;
+                randomPos += (Vector3)currentPos;
                 _target = randomPos;
                 _target.z = 0;
-
-            } 
-            while (!NavMesh.SamplePosition(_target, out NavMeshHit hit, 20, NavMesh.AllAreas));
-            Debug.Log($"Patrol Target {_target}");
+                if (NavMesh.SamplePosition(_target, out NavMeshHit hit, 10, NavMesh.AllAreas))
+                {
+                    Navmesh.Value.SetDestination(hit.position);
+                    return;
+                }
+            }
+            Navmesh.Value.SetDestination(currentPos);
         }
     
   
 
         protected override void OnEnd()
         {
-            // ResumeNavmesh();
             base.OnEnd();
         }
     }
