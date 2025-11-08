@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Controls",
     "maps": [
         {
@@ -19,6 +20,15 @@
                     "type": "Value",
                     "id": "b7331ce0-6d67-4bec-9819-f95cb1182949",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "KeyboardEtc",
+                    "type": "Value",
+                    "id": "3acbc0b2-cc60-410e-a409-4ef46b6db122",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -88,6 +98,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca61d064-04de-4547-9bbe-b61094f71107",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyboardEtc",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

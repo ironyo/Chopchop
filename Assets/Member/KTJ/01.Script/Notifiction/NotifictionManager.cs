@@ -3,10 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class NotifictionManager : MonoBehaviour
+public class NotifictionManager : MonoSingleton<NotifictionManager>
 {
-    public static NotifictionManager Instance;
-
     [SerializeField] private RectTransform NotificAnc; // 알림창 움직이는거
     [SerializeField] private TextMeshProUGUI TitleTxt;
     [SerializeField] private TextMeshProUGUI TitleShadowTxt;
@@ -21,16 +19,9 @@ public class NotifictionManager : MonoBehaviour
 
     public UnityEvent<string, string> NotifictionEvent;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
+        base.Awake();
         seq = DOTween.Sequence();
     }
 
@@ -54,7 +45,7 @@ public class NotifictionManager : MonoBehaviour
 
         seq.AppendCallback(() =>
         {
-            SoundManager.instance.SFXPlay("BellRing", bellSound);
+            SoundManager.Instance.SFXPlay("BellRing", bellSound);
         }
         );
         seq.Append(AlarmIcon.DORotate(new Vector3(0, 0, -20), 0.2f));
