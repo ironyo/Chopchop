@@ -29,7 +29,7 @@ public class BuildingSelector : MonoBehaviour
                 isOpen = !isOpen;
                 int count = buildCompo.buildCount;
                 Debug.Log(count);
-                BuildManager.Instance.GetSelectData(count, buildCompo.buildingSO);
+                BuildManager.Instance.GetSelectData(count);
             }
         }
     }

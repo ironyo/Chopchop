@@ -9,32 +9,39 @@ public enum UnitType {Player, Enemy, HQ}
 
 public class Unit : MonoBehaviour
 {
+    public HealthSystem healthCompo {get; private set;}
     public UnitDataSO data;
     public UnitType _unitType;
-    public HealthSystem healthCompo {get; private set;}
+    [SerializeField] private float attackRange = 2f;
+    public bool isLanding = false;
+    [field: SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; private set; }
     
     private NavMeshAgent navAgent;
     private float attackCooldown;
-    [SerializeField] private float attackRange = 2f;
     private Unit target;
-    public bool isLanding = false;
-    [field: SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; private set; }
+    private Rifle rifle;
 
     private void Awake()
     {
         if (_unitType != UnitType.HQ)
-        {
-            navAgent = GetComponent<NavMeshAgent>();
-            navAgent.updateRotation = false;
-            navAgent.updateUpAxis = false;
-            navAgent.avoidancePriority = Random.Range(20, 80);
-            navAgent.stoppingDistance = 0.5f;
-            navAgent.autoBraking = false;
-        }
+            NavAgentSet();
         
         healthCompo = GetComponent<HealthSystem>();
         //healthCompo.maxHealth = data.hp;
         healthCompo.OnDead += Die;
+        
+        if (_unitType == UnitType.Player)
+            rifle = transform.Find("WeaponParent/Rifle").GetComponent<Rifle>();
+    }
+
+    private void NavAgentSet()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.updateRotation = false;
+        navAgent.updateUpAxis = false;
+        navAgent.avoidancePriority = Random.Range(20, 80);
+        navAgent.stoppingDistance = 0.5f;
+        navAgent.autoBraking = false;
     }
 
     private void Update()
@@ -91,6 +98,9 @@ public class Unit : MonoBehaviour
         
         _target.GetComponent<HealthSystem>().GetDamage(data.attack);
         attackCooldown = data.attackSpeed;
+        
+        if (_unitType == UnitType.Player)
+            rifle.ShootBullet();
     }
 
     private void Die()

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Member/JJK/05.SO/InvasionDialog.asset.meta
 guid: 046a5a3999d67b24fb41fe305fce21b1
+========
+guid: 0bc1fa240f2ff7c4492053d569d6e64a
+>>>>>>>> main:Assets/Member/JJK/05.SO/ResourceType/Soil.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

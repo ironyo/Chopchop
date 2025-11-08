@@ -17,6 +17,7 @@ public class BuildManager : MonoBehaviour
     private int width;
     private int maxW = 3;
 
+    [SerializeField] private TextMeshProUGUI _logPrefab;
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
@@ -53,7 +54,6 @@ public class BuildManager : MonoBehaviour
 
 
     private int selectCount = 0;
-    private BuildingSO selectSO;
 
 
     private LineRenderer lineRenderer;
@@ -82,7 +82,6 @@ public class BuildManager : MonoBehaviour
         UpdateColliderView();
         BuildOrCancle();
         BuildUISetting(!BuildingSelect());
-
 
 
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -186,19 +185,7 @@ public class BuildManager : MonoBehaviour
     }
     private void BuildedClear()
     {
-        if (!CanSpawn()) return;
-
-        //foreach (var item in buildingSO.resourceTypeCost)
-        //{
-        //    if(item.amount > 현재 자원)
-        //    {
-        //        return;
-        //    }
-        //}
-        //foreach (var item in buildingSO.resourceTypeCost)
-        //{
-        //    필요 자원 만큼 현재 자원에서 감소
-        //}
+        if (!CanSpawn() || !CanResourceAmount()) return;
 
         showCollider = false;
         isBuilding = false;
@@ -208,6 +195,7 @@ public class BuildManager : MonoBehaviour
         par.transform.position = mousePos;
 
         Building building = par.AddComponent<Building>();
+        building.logPrefab = _logPrefab;
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
         building.buildingSO = buildingSO;
@@ -217,7 +205,7 @@ public class BuildManager : MonoBehaviour
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            //Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            //이건 이미지 스파리트 이미지로 하고싶을때 -> Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Instantiate(_blockTilemap, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Destroy(spawnGrid[i]);
         }
@@ -257,6 +245,10 @@ public class BuildManager : MonoBehaviour
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
         buildingCount++;
+        foreach (var item in buildingSO.resourceTypeCost)
+        {
+            ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
+        }
     }
     private bool CanSpawn()
     {
@@ -275,7 +267,18 @@ public class BuildManager : MonoBehaviour
 
         return true;
     }
+    private bool CanResourceAmount()
+    {
+        foreach (var item in buildingSO.resourceTypeCost)
+        {
+            //if(typeData < item.amount)
+            {
+                return false;
+            }
+        }
 
+        return true;
+    }
     private void OnDrawGizmos()
     {
         if (boxCollider != null)
@@ -322,10 +325,11 @@ public class BuildManager : MonoBehaviour
     {
         if(buildingParent.Count != 0)
         {
-            Debug.Log(selectCount);
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
-            _buildHPTex.text = $"체력: {buildingParent[selectCount].NowHealth}";
+            _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
+            _spawnKindTex.text = "자원:" ;
+            _spawnKindTex.text += buildingParent[selectCount].buildingSO.spawnResourceType.Length == 0 ? "생성안함" : " "+ buildingParent[selectCount].buildingSO.spawnResourceType[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.spawnResourceType[0].amount + "/s";
         }
 
         if (isClose)
@@ -344,11 +348,10 @@ public class BuildManager : MonoBehaviour
 
 
     public BuildingSO GetBuildData() => buildingSO;
-    public void GetSelectData(int count, BuildingSO so)
+    public void GetSelectData(int count)
     {
         _time = 0;
         selectCount = count;
-        selectSO = so;
     }
 
 

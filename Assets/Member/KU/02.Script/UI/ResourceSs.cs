@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ResourceSs : MonoBehaviour
@@ -8,9 +9,18 @@ public class ResourceSs : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _image;
 
+    private BuildingSO buildSOData;
+
     public void ResourceSet(BuildingSO buildData)
     {
-        _text.text = $"{0} / {buildData.resourceTypeCost[count].amount}";
-        //image.sprite = buildData.resourceTypeCost. <- 해당 타입 스프라이트
+        buildSOData = buildData;
+    }
+    private void Update()
+    {
+        if (Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            ResourceManager.Instance.AddResource(buildSOData.resourceTypeCost[count].resourceTypeSO, 1);
+        }
+        _text.text = $"{ResourceManager.Instance.resourceAmountDictionary[buildSOData.resourceTypeCost[count].resourceTypeSO]} / {buildSOData.resourceTypeCost[count].amount}";
     }
 }

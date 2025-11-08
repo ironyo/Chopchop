@@ -4,5 +4,6 @@ using UnityEngine;
 public class ResourceTypeSO : ScriptableObject
 {
     public string name;
-    public Sprite sprite;
+    public Sprite Icon;
+    public int StartCount; // 처음 제공하는 자원
 }
