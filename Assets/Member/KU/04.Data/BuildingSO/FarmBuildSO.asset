@@ -20,26 +20,20 @@ MonoBehaviour:
   maxMinion: 030000000600000009000000
   levelResourceType:
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: bc3012c6e33bc0f4e8c76726746d8540, type: 2}
+    - resourceTypeSO: {fileID: 11400000, guid: 0bc1fa240f2ff7c4492053d569d6e64a, type: 2}
       amount: 1
     level: 1
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: bc3012c6e33bc0f4e8c76726746d8540, type: 2}
-      amount: 2
-    - resourceTypeSO: {fileID: 11400000, guid: 68784335437fa9c4f85113d47243fe3b, type: 2}
-      amount: 1
+    - resourceTypeSO: {fileID: 11400000, guid: 0bc1fa240f2ff7c4492053d569d6e64a, type: 2}
+      amount: 3
     level: 2
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: bc3012c6e33bc0f4e8c76726746d8540, type: 2}
-      amount: 4
-    - resourceTypeSO: {fileID: 11400000, guid: 68784335437fa9c4f85113d47243fe3b, type: 2}
-      amount: 2
-    - resourceTypeSO: {fileID: 11400000, guid: ad913e6d78291664dab99fd0df2e2ef6, type: 2}
-      amount: 1
+    - resourceTypeSO: {fileID: 11400000, guid: 0bc1fa240f2ff7c4492053d569d6e64a, type: 2}
+      amount: 5
     level: 3
   spawnTime: 1
   resourceTypeCost:
+  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+    amount: 30
   - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
     amount: 15
-  - resourceTypeSO: {fileID: 11400000, guid: ad913e6d78291664dab99fd0df2e2ef6, type: 2}
-    amount: 12
