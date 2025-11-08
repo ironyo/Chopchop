@@ -14,13 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 3
   buildName: "\uAD11\uC0B0"
-  Health: 300
+  MaxHealth: c800000090010000bc020000
   width: 9
   maxW: 3
-  maxMinion: 3
-  spawnResourceType:
-  - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
-    amount: 1
+  maxMinion: 030000000600000009000000
+  levelResourceType:
+  - resourceTypeSOs:
+    - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+      amount: 1
+    level: 1
+  - resourceTypeSOs:
+    - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+      amount: 3
+    - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+      amount: 1
+    level: 2
+  - resourceTypeSOs:
+    - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+      amount: 5
+    - resourceTypeSO: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+      amount: 3
+    - resourceTypeSO: {fileID: 11400000, guid: ebaa3812068d02349aeb0775e9c31eed, type: 2}
+      amount: 2
+    level: 3
   spawnTime: 2
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
