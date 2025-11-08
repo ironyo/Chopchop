@@ -1154,18 +1154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceTypeListSO: {fileID: 11400000, guid: 23b5ca1ba353b194e975f9cf9d918d84, type: 2}
-  text:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  resourcePref: {fileID: 0}
+  prefSpawnPos: {fileID: 0}
 --- !u!4 &1152868538
 Transform:
   m_ObjectHideFlags: 0
@@ -5077,13 +5067,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   options:
   - cost: 50
-    type: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+    type: {fileID: 0}
   - cost: 50
     type: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
   - cost: 50
-    type: {fileID: 11400000, guid: 456e1011b9109c240a29b2348284f8a7, type: 2}
+    type: {fileID: 0}
   - cost: 50
-    type: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+    type: {fileID: 0}
   - cost: 50
     type: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
 --- !u!1001 &1938887940
@@ -5137,10 +5127,6 @@ PrefabInstance:
     - target: {fileID: 275127846613913689, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1836556621281908735, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
