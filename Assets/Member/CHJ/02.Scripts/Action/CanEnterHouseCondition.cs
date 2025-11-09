@@ -22,7 +22,7 @@ public partial class CanEnterHouseCondition : Condition
             if (hit.TryGetComponent<Building>(out var building))
             {
                 if (building.buildingSO == null) continue;
-                if (building.buildingSO.name != "NormalBuildSO") continue;
+                if (building.buildingSO.name != "House") continue;
                 if (building.NowMinion >= building.maxMinion) continue;
 
                 foundTrm = hit.transform;
