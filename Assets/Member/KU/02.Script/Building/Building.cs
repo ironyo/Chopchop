@@ -117,6 +117,21 @@ public class Building : MonoBehaviour
         NowLevel++;
         BuildingSetUp();
     }
+
+    
+    public bool TryReserve()
+    {
+        if (NowMinion + 1 >= maxMinion)
+            return false;
+        Debug.Log("Can Add Minion On Building");
+        MinionPlus(1);
+        return true;
+    }
+
+    public void Release()
+    {
+        NowMinion = Mathf.Max(0, NowMinion - 1);
+    }
     public void MinionPlus(int plus)
     {
         NowMinion += plus;
