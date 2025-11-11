@@ -25,11 +25,16 @@ public class BuildingSelector : MonoBehaviour
 
             if (hit != null && hit == boxCollider && hit.isTrigger == false)
             {
-                Debug.Log(hit);
-                isOpen = !isOpen;
+                if (isOpen)
+                {
+                    isOpen = false;
+                }
+                else
+                {
+                    BuildManager.Instance.CloseAllBuildUI(buildCompo);
+                }
                 int count = buildCompo.buildCount;
-                Debug.Log(count);
-                BuildManager.Instance.GetSelectData(count);
+                BuildManager.Instance.GetSelectData(count, buildCompo.level);
             }
         }
     }

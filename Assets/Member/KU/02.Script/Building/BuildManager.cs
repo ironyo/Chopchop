@@ -27,7 +27,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject _buildingCanvus;
     [SerializeField] private GameObject _blockTilemap;
 
-    [SerializeField] private List<Building> buildingParent = new();
+    [SerializeField] List<Building> buildingParent = new();
 
     [Header("UISetting")]
     [SerializeField] private float _moveDistance = 600f;
@@ -52,6 +52,7 @@ public class BuildManager : MonoBehaviour
     private BuildingSO buildingSO;
     private int buildingCount = 0;
 
+    int selectLevel = 0;
 
     private int selectCount = 0;
 
@@ -240,14 +241,14 @@ public class BuildManager : MonoBehaviour
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion}";
+        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
         buildingCount++;
         foreach (var item in buildingSO.resourceTypeCost)
         {
-            ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
+            ResourceManager.Instance.UseResource(item.resourceTypeSO, -item.amount);
         }
     }
     private bool CanSpawn()
@@ -331,7 +332,7 @@ public class BuildManager : MonoBehaviour
             _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
             _spawnKindTex.text = "자원:" ;
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
-                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].amount + "/s";
+                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel-1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel-1].resourceTypeSOs[0].amount + "/s";
         }
 
         if (isClose)
@@ -350,10 +351,27 @@ public class BuildManager : MonoBehaviour
 
 
     public BuildingSO GetBuildData() => buildingSO;
-    public void GetSelectData(int count)
+    public void CloseAllBuildUI(Building me)
+    {
+        foreach (var b in buildingParent)
+        {
+            if (b != me)
+            {
+                b.buildingSelector.isOpen = false;
+                Debug.Log("aa");
+
+            }
+            else
+            {
+                b.buildingSelector.isOpen = true;
+            }
+        }
+    }
+    public void GetSelectData(int count, int level)
     {
         _time = 0;
         selectCount = count;
+        selectLevel = level;
     }
 
 
