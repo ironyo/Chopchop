@@ -50,7 +50,7 @@ public class WorkActionScr : MonoBehaviour
     public virtual void ExitWork()
     {
         Debug.Log("[Work] End Work");
-        _building.MinionPlus(-1);
+        _building.Release();
         _building = null;
         if(!transform.GetChild(0).gameObject.activeSelf)
             transform.GetChild(0).gameObject.SetActive(true);
@@ -61,5 +61,7 @@ public class WorkActionScr : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, 30);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, 10);
     }
 }

@@ -11,36 +11,17 @@ using UnityEngine.AI;
 public partial class SleepAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<List<GameObject>> House;
+    [SerializeReference] public BlackboardVariable<Building> House;
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
-    private List<GameObject> HouseList = new List<GameObject>();
     protected override Status OnStart()
     {
-        Collider2D[] houses = Physics2D.OverlapCircleAll(Self.Value.transform.position, 100);
-        foreach (var house in houses)
-        {
-            if (house.CompareTag("House"))
-            {
-                HouseList.Add(house.gameObject);
-            }
-        }
-        if (HouseList.Count != 0)
-        {
-            NavMesh.Value.SetDestination(HouseList[0].transform.position);
-        }
-        
-        return Status.Running;
-    }
-
-    protected override Status OnUpdate()
-    {
-        Debug.Log("Slllllleeeeeepppppppp");
+        NavMesh.Value.SetDestination(House.Value.gameObject.transform.position);
         return Status.Success;
     }
 
     protected override void OnEnd()
     {
-        Debug.Log("End Sleep");
+        House.Value.Release();
+        base.OnEnd();
     }
 }
-
