@@ -7,27 +7,27 @@ using UnityEngine;
 using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Cant Find Building Action", story: "[Nevmesh] [Self] After [State]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
+[NodeDescription(name: "Cant Find Building Action", story: "[Navmesh] [Self] After [State]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
 public partial class CantFindBuildingAction : Action
 {
-    [SerializeReference] public BlackboardVariable<NavMeshAgent> Nevmesh;
+    [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<AiStates> State;
     private Vector3 _targetPos;
-    private MinionMovementManager _movement;
+    private Vector3 _target;
     private Minion _minion;
     private float _lastTime;
 
     protected override Status OnStart()
     {
         Debug.Log("[Patrol] Start Patrol");
-        _movement = new MinionMovementManager();
         _minion = Self.Value.GetComponent<Minion>();
-        RandomPatrol();
+        RandomPatrol(Self.Value.transform.position, 4);
         
-        return Status.Success;
+        return Status.Running;
     }
 
     private bool CheckTime()
@@ -41,59 +41,40 @@ public partial class CantFindBuildingAction : Action
     }
     protected override Status OnUpdate()
     {
-        if (!CheckTime()) return Status.Success;
-        
-        // 목적지 도착 체크
-        // if (!NavMesh.Value.pathPending &&
-        //     NavMesh.Value.remainingDistance <= NavMesh.Value.stoppingDistance &&
-        //     !MateManager.Instance.canMate)
-        // {
-        //     RandomPatrol();
-        // }
-        if (TimeManager.Instance.CurrentTime - _lastTime >= 3)
+        Debug.Log("Patrol Update");
+        if (!CheckTime())
         {
-            RandomPatrol();
-            Debug.Log("[Patrol] Can Patrol Time");
+            Debug.Log("END");
+            return Status.Success;
         }
         
-        
+        if (Navmesh.Value.remainingDistance <= 0.1f)
+        {
+            RandomPatrol(Self.Value.transform.position, 4);
+        }
+
         if (_minion.currentState != AiStates.Patrol) return Status.Success;
         return Status.Running;
     }
 
-    private IEnumerator CheckPatrol()
-    {
-        RandomPatrol();
-        if (!Nevmesh.Value.pathPending &&
-            Nevmesh.Value.remainingDistance <= Nevmesh.Value.stoppingDistance)
-        {
-            RandomPatrol();
-        }
-        yield return new WaitForSeconds(2);
-        RandomPatrol();
-    }
 
-    private void RandomPatrol()
+    private void RandomPatrol(Vector3 currentPos, float radius)
     {
-        Debug.Log("PPPPPPPPPPPPPPAAAAAATROl");
-        _lastTime = TimeManager.Instance.CurrentTime;
-        Nevmesh.Value.ResetPath();
-        Nevmesh.Value.SetDestination(_movement.RandomPatrol());
-    }
-    
-    public void FindMatePartner()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 1);
-        foreach (var hit in hits)
+        for (int i = 0; i < MaxAttempt; i++)
         {
-            if (hit.TryGetComponent<Minion>(out var minion))
+            Vector3 randomPos = Random.insideUnitCircle * radius;
+            randomPos += (Vector3)currentPos;
+            _target = randomPos;
+            _target.z = 0;
+            if (NavMesh.SamplePosition(_target, out NavMeshHit hit, 10, NavMesh.AllAreas))
             {
-                if (!minion.isFoundPartner)
-                {
-                    _minion.StartCoroutine(_minion.Mate(minion));
-                }
+                Navmesh.Value.SetDestination(hit.position);
+                return;
             }
         }
+        Navmesh.Value.SetDestination(currentPos);
     }
+
+    private const int MaxAttempt = 10;
 }
 

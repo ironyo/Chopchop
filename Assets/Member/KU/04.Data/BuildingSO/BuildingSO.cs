@@ -17,10 +17,8 @@ public class BuildingSO : ScriptableObject
     public int maxW;
     [Header("건물인원수")]
     public int[] maxMinion;
-    [Header("레벨능력치")]
-    public ResourceTypeCost[] levelResourceType;
-    [Header("생산력")]
-    public ResourceTypeCost[] spawnResourceType;
+    [Header("레벨별 생산력")]
+    public LevelResourceTypeCost[] levelResourceType;
     public float spawnTime;
     [Header("필요 자원")]
     public ResourceTypeCost[] resourceTypeCost;
@@ -32,4 +30,10 @@ public class ResourceTypeCost
 {
     public ResourceTypeSO resourceTypeSO;
     public int amount;
+}
+[Serializable]
+public class LevelResourceTypeCost
+{
+    public ResourceTypeCost[] resourceTypeSOs;
+    public int level;
 }

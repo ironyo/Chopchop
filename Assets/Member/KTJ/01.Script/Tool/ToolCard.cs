@@ -32,8 +32,8 @@ public class ToolCard : MonoBehaviour
         LevelTxt.text = "도구레벨 " + tool.ToolLevel.ToString();
         DescTxt.text = tool.ToolSO.ToolDesc[tool.ToolLevel - 1].ToString();
 
-        IconImage.sprite = tool.ToolSO.Icon[tool.ToolLevel - 1];
-        ShadowIconImage.sprite = tool.ToolSO.Icon[tool.ToolLevel - 1];
+        IconImage.sprite = tool.ToolSO.HighlitedIcon[tool.ToolLevel - 1];
+        ShadowIconImage.sprite = tool.ToolSO.HighlitedIcon[tool.ToolLevel - 1];
 
         PurchaseButton.onClick.AddListener(() =>
         {

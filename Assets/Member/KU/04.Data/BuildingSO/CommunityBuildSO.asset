@@ -14,14 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 3
   buildName: "\uBCF8\uBD80"
-  Health: 500
+  MaxHealth: f401000020030000b0040000
   width: 6
   maxW: 2
-  maxMinion: 10
-  spawnResourceType: []
+  maxMinion: 04000000080000000f000000
+  levelResourceType: []
   spawnTime: 0
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
     amount: 30
-  - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
-    amount: 20

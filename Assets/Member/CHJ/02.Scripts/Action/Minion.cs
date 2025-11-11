@@ -30,7 +30,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     
     private NavMeshAgent _navMesh;
 
-    private bool _isCanSchedule = true;
+    public bool isMating;
 
     public MinionTime TimeStruct;
 
@@ -75,14 +75,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         
         TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
-    private AiStates TimeCheck(float time)
-    {
-        if (time < firstWork) return AiStates.Work;
-        else if (time < patrol) return AiStates.Patrol;
-        else if (time < secondWork) return AiStates.Work;
-        else return AiStates.Sleep;
-    }
-
     public void SetState(AiStates newState)
     {
         Debug.Log($"{newState} 로 Set State");
