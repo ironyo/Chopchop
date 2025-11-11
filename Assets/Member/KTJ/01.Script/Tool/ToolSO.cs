@@ -12,7 +12,6 @@ public abstract class ToolSO : ScriptableObject
 {
     [Header("도구 레벨별 정보")]
     public string[] ToolName = new string[3];
-    public Sprite[] Icon = new Sprite[3];
     public Sprite[] HighlitedIcon = new Sprite[3];
     public int[] Amount = new int[3];
     public int[] Price = new int[3];

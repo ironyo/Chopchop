@@ -79,16 +79,16 @@ public partial class WorkAction : Action
             Vector2 targetPos = Target.Value.position;
             Navmesh.Value.SetDestination(targetPos);
         }
-        if(Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
-            _minion.visualObj.SetActive(false);
+        if(Work.Value.IsCollisionWithWorkBuilding() && _minion.GetVisualObject().activeSelf)
+            _minion.GetVisualObject().SetActive(false);
 
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
-        if(_minion.visualObj != null)
-            _minion.visualObj.SetActive(true);
+        if(_minion.GetVisualObject() != null)
+            _minion.GetVisualObject().SetActive(true);
         
         
         Work.Value.ExitWork();

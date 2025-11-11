@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &932244417707048679
 Transform:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4951,6 +4951,7 @@ Transform:
   m_Children:
   - {fileID: 7082589861048270593}
   - {fileID: 2539392944308005795}
+  - {fileID: 3009022247614687650}
   m_Father: {fileID: 5919215395056594442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2335060211261734108
@@ -5409,6 +5410,7 @@ GameObject:
   - component: {fileID: 8594335183946320537}
   - component: {fileID: 3179685031478354654}
   - component: {fileID: 3332209083453485100}
+  - component: {fileID: 1027749144804107621}
   m_Layer: 7
   m_Name: Minion
   m_TagString: Untagged
@@ -5430,7 +5432,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3997184263753773003}
-  - {fileID: 3009022247614687650}
   - {fileID: 932244417707048679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5573,8 +5574,10 @@ MonoBehaviour:
   sleep: 0
   isCanMate: 0
   _particleSystem: {fileID: 479843439719779126}
+  <visualObj>k__BackingField: {fileID: 2327706680347196854}
   currentState: 0
   isFoundPartner: 0
+  isMating: 0
 --- !u!114 &3179685031478354654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5618,6 +5621,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+--- !u!58 &1027749144804107621
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004249982730692422}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &5937559056081135482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5779,13 +5818,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7446075106348477217}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6197898278183598078}
-  m_Father: {fileID: 5919215395056594442}
+  m_Father: {fileID: 3997184263753773003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

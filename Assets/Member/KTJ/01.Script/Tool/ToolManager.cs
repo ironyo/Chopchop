@@ -86,7 +86,7 @@ public class ToolManager : MonoBehaviour
                 countTxt.text = toolInventory[i].count.ToString();
 
             if (clonedSlot.transform.Find("ItemImage").TryGetComponent<Image>(out Image toolImage))
-                toolImage.sprite = toolInventory[i].tool.Icon[MainTools[i].ToolLevel - 1];
+                toolImage.sprite = toolInventory[i].tool.HighlitedIcon[MainTools[i].ToolLevel - 1];
 
             if (clonedSlot.TryGetComponent<Button>(out Button slotBtn))
                 slotBtn.onClick.AddListener(() => ToolGive(index));

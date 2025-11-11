@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class MapBuilding : UIBase
 {
-    [SerializeField] private Tilemap tilemap;
+    private Tilemap tilemap;
     [SerializeField] private Tilemap visualTilemap;
 
     [SerializeField] private RuleTile ruleTile;
@@ -28,6 +28,7 @@ public class MapBuilding : UIBase
     private void Awake()
     {
         cis = GetComponent<CinemachineImpulseSource>();
+        tilemap = MapManager.Instance.tilemap;
     }
 
     private void Update()

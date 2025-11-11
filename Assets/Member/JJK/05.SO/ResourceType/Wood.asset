@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   name: "\uB098\uBB34"
-  Icon: {fileID: 21300000, guid: ccfab48d59012b8408c6672e82add4ff, type: 3}
-  StartCount: 12
+  Icon: {fileID: 21300000, guid: 78b85cc9bd598934abe1fad1bc908d80, type: 3}
+  StartCount: 10
