@@ -20,7 +20,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     
     public BehaviorGraphAgent behaviorGraph {get; private set;}
 
-    public GameObject visualObj { get; private set;}
+    [field: SerializeField]public GameObject visualObj { get; private set;}
 
     public MinionStats Stats;
     
@@ -43,7 +43,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
-        visualObj = transform.GetChild(0).gameObject;
         currentState = AiStates.None;
         SetState(currentState);
     }
@@ -51,14 +50,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         InitializeDay();
-        try
-        {
-            MinionManager.Instance.AddMinion(this);
-        }
-        catch(NullReferenceException)
-        {
-            Debug.Log(MinionManager.Instance);
-        }
+        MinionManager.Instance.AddMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
     }
 
@@ -75,6 +67,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         
         TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
+    
     public void SetState(AiStates newState)
     {
         Debug.Log($"{newState} 로 Set State");
@@ -82,7 +75,13 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
+    public void StartMate()
+    {
+        SetState(AiStates.Mate);
+        isMating = true;
+    }
 
+    public void EndMate() => isMating = false;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (JobButtonManager.Instance.Minion != this)
@@ -91,49 +90,18 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
-    
+    public GameObject GetVisualObject()
+    {
+        Debug.Log(visualObj);
+        return visualObj;
+    }
     private void LateUpdate()
     {
         Vector3 p = transform.position;
         p.z = 0;
         transform.position = p;
     }
-
-    #region Mate
-
-    
-
-    public IEnumerator Mate(Minion minion)
-    {
-        isFoundPartner = true;
-        behaviorGraph.End();
-        _particleSystem.SetActive(true);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 6);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("House"))
-                _navMesh.SetDestination(hit.transform.position);
-        }
-        if (_navMesh.remainingDistance <= 0.01f)
-        {
-            Debug.Log(_navMesh.destination);
-            visualObj.SetActive(false);
-            yield return new WaitForSeconds(3);
-            Debug.Log("뿌직응가호이짜");
-        }
-        
-        EndMate();
-    }
-    
-    private void EndMate()
-    {
-        visualObj.SetActive(true);
-        _particleSystem.SetActive(false);
-        behaviorGraph.Start();
-        isFoundPartner = false;
-    }
-    #endregion
+    private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
 }
 public struct MinionTime
 {
