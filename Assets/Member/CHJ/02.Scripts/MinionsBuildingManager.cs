@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Member.CHJ._02.Scripts
 {
     [Serializable]
-    public class BuildingManager
+    public class MinionsBuildingManager
     {
         public List<Building> Buildings = new List<Building>();
 
