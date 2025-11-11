@@ -11,7 +11,7 @@ namespace Member.CHJ._02.Scripts
         public List<Minion> minionList = new List<Minion>();
         public Queue<Minion> minonQueue = new Queue<Minion>();
         private Building _buildingTarget;
-        private BuildingManager _buildingManager;
+        private MinionsBuildingManager _minionsBuildingManager;
         [SerializeField] private BuildingSO houseSo;
         private WaitForSeconds _waitT = new WaitForSeconds(0.5f);
 
@@ -22,7 +22,7 @@ namespace Member.CHJ._02.Scripts
             else
                 Destroy(gameObject);
 
-            _buildingManager = new BuildingManager();
+            _minionsBuildingManager = new MinionsBuildingManager();
         }
 
         private void Start()
@@ -84,7 +84,7 @@ namespace Member.CHJ._02.Scripts
         {
             if (minonQueue.Count >= 2)
             { 
-                _buildingTarget = _buildingManager.GetNearBuilding(houseSo, minonQueue.Dequeue().transform.position);
+                _buildingTarget = _minionsBuildingManager.GetNearBuilding(houseSo, minonQueue.Dequeue().transform.position);
                 if (_buildingTarget != null)
                 {
                     var m1 = minonQueue.Dequeue();
