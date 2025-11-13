@@ -166,6 +166,9 @@ MonoBehaviour:
   _buildHPTex: {fileID: 1972369495}
   _levelTex: {fileID: 227465602}
   _spawnKindTex: {fileID: 1483160031}
+  _selectBtn: {fileID: 1810712501}
+  _upgradeBtn: {fileID: 1576313265}
+  _destroyBtn: {fileID: 2116244755}
   colliderColor: {r: 0, g: 1, b: 0, a: 1}
   lineWidth: 0.05
 --- !u!4 &134783365
@@ -1153,6 +1156,7 @@ MonoBehaviour:
   countTxt: {fileID: 0}
   countTxt_s: {fileID: 0}
   icon: {fileID: 0}
+  icon_s: {fileID: 0}
 --- !u!114 &470240899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,6 +1642,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &756014922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 756014923}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &756014923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756014922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.1473, y: -7.800133, z: -1.075603}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4239,3 +4274,4 @@ SceneRoots:
   - {fileID: 1722168616}
   - {fileID: 1827607010}
   - {fileID: 330188729}
+  - {fileID: 756014923}

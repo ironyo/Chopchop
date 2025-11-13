@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class BuildManager : MonoBehaviour
 {
@@ -37,7 +36,11 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _buildHPTex;
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
+    [SerializeField] private Button _selectBtn;
+    [SerializeField] private Button _upgradeBtn;
+    [SerializeField] private Button _destroyBtn;
 
+    private bool _nowSelect; //true면 빌딩 false면 파괴
     private Vector2 _targetPos;
     private float _time = 0;
 
@@ -53,6 +56,7 @@ public class BuildManager : MonoBehaviour
     private int buildingCount = 0;
 
     int selectLevel = 0;
+    bool isDestroing = false;
 
     private int selectCount = 0;
 
@@ -75,6 +79,19 @@ public class BuildManager : MonoBehaviour
 
     private void Start()
     {
+        _selectBtn.onClick.AddListener(() =>
+        {
+            SelectButton();
+        });
+        _selectBtn.gameObject.SetActive(false);
+        _upgradeBtn.onClick.AddListener(() =>
+        {
+            UpgradeDestroy(true);
+        });
+        _destroyBtn.onClick.AddListener(() =>
+        {
+            UpgradeDestroy(false);
+        });
         InitializeLineRenderer();
     }
 
@@ -83,6 +100,10 @@ public class BuildManager : MonoBehaviour
         UpdateColliderView();
         BuildOrCancle();
         BuildUISetting(!BuildingSelect());
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+
+        }
 
 
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -248,8 +269,9 @@ public class BuildManager : MonoBehaviour
         buildingCount++;
         foreach (var item in buildingSO.resourceTypeCost)
         {
-            ResourceManager.Instance.UseResource(item.resourceTypeSO, -item.amount);
+            ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
         }
+
     }
     private bool CanSpawn()
     {
@@ -325,7 +347,7 @@ public class BuildManager : MonoBehaviour
     }
     private void BuildUISetting(bool isClose)
     {
-        if(buildingParent.Count != 0)
+        if(buildingParent.Count != 0 && Mouse.current.leftButton.wasPressedThisFrame && !isDestroing)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -348,6 +370,43 @@ public class BuildManager : MonoBehaviour
             _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
         }
     }
+    private void SelectButton()
+    {
+        isDestroing = true;
+        _selectBtn.gameObject.SetActive(false);
+        if (_nowSelect)
+        {
+            buildingParent[selectCount].BuildUpgrade();
+        }
+        else
+        {
+            for (int i = 0; i < buildingParent.Count; i++)
+            {
+                if (buildingParent[i].buildCount > selectCount)
+                {
+                    buildingParent[i].buildCount -= 1;
+                }
+            }
+            buildingCount--;
+            selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
+            Destroy(buildingParent[selectCount].gameObject);
+            buildingParent.Remove(buildingParent[selectCount]);
+        }
+        isDestroing = false;
+    }
+    private void UpgradeDestroy(bool isUpgrade)
+    {
+        _selectBtn.gameObject.SetActive(true);
+        if (isUpgrade)
+        {
+            _nowSelect = true;
+        }
+        else
+        {
+            _nowSelect = false;
+        }
+    }
+
 
 
     public BuildingSO GetBuildData() => buildingSO;
@@ -358,7 +417,6 @@ public class BuildManager : MonoBehaviour
             if (b != me)
             {
                 b.buildingSelector.isOpen = false;
-                Debug.Log("aa");
 
             }
             else
