@@ -9,11 +9,9 @@ namespace Member.CHJ._02.Scripts
     {
         public static MinionManager Instance;
         public List<Minion> minionList = new List<Minion>();
-        public Queue<Minion> minonQueue = new Queue<Minion>();
+        [SerializeField] public BuildingSO houseSo;
         private Building _buildingTarget;
-        private MinionsBuildingManager _minionsBuildingManager;
-        [SerializeField] private BuildingSO houseSo;
-        private WaitForSeconds _waitT = new WaitForSeconds(0.5f);
+        public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 
         private void Awake()
         {
@@ -22,7 +20,7 @@ namespace Member.CHJ._02.Scripts
             else
                 Destroy(gameObject);
 
-            _minionsBuildingManager = new MinionsBuildingManager();
+            MinionsBuildingManager = new MinionsBuildingManager();
         }
 
         private void Start()
@@ -30,6 +28,12 @@ namespace Member.CHJ._02.Scripts
             TimeManager.Instance.OnOneSecond += UpdateTime;
         }
 
+        public void RegisterMinion(Minion minion)
+        {
+            if(!minionList.Contains(minion))
+                minionList.Add(minion);
+            MinionsBuildingManager.AddMinion(minion);
+        }
         private void UpdateTime(int time)
         {
             foreach (var minion in minionList)
@@ -37,7 +41,6 @@ namespace Member.CHJ._02.Scripts
                 AiStates newState = TimeCheck(minion,minion.TimeStruct,time);
                 if (minion.currentState == newState || minion.isMating)
                     continue;
-                Debug.Log("CAN CHANGE MATE");
                 minion.SetState(newState);
        
             }
@@ -46,31 +49,11 @@ namespace Member.CHJ._02.Scripts
 
             private AiStates TimeCheck(Minion minion,MinionTime minionTime, float time)
             {
-                if (minion.isMating)
-                    return AiStates.Mate;
                 if (time < minionTime.FirstWork) return AiStates.Work;
                 else if (time < minionTime.Patrol) return AiStates.Patrol;
                 else if (time < minionTime.SecondWork) return AiStates.Work;
                 else return AiStates.Sleep;
                 
-            }
-            public void StartMate()
-            {
-                foreach (var minion in minionList)
-                {
-                    if (minion.Stats.Age >= 5)
-                    {
-                        minion.isMating = true;
-                        minion.SetState(AiStates.Mate);
-                        Debug.Log("[Mate] mate start");
-                    }
-                }
-            }
-            public void AddMinion(Minion minion)
-            {
-                minionList.Add(minion);
-                if(!minonQueue.Contains(minion))
-                    minonQueue.Enqueue(minion);
             }
 
             private void OnDisable()
@@ -80,21 +63,6 @@ namespace Member.CHJ._02.Scripts
         
 
         #endregion
-        public IEnumerator MatchMinion()
-        {
-            if (minonQueue.Count >= 2)
-            { 
-                _buildingTarget = _minionsBuildingManager.GetNearBuilding(houseSo, minonQueue.Dequeue().transform.position);
-                if (_buildingTarget != null)
-                {
-                    var m1 = minonQueue.Dequeue();
-                    var m2 = minonQueue.Dequeue();
-                    m1.StartMate();
-                    m2.StartMate();
-                }
-            }
 
-            yield return _waitT;
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Member.CHJ._02.Scripts;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -15,13 +16,13 @@ public partial class SleepAction : Action
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
     protected override Status OnStart()
     {
-        NavMesh.Value.SetDestination(House.Value.gameObject.transform.position);
-        return Status.Success;
-    }
+        var buildManager = MinionManager.Instance.MinionsBuildingManager;
+        if (buildManager.TryEnterBuilding(House.Value))
+        {
+            NavMesh.Value.SetDestination(House.Value.transform.position);
+            return Status.Success;
+        }
 
-    protected override void OnEnd()
-    {
-        House.Value.Release();
-        base.OnEnd();
+        return Status.Failure;
     }
 }

@@ -25,16 +25,10 @@ public partial class MateAction : Action
     {
         if (NavMesh.Value.remainingDistance <= 0.01f)
         {
-            Debug.Log($"MinionValue {Minion.Value}");
             Minion.Value.GetVisualObject().SetActive(false);
             return Status.Success;
         }
         return Status.Running;
-    }
-    private void StartMate()
-    {
-        Minion.Value.isFoundPartner = false;
-        
     }
 
     private bool FindMateMinion()
