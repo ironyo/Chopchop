@@ -59,7 +59,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
         secondWork = 55 - patrol - firstWork;
-        sleep = 55;
+        sleep = 60;
         
         patrol += firstWork;
         secondWork += patrol;

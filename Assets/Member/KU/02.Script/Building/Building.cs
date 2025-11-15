@@ -129,6 +129,7 @@ public class Building : MonoBehaviour
 
     public bool CanReserve()
     {
+        Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
         return NowMinion < maxMinion;
     }
     public bool TryReserve()
