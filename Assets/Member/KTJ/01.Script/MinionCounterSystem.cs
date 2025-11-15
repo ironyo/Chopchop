@@ -1,12 +1,21 @@
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Febucci.UI;
 
-public class MinionOverload : MonoBehaviour
+public class MinionCounterSystem : MonoBehaviour
 {
     [SerializeField] private Slider counterSlider;
-    private RectTransform handle;
+    [SerializeField] private TextMeshProUGUI minionCounterTxt;
 
+    [SerializeField] private GameObject OverloadTxt;
+    [SerializeField] private GameObject MopeTxt;
+    [SerializeField] private GameObject OverloadTxt_anim;
+    [SerializeField] private GameObject MopeTxt_anim;
+
+    private RectTransform handle;
+    
     private float sliderYPos_up;
     private float sliderYPos_down;
 
@@ -44,22 +53,37 @@ public class MinionOverload : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
+        minionCounterTxt.text = "미니언: " + TestMinionManager.Instance.alivesMinions.Count.ToString();
         counterSlider.value = sliderVal;
 
-        if (counterSlider.value == 0)
+        if (counterSlider.value <= 25)
         {
             GameEventManager.Instance.RunEvent(GameEventType.MinionMope);
+            MopeTxt_anim.SetActive(true);
+            MopeTxt.SetActive(false);
         }
-        else if (counterSlider.value == 100)
+        else if (counterSlider.value >= 75)
         {
             GameEventManager.Instance.RunEvent(GameEventType.MinionBomb);
+            OverloadTxt.SetActive(false);
+            OverloadTxt_anim.SetActive(true);
+        }
+        else
+        {
+            GameEventManager.Instance.StopEvent();
+
+            OverloadTxt.SetActive(true);
+            OverloadTxt_anim.SetActive(false);
+            MopeTxt_anim.SetActive(false);
+            MopeTxt.SetActive(true);
         }
     }
 
     private int CalculateValue()
     {
         int tileCount = MapManager.Instance.GetTileCount();
-        int minionCount = 2; // TODO: 실제 미니언 매니저에서 가져오기
+        int minionCount = TestMinionManager.Instance.alivesMinions.Count; // TODO: 실제 미니언 매니저에서 가져오기
+        //int minionCount = 100; // x테스트용 임시
 
         if (minionCount == 0)
             return 0;
