@@ -30,6 +30,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LevelTxt.text = Level.ToString();
         ShadowLevelTxt.text = Level.ToString();
+        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " 레벨업!", "성장하셨네요!");
     }
 
 
