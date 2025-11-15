@@ -104,7 +104,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         BuildUISetting(!BuildingSelect());
 
 
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); // 강유야 여기 아아아아아아아아아ㅏ 진짜ㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         currentCell = grid.WorldToCell(mouseWorldPos);
 
         if (currentCell != lastCell)
