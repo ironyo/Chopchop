@@ -24,7 +24,7 @@ MonoBehaviour:
       amount: 1
     level: 1
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: 18a725a31aaffae4a89413d70973ae7b, type: 2}
+    - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
       amount: 3
     level: 2
   - resourceTypeSOs:
@@ -33,7 +33,5 @@ MonoBehaviour:
     level: 3
   spawnTime: 2
   resourceTypeCost:
-  - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
-    amount: 15
-  - resourceTypeSO: {fileID: 11400000, guid: ad913e6d78291664dab99fd0df2e2ef6, type: 2}
-    amount: 10
+  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+    amount: 30

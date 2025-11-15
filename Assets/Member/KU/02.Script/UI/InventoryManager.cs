@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoSingleton<InventoryManager>
 {
     [SerializeField] private float _durTime;
     [SerializeField] private float _fallPos;
@@ -24,10 +24,11 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] List<InventoryCreate> _invPrefObj = new();
     [SerializeField] List<BuildingSO> _buildSO = new();
 
-    public bool isNowClose { get; private set; } = true;
+    public bool IsNowClose { get; private set; } = true;
     bool _isMoveInv = false;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         for(int i = 0; i < _maxPage; i++)
         {
             GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
@@ -60,7 +61,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if (count < _buildSO.Count)
                 {
-                    _invPrefObj[i].invBoxes[j].buildingSO = _buildSO[count];
+                    _invPrefObj[i].invBoxes[j].BuildingSO = _buildSO[count];
                     count++;
                 }
             }
@@ -69,7 +70,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isNowClose && !_isMoveInv)
+        if (!IsNowClose && !_isMoveInv)
         {
             if (Keyboard.current.digit1Key.wasPressedThisFrame && _nowPage > 1)
                 InvPageChange(false);
@@ -111,18 +112,21 @@ public class InventoryManager : MonoBehaviour
 
     public void CloseInv()
     {
-        if (!isNowClose)
+        BuildManager.Instance.isMoveInv = true;
+        if (!IsNowClose)
         {
+            IsNowClose = true;
             _rectTransform.DOAnchorPosY(-_closPos, _durTime).OnComplete(() =>
             {
-                isNowClose = true;
+                BuildManager.Instance.isMoveInv = false;
             });
         }
-        else if (isNowClose)
+        else if (IsNowClose)
         {
+            IsNowClose = false;
             _rectTransform.DOAnchorPosY(0, _durTime).OnComplete(() =>
             {
-                isNowClose = false;
+                BuildManager.Instance.isMoveInv = false;
             });
         }
     }

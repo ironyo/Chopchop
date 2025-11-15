@@ -17,7 +17,7 @@ public class BuildingSelector : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint (Mouse.current.position.ReadValue());
 
@@ -34,7 +34,7 @@ public class BuildingSelector : MonoBehaviour
                     BuildManager.Instance.CloseAllBuildUI(buildCompo);
                 }
                 int count = buildCompo.buildCount;
-                BuildManager.Instance.GetSelectData(count, buildCompo.level);
+                BuildManager.Instance.GetSelectData(count, buildCompo.Level);
             }
         }
     }
