@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 
 public class InvBuild : MonoBehaviour
 {
-    public BuildingSO buildingSO { get; set; }
+    public BuildingSO BuildingSO { get; set; }
     [SerializeField] TextMeshProUGUI tex;
     [SerializeField] Image visual;
     Button _button;
@@ -18,11 +18,11 @@ public class InvBuild : MonoBehaviour
     }
     private void Start()
     {
-        if(buildingSO != null)
+        if(BuildingSO != null)
         {
-            _button.onClick.AddListener(() => { BuildManager.Instance.Buildings(true, buildingSO); });
+            _button.onClick.AddListener(() => { BuildManager.Instance.Buildings(true, BuildingSO); });
             _button.onClick.AddListener(() => { ResourceUIManager.Instance.ChooseButton(); });
-            tex.text = buildingSO.buildName;
+            tex.text = BuildingSO.buildName;
         }
     }
 }
