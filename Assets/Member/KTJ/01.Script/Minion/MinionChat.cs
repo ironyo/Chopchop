@@ -42,55 +42,48 @@ public class MinionChat : MonoBehaviour
     {
         if (pool.Count == 0) return;
 
+        //  기존 채팅들은 새 메시지 추가 시점마다 목표 위치 재설정
+        for (int i = 0; i < activeChats.Count; i++)
+        {
+            Transform rt = activeChats[i];
+            rt.DOKill(); // 기존 트윈 종료
+            float targetY = (activeChats.Count - i) * chatDistance; // 새 기준 위치
+            rt.DOLocalMoveY(targetY, moveDuration).SetEase(Ease.OutCubic);
+        }
+
         // 풀에서 오브젝트 꺼내기
         Transform newChat = pool.Dequeue();
         newChat.gameObject.SetActive(true);
 
+        // 말풍선 크기 조절
         SpriteRenderer charBaseSR = newChat.transform.Find("Base").GetComponent<SpriteRenderer>();
         charBaseSR.size = new Vector2(GetBalloonWidth(text.Length), charBaseSR.size.y);
 
         // 텍스트 갱신
-        var tmp = newChat.gameObject.transform.Find("MessageTxt").GetComponent<TextMeshPro>();
+        var tmp = newChat.transform.Find("MessageTxt").GetComponent<TextMeshPro>();
         if (tmp) tmp.text = text;
 
-        // Bottom은 새 메시지에만 표시
+        // Bottom 처리
         var bottom = newChat.transform.Find("Bottom");
         if (bottom) bottom.gameObject.SetActive(true);
 
-        // 기존 Bottom들은 끄기
         foreach (var c in activeChats)
         {
             var b = c.transform.Find("Bottom");
             if (b) b.gameObject.SetActive(false);
         }
 
-        if (isFirstMessage)
-        {
-            newChat.localPosition = Vector3.zero;
-            var animator = newChat.GetComponent<Animator>();
-            if (animator) animator?.SetTrigger("ChatTrigger");
-            isFirstMessage = false;
-        }
-        else
-        {
-            // 기존 채팅들은 위로 올리기
-            for (int i = 0; i < activeChats.Count; i++)
-            {
-                Transform rt = activeChats[i];
-                rt.DOKill();
-                rt.DOLocalMoveY(rt.localPosition.y + chatDistance, moveDuration).SetEase(Ease.OutCubic);
-            }
+        // 새 메시지는 항상 맨 아래(0)에서 등장
+        newChat.localPosition = Vector3.zero;
 
-            // 새 메시지는 아래(0,0)에 등장
-            newChat.localPosition = Vector3.zero;
-            var animator = newChat.GetComponent<Animator>();
-            if (animator) animator?.SetTrigger("ChatTrigger");
-        }
+        // 등장 애니메이션 트리거
+        var animator = newChat.GetComponent<Animator>();
+        animator?.SetTrigger("ChatTrigger");
 
         // 리스트에 추가
         activeChats.Add(newChat);
 
-        //  초과된 메시지 있으면 제거 (제일 오래된 위쪽부터)
+        // 초과된 메시지 제거
         while (activeChats.Count > maxChatCount)
         {
             Transform oldest = activeChats[0];
@@ -99,9 +92,11 @@ public class MinionChat : MonoBehaviour
             pool.Enqueue(oldest);
         }
 
+        // 기존 clearRoutine 리셋
         if (clearRoutine != null) StopCoroutine(clearRoutine);
         clearRoutine = StartCoroutine(ClearAfterDelay(messageLifeTime));
     }
+
 
 
     private IEnumerator ClearAfterDelay(float delay)
