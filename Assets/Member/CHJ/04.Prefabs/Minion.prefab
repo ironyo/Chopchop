@@ -5519,6 +5519,7 @@ MonoBehaviour:
   - rid: 5071695388619046986
   - rid: 5071695388619046987
   - rid: 5071695388619046988
+  - rid: 5071695597799997755
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -5556,6 +5557,14 @@ MonoBehaviour:
           m_Value1: 6542157866879321570
         Name: Mate Particle
         m_Value: {fileID: 1321678810294957991}
+    - rid: 5071695597799997755
+      type: {class: 'BlackboardVariable`1[[BuildingSO, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 7183337885887719818
+          m_Value1: 18246203512703750537
+        Name: HouseSO
+        m_Value: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
 --- !u!114 &8594335183946320537
 MonoBehaviour:
   m_ObjectHideFlags: 0
