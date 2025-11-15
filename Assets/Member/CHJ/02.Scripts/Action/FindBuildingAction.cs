@@ -24,7 +24,7 @@ public partial class FindBuildingAction : Action
             {
                 if (building.buildingSO == null ||
                     building.buildingSO != Job.Value.BuildingData ||
-                    building.NowMinion >= building.maxMinion) continue;
+                    building.NowMinion >= building.MaxMinion) continue;
 
                 foundTrm = hit.transform;
                 break;
