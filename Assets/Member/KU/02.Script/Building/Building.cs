@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -62,6 +63,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
+        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();
@@ -79,7 +81,7 @@ public class Building : MonoBehaviour
 
     private void Update()
     {
-        _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
+        // _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
         UpdateColliderView();
         if (Keyboard.current.nKey.wasPressedThisFrame)
         {
@@ -125,10 +127,13 @@ public class Building : MonoBehaviour
         BuildingSetUp();
     }
 
-    
+    public bool CanReserve()
+    {
+        return NowMinion < maxMinion;
+    }
     public bool TryReserve()
     {
-        if (NowMinion + 1 >= maxMinion)
+        if (!CanReserve())
             return false;
         Debug.Log("Can Add Minion On Building");
         MinionPlus(1);

@@ -19,25 +19,20 @@ public class WorkActionScr : MonoBehaviour
     {
         if(target == null)
         {
-            Debug.LogWarning("DoWork Failed: Target is null");
             return;
         }
         if(!(target.TryGetComponent<Building>(out Building building)))
         {
-            Debug.LogWarning("DoWork Failed: Target has no Building component");
             return;
         }
-        if(building.NowMinion >= building.maxMinion)
+        if(!building.TryReserve())
         {
-            Debug.LogWarning($"DoWork Failed: Building is full! {building.NowMinion}/{building.buildingSO.maxMinion}");
             return;
         }
-
+        
         _building = building;
-        _building.MinionPlus(1);
         _target = target.GetComponent<Collider2D>();
         isWorking = true;
-        Debug.Log("DoWork Succeeded: isWorking set to true"); // 성공
     }
 
     public bool IsCollisionWithWorkBuilding()
@@ -49,19 +44,10 @@ public class WorkActionScr : MonoBehaviour
     }
     public virtual void ExitWork()
     {
-        Debug.Log("[Work] End Work");
-        _building.Release();
-        _building = null;
         if(!transform.GetChild(0).gameObject.activeSelf)
             transform.GetChild(0).gameObject.SetActive(true);
+        _building.Release();
         isWorking = false;
         _target = null;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, 30);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, 10);
     }
 }

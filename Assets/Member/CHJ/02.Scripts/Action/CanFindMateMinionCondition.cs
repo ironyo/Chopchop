@@ -10,7 +10,6 @@ public partial class CanFindMateMinionCondition : Condition
 
     public override bool IsTrue()
     {
-        Debug.Log("[Condition] CanFindMateMinionCondition started");
         
         Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 10);
         Debug.Log($"[CanFindMate] hits: {hits.Length} at {Self.Value.transform.position}");
