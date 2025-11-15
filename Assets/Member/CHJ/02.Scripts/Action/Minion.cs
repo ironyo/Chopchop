@@ -50,7 +50,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         InitializeDay();
-        MinionManager.Instance.AddMinion(this);
+        MinionManager.Instance.RegisterMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
     }
 
@@ -75,12 +75,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
-    public void StartMate()
-    {
-        SetState(AiStates.Mate);
-        isMating = true;
-    }
-
     public void EndMate() => isMating = false;
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -92,7 +86,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
 
     public GameObject GetVisualObject()
     {
-        Debug.Log(visualObj);
         return visualObj;
     }
     private void LateUpdate()
@@ -102,6 +95,11 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         transform.position = p;
     }
     private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 30f);
+    }
 }
 public struct MinionTime
 {

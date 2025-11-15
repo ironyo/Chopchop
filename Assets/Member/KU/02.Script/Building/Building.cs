@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -13,7 +14,7 @@ public class Building : MonoBehaviour
     public int nowHealth = 0;
 
     private int maxHealth = 0;
-    public int MaxMinion { get; private set; } = 0;
+    public int maxMinion { get; private set; } = 0;
 
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
@@ -24,7 +25,7 @@ public class Building : MonoBehaviour
     public TextMeshProUGUI logPrefab;
     private TextMeshProUGUI _minionText;
 
-    public int Level { get; private set; } = 1;
+    public int level { get; private set; } = 1;
     private int minionCount = 0;
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
@@ -39,12 +40,12 @@ public class Building : MonoBehaviour
     {
         get
         {
-            return Level;
+            return level;
         }
         set
         {
             if (buildingSO.maxLevel >= value)
-                Level = value;
+                level = value;
         }
     }
     public int NowMinion
@@ -55,13 +56,14 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if(MaxMinion >= value)
+            if(maxMinion >= value)
                 minionCount = value;
         }
     }
 
     private void Start()
     {
+        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();
@@ -79,7 +81,7 @@ public class Building : MonoBehaviour
 
     private void Update()
     {
-        _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {MaxMinion}";
+        // _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
         UpdateColliderView();
         if (Keyboard.current.nKey.wasPressedThisFrame)
         {
@@ -101,8 +103,8 @@ public class Building : MonoBehaviour
         if(spawnCurrentTime >= spawnTime)
         {
             spawnCurrentTime = 0;
-            ResourceManager.Instance.AddResource(spawnAmount[Level-1].resourceTypeSO, spawnAmount[Level-1].amount * minionCount);
-            ResourceLog(Level-1);
+            ResourceManager.Instance.AddResource(spawnAmount[level-1].resourceTypeSO, spawnAmount[level-1].amount * minionCount);
+            ResourceLog(level-1);
         }
     }
 
@@ -125,10 +127,13 @@ public class Building : MonoBehaviour
         BuildingSetUp();
     }
 
-    
+    public bool CanReserve()
+    {
+        return NowMinion < maxMinion;
+    }
     public bool TryReserve()
     {
-        if (NowMinion + 1 >= MaxMinion)
+        if (!CanReserve())
             return false;
         Debug.Log("Can Add Minion On Building");
         MinionPlus(1);
@@ -145,15 +150,15 @@ public class Building : MonoBehaviour
     }
     private void BuildingSetUp()
     {
-        maxHealth = buildingSO.MaxHealth[Level-1];
-        MaxMinion = buildingSO.maxMinion[Level-1];
+        maxHealth = buildingSO.MaxHealth[level-1];
+        maxMinion = buildingSO.maxMinion[level-1];
         spawnTime = buildingSO.spawnTime;
         nowHealth = maxHealth;
         if (buildingSO.levelResourceType.Length != 0)
         {
-            for (int i = 0; i < buildingSO.levelResourceType[Level - 1].resourceTypeSOs.Length; i++)
+            for (int i = 0; i < buildingSO.levelResourceType[level - 1].resourceTypeSOs.Length; i++)
             {
-                spawnAmount.Add(buildingSO.levelResourceType[Level-1].resourceTypeSOs[i]);
+                spawnAmount.Add(buildingSO.levelResourceType[level-1].resourceTypeSOs[i]);
             }
         }
         else if(spawnAmount.Count != 0)
@@ -168,8 +173,8 @@ public class Building : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount.Count; i++)
         {
-            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[Level].resourceTypeSOs[i].resourceTypeSO;
-            spawnAmount[i].amount = buildingSO.levelResourceType[Level].resourceTypeSOs[i].amount;
+            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
+            spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
         }
     }
 

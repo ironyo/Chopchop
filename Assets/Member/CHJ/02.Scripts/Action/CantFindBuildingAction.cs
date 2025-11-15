@@ -41,7 +41,6 @@ public partial class CantFindBuildingAction : Action
     }
     protected override Status OnUpdate()
     {
-        Debug.Log("Patrol Update");
         if (!CheckTime())
         {
             Debug.Log("END");

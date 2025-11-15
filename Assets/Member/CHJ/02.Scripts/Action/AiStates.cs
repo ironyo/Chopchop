@@ -7,6 +7,5 @@ public enum AiStates
     Patrol,
 	Sleep,
 	Work,
-	Mate,
 	None
 }
