@@ -34,7 +34,7 @@ public class BuildingSelector : MonoBehaviour
                     BuildManager.Instance.CloseAllBuildUI(buildCompo);
                 }
                 int count = buildCompo.buildCount;
-                BuildManager.Instance.GetSelectData(count, buildCompo.level);
+                BuildManager.Instance.GetSelectData(count, buildCompo.Level);
             }
         }
     }

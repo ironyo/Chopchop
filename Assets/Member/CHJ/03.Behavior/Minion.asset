@@ -168,7 +168,7 @@ MonoBehaviour:
   - rid: 5071695455912984688
   - rid: 5071695486003970215
   - rid: 5071695616198312229
-  m_VersionTimestamp: 638988273898497958
+  m_VersionTimestamp: 638989880293869272
   m_DebugInfo: {fileID: 1698452213237856476}
   m_RuntimeGraph: {fileID: 5057475902575693491}
   AssetID:
@@ -1377,7 +1377,7 @@ MonoBehaviour:
     - rid: 5071695486003970215
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: -10.613813, y: -1.7655687}
+        Position: {x: -10.613813, y: -2.6150725}
         ID:
           m_Value0: 7954812279213236178
           m_Value1: 8348722215083698762
@@ -2111,7 +2111,7 @@ MonoBehaviour:
         AuthoringAssetID:
           m_Value0: 8368224191798096444
           m_Value1: 17797434985786446730
-        m_DebugInfo: {fileID: 0}
+        m_DebugInfo: {fileID: 1698452213237856476}
         BlackboardReference:
           rid: 5071695636783169724
         BlackboardGroupReferences: []
@@ -2123,7 +2123,7 @@ MonoBehaviour:
           rid: 5071695636783169726
         m_EndedNodes:
           rid: 5071695636783169727
-        m_VersionTimestamp: 638988273898497958
+        m_VersionTimestamp: 638989880293869272
     - rid: 5071695636783169724
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -2220,7 +2220,7 @@ MonoBehaviour:
           m_Value0: 2275329522662323429
           m_Value1: 16953970638310033122
         Name: AiStates
-        m_Value: 2
+        m_Value: 3
     - rid: 5071695636783169735
       type: {class: 'BlackboardVariable`1[[Member.CHJ._02.Scripts.SO.JobDataSO, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
