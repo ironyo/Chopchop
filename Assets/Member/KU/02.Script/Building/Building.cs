@@ -32,7 +32,7 @@ public class Building : MonoBehaviour
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
 
     [Header("Collider View Settings")]
-    public bool showCollider = true;
+    public bool showCollider { get; set; } = true;
     [SerializeField] Color colliderColor = Color.green;
     [SerializeField] float lineWidth = 0.05f;
 
@@ -63,7 +63,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        //MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();
@@ -81,12 +81,9 @@ public class Building : MonoBehaviour
 
     private void Update()
     {
-        // _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
+         _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
         UpdateColliderView();
-        if (Keyboard.current.nKey.wasPressedThisFrame)
-        {
-            BuildUpgrade();
-        }
+
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             MinionPlus(1);

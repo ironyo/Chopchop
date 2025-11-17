@@ -36,11 +36,10 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _buildHPTex;
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
-    [SerializeField] private Button _selectBtn;
+    //[SerializeField] private Button _selectBtn;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
 
-    private bool _nowSelect; //true면 빌딩 false면 파괴
     private Vector2 _targetPos;
     private float _time = 0;
 
@@ -79,18 +78,13 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private void Start()
     {
-        _selectBtn.onClick.AddListener(() =>
-        {
-            SelectButton();
-        });
-        _selectBtn.gameObject.SetActive(false);
         _upgradeBtn.onClick.AddListener(() =>
         {
-            UpgradeDestroy(true);
+            SelectButton(true);
         });
         _destroyBtn.onClick.AddListener(() =>
         {
-            UpgradeDestroy(false);
+            SelectButton(false);
         });
         InitializeLineRenderer();
     }
@@ -265,7 +259,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Vector2 center = boxCollider.bounds.center;
         Vector2 size = boxCollider.bounds.size;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, size, 0f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x -1, size.y-1), 0f);
 
         foreach (var hit in hits)
         {
@@ -351,21 +345,21 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && Mouse.current.leftButton.wasPressedThisFrame && !isDestroing)
+        if (buildingParent.Count != 0 && !isDestroing)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
-            _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
+            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
                 _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + "/s";
         }
     }
-    private void SelectButton()
+    private void SelectButton(bool nowSelect)
     {
         isDestroing = true;
-        _selectBtn.gameObject.SetActive(false);
-        if (_nowSelect)
+
+        if (nowSelect)
         {
             buildingParent[selectCount].BuildUpgrade();
         }
@@ -382,21 +376,11 @@ public class BuildManager : MonoSingleton<BuildManager>
             selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
             Destroy(buildingParent[selectCount].gameObject);
             buildingParent.Remove(buildingParent[selectCount]);
+            CloseAllBuildUI(null);
         }
         isDestroing = false;
     }
-    private void UpgradeDestroy(bool isUpgrade)
-    {
-        _selectBtn.gameObject.SetActive(true);
-        if (isUpgrade)
-        {
-            _nowSelect = true;
-        }
-        else
-        {
-            _nowSelect = false;
-        }
-    }
+
 
 
 
