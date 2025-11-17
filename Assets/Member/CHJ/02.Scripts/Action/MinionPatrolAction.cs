@@ -20,7 +20,7 @@ namespace Member.CHJ._02.Scripts.Action
         private float _lastT;
         private float _currentT;
         private Vector3 _target;
-        private const float WaitT = 2;
+        private float _waitT = 3;
 
         protected override Status OnStart()
         {
@@ -41,7 +41,7 @@ namespace Member.CHJ._02.Scripts.Action
             if (!CheckTime()) return Status.Success;
 
               
-            if (Navmesh.Value.remainingDistance <= 0.1f && Time.time - _lastT >= WaitT)
+            if (Navmesh.Value.remainingDistance <= 0.1f && Time.time - _lastT >= _waitT)
             {
                 RandomPatrol(Self.Value.transform.position, 3);
             }
@@ -52,6 +52,7 @@ namespace Member.CHJ._02.Scripts.Action
         
         private void RandomPatrol(Vector2 currentPos, float radius)
         {
+            _waitT = Random.Range(1.5f, 4);
             _lastT = Time.time;
             for (int i = 0; i < MaxAttempt; i++)
             {
