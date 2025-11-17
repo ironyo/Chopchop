@@ -23,7 +23,7 @@ public class Building : MonoBehaviour
     public BuildingSelector buildingSelector { get; private set; }
 
     public TextMeshProUGUI logPrefab;
-    private TextMeshProUGUI _minionText;
+    private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -68,13 +68,11 @@ public class Building : MonoBehaviour
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
-        _minionText = GetComponentInChildren<TextMeshProUGUI>();
+        _minionText = GetComponentInChildren<TextMeshPro>();
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
-
-
 
         InitializeLineRenderer();
     }
@@ -97,11 +95,16 @@ public class Building : MonoBehaviour
         if (minionCount == 0) return;
 
         spawnCurrentTime += Time.deltaTime;
-        if(spawnCurrentTime >= spawnTime)
+        if (spawnCurrentTime >= spawnTime)
         {
-            spawnCurrentTime = 0;
-            ResourceManager.Instance.AddResource(spawnAmount[level-1].resourceTypeSO, spawnAmount[level-1].amount * minionCount);
-            ResourceLog(level-1);
+            if (buildingSO.levelResourceType[level - 1].minion != null)
+                Instantiate(buildingSO.levelResourceType[level - 1].minion);
+            else
+            {
+                spawnCurrentTime = 0;
+                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
+                ResourceLog(level - 1);
+            }
         }
     }
 

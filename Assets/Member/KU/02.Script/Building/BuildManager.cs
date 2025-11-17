@@ -36,7 +36,6 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _buildHPTex;
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
-    //[SerializeField] private Button _selectBtn;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
 
@@ -67,13 +66,11 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private BoxCollider2D boxCollider;
 
-    //public static BuildManager Instance { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
-        //if(Instance == null)
-        //    Instance = this;
+
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
@@ -122,7 +119,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
-            Debug.Log("aaaaaaaa");
             BuildedClear();
         }
     }
@@ -246,7 +242,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
+        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
@@ -355,7 +351,16 @@ public class BuildManager : MonoSingleton<BuildManager>
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
-                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + "/s";
+            {
+                if(buildingParent[selectCount].buildingSO.levelResourceType[selectCount].minion == null)
+                {
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + $"{buildingParent[selectCount].buildingSO.spawnTime}/s";
+                }
+                else
+                {
+                    _spawnKindTex.text += "미니언";
+                }
+            }
         }
     }
     private void SelectButton(bool nowSelect)
