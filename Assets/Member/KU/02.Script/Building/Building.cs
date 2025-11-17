@@ -23,7 +23,7 @@ public class Building : MonoBehaviour
     public BuildingSelector buildingSelector { get; private set; }
 
     public TextMeshProUGUI logPrefab;
-    private TextMeshProUGUI _minionText;
+    private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -68,7 +68,7 @@ public class Building : MonoBehaviour
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
-        _minionText = GetComponentInChildren<TextMeshProUGUI>();
+        _minionText = GetComponentInChildren<TextMeshPro>();
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
