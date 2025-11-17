@@ -33,15 +33,18 @@ public class WorkActionScr : MonoBehaviour
 
     public void CheckBuilding(Minion minion)
     {
-        if(IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
+        if (IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
+        {
+            Debug.Log("ACTIVE FALSE");
             minion.GetVisualObject().SetActive(false);
+        }
     }
     public bool IsCollisionWithWorkBuilding()
     {
         
         if (_mycollder == null || _target == null)
             return false;
-        Debug.Log($"{_mycollder.IsTouching(_target)} / My Collider{_mycollder} / Target Collider {_target}");
+        // Debug.Log($"{_mycollder.IsTouching(_target)} / My Collider{_mycollder} / Target Collider {_target}");
         return _mycollder.IsTouching(_target);
     }
     public virtual void ExitWork()
