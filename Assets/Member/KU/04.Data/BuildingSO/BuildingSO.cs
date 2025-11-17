@@ -35,5 +35,6 @@ public class ResourceTypeCost
 public class LevelResourceTypeCost
 {
     public ResourceTypeCost[] resourceTypeSOs;
+    public GameObject minion;
     public int level;
 }
