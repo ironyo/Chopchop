@@ -9,7 +9,6 @@ namespace Member.CHJ._02.Scripts
     public class MinionsBuildingManager
     {
         public List<Building> Buildings = new List<Building>();
-        public Queue<Minion> minonQueue = new Queue<Minion>();
         private Building _buildingTarget;
         private WaitForSeconds _waitT = new WaitForSeconds(0.1f);
             
@@ -18,11 +17,6 @@ namespace Member.CHJ._02.Scripts
         {
             if(!Buildings.Contains(building))
                 Buildings.Add(building);
-        }
-        public void AddMinion(Minion minion)
-        {
-            if(!minonQueue.Contains(minion))
-                minonQueue.Enqueue(minion);
         }
         public Building GetAvailableHouse(Vector3 pos, BuildingSO type, float maxRange = 30f)
         {

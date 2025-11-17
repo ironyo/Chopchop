@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Member.CHJ._02.Scripts
 {
@@ -32,7 +34,11 @@ namespace Member.CHJ._02.Scripts
         {
             if(!minionList.Contains(minion))
                 minionList.Add(minion);
-            MinionsBuildingManager.AddMinion(minion);
+        }
+        public void UnRegisterMinion(Minion minion)
+        {
+            if(minionList.Contains(minion))
+                minionList.Remove(minion);
         }
         private void UpdateTime(int time)
         {
