@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Febucci.UI;
+using Member.CHJ._02.Scripts;
 
 public class MinionCounterSystem : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class MinionCounterSystem : MonoBehaviour
         }
     }
 
-    private void Update()// ÀÓ½Ã·Î ¾÷µ¥ÀÌÆ®¿¡¼­ È£ÃâÇÔ
+    private void Update()// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
     {
         UpdateOverloadSlider();
     }
@@ -53,7 +54,7 @@ public class MinionCounterSystem : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
-        minionCounterTxt.text = "¹Ì´Ï¾ð: " + TestMinionManager.Instance.alivesMinions.Count.ToString();
+        minionCounterTxt.text = "ï¿½Ì´Ï¾ï¿½: " + MinionManager.Instance.minionList.Count.ToString();
         counterSlider.value = sliderVal;
 
         if (counterSlider.value <= 25)
@@ -82,31 +83,31 @@ public class MinionCounterSystem : MonoBehaviour
     private int CalculateValue()
     {
         int tileCount = MapManager.Instance.GetTileCount();
-        int minionCount = TestMinionManager.Instance.alivesMinions.Count; // TODO: ½ÇÁ¦ ¹Ì´Ï¾ð ¸Å´ÏÀú¿¡¼­ °¡Á®¿À±â
-        //int minionCount = 100; // xÅ×½ºÆ®¿ë ÀÓ½Ã
+        int minionCount = MinionManager.Instance.minionList.Count; // TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½Ì´Ï¾ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //int minionCount = 100; // xï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½Ó½ï¿½
 
         if (minionCount == 0)
             return 0;
 
-        // ¹Ì´Ï¾ð 1¸¶¸®´ç Å¸ÀÏ °³¼ö ºñÀ²
+        // ï¿½Ì´Ï¾ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float ratio = (float)tileCount / minionCount;
 
-        // ±âÁØÁ¡ ¼³Á¤
-        float minRatio = 4f;     // Á¶¹Ð ¡æ 100
-        float midRatio = 32f;    // Á¤»ó ¡æ 50
-        float maxRatio = 100f;   // Èñ¹Ú ¡æ 0
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        float minRatio = 4f;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 100
+        float midRatio = 32f;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 50
+        float maxRatio = 100f;   // ï¿½ï¿½ï¿½ ï¿½ï¿½ 0
 
         float sliderValue;
 
         if (ratio <= midRatio)
         {
-            // 4~32 »çÀÌ: 100 ¡æ 50
+            // 4~32 ï¿½ï¿½ï¿½ï¿½: 100 ï¿½ï¿½ 50
             float t = Mathf.InverseLerp(minRatio, midRatio, ratio);
             sliderValue = Mathf.Lerp(100f, 50f, t);
         }
         else
         {
-            // 32~100 »çÀÌ: 50 ¡æ 0
+            // 32~100 ï¿½ï¿½ï¿½ï¿½: 50 ï¿½ï¿½ 0
             float t = Mathf.InverseLerp(midRatio, maxRatio, ratio);
             sliderValue = Mathf.Lerp(50f, 0f, t);
         }

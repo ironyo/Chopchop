@@ -104366,7 +104366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aaffe4dc1d84748852db8b559af2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logPrefab: {fileID: 3487402323837191975, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
+  _logPrefab: {fileID: 0}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
   _buildClone: {fileID: 8059996653622618337, guid: 50c2395d3d366cf42a55ead344976f8e, type: 3}
