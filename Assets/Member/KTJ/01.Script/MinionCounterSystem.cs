@@ -54,7 +54,7 @@ public class MinionCounterSystem : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
-        minionCounterTxt.text = "�̴Ͼ�: " + MinionManager.Instance.minionList.Count.ToString();
+        minionCounterTxt.text = "미니언: " + MinionManager.Instance.minionList.Count.ToString();
         counterSlider.value = sliderVal;
 
         if (counterSlider.value <= 25)

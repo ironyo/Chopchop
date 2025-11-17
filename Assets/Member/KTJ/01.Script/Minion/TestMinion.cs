@@ -1,3 +1,4 @@
+using Member.CHJ._02.Scripts;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,12 +19,7 @@ public class TestMinion : MonoBehaviour
     [SerializeField] private AudioClip DrinkSound;
     [SerializeField] private AudioClip BrushSound;
 
-    private Animator animator;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+    [SerializeField] Animator animator;
 
     public int Mood { get; private set; } // 0 ~ 100 (배고픔, 목마름, 더러움 세 수치의 평균)
     public int Hungry { get; private set; } // 0~100
@@ -46,6 +42,7 @@ public class TestMinion : MonoBehaviour
         {
             minionChat.AddMessage(message);
         }
+        MinionManager.Instance.minionList.Remove(gameObject.GetComponent<Minion>());
         StartCoroutine(WaitDestroy(1));
     }
 
