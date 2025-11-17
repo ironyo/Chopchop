@@ -16,7 +16,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int width;
     private int maxW = 3;
 
-    [SerializeField] private TextMeshProUGUI _logPrefab;
+    [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
