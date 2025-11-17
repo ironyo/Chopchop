@@ -14,25 +14,25 @@ public class Building : MonoBehaviour
     public int nowHealth = 0;
 
     private int maxHealth = 0;
-    public int maxMinion { get; private set; } = 0;
+    public int MaxMinion { get; private set; } = 0;
 
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
 
-    public BuildingSO buildingSO;
-    public BuildingSelector buildingSelector { get; private set; }
+    public BuildingSO BuildingSO;
+    public BuildingSelector BuildingSelector { get; private set; }
 
-    public TextMeshProUGUI logPrefab;
+    public TextMeshProUGUI LogPrefab;
     private TextMeshProUGUI _minionText;
 
-    public int level { get; private set; } = 1;
+    public int Level { get; private set; } = 1;
     private int minionCount = 0;
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
 
     [Header("Collider View Settings")]
-    public bool showCollider = true;
+    public bool ShowCollider = true;
     [SerializeField] Color colliderColor = Color.green;
     [SerializeField] float lineWidth = 0.05f;
 
@@ -40,12 +40,12 @@ public class Building : MonoBehaviour
     {
         get
         {
-            return level;
+            return Level;
         }
         set
         {
-            if (buildingSO.maxLevel >= value)
-                level = value;
+            if (BuildingSO.maxLevel >= value)
+                Level = value;
         }
     }
     public int NowMinion
@@ -56,7 +56,7 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if(maxMinion >= value)
+            if(MaxMinion >= value)
                 minionCount = value;
         }
     }
@@ -70,9 +70,9 @@ public class Building : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         _minionText = GetComponentInChildren<TextMeshProUGUI>();
 
-        buildingSelector = GetComponent<BuildingSelector>();
-        int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
-        boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
+        BuildingSelector = GetComponent<BuildingSelector>();
+        int wSize = Mathf.RoundToInt(BuildingSO.width / BuildingSO.maxW);
+        boxCollider.size = new Vector2(BuildingSO.maxW + 2,  wSize + 2);
 
 
 
@@ -91,7 +91,7 @@ public class Building : MonoBehaviour
         {
             MinionPlus(1);
         }
-        if(buildingSO.levelResourceType.Length != 0)
+        if(BuildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
     }
 
@@ -103,8 +103,8 @@ public class Building : MonoBehaviour
         if(spawnCurrentTime >= spawnTime)
         {
             spawnCurrentTime = 0;
-            ResourceManager.Instance.AddResource(spawnAmount[level-1].resourceTypeSO, spawnAmount[level-1].amount * minionCount);
-            ResourceLog(level-1);
+            ResourceManager.Instance.AddResource(spawnAmount[Level-1].resourceTypeSO, spawnAmount[Level-1].amount * minionCount);
+            ResourceLog(Level-1);
         }
     }
 
@@ -129,7 +129,7 @@ public class Building : MonoBehaviour
 
     public bool CanReserve()
     {
-        return NowMinion < maxMinion;
+        return NowMinion < MaxMinion;
     }
     public bool TryReserve()
     {
@@ -150,15 +150,15 @@ public class Building : MonoBehaviour
     }
     private void BuildingSetUp()
     {
-        maxHealth = buildingSO.MaxHealth[level-1];
-        maxMinion = buildingSO.maxMinion[level-1];
-        spawnTime = buildingSO.spawnTime;
+        maxHealth = BuildingSO.MaxHealth[Level-1];
+        MaxMinion = BuildingSO.maxMinion[Level-1];
+        spawnTime = BuildingSO.spawnTime;
         nowHealth = maxHealth;
-        if (buildingSO.levelResourceType.Length != 0)
+        if (BuildingSO.levelResourceType.Length != 0)
         {
-            for (int i = 0; i < buildingSO.levelResourceType[level - 1].resourceTypeSOs.Length; i++)
+            for (int i = 0; i < BuildingSO.levelResourceType[Level - 1].resourceTypeSOs.Length; i++)
             {
-                spawnAmount.Add(buildingSO.levelResourceType[level-1].resourceTypeSOs[i]);
+                spawnAmount.Add(BuildingSO.levelResourceType[Level-1].resourceTypeSOs[i]);
             }
         }
         else if(spawnAmount.Count != 0)
@@ -166,15 +166,15 @@ public class Building : MonoBehaviour
     }
     private void ResourceLog(int num)
     {
-        TextMeshProUGUI obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        TextMeshProUGUI obj = Instantiate(LogPrefab, new Vector2(transform.position.x, transform.position.y + BuildingSO.width/BuildingSO.maxW-1), Quaternion.identity,transform);
         obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
     }
     private void SpawnResourceTypeChange()
     {
         for (int i = 0; i < spawnAmount.Count; i++)
         {
-            spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
-            spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
+            spawnAmount[i].resourceTypeSO = BuildingSO.levelResourceType[Level].resourceTypeSOs[i].resourceTypeSO;
+            spawnAmount[i].amount = BuildingSO.levelResourceType[Level].resourceTypeSOs[i].amount;
         }
     }
 
@@ -194,13 +194,13 @@ public class Building : MonoBehaviour
         lineRenderer.startColor = colliderColor;
         lineRenderer.endColor = colliderColor;
 
-        lineRenderer.enabled = showCollider;
+        lineRenderer.enabled = ShowCollider;
     }
     private void UpdateColliderView()
     {
-        lineRenderer.enabled = showCollider;
+        lineRenderer.enabled = ShowCollider;
 
-        if (!showCollider || boxCollider == null) return;
+        if (!ShowCollider || boxCollider == null) return;
 
         Vector2 size = boxCollider.size;
         Vector2 offset = boxCollider.offset;
