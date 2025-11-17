@@ -27,16 +27,18 @@ namespace Member.CHJ._02.Scripts
         {
             foreach (var minion in minions)
             {
-                AiStates newState = TimeCheck(minion.TimeStruct,time);
-                if (minion.currentState == newState)
+                AiStates newState = TimeCheck(minion,minion.TimeStruct,time);
+                if (minion.currentState == newState || minion.isMating)
                     continue;
-                
+                Debug.Log("CAN CHANGE MATE");
                 minion.SetState(newState);
        
             }
         }
-        private AiStates TimeCheck(MinionTime minionTime, float time)
+        private AiStates TimeCheck(Minion minion,MinionTime minionTime, float time)
         {
+            if (minion.isMating)
+                return AiStates.Mate;
             if (time < minionTime.FirstWork) return AiStates.Work;
             else if (time < minionTime.Patrol) return AiStates.Patrol;
             else if (time < minionTime.SecondWork) return AiStates.Work;
@@ -49,6 +51,7 @@ namespace Member.CHJ._02.Scripts
             {
                 if (minion.Stats.Age >= 5)
                 {
+                    minion.isMating = true;
                     minion.SetState(AiStates.Mate);
                     Debug.Log("[Mate] mate start");
                 }

@@ -23,14 +23,19 @@ public class ResourceManager : MonoSingleton<ResourceManager>
             ResourcePref clonedPref = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
             clonedPref.Set(resource.StartCount, resource.Icon);
             resourceAmountDictionary.Add(resource, (0, clonedPref));
+
+            AddResource(resource, resource.StartCount); // 처음 기본자원
         }
+
+        AddResource(_resourceTypeListSO.list[0], 10);
+        UseResource(_resourceTypeListSO.list[1], 10);
     }
 
     private void TestLog()
     {
-        foreach (ResourceTypeSO key in resourceAmountDictionary.Keys)
+        foreach (var key in resourceAmountDictionary)
         {
-            Debug.Log(key.name + ":" + resourceAmountDictionary[key]);
+            key.Value.Item2.UpdateCount(key.Value.Item1);
         }
     }
 
@@ -47,7 +52,7 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         if (resourceAmountDictionary[resourceType].Item1 >= amount)
         {
             var current = resourceAmountDictionary[resourceType];
-            current.Item1 += amount;
+            current.Item1 -= amount;
             resourceAmountDictionary[resourceType] = current; TestLog();
         }
     }
