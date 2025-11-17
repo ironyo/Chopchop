@@ -39,7 +39,10 @@ public class MapBuilding : UIBase
         if (isBuildActivate)
         {
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("a");
                 return;
+            }
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2Int mousePos = new Vector2Int(
                     Mathf.FloorToInt(mouseWorldPos.x),

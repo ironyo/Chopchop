@@ -22,9 +22,9 @@ public partial class FindBuildingAction : Action
         {
             if (hit.TryGetComponent<Building>(out var building))
             {
-                if (building.buildingSO == null ||
-                    building.buildingSO != Job.Value.BuildingData ||
-                    building.NowMinion >= building.maxMinion) continue;
+                if (building.BuildingSO == null ||
+                    building.BuildingSO != Job.Value.BuildingData ||
+                    building.NowMinion >= building.MaxMinion) continue;
 
                 foundTrm = hit.transform;
                 break;
