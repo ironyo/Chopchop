@@ -15,13 +15,9 @@ public class WorkActionScr : MonoBehaviour
         _mycollder = GetComponent<Collider2D>();
     }
 
-    public void DoWork(Transform target)
+    public void DoWork(Building building)
     {
-        if(target == null)
-        {
-            return;
-        }
-        if(!(target.TryGetComponent<Building>(out Building building)))
+        if(building == null)
         {
             return;
         }
@@ -31,19 +27,27 @@ public class WorkActionScr : MonoBehaviour
         }
         
         _building = building;
-        _target = target.GetComponent<Collider2D>();
+        _target = building.GetComponent<Collider2D>();
         isWorking = true;
     }
 
+    public void CheckBuilding(Minion minion)
+    {
+        if(IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
+            minion.GetVisualObject().SetActive(false);
+    }
     public bool IsCollisionWithWorkBuilding()
     {
+        
         if (_mycollder == null || _target == null)
             return false;
-
+        Debug.Log($"{_mycollder.IsTouching(_target)} / My Collider{_mycollder} / Target Collider {_target}");
         return _mycollder.IsTouching(_target);
     }
     public virtual void ExitWork()
     {
+        if (!isWorking || _building == null)
+            return;
         if(!transform.GetChild(0).gameObject.activeSelf)
             transform.GetChild(0).gameObject.SetActive(true);
         _building.Release();
