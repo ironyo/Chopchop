@@ -37,9 +37,17 @@ public class TestMinion : MonoBehaviour
         Debug.Log("¹Ì´Ï¾ð »èÁ¦");
         Destroy(gameObject);
     }
-    public void Die()
+    public void Die(string message)
     {
-        minionChat.AddMessage("Á×À½");
+        if (message == null)
+        {
+            minionChat.AddMessage("Á×À½");
+        }
+        else
+        {
+            minionChat.AddMessage(message);
+        }
+
         TestMinionManager.Instance.alivesMinions.Remove(this);
         StartCoroutine(WaitDestroy(1));
     }
