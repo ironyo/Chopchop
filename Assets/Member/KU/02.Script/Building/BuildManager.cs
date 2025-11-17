@@ -126,8 +126,9 @@ public class BuildManager : MonoSingleton<BuildManager>
             isBuilding = false;
             GridDestroy();
         }
-        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding && !EventSystem.current.IsPointerOverGameObject())
+        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
+            Debug.Log("aaaaaaaa");
             BuildedClear();
         }
     }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NavMeshPlus.Components;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
@@ -19,6 +20,8 @@ public class MapBuilding : UIBase
     [SerializeField] private Slider TileSizeSlider;
 
     [SerializeField] private AudioClip MapSetSound;
+
+    [SerializeField] private NavMeshSurface navMeshSurface;
 
     private int currentTileSIze = 2;
     private bool isBuildActivate = false;
@@ -63,7 +66,7 @@ public class MapBuilding : UIBase
         currentTileSIze = (int)TileSizeSlider.value;
     }
 
-    private void SetTile(Vector2Int anchor) // 타일설치
+    private void SetTile(Vector2Int anchor)
     {
         cis.GenerateImpulse();
         SoundManager.Instance.SFXPlay("MapSet", MapSetSound);
@@ -75,7 +78,16 @@ public class MapBuilding : UIBase
                 tilemap.SetTile(new Vector3Int(anchor.x + x, anchor.y + y, 0), ruleTile);
             }
         }
+
+        StartCoroutine(RebuildNavMeshNextFrame());
     }
+
+    private IEnumerator RebuildNavMeshNextFrame()
+    {
+        yield return null; // ← 여기서 1프레임 대기 → Tilemap Mesh 업데이트됨
+        navMeshSurface.BuildNavMesh();
+    }
+
 
 
     private void SetVisualTIle(Vector2Int anchor)
