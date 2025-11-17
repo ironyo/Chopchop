@@ -18,6 +18,11 @@ namespace Member.CHJ._02.Scripts
             if(!Buildings.Contains(building))
                 Buildings.Add(building);
         }
+        public void RemoveBuilding(Building building)
+        {
+            if(Buildings.Contains(building))
+                Buildings.Remove(building);
+        }
         public Building GetAvailableHouse(Vector3 pos, BuildingSO type, float maxRange = 30f)
         {
             Building target = null;

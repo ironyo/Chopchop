@@ -86,17 +86,20 @@ public class Minion : MonoBehaviour
     //     }
     // }
 
-    public GameObject GetVisualObject()
-    {
-        return visualObj;
-    }
+    public GameObject GetVisualObject() => visualObj;
     private void LateUpdate()
     {
         Vector3 p = transform.position;
         p.z = 0;
         transform.position = p;
     }
-    private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
+
+    private void OnDestroy()
+    {
+        MinionManager.Instance.UnRegisterMinion(this);
+        TimeManager.Instance.OnDayStarted -= InitializeDay;
+    } 
+        
 
     private void OnDrawGizmos()
     {
