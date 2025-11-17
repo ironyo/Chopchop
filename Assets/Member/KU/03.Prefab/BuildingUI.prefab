@@ -103,8 +103,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAE30\uBCF8 \uC8FC\uD0DD\n0 / 2"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0ae8f971e38a114aa7925e98a6b6a2b, type: 2}
-  m_sharedMaterial: {fileID: 7644595661659174241, guid: b0ae8f971e38a114aa7925e98a6b6a2b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ccd0a7519f8c8c945a04df833585cb05, type: 2}
+  m_sharedMaterial: {fileID: -2554211875464325660, guid: ccd0a7519f8c8c945a04df833585cb05, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
