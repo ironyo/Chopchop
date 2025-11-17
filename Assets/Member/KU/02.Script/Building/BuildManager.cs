@@ -68,13 +68,11 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private BoxCollider2D boxCollider;
 
-    //public static BuildManager Instance { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
-        //if(Instance == null)
-        //    Instance = this;
+
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
@@ -128,7 +126,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
-            Debug.Log("aaaaaaaa");
             BuildedClear();
         }
     }
@@ -207,10 +204,10 @@ public class BuildManager : MonoSingleton<BuildManager>
         par.transform.position = mousePos;
 
         Building building = par.AddComponent<Building>();
-        building.LogPrefab = _logPrefab;
+        building.logPrefab = _logPrefab;
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildingSO = buildingSO;
+        building.buildingSO = buildingSO;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
@@ -319,7 +316,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         foreach (var parent in buildingParent)
         {
-            parent.ShowCollider = !parent.ShowCollider;
+            parent.showCollider = !parent.showCollider;
         }
     }
     private bool BuildingSelect()
@@ -330,7 +327,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent.Count != 0)
                 {
-                    if (item == buildingParent[selectCount].BuildingSelector)
+                    if (item == buildingParent[selectCount].buildingSelector)
                         return true;
                 }
 
@@ -356,12 +353,12 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         if (buildingParent.Count != 0 && Mouse.current.leftButton.wasPressedThisFrame && !isDestroing)
         {
-            _buildNameTex.text = $"{buildingParent[selectCount].BuildingSO.buildName}";
+            _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
             _spawnKindTex.text = "자원:";
-            if (buildingParent[selectCount].BuildingSO.levelResourceType.Length != 0)
-                _spawnKindTex.text += buildingParent[selectCount].BuildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].BuildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].BuildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + "/s";
+            if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
+                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + "/s";
         }
     }
     private void SelectButton()
@@ -382,7 +379,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 }
             }
             buildingCount--;
-            selectorCompo.Remove(buildingParent[selectCount].BuildingSelector);
+            selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
             Destroy(buildingParent[selectCount].gameObject);
             buildingParent.Remove(buildingParent[selectCount]);
         }
@@ -409,16 +406,18 @@ public class BuildManager : MonoSingleton<BuildManager>
         if(me == null)
         {
             foreach (var b in buildingParent)
-                b.BuildingSelector.isOpen = false;
+            {
+                b.buildingSelector.isOpen = false;
+            }
         }
         else
         {
             foreach (var b in buildingParent)
-            {
+            {                
                 if (b != me)
-                    b.BuildingSelector.isOpen = false;
+                    b.buildingSelector.isOpen = false;
                 else
-                    b.BuildingSelector.isOpen = true;
+                    b.buildingSelector.isOpen = true;
             }
         }
     }

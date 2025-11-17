@@ -5411,6 +5411,7 @@ GameObject:
   - component: {fileID: 3179685031478354654}
   - component: {fileID: 3332209083453485100}
   - component: {fileID: 1027749144804107621}
+  - component: {fileID: 3030260877846803420}
   m_Layer: 7
   m_Name: Minion
   m_TagString: Untagged
@@ -5473,12 +5474,11 @@ MonoBehaviour:
   AppleParticels: {fileID: 0}
   WaterParticels: {fileID: 0}
   CleanParticels: {fileID: 0}
+  BombParticles: {fileID: 0}
+  MopeParticles: {fileID: 0}
   EatSound: {fileID: 0}
   DrinkSound: {fileID: 0}
   BrushSound: {fileID: 0}
-  Hungry: 0
-  Thirsty: 0
-  Dirty: 0
 --- !u!195 &9068163880146523344
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5666,6 +5666,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!50 &3030260877846803420
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004249982730692422}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &5937559056081135482
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ namespace Member.CHJ._02.Scripts
             foreach (var building in Buildings)
             {
                 if (building == null) continue;
-                if (building.BuildingSO != type)
+                if (building.buildingSO != type)
                     continue;
                 if (!building.CanReserve())
                     continue;
@@ -63,10 +63,10 @@ namespace Member.CHJ._02.Scripts
 
             foreach (var b in Buildings)
             {
-                if (b.BuildingSO == null) continue;
+                if (b.buildingSO == null) continue;
                 if (type == null) continue;
 
-                if (b.BuildingSO.name != type.name)
+                if (b.buildingSO.name != type.name)
                     continue;
 
                 if (!b.CanReserve())
@@ -99,7 +99,7 @@ namespace Member.CHJ._02.Scripts
 
             foreach (var building in Buildings)
             {
-                if (building.BuildingSO != type)
+                if (building.buildingSO != type)
                     continue;
 
                 float dist = Vector2.Distance(pos, building.transform.position);
