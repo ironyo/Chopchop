@@ -242,7 +242,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
+        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
