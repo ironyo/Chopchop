@@ -67,7 +67,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
 
         if (Stats.Age == Stats.MaxAge)
         {
-            GetComponent<TestMinion>().Die();
+            //GetComponent<TestMinion>().Die();
         }
         TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }

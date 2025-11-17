@@ -25,7 +25,6 @@ public class TestMinion : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-
     public int Mood { get; private set; } // 0 ~ 100 (배고픔, 목마름, 더러움 세 수치의 평균)
     public int Hungry { get; private set; } // 0~100
     public int Thirsty { get; private set; } // 0~100
@@ -37,9 +36,9 @@ public class TestMinion : MonoBehaviour
         Debug.Log("미니언 삭제");
         Destroy(gameObject);
     }
-    public void Die(string message)
+    public void Die(string message = null)
     {
-        if (message == null)
+        if (message == null || message == "")
         {
             minionChat.AddMessage("죽음");
         }
