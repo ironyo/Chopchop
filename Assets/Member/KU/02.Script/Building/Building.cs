@@ -63,7 +63,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        //MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();

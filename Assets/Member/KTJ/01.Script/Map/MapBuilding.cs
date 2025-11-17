@@ -40,7 +40,6 @@ public class MapBuilding : UIBase
         {
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("a");
                 return;
             }
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -64,7 +63,7 @@ public class MapBuilding : UIBase
         isBuildActivate = true;
     }
 
-    public void OnSliderValChanged() // ½½¶óÀÌ´õ °ª º¯È­ °¨Áö
+    public void OnSliderValChanged() // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     {
         currentTileSIze = (int)TileSizeSlider.value;
     }
@@ -87,7 +86,7 @@ public class MapBuilding : UIBase
 
     private IEnumerator RebuildNavMeshNextFrame()
     {
-        yield return null; // ¡ç ¿©±â¼­ 1ÇÁ·¹ÀÓ ´ë±â ¡æ Tilemap Mesh ¾÷µ¥ÀÌÆ®µÊ
+        yield return null; // ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ Tilemap Mesh ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
         navMeshSurface.BuildNavMesh();
     }
 
