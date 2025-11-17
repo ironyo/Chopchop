@@ -63,14 +63,19 @@ namespace Member.CHJ._02.Scripts
 
             foreach (var b in Buildings)
             {
+                Debug.Log("BuildingSo is null" + b.buildingSO);
                 if (b.buildingSO == null) continue;
+                Debug.Log("BuildingSo isnt null");
                 if (type == null) continue;
+                Debug.Log("typs isnt null");
 
                 if (b.buildingSO.name != type.name)
                     continue;
+                Debug.Log("buildingSO.name == type name null");
 
                 if (!b.CanReserve())
                     continue;
+                Debug.Log("CanReserve");
 
                 float dist = Vector3.Distance(pos, b.transform.position);
                 if (dist < minDist && dist <= maxRange)
