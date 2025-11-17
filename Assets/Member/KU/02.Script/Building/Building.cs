@@ -74,8 +74,6 @@ public class Building : MonoBehaviour
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
 
-
-
         InitializeLineRenderer();
     }
 
@@ -97,11 +95,16 @@ public class Building : MonoBehaviour
         if (minionCount == 0) return;
 
         spawnCurrentTime += Time.deltaTime;
-        if(spawnCurrentTime >= spawnTime)
+        if (spawnCurrentTime >= spawnTime)
         {
-            spawnCurrentTime = 0;
-            ResourceManager.Instance.AddResource(spawnAmount[level-1].resourceTypeSO, spawnAmount[level-1].amount * minionCount);
-            ResourceLog(level-1);
+            if (buildingSO.levelResourceType[level - 1].minion != null)
+                Instantiate(buildingSO.levelResourceType[level - 1].minion);
+            else
+            {
+                spawnCurrentTime = 0;
+                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
+                ResourceLog(level - 1);
+            }
         }
     }
 
