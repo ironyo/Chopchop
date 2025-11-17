@@ -33,7 +33,7 @@ public class TestMinion : MonoBehaviour
 
     IEnumerator WaitDestroy(int wait)
     {
-        yield return new WaitForSeconds(wait);
+        yield return new WaitForSeconds(wait);  
         Debug.Log("미니언 삭제");
         Destroy(gameObject);
     }

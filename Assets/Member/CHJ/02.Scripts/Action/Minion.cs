@@ -60,11 +60,15 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         patrol = Random.Range(10, 20);
         secondWork = 55 - patrol - firstWork;
         sleep = 60;
-        
+
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;
-        
+
+        if (Stats.Age == Stats.MaxAge)
+        {
+            GetComponent<TestMinion>().Die();
+        }
         TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
     

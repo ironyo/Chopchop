@@ -68,11 +68,13 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private BoxCollider2D boxCollider;
 
+    //public static BuildManager Instance { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
-
+        //if(Instance == null)
+        //    Instance = this;
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
@@ -126,6 +128,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
+            Debug.Log("aaaaaaaa");
             BuildedClear();
         }
     }
@@ -406,14 +409,12 @@ public class BuildManager : MonoSingleton<BuildManager>
         if(me == null)
         {
             foreach (var b in buildingParent)
-            {
                 b.buildingSelector.isOpen = false;
-            }
         }
         else
         {
             foreach (var b in buildingParent)
-            {                
+            {
                 if (b != me)
                     b.buildingSelector.isOpen = false;
                 else
