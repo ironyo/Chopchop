@@ -22,7 +22,7 @@ public class Building : MonoBehaviour
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
 
-    public TextMeshProUGUI logPrefab;
+    public TextMeshPro logPrefab;
     private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
@@ -167,7 +167,7 @@ public class Building : MonoBehaviour
     }
     private void ResourceLog(int num)
     {
-        TextMeshProUGUI obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
     }
     private void SpawnResourceTypeChange()
