@@ -46,8 +46,6 @@ public class TestMinion : MonoBehaviour
         {
             minionChat.AddMessage(message);
         }
-
-        TestMinionManager.Instance.alivesMinions.Remove(this);
         StartCoroutine(WaitDestroy(1));
     }
 
