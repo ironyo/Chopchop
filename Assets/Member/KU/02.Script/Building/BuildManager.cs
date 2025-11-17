@@ -301,7 +301,8 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     public void BuildingMode()
     {
-        if (!isMoveInv) return;
+        //if (!isMoveInv) return;
+
         CloseAllBuildUI(null);
         GridDestroy();
         isBuilding = false;
