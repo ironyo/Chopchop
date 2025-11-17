@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class Minion : MonoBehaviour, IPointerClickHandler
+public class Minion : MonoBehaviour
 {
     [SerializeField] private int firstWork;
     [SerializeField] private int patrol;
@@ -40,7 +40,6 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         TimeStruct = new MinionTime();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
         _navMesh = GetComponent<NavMeshAgent>();
-        behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
         currentState = AiStates.None;
@@ -79,14 +78,13 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
-    public void EndMate() => isMating = false;
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (JobButtonManager.Instance.Minion != this)
-        {
-            JobButtonManager.Instance.OnValueChanged?.Invoke(this);
-        }
-    }
+    // public void OnPointerClick(PointerEventData eventData)
+    // {
+    //     if (JobButtonManager.Instance.Minion != this)
+    //     {
+    //         JobButtonManager.Instance.OnValueChanged?.Invoke(this);
+    //     }
+    // }
 
     public GameObject GetVisualObject()
     {

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using Member.CHJ._02.Scripts;
 
 public class BombEvent : MonoBehaviour, IGameEvent
 {
@@ -25,14 +26,11 @@ public class BombEvent : MonoBehaviour, IGameEvent
 
     private void BoomRandMinion()
     {
-        List<TestMinion> minions = TestMinionManager.Instance.alivesMinions;
-
-        if (minions.Count > 0 )
-        {
-            TestMinion pickedMinion = minions[Random.Range(0, minions.Count)];
-
-            pickedMinion.Bomb();
-        }
+        if (MinionManager.Instance.minionList == null)
+            return;
+        TestMinion minion = MinionManager.Instance.minionList
+            [Random.Range(0, MinionManager.Instance.minionList.Count)].GetComponent<TestMinion>();
+        minion.Bomb();
     }
 
     #region run&stop
@@ -44,7 +42,7 @@ public class BombEvent : MonoBehaviour, IGameEvent
     public void Stop()
     {
         isRunning = false;
-        Debug.Log("BombEvent ÁßÁö");
+        Debug.Log("BombEvent ï¿½ï¿½ï¿½ï¿½");
     }
     #endregion
 }
