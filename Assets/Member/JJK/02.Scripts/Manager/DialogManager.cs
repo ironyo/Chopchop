@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DialogManager : MonoBehaviour
+public class DialogManager : MonoSingleton<DialogManager>
 {
-    public static DialogManager Instance;
-    
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private GameObject choiceBox;
@@ -36,10 +34,9 @@ public class DialogManager : MonoBehaviour
     
     private DialogState state = DialogState.None;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(this);
+        base.Awake();
     }
 
     private void Update()

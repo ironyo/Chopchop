@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
@@ -31,6 +32,11 @@ public class DayCycleManager : MonoBehaviour
 
     private Vignette vignette;
 
+    private int minute;
+    private int hours;
+    private float realTimer;
+    public Action OnNextDay { get; set; }
+
     void Start()
     {
         if (postProcessVolume.profile.TryGet(out vignette))
@@ -48,6 +54,27 @@ public class DayCycleManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        realTimer += Time.deltaTime;
+
+        if (realTimer >= 1)
+        {
+            realTimer = 0;
+            minute++;
+            
+            if (minute >= 60)
+            {
+                minute = 0;
+                hours++;
+            }
+            
+            if (hours >= 24)
+            {
+                hours = 0;
+                OnNextDay?.Invoke();
+            }
+
+            Debug.Log($"{hours:00} : {minute:00}");
+        }
 
         switch (state)
         {

@@ -9,29 +9,27 @@ public enum UnitType {Player, Enemy, HQ}
 
 public class Unit : MonoBehaviour
 {
-    public HealthSystem healthCompo {get; private set;}
+    public HealthSystem HealthCompo {get; private set;}
     public UnitDataSO data;
     public UnitType _unitType;
-    [SerializeField] private float attackRange = 2f;
-    public bool isLanding = false;
+
     [field: SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; private set; }
     
     private NavMeshAgent navAgent;
     private float attackCooldown;
     private Unit target;
-    private Rifle rifle;
+    private Weapon _weapon;
 
     private void Awake()
     {
         if (_unitType != UnitType.HQ)
             NavAgentSet();
         
-        healthCompo = GetComponent<HealthSystem>();
-        //healthCompo.maxHealth = data.hp;
-        healthCompo.OnDead += Die;
+        HealthCompo = GetComponent<HealthSystem>();
+        HealthCompo.OnDead += Die;
         
         if (_unitType == UnitType.Player)
-            rifle = transform.Find("WeaponParent/Rifle").GetComponent<Rifle>();
+            _weapon = transform.Find("WeaponParent/Weapon").GetComponent<Weapon>();
     }
 
     private void NavAgentSet()
@@ -48,10 +46,9 @@ public class Unit : MonoBehaviour
     {
         HandleAttackCooldown();
 
-        if (_unitType != UnitType.HQ)
+        if (_unitType != UnitType.HQ && InvasionManager.Instance.isLanding)
         {
             SetTarget();
-            
             MoveToTarget();
         }
     }
@@ -62,7 +59,7 @@ public class Unit : MonoBehaviour
         {
             target = EnemyManager.Instance.GetNearestEnemy(this);
         }
-        else if (_unitType == UnitType.Enemy && isLanding)
+        else if (_unitType == UnitType.Enemy)
         {
             GameObject hqObj = GameObject.FindGameObjectWithTag("HQ");
             target = hqObj.GetComponent<Unit>();
@@ -76,6 +73,8 @@ public class Unit : MonoBehaviour
             navAgent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);
 
+            float attackRange = (_unitType == UnitType.Player) ? _weapon.weaponData.attackRange : data.attackRange;
+            
             if (distance < attackRange)
             {
                 navAgent.ResetPath();
@@ -96,11 +95,26 @@ public class Unit : MonoBehaviour
     {
         if (_target == null || attackCooldown > 0) return;
         
-        _target.GetComponent<HealthSystem>().GetDamage(data.attack);
         attackCooldown = data.attackSpeed;
-        
+
         if (_unitType == UnitType.Player)
-            rifle.ShootBullet();
+        {
+            switch (_weapon.weaponData._WeaponType) 
+            {
+                case WeaponType.Sword:
+                    _weapon.Swing();
+                    _target.GetComponent<HealthSystem>().GetDamage(data.attack);
+                    break;
+                case WeaponType.Pistol:
+                    _weapon.ShotBullet();
+                    break;
+                case WeaponType.SMG:
+                    StartCoroutine(_weapon.TripleShot());
+                    break;
+            }
+        }
+        else if (_unitType == UnitType.Enemy)
+            _target.GetComponent<HealthSystem>().GetDamage(data.attack);
     }
 
     private void Die()

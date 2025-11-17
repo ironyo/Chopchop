@@ -6,16 +6,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : MonoSingleton<BattleManager>
 {
-    public static BattleManager Instance;
-
     public bool isBattle = false;
-    
-    private void Awake()
+
+    protected override void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        base.Awake();
     }
 
     public void Win()

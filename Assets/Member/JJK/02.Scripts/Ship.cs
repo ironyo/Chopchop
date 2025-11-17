@@ -68,7 +68,7 @@ public class Ship : MonoBehaviour
             var agent = enemy.GetComponent<NavMeshAgent>();
             agent.enabled = true;
             
-            enemy.GetComponent<Unit>().isLanding = true;
+            InvasionManager.Instance.isLanding = true;
         }
         
         Destroy(gameObject);

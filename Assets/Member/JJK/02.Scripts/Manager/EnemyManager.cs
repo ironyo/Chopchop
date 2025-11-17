@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    public static EnemyManager Instance { get; private set; }
-
     public List<Unit> enemies = new List<Unit>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        base.Awake();
     }
 
     public void RegisterEnemy(Unit unit)

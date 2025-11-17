@@ -5,12 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class InvasionManager : MonoBehaviour
+public class InvasionManager : MonoSingleton<InvasionManager>
 {
-    public static InvasionManager Instance;
-    
     [SerializeField] private int minCount = 3, maxCount = 7;
     [SerializeField] private int minTime = 100, maxTime = 300;
+    public bool isLanding = false;
     
     private int enemyCount;
     private float invasionTime;
@@ -19,10 +18,9 @@ public class InvasionManager : MonoBehaviour
     
     private ShipSpawner spawner;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(this);
+        base.Awake();
         
         spawner = GetComponentInChildren<ShipSpawner>();
     }

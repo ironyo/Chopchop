@@ -7,7 +7,7 @@ public class WeaponAnimation : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void FireWeapon()

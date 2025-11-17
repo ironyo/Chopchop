@@ -6,19 +6,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : MonoSingleton<ResourceManager>
 {
     public ResourceTypeListSO _resourceTypeListSO;
-    public static ResourceManager Instance;
     public Dictionary<ResourceTypeSO, (int, ResourcePref)> resourceAmountDictionary = new Dictionary<ResourceTypeSO, (int, ResourcePref)> ();
 
     [SerializeField] private GameObject resourcePref;
     [SerializeField] private RectTransform prefSpawnPos;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        base.Awake();
         
         foreach (ResourceTypeSO resource in _resourceTypeListSO.list)
         {
