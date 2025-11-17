@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class NegotiationOption
 {
-    public string text;
     public int cost;
     public ResourceTypeSO type;
 }
@@ -24,6 +23,6 @@ public class NegotiationManager : MonoBehaviour
     public void CancelNegotiation()
     {
         Debug.Log("전투 시작");
-        BattleManager.Instance.BattleStart();
+        BattleManager.Instance.isBattle = true;
     }
 }

@@ -1,14 +1,15 @@
+
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class InvasionManager : MonoBehaviour
+public class InvasionManager : MonoSingleton<InvasionManager>
 {
     [SerializeField] private int minCount = 3, maxCount = 7;
     [SerializeField] private int minTime = 100, maxTime = 300;
-    [SerializeField] private UnitData enemyData;
+    public bool isLanding = false;
     
     private int enemyCount;
     private float invasionTime;
@@ -17,17 +18,19 @@ public class InvasionManager : MonoBehaviour
     
     private ShipSpawner spawner;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         spawner = GetComponentInChildren<ShipSpawner>();
     }
 
     private void Start()
     {
-        InitInvation();
+        InitInvasion();
     }
 
-    private void InitInvation()
+    private void InitInvasion()
     {
         enemyCount = Random.Range(minCount, maxCount);
         invasionTime = Random.Range(minTime, maxTime);
@@ -46,13 +49,13 @@ public class InvasionManager : MonoBehaviour
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            Invasion();
+            //Invasion();
+            DialogManager.Instance.InvasionDialog();
         }
     }
 
     private IEnumerator InvasionWarning()
     {
-        isInvading = true;
         Debug.Log($"적{enemyCount}명이 5초 뒤에 침략합니다");
         
         yield return new WaitForSeconds(5f);
@@ -60,19 +63,10 @@ public class InvasionManager : MonoBehaviour
         Invasion();
     }
 
-    private void Invasion()
+    public void Invasion()
     {
+        InitInvasion();
         spawner.SpawnShip(enemyCount);
-        InitInvation();
-    }
-
-    public void Win()
-    {
-        
-    }
-
-    public void Lose()
-    {
-        //게임 오버
+        isInvading = true;
     }
 }
