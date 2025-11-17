@@ -11,10 +11,12 @@ public class Weapon : MonoBehaviour
     private Animator animator;
     private float reloadTime = 0.2f;
 
+    private Unit _target;
+
     private void Awake()
     {
         AnimCompo = GetComponent<WeaponAnimation>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -30,16 +32,25 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator TripleShot()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            ShotBullet();
-            yield return new WaitForSeconds(reloadTime);
-        }
+        ShotBullet();
+        yield return new WaitForSeconds(reloadTime);
+        ShotBullet();
+        yield return new WaitForSeconds(reloadTime);
+        ShotBullet();
     }
 
-    public void Swing()
+    public void Swing(Unit target)
     {
         AnimCompo.FireWeapon();
+        _target = target;
+    }
+
+    public void Hit()
+    {
+        Debug.Log(_target);
+        
+        if (_target == null) return;
+        _target.GetComponent<HealthSystem>().GetDamage(weaponData.damage);
     }
 
     private void SpawnBullet(Vector2 position, float dmg)

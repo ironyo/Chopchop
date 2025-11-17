@@ -102,8 +102,7 @@ public class Unit : MonoBehaviour
             switch (_weapon.weaponData._WeaponType) 
             {
                 case WeaponType.Sword:
-                    _weapon.Swing();
-                    _target.GetComponent<HealthSystem>().GetDamage(data.attack);
+                    _weapon.Swing(_target);
                     break;
                 case WeaponType.Pistol:
                     _weapon.ShotBullet();
