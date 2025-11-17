@@ -52,8 +52,8 @@ namespace Member.CHJ._02.Scripts
                 if (time < minionTime.FirstWork) return AiStates.Work;
                 else if (time < minionTime.Patrol) return AiStates.Patrol;
                 else if (time < minionTime.SecondWork) return AiStates.Work;
-                else return AiStates.Sleep;
-                
+                else if (time < minionTime.Sleep)return AiStates.Sleep;
+                return AiStates.None;
             }
 
             private void OnDisable()

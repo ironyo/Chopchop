@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
 
-
 public class Building : MonoBehaviour
 {
     public int buildCount = 0;
@@ -62,20 +61,16 @@ public class Building : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-
-    }
     private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        _minionText = GetComponentInChildren<TextMeshProUGUI>();
-        buildingSelector = GetComponent<BuildingSelector>();
-        //MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
+        boxCollider = GetComponent<BoxCollider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+        _minionText = GetComponentInChildren<TextMeshProUGUI>();
 
+        buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
 
@@ -88,10 +83,6 @@ public class Building : MonoBehaviour
     {
         // _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
         UpdateColliderView();
-        //if (lineRenderer != null)
-        //else
-        //    Debug.Log("sss");
-
         if (Keyboard.current.nKey.wasPressedThisFrame)
         {
             BuildUpgrade();
@@ -138,6 +129,7 @@ public class Building : MonoBehaviour
 
     public bool CanReserve()
     {
+        Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
         return NowMinion < maxMinion;
     }
     public bool TryReserve()

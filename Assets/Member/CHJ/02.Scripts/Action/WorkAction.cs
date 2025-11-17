@@ -33,7 +33,7 @@ public partial class WorkAction : Action
             Navmesh.Value.SetDestination(Target.Value.transform.position);
         
         
-        Work.Value.DoWork(Target.Value.transform);
+        Work.Value.DoWork(Target);
         return Status.Running;
     }
     private bool CheckTime()
@@ -76,8 +76,8 @@ public partial class WorkAction : Action
             Vector2 targetPos = Target.Value.transform.position;
             Navmesh.Value.SetDestination(targetPos);
         }
-        if(Work.Value.IsCollisionWithWorkBuilding() && _minion.GetVisualObject().activeSelf)
-            _minion.GetVisualObject().SetActive(false);
+        if(_minion.GetVisualObject().activeSelf)
+            Work.Value.CheckBuilding(_minion);
 
         return Status.Running;
     }
