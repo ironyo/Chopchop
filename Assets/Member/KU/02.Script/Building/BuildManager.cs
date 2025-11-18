@@ -49,7 +49,9 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private List<GameObject> spawnGrid = new();
     private List<BuildingSelector> selectorCompo = new();
-    private bool isBuilding;
+
+    public bool isBuilding { get; private set; }
+
     private BuildingSO buildingSO;
     private int buildingCount = 0;
 
@@ -355,7 +357,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[selectCount].minion == null)
                 {
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + $"{buildingParent[selectCount].buildingSO.spawnTime}/s";
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" +  $"{buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount}/s";
                 }
                 else
                 {
