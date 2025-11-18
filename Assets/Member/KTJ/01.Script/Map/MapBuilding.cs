@@ -68,10 +68,30 @@ public class MapBuilding : UIBase
         currentTileSIze = (int)TileSizeSlider.value;
     }
 
+    private int GetTileCount(Vector2Int anchor)
+    {
+        int setTileCount = 0;
+
+        for (int x = 0; x < currentTileSIze; x++)
+        {
+            for (int y = 0; y < currentTileSIze; y++)
+            {
+                if (!visualTilemap.HasTile(new Vector3Int(anchor.x + x, anchor.y + y, 0)))
+                {
+                    setTileCount++; // 여기하는중
+                }
+            }
+        }
+
+        return setTileCount;
+    }
+
     private void SetTile(Vector2Int anchor)
     {
         cis.GenerateImpulse();
         SoundManager.Instance.SFXPlay("MapSet", MapSetSound);
+
+        int setTileCount = 0;
 
         for (int x = 0; x < currentTileSIze; x++)
         {
@@ -80,6 +100,8 @@ public class MapBuilding : UIBase
                 tilemap.SetTile(new Vector3Int(anchor.x + x, anchor.y + y, 0), ruleTile);
             }
         }
+
+        Debug.Log(GetTileCount(anchor));
 
         StartCoroutine(RebuildNavMeshNextFrame());
     }

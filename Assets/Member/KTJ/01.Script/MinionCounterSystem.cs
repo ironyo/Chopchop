@@ -46,7 +46,7 @@ public class MinionCounterSystem : MonoBehaviour
         }
     }
 
-    private void Update()// �ӽ÷� ������Ʈ���� ȣ����
+    private void Update()
     {
         UpdateOverloadSlider();
     }
@@ -83,8 +83,8 @@ public class MinionCounterSystem : MonoBehaviour
     private int CalculateValue()
     {
         int tileCount = MapManager.Instance.GetTileCount();
-        int minionCount = MinionManager.Instance.minionList.Count; // TODO: ���� �̴Ͼ� �Ŵ������� ��������
-        //int minionCount = 100; // x�׽�Ʈ�� �ӽ�
+        int minionCount = MinionManager.Instance.minionList.Count;
+        //int minionCount = 100;
 
         if (minionCount == 0)
             return 0;
