@@ -86258,7 +86258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &566162028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86716,7 +86717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &577359884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118311,7 +118313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &729062873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128533,6 +128536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilemapCollider: {fileID: 229691195}
+  _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
+  _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -176453,6 +176458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
+  schoolSo: {fileID: 0}
 --- !u!1 &984809311
 GameObject:
   m_ObjectHideFlags: 0
@@ -207446,7 +207452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &1405257096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218960,7 +218967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &1493935872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220554,7 +220562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59e821d7e519024fbc689a69d378b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jobDataListSo: {fileID: 11400000, guid: e3a327d8cc6748c4893ed20e9ac4133c, type: 2}
+  jobDataListSo: {fileID: 0}
 --- !u!1 &1588988521
 GameObject:
   m_ObjectHideFlags: 0
@@ -251974,7 +251982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &1783729793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267512,18 +267521,16 @@ MonoBehaviour:
   _texPref: {fileID: 6613956694696932738, guid: 0ece08930f6a76e4a874f7c15c2d316a, type: 3}
   _rectTransform: {fileID: 72639980}
   _nowPage: 1
-  _maxPage: 2
+  _maxPage: 1
   _invPrefObj: []
   _buildSO:
-  - {fileID: 11400000, guid: 3aef583cde101a04cbe540a195b88514, type: 2}
-  - {fileID: 11400000, guid: cd80db1a7a4fabd46ab6671aeb18a34d, type: 2}
-  - {fileID: 11400000, guid: 33d2116cfb5a3a84cab8ec720cedcb8c, type: 2}
-  - {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
-  - {fileID: 11400000, guid: 6930bf3d3609ff2449fd27e4322a09ff, type: 2}
-  - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
-  - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
-  - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
   - {fileID: 11400000, guid: d3f71deb2c8d5544fb6d2003604c1a1c, type: 2}
+  - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
+  - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
+  - {fileID: 11400000, guid: cd80db1a7a4fabd46ab6671aeb18a34d, type: 2}
+  - {fileID: 11400000, guid: 3f642ffaecb53b24b9f90d1cd31ab8de, type: 2}
+  - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
+  - {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
 --- !u!114 &1849345731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283808,7 +283815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &1950302207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290187,7 +290195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &2028035774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290808,6 +290817,9 @@ MonoBehaviour:
   nightColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
   dayVignetteIntensity: 0.2
   nightVignetteIntensity: 0.4
+  OnTimeChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2053702501
 Transform:
   m_ObjectHideFlags: 0
@@ -291210,7 +291222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!114 &2063969924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332007,7 +332020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 0}
 --- !u!1 &8417856073853431212
 GameObject:
   m_ObjectHideFlags: 0
