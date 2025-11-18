@@ -22,6 +22,7 @@ public class Building : MonoBehaviour
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
     public ParticleSystem minionSpawnParticle;
+    public ParticleSystem minionBuildParticle;
     public TextMeshPro logPrefab;
     private TextMeshPro _minionText;
 
@@ -78,6 +79,14 @@ public class Building : MonoBehaviour
 
         boxCollider.size = new Vector2(buildingSO.maxW, wSize);
 
+        if(buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion != null)
+            {
+                GameObject particle = Instantiate(minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
+                particle.transform.position += new Vector3(buildingSO.maxW * 0.5f, buildingSO.width / buildingSO.maxW * 0.5f);
+            }
+        }
     }
 
     private void Update()
@@ -94,12 +103,14 @@ public class Building : MonoBehaviour
             UpdateSpawnResource();
     }
 
+    private int minusTimer;
     private void UpdateSpawnResource()
     {
+        minusTimer = buildingSO.levelResourceType[0].minion != null ? level : 0;
         if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
         spawnCurrentTime += Time.deltaTime;
-        if (spawnCurrentTime >= spawnTime)
+        if (spawnCurrentTime >= spawnTime - minusTimer)
         {
             if (buildingSO.levelResourceType[level - 1].minion != null)
             {
@@ -107,6 +118,7 @@ public class Building : MonoBehaviour
                 Instantiate(minionSpawnParticle, transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
                 ResourceLog(level - 1, true);
+
             }
             else
             {

@@ -28,7 +28,7 @@ MonoBehaviour:
   - resourceTypeSOs: []
     minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
     level: 3
-  spawnTime: 3
+  spawnTime: 6
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
     amount: 30
