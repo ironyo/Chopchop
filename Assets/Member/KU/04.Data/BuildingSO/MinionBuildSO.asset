@@ -20,17 +20,17 @@ MonoBehaviour:
   maxMinion: 000000000000000000000000
   levelResourceType:
   - resourceTypeSOs: []
-    minion: {fileID: 5004249982730692422, guid: 08bb0ce71cb3ea84cb4dbde8fdde7d93, type: 3}
+    minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
     level: 1
   - resourceTypeSOs: []
-    minion: {fileID: 5004249982730692422, guid: 08bb0ce71cb3ea84cb4dbde8fdde7d93, type: 3}
+    minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
     level: 2
   - resourceTypeSOs: []
-    minion: {fileID: 5004249982730692422, guid: 08bb0ce71cb3ea84cb4dbde8fdde7d93, type: 3}
+    minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
     level: 3
   spawnTime: 3
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
     amount: 30
-  - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
+  - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 20

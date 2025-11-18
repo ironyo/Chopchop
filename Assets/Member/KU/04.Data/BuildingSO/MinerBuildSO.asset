@@ -20,16 +20,19 @@ MonoBehaviour:
   maxMinion: 030000000600000009000000
   levelResourceType:
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
+    - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
       amount: 1
+    minion: {fileID: 0}
     level: 1
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
+    - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
       amount: 3
+    minion: {fileID: 0}
     level: 2
   - resourceTypeSOs:
-    - resourceTypeSO: {fileID: 11400000, guid: 4ba9ce1bfd6635949a8dcf5da2d90381, type: 2}
+    - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
       amount: 5
+    minion: {fileID: 0}
     level: 3
   spawnTime: 2
   resourceTypeCost:

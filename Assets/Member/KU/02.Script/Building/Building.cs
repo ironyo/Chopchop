@@ -72,14 +72,18 @@ public class Building : MonoBehaviour
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
-        boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
+        boxCollider.size = new Vector2(buildingSO.maxW + 2f,  wSize + 2f);
 
         InitializeLineRenderer();
+
+        boxCollider.size = new Vector2(buildingSO.maxW, wSize);
+
     }
 
     private void Update()
     {
          _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
+
         UpdateColliderView();
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
@@ -92,18 +96,22 @@ public class Building : MonoBehaviour
 
     private void UpdateSpawnResource()
     {
-        if (minionCount == 0) return;
+        if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
         spawnCurrentTime += Time.deltaTime;
         if (spawnCurrentTime >= spawnTime)
         {
             if (buildingSO.levelResourceType[level - 1].minion != null)
-                Instantiate(buildingSO.levelResourceType[level - 1].minion);
+            {
+                spawnCurrentTime = 0;
+                Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
+                ResourceLog(level - 1, true);
+            }
             else
             {
                 spawnCurrentTime = 0;
                 ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
-                ResourceLog(level - 1);
+                ResourceLog(level - 1, false);
             }
         }
     }
@@ -165,10 +173,13 @@ public class Building : MonoBehaviour
         else if(spawnAmount.Count != 0)
             SpawnResourceTypeChange();
     }
-    private void ResourceLog(int num)
+    private void ResourceLog(int num, bool isMinion)
     {
         TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
-        obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
+        if(isMinion)
+            obj.text = $"+¹Ì´Ï¾ð";
+        else
+            obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
     }
     private void SpawnResourceTypeChange()
     {
@@ -199,11 +210,11 @@ public class Building : MonoBehaviour
     }
     private void UpdateColliderView()
     {
-        lineRenderer.enabled = showCollider;
+        lineRenderer.enabled = !InventoryManager.Instance.IsNowClose;
 
         if (!showCollider || boxCollider == null) return;
 
-        Vector2 size = boxCollider.size;
+        Vector2 size = new Vector2(boxCollider.size.x +2, boxCollider.size.y+2);
         Vector2 offset = boxCollider.offset;
 
         Vector3[] points = new Vector3[5]

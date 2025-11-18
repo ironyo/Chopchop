@@ -17,6 +17,7 @@ public class BuildingSelector : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("isNowClose: "+ InventoryManager.Instance.IsNowClose);
         if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint (Mouse.current.position.ReadValue());

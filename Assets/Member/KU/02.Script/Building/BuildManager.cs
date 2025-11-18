@@ -16,6 +16,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int width;
     private int maxW = 3;
 
+    [SerializeField] TilemapCollider2D _tilemapCollider;
+
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
 
@@ -49,7 +51,9 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private List<GameObject> spawnGrid = new();
     private List<BuildingSelector> selectorCompo = new();
-    private bool isBuilding;
+
+    public bool isBuilding { get; private set; }
+
     private BuildingSO buildingSO;
     private int buildingCount = 0;
 
@@ -187,7 +191,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildedClear()
     {
-        if (!CanSpawn() || !CanResourceAmount()) return;
+        if (!CanSpawn() || !CanResourceAmount() || !IsOnTheGround()) return;
 
         showCollider = false;
         isBuilding = false;
@@ -258,7 +262,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Vector2 center = boxCollider.bounds.center;
         Vector2 size = boxCollider.bounds.size;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x -1, size.y-1), 0f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x, size.y), 0f);
 
         foreach (var hit in hits)
         {
@@ -283,6 +287,30 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         return true;
     }
+    public bool IsOnTheGround()
+    {
+        float shrink = 1f;
+        Bounds b = boxCollider.bounds;
+        b.Expand(new Vector3(-shrink, -shrink, 0));
+
+        float step = 0.5f;
+
+        for (float x = b.min.x; x <= b.max.x; x += step)
+        {
+            for (float y = b.min.y; y <= b.max.y; y += step)
+            {
+                Vector2 point = new Vector2(x, y);
+
+                if (!_tilemapCollider.OverlapPoint(point))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     private void OnDrawGizmos()
     {
         if (boxCollider != null)
@@ -301,7 +329,8 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     public void BuildingMode()
     {
-        if (!isMoveInv) return;
+        //if (!isMoveInv) return;
+
         CloseAllBuildUI(null);
         GridDestroy();
         isBuilding = false;
@@ -352,9 +381,9 @@ public class BuildManager : MonoSingleton<BuildManager>
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
             {
-                if(buildingParent[selectCount].buildingSO.levelResourceType[selectCount].minion == null)
+                if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount + $"{buildingParent[selectCount].buildingSO.spawnTime}/s";
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" +  $"{buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount}/s";
                 }
                 else
                 {

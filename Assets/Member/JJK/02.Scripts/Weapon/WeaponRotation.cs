@@ -15,11 +15,6 @@ public class WeaponRotation : MonoBehaviour
         
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * roationSpeed);
-        AdjustWeaponRendering();
-    }
-
-    private void AdjustWeaponRendering()
-    {
         FlipSprite(angle > 90 || angle < -90);
     }
     

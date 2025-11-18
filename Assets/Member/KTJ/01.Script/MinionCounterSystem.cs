@@ -46,7 +46,7 @@ public class MinionCounterSystem : MonoBehaviour
         }
     }
 
-    private void Update()// �ӽ÷� ������Ʈ���� ȣ����
+    private void Update()
     {
         UpdateOverloadSlider();
     }
@@ -54,7 +54,7 @@ public class MinionCounterSystem : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
-        minionCounterTxt.text = "�̴Ͼ�: " + MinionManager.Instance.minionList.Count.ToString();
+        minionCounterTxt.text = "미니언: " + MinionManager.Instance.minionList.Count.ToString();
         counterSlider.value = sliderVal;
 
         if (counterSlider.value <= 25)
@@ -83,8 +83,8 @@ public class MinionCounterSystem : MonoBehaviour
     private int CalculateValue()
     {
         int tileCount = MapManager.Instance.GetTileCount();
-        int minionCount = MinionManager.Instance.minionList.Count; // TODO: ���� �̴Ͼ� �Ŵ������� ��������
-        //int minionCount = 100; // x�׽�Ʈ�� �ӽ�
+        int minionCount = MinionManager.Instance.minionList.Count;
+        //int minionCount = 100;
 
         if (minionCount == 0)
             return 0;
