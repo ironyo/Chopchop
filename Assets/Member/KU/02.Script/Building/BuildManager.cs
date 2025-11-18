@@ -17,6 +17,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
 
     [SerializeField] TilemapCollider2D _tilemapCollider;
+    [SerializeField] private ParticleSystem _minionSpawnParticle;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
