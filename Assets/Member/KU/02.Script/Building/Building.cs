@@ -72,15 +72,18 @@ public class Building : MonoBehaviour
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
-        boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
+        boxCollider.size = new Vector2(buildingSO.maxW + 2f,  wSize + 2f);
 
         InitializeLineRenderer();
+        UpdateColliderView();
+
+        boxCollider.size = new Vector2(buildingSO.maxW, wSize);
+
     }
 
     private void Update()
     {
          _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
-        UpdateColliderView();
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
