@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Member.CHJ._02.Scripts
 {
     public class MinionManager : MonoBehaviour
     {
         public static MinionManager Instance;
-        public List<Minion> minions = new List<Minion>();
+        public List<Minion> minionList = new List<Minion>();
+        [SerializeField] public BuildingSO houseSo;
+        private Building _buildingTarget;
+        public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 
         private void Awake()
         {
@@ -15,7 +21,8 @@ namespace Member.CHJ._02.Scripts
                 Instance = this;
             else
                 Destroy(gameObject);
-            Debug.Log(Instance);
+
+            MinionsBuildingManager = new MinionsBuildingManager();
         }
 
         private void Start()
@@ -23,48 +30,45 @@ namespace Member.CHJ._02.Scripts
             TimeManager.Instance.OnOneSecond += UpdateTime;
         }
 
+        public void RegisterMinion(Minion minion)
+        {
+            if(!minionList.Contains(minion))
+                minionList.Add(minion);
+        }
+        public void UnRegisterMinion(Minion minion)
+        {
+            if(minionList.Contains(minion))
+                minionList.Remove(minion);
+        }
         private void UpdateTime(int time)
         {
-            foreach (var minion in minions)
+            foreach (var minion in minionList)
             {
                 AiStates newState = TimeCheck(minion,minion.TimeStruct,time);
                 if (minion.currentState == newState || minion.isMating)
                     continue;
-                Debug.Log("CAN CHANGE MATE");
                 minion.SetState(newState);
        
             }
         }
-        private AiStates TimeCheck(Minion minion,MinionTime minionTime, float time)
-        {
-            if (minion.isMating)
-                return AiStates.Mate;
-            if (time < minionTime.FirstWork) return AiStates.Work;
-            else if (time < minionTime.Patrol) return AiStates.Patrol;
-            else if (time < minionTime.SecondWork) return AiStates.Work;
-            else return AiStates.Sleep;
-            
-        }
-        public void StartMate()
-        {
-            foreach (var minion in minions)
-            {
-                if (minion.Stats.Age >= 5)
-                {
-                    minion.isMating = true;
-                    minion.SetState(AiStates.Mate);
-                    Debug.Log("[Mate] mate start");
-                }
-            }
-        }
-        public void AddMinion(Minion minion)
-        {
-            minions.Add(minion);
-        }
+        #region StateSetting
 
-        private void OnDisable()
-        {
-            TimeManager.Instance.OnOneSecond -= UpdateTime;
-        }
+            private AiStates TimeCheck(Minion minion,MinionTime minionTime, float time)
+            {
+                if (time < minionTime.FirstWork) return AiStates.Work;
+                else if (time < minionTime.Patrol) return AiStates.Patrol;
+                else if (time < minionTime.SecondWork) return AiStates.Work;
+                else if (time < minionTime.Sleep)return AiStates.Sleep;
+                return AiStates.None;
+            }
+
+            private void OnDisable()
+            {
+                TimeManager.Instance.OnOneSecond -= UpdateTime;
+            }
+        
+
+        #endregion
+
     }
 }

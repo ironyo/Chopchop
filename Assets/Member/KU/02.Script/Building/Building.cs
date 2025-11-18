@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -21,7 +22,8 @@ public class Building : MonoBehaviour
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
 
-    public TextMeshProUGUI logPrefab;
+    public TextMeshPro logPrefab;
+    private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -30,7 +32,7 @@ public class Building : MonoBehaviour
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
 
     [Header("Collider View Settings")]
-    public bool showCollider = true;
+    public bool showCollider { get; set; } = true;
     [SerializeField] Color colliderColor = Color.green;
     [SerializeField] float lineWidth = 0.05f;
 
@@ -54,34 +56,35 @@ public class Building : MonoBehaviour
         }
         set
         {
-            if(maxMinion >= minionCount + value)
+            if(maxMinion >= value)
                 minionCount = value;
         }
     }
 
     private void Start()
     {
+        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        _minionText = GetComponentInChildren<TextMeshPro>();
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
         boxCollider.size = new Vector2(buildingSO.maxW + 2,  wSize + 2);
-
-
 
         InitializeLineRenderer();
     }
 
     private void Update()
     {
+         _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
         UpdateColliderView();
-        if (Keyboard.current.nKey.wasPressedThisFrame)
+
+        if (Keyboard.current.lKey.wasPressedThisFrame)
         {
-            BuildUpgrade();
-            Debug.Log($"{NowLevel} { level}");
+            MinionPlus(1);
         }
         if(buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
@@ -89,13 +92,23 @@ public class Building : MonoBehaviour
 
     private void UpdateSpawnResource()
     {
+        if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
+
         spawnCurrentTime += Time.deltaTime;
-        if(spawnCurrentTime >= spawnTime)
+        if (spawnCurrentTime >= spawnTime)
         {
-            spawnCurrentTime = 0;
-            int random = Random.Range(0, spawnAmount.Count-1);
-            ResourceManager.Instance.AddResource(spawnAmount[random].resourceTypeSO, spawnAmount[random].amount);
-            ResourceLog(random);
+            if (buildingSO.levelResourceType[level - 1].minion != null)
+            {
+                spawnCurrentTime = 0;
+                Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
+                ResourceLog(level - 1, true);
+            }
+            else
+            {
+                spawnCurrentTime = 0;
+                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
+                ResourceLog(level - 1, false);
+            }
         }
     }
 
@@ -117,6 +130,25 @@ public class Building : MonoBehaviour
         NowLevel++;
         BuildingSetUp();
     }
+
+    public bool CanReserve()
+    {
+        Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
+        return NowMinion < maxMinion;
+    }
+    public bool TryReserve()
+    {
+        if (!CanReserve())
+            return false;
+        Debug.Log("Can Add Minion On Building");
+        MinionPlus(1);
+        return true;
+    }
+
+    public void Release()
+    {
+        NowMinion = Mathf.Max(0, NowMinion - 1);
+    }
     public void MinionPlus(int plus)
     {
         NowMinion += plus;
@@ -137,10 +169,13 @@ public class Building : MonoBehaviour
         else if(spawnAmount.Count != 0)
             SpawnResourceTypeChange();
     }
-    private void ResourceLog(int num)
+    private void ResourceLog(int num, bool isMinion)
     {
-        TextMeshProUGUI obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
-        obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount}";
+        TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        if(isMinion)
+            obj.text = $"+¹Ì´Ï¾ð";
+        else
+            obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
     }
     private void SpawnResourceTypeChange()
     {
@@ -150,8 +185,6 @@ public class Building : MonoBehaviour
             spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
         }
     }
-
-
 
     private void InitializeLineRenderer()
     {
@@ -173,7 +206,7 @@ public class Building : MonoBehaviour
     }
     private void UpdateColliderView()
     {
-        lineRenderer.enabled = showCollider;
+        lineRenderer.enabled = !InventoryManager.Instance.IsNowClose;
 
         if (!showCollider || boxCollider == null) return;
 

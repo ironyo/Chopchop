@@ -17,20 +17,20 @@ public class JobButtonManager : MonoBehaviour
         else
             Destroy(gameObject);
         
-        OnValueChanged += ChangeValue;
+        // OnValueChanged += ChangeValue;
     }
 
-    private void ChangeValue(Minion minion)
-    {
-        Minion = minion;
-        foreach (var button in buttons)
-        {
-            button.targetMinion = Minion;
-        }
-    }
+    // private void ChangeValue(Minion minion)
+    // {
+    //     Minion = minion;
+    //     foreach (var button in buttons)
+    //     {
+    //         button.targetMinion = Minion;
+    //     }
+    // }
 
     private void OnDestroy()
     {
-        OnValueChanged -= ChangeValue;
+        // OnValueChanged -= ChangeValue;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Member.CHJ._02.Scripts;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -11,9 +12,8 @@ public partial class WorkAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<WorkActionScr> Work;
-    [SerializeReference] public BlackboardVariable<Transform> Target;
+    [SerializeReference] public BlackboardVariable<Building> Target;
     [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
-    
     private Minion _minion;
     protected override Status OnStart()
     {
@@ -29,11 +29,9 @@ public partial class WorkAction : Action
         // return Status.Running;
         _minion = Self.Value.GetComponent<Minion>();
         Navmesh.Value.ResetPath();
-        if (Target.Value != null)
-        {
-            Vector2 targetPos = Target.Value.position;
-            Navmesh.Value.SetDestination(targetPos);
-        }
+        if (Target != null)
+            Navmesh.Value.SetDestination(Target.Value.transform.position);
+        
         
         Work.Value.DoWork(Target);
         return Status.Running;
@@ -70,25 +68,24 @@ public partial class WorkAction : Action
             Target.Value == null ||
             _minion.currentState != AiStates.Work)
         {
-            Debug.Log("[Work] Success");
             return Status.Success;
         }
 
-        if ((Navmesh.Value.destination - Target.Value.position).sqrMagnitude >= 0.25f)
+        if ((Navmesh.Value.destination - Target.Value.transform.position).sqrMagnitude >= 0.25f)
         {
-            Vector2 targetPos = Target.Value.position;
+            Vector2 targetPos = Target.Value.transform.position;
             Navmesh.Value.SetDestination(targetPos);
         }
-        if(Work.Value.IsCollisionWithWorkBuilding() && _minion.visualObj.activeSelf)
-            _minion.visualObj.SetActive(false);
+        if(_minion.GetVisualObject().activeSelf)
+            Work.Value.CheckBuilding(_minion);
 
         return Status.Running;
     }
 
     protected override void OnEnd()
     {
-        if(_minion.visualObj != null)
-            _minion.visualObj.SetActive(true);
+        if(_minion.GetVisualObject() != null)
+            _minion.GetVisualObject().SetActive(true);
         
         
         Work.Value.ExitWork();

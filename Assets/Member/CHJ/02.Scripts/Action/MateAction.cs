@@ -12,10 +12,12 @@ public partial class MateAction : Action
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
     [SerializeReference] public BlackboardVariable<ParticleSystem> Particle;
     [SerializeReference] public BlackboardVariable<Minion> Minion;
-    [SerializeReference] public BlackboardVariable<Transform> House;
+    [SerializeReference] public BlackboardVariable<Building> House;
     protected override Status OnStart()
     {
-        NavMesh.Value.SetDestination(House.Value.position);
+        Debug.Log("REAL MATE START");
+        NavMesh.Value.SetDestination(House.Value.transform.position);
+        Particle.Value.Play();
         return Status.Running;
     }
 
@@ -23,19 +25,10 @@ public partial class MateAction : Action
     {
         if (NavMesh.Value.remainingDistance <= 0.01f)
         {
-            Minion.Value.visualObj.SetActive(false);
+            Minion.Value.GetVisualObject().SetActive(false);
             return Status.Success;
         }
         return Status.Running;
-    }
-    public void MateCheck(int t)
-    {
-    }
-
-    private void StartMate()
-    {
-        Minion.Value.isFoundPartner = false;
-        
     }
 
     private bool FindMateMinion()
@@ -55,13 +48,16 @@ public partial class MateAction : Action
     }
     private void EndMate()
     {
-        Minion.Value.visualObj.SetActive(true);
+        Minion.Value.GetVisualObject().SetActive(true);
         Particle.Value.Pause();
         //호이쨔
     }
     protected override void OnEnd()
     {
+        if (House?.Value != null)
+            House.Value.TryReserve();
+
         EndMate();
     }
-}
 
+}

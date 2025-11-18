@@ -10,12 +10,13 @@ using Unity.Properties;
 using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Cant Find Building Action", story: "[Navmesh] [Self] After [State]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
+[NodeDescription(name: "Cant Find Building Action", story: "[Navmesh] [Self] After [State] [WaitT]", category: "Action", id: "64cf7f92bf09d573139059e233b664ec")]
 public partial class CantFindBuildingAction : Action
 {
     [SerializeReference] public BlackboardVariable<NavMeshAgent> Navmesh;
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<AiStates> State;
+    [SerializeReference] public BlackboardVariable<float> WaitT;
     private Vector3 _targetPos;
     private Vector3 _target;
     private Minion _minion;
@@ -41,7 +42,6 @@ public partial class CantFindBuildingAction : Action
     }
     protected override Status OnUpdate()
     {
-        Debug.Log("Patrol Update");
         if (!CheckTime())
         {
             Debug.Log("END");
@@ -62,6 +62,7 @@ public partial class CantFindBuildingAction : Action
     {
         for (int i = 0; i < MaxAttempt; i++)
         {
+            WaitT.Value = Random.Range(1.5f, 4);
             Vector3 randomPos = Random.insideUnitCircle * radius;
             randomPos += (Vector3)currentPos;
             _target = randomPos;

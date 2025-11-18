@@ -4,9 +4,9 @@ using Random = UnityEngine.Random;
 public class MinionStats
 {
     public int Hp { get; set; }
-    public float Hunger { get; set; }
-    public float Emotion { get; set; }
     public int Age { get; set; }
+    
+    public int MaxAge { get; set; }
     public string Name { get; private set; }
 
     public WorkActionScr Job { get; set; }
@@ -21,9 +21,8 @@ public class MinionStats
     public MinionStats()
     {
         Hp = Random.Range(10, 30);
-        Hunger = 100;
-        Emotion = 100;
         Age = 1;
+        MaxAge = Random.Range(40, 51);
         Name = NameList[Random.Range(0, NameList.Count)];
     }
 }
