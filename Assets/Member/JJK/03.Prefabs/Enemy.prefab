@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7452397690577305493}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6499337727230964603}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Speed: 3
   m_Acceleration: 50
   avoidancePriority: 60
@@ -74,7 +74,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
   _unitType: 1
-  attackRange: 2.5
   <OnTargetChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
