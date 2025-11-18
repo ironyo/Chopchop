@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 5f;
 
     private float lifeTime = 3f;
-    private float damage;
+    private int damage;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         StartCoroutine(DestroyCoroutine());
     }
 
-    public void Initialize(float dmg)
+    public void Initialize(int dmg)
     {
         damage = dmg;
     }
@@ -32,9 +32,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) //임시
+        if (other.TryGetComponent<Unit>(out Unit unit) && unit._unitType == UnitType.Enemy)
         {
-            other.GetComponent<Unit>().HealthCompo.GetDamage(10);
+            unit.HealthCompo.GetDamage(damage);
             //PoolManager.Instance.ReturnToPool("BulletPool", gameObject);
             Destroy(gameObject);
         }
