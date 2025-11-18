@@ -11,14 +11,13 @@ public class Weapon : MonoBehaviour
     private Animator animator;
     private float reloadTime = 0.2f;
 
+    private Unit _target;
+
     private void Awake()
     {
         AnimCompo = GetComponent<WeaponAnimation>();
-        animator = GetComponentInChildren<Animator>();
-    }
-
-    private void Start()
-    {
+        animator = GetComponent<Animator>();
+        
         animator.runtimeAnimatorController = weaponData.animatorController;
     }
 
@@ -30,19 +29,26 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator TripleShot()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            ShotBullet();
-            yield return new WaitForSeconds(reloadTime);
-        }
+        ShotBullet();
+        yield return new WaitForSeconds(reloadTime);
+        ShotBullet();
+        yield return new WaitForSeconds(reloadTime);
+        ShotBullet();
     }
 
-    public void Swing()
+    public void Swing(Unit target)
     {
         AnimCompo.FireWeapon();
+        _target = target;
     }
 
-    private void SpawnBullet(Vector2 position, float dmg)
+    public void Hit()
+    {
+        if (_target == null) return;
+        _target.GetComponent<HealthSystem>().GetDamage(weaponData.damage);
+    }
+
+    private void SpawnBullet(Vector2 position, int dmg)
     {
         //PoolManager.Instance.GetMinionFromPool("BulletPool", position);
         var bullet = Instantiate(weaponData.bulletPrefab, position, transform.rotation * Quaternion.Euler(0, 0, -90));

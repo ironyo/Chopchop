@@ -34,7 +34,7 @@ public class DayCycleManager : MonoBehaviour
 
     private int minute;
     private int hours;
-    private float realTimer;
+
     public Action OnNextDay { get; set; }
 
     void Start()
@@ -49,32 +49,37 @@ public class DayCycleManager : MonoBehaviour
         targetColor = nightColor;
         startVignette = dayVignetteIntensity;
         targetVignette = nightVignetteIntensity;
+
+        TimeManager.Instance.OnOneSecond += DisplayTime;
+    }
+
+    private void DisplayTime(int time)
+    {
+        minute += 24;
+            
+        if (minute >= 60)
+        {
+            minute -= 60;
+            hours++;
+        }
+            
+        if (hours >= 24)
+        {
+            hours = 0;
+            OnNextDay?.Invoke();
+        }
+            
+        string ampm = hours < 12 ? "AM" : "PM";
+            
+        int displayHour = hours % 12;
+        if (displayHour == 0) displayHour = 12;
+
+        Debug.Log($"{displayHour:00} : {minute:00} {ampm}");
     }
 
     void Update()
     {
         timer += Time.deltaTime;
-        realTimer += Time.deltaTime;
-
-        if (realTimer >= 1)
-        {
-            realTimer = 0;
-            minute++;
-            
-            if (minute >= 60)
-            {
-                minute = 0;
-                hours++;
-            }
-            
-            if (hours >= 24)
-            {
-                hours = 0;
-                OnNextDay?.Invoke();
-            }
-
-            Debug.Log($"{hours:00} : {minute:00}");
-        }
 
         switch (state)
         {

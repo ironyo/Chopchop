@@ -16,6 +16,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int width;
     private int maxW = 3;
 
+    [SerializeField] TilemapCollider2D _tilemapCollider;
+
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
 
@@ -189,7 +191,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildedClear()
     {
-        if (!CanSpawn() || !CanResourceAmount() /*|| !IsOnTheGround()*/) return;
+        if (!CanSpawn() || !CanResourceAmount() || !IsOnTheGround()) return;
 
         showCollider = false;
         isBuilding = false;
@@ -285,10 +287,29 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         return true;
     }
-    //private bool IsOnTheGround()
-    //{
+    public bool IsOnTheGround()
+    {
+        float shrink = 1f;
+        Bounds b = boxCollider.bounds;
+        b.Expand(new Vector3(-shrink, -shrink, 0));
 
-    //}
+        float step = 0.5f;
+
+        for (float x = b.min.x; x <= b.max.x; x += step)
+        {
+            for (float y = b.min.y; y <= b.max.y; y += step)
+            {
+                Vector2 point = new Vector2(x, y);
+
+                if (!_tilemapCollider.OverlapPoint(point))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     private void OnDrawGizmos()
     {
