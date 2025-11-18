@@ -18,16 +18,7 @@ MonoBehaviour:
   width: 12
   maxW: 3
   maxMinion: 05000000080000000c000000
-  levelResourceType:
-  - resourceTypeSOs: []
-    minion: {fileID: 0}
-    level: 0
-  - resourceTypeSOs: []
-    minion: {fileID: 0}
-    level: 0
-  - resourceTypeSOs: []
-    minion: {fileID: 0}
-    level: 0
+  levelResourceType: []
   spawnTime: 0
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}

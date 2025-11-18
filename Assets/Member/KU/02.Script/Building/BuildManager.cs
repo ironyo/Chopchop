@@ -189,7 +189,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildedClear()
     {
-        if (!CanSpawn() || !CanResourceAmount()) return;
+        if (!CanSpawn() || !CanResourceAmount() /*|| !IsOnTheGround()*/) return;
 
         showCollider = false;
         isBuilding = false;
@@ -260,7 +260,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Vector2 center = boxCollider.bounds.center;
         Vector2 size = boxCollider.bounds.size;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x -1, size.y-1), 0f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x, size.y), 0f);
 
         foreach (var hit in hits)
         {
@@ -285,6 +285,11 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         return true;
     }
+    //private bool IsOnTheGround()
+    //{
+
+    //}
+
     private void OnDrawGizmos()
     {
         if (boxCollider != null)
