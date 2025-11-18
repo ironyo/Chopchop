@@ -22,6 +22,7 @@ public partial class CantFindBuildingAction : Action
     private Minion _minion;
     private float _lastTime;
 
+    private const int MaxAttempt = 10;
     protected override Status OnStart()
     {
         Debug.Log("[Patrol] Start Patrol");
@@ -76,6 +77,5 @@ public partial class CantFindBuildingAction : Action
         Navmesh.Value.SetDestination(currentPos);
     }
 
-    private const int MaxAttempt = 10;
 }
 

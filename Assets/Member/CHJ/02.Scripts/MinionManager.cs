@@ -12,6 +12,7 @@ namespace Member.CHJ._02.Scripts
         public static MinionManager Instance;
         public List<Minion> minionList = new List<Minion>();
         [SerializeField] public BuildingSO houseSo;
+        [SerializeField] public BuildingSO schoolSo;
         private Building _buildingTarget;
         public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 

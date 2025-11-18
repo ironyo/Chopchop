@@ -18,6 +18,16 @@ namespace Member.CHJ._02.Scripts
             if(!Buildings.Contains(building))
                 Buildings.Add(building);
         }
+
+        public bool IsBuilding(BuildingSO buildingSo)
+        {
+            foreach (var building in Buildings)
+            {
+                if(building.buildingSO == buildingSo)
+                    return true;
+            }
+            return false;
+        }
         public void RemoveBuilding(Building building)
         {
             if(Buildings.Contains(building))

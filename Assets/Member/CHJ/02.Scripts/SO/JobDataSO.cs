@@ -9,6 +9,7 @@ namespace Member.CHJ._02.Scripts.SO
         public string jobName;
         public JobType jobType;
         public BuildingSO buildingData;
+        public Sprite hat;
 
         private void OnValidate()
         {

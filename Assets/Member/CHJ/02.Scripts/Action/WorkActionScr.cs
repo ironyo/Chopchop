@@ -1,3 +1,4 @@
+using System;
 using Member.CHJ._02.Scripts.SO;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class WorkActionScr : MonoBehaviour
 {
 
     [SerializeField] public JobDataSO jobData;
+    [SerializeField] private SpriteRenderer _hatRenderer;
     private Collider2D _mycollder;
     private Collider2D _target;
     private Building _building;
@@ -56,5 +58,11 @@ public class WorkActionScr : MonoBehaviour
         _building.Release();
         isWorking = false;
         _target = null;
+    }
+
+    public void ChangeJob(JobDataSO job)
+    {
+        jobData = job;
+        _hatRenderer.sprite = jobData.hat;
     }
 }

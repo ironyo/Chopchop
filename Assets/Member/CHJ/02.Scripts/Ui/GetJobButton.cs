@@ -7,11 +7,6 @@ public class GetJobButton : MonoBehaviour
     [SerializeField] private JobType _type;
 
     public Minion targetMinion;
-    
-    public void OnClick()
-    {
-        JobManager.Instance.AddJob(targetMinion, _type);
-    }
 
 
 }
