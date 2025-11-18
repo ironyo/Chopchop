@@ -91,7 +91,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 275127846613913689}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
@@ -385,7 +385,7 @@ PrefabInstance:
     - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: weaponData
       value: 
-      objectReference: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
+      objectReference: {fileID: 11400000, guid: 08e7d29881dc91646b434c0d37dacb1a, type: 2}
     - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: _WeaponType
       value: 2

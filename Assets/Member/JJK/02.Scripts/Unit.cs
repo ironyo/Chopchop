@@ -72,7 +72,6 @@ public class Unit : MonoBehaviour
         {
             navAgent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);
-
             float attackRange = (_unitType == UnitType.Player) ? _weapon.weaponData.attackRange : data.attackRange;
             
             if (distance < attackRange)

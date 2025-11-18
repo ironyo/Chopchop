@@ -17,10 +17,7 @@ public class Weapon : MonoBehaviour
     {
         AnimCompo = GetComponent<WeaponAnimation>();
         animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
+        
         animator.runtimeAnimatorController = weaponData.animatorController;
     }
 
@@ -47,13 +44,11 @@ public class Weapon : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log(_target);
-        
         if (_target == null) return;
         _target.GetComponent<HealthSystem>().GetDamage(weaponData.damage);
     }
 
-    private void SpawnBullet(Vector2 position, float dmg)
+    private void SpawnBullet(Vector2 position, int dmg)
     {
         //PoolManager.Instance.GetMinionFromPool("BulletPool", position);
         var bullet = Instantiate(weaponData.bulletPrefab, position, transform.rotation * Quaternion.Euler(0, 0, -90));
