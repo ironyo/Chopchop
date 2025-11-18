@@ -404,8 +404,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
   - {fileID: 11400000, guid: 6930bf3d3609ff2449fd27e4322a09ff, type: 2}
   - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
-  - {fileID: 11400000, guid: c5e6d23801e1e46458c1ea50b0f69567, type: 2}
-  - {fileID: 11400000, guid: 5458cc7b4fba8b34391f8fdf698a65c7, type: 2}
+  - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
+  - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
   - {fileID: 11400000, guid: d3f71deb2c8d5544fb6d2003604c1a1c, type: 2}
 --- !u!114 &205571357
 MonoBehaviour:
@@ -1521,6 +1521,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756014923}
+  - component: {fileID: 756014924}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1543,6 +1544,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &756014924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756014922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797a84c371084a42ae121a177f3107bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionList: []
+  houseSo: {fileID: 11400000, guid: 3aef583cde101a04cbe540a195b88514, type: 2}
 --- !u!1 &825427164
 GameObject:
   m_ObjectHideFlags: 0

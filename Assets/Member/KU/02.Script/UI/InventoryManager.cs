@@ -113,6 +113,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     public void CloseInv()
     {
         BuildManager.Instance.isMoveInv = true;
+
         if (!IsNowClose)
         {
             IsNowClose = true;
