@@ -22,7 +22,7 @@ public partial class CanWorkBuildingCondition : Condition
             return true;
         var buildingManager = MinionManager.Instance.MinionsBuildingManager;
 
-        var building = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, Job.Value.BuildingData, 30f);
+        var building = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, Job.Value.buildingData, 30f);
 
         if (building != null)
             Target.Value = building;
