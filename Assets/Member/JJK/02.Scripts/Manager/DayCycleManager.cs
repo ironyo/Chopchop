@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 
@@ -36,6 +37,8 @@ public class DayCycleManager : MonoBehaviour
     private int hours;
 
     public Action OnNextDay { get; set; }
+    
+    public UnityEvent<string> OnTimeChanged; // <HH:MM AM/PM>
 
     void Start()
     {
@@ -74,7 +77,8 @@ public class DayCycleManager : MonoBehaviour
         int displayHour = hours % 12;
         if (displayHour == 0) displayHour = 12;
 
-        Debug.Log($"{displayHour:00} : {minute:00} {ampm}");
+        // Debug.Log($"{displayHour:00} : {minute:00} {ampm}");
+        OnTimeChanged?.Invoke($"{displayHour:00}:{minute:00} {ampm}");
     }
 
     void Update()

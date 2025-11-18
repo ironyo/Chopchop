@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Chef
   m_EditorClassIdentifier: 
   jobName: Chef
-  jobType: 4
+  jobType: 3
   buildingData: {fileID: 11400000, guid: 6930bf3d3609ff2449fd27e4322a09ff, type: 2}
+  hat: {fileID: -462325174, guid: b96cafd382b4e69449f99c4357080573, type: 3}
