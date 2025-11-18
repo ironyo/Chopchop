@@ -21,7 +21,7 @@ public class Building : MonoBehaviour
 
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
-
+    public ParticleSystem minionSpawnParticle;
     public TextMeshPro logPrefab;
     private TextMeshPro _minionText;
 
@@ -104,6 +104,7 @@ public class Building : MonoBehaviour
             if (buildingSO.levelResourceType[level - 1].minion != null)
             {
                 spawnCurrentTime = 0;
+                Instantiate(minionSpawnParticle, transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
                 ResourceLog(level - 1, true);
             }
