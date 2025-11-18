@@ -28510,6 +28510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aaffe4dc1d84748852db8b559af2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tilemapCollider: {fileID: 229691195}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -110036,6 +110037,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &781728720
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -123021,6 +123023,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &916697980
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134270,6 +134273,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &986020096
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -155639,6 +155643,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &1093340799
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -244833,6 +244838,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &1720986113
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -250663,6 +250669,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &1773086049
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -259916,6 +259923,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &2041225986
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -260444,6 +260452,7 @@ MonoBehaviour:
   EatSound: {fileID: 8300000, guid: 9b607fdea7365d2448f7eddd4fae2d24, type: 3}
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
+  animator: {fileID: 0}
 --- !u!58 &2048677386
 CircleCollider2D:
   m_ObjectHideFlags: 0

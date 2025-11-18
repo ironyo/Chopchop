@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Member.CHJ._02.Scripts.SO
 {
     [CreateAssetMenu(fileName = "JobDataSO", menuName = "SO/JobDataSO", order = 0)]
-    public class JobDataSO : ScriptableObject
+    public abstract class JobDataSO : ScriptableObject
     {
-        public string JobPosName;
-        public JobType JobType;
-        public BuildingSO BuildingData;
+        public string jobName;
+        public JobType jobType;
+        public BuildingSO buildingData;
+
+        private void OnValidate()
+        {
+            if(jobName != null)
+                name = jobName;
+        }
     }
 }
