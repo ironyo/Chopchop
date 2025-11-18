@@ -30,7 +30,7 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Canvas = FindFirstObjectByType<Canvas>().gameObject.GetComponent<RectTransform>();
+        Canvas = GameObject.Find("Canvas").gameObject.GetComponent<RectTransform>();
 
         if (scene.buildIndex != 0)
         {

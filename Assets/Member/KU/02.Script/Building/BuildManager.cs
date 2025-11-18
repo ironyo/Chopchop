@@ -360,7 +360,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
             {
-                if(buildingParent[selectCount].buildingSO.levelResourceType[selectCount].minion == null)
+                if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
                     _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" +  $"{buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount}/s";
                 }
