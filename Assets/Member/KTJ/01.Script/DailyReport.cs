@@ -29,7 +29,6 @@ public class DailyReport : MonoBehaviour
 
     private void Start()
     {
-        OnDailyReport.Invoke();
     }
 
     private void RunReport()
