@@ -888,8 +888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a84c371084a42ae121a177f3107bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tst: {fileID: 5004249982730692422, guid: 08bb0ce71cb3ea84cb4dbde8fdde7d93, type: 3}
-  tast: {fileID: 1676130745}
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
 --- !u!1 &1139477301
@@ -13651,7 +13649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59e821d7e519024fbc689a69d378b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jobDataListSo: {fileID: 11400000, guid: e3a327d8cc6748c4893ed20e9ac4133c, type: 2}
+  jobDataListSo: {fileID: 11400000, guid: e3a327d8cc6748c4893ed20e9ac4133c, type: 2}
 --- !u!4 &1880471260
 Transform:
   m_ObjectHideFlags: 0
