@@ -9,5 +9,5 @@ public class WeaponDataSO : ScriptableObject
     public RuntimeAnimatorController animatorController;
     public GameObject bulletPrefab;
     public float attackRange;
-    public float damage;
+    public int damage;
 }

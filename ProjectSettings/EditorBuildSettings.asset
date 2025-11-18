@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Member/KTJ/02.Scene/TJ_Start.unity
     guid: b9436537933436b4ea934f6dae55e90d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Member/KTJ/02.Scene/TJ_Main.unity
     guid: 0cb56624c9305d54d800daa7e7f17dfa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/CHJ/01.Scene/JW.unity
     guid: c3f5f756881c69a46ae5532ddc528bbf
   m_configObjects:

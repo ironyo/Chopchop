@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef2fa592a6ff4995b8c0b2e66bfcfd9f, type: 3}
+  m_Script: {fileID: 11500000, guid: abb7affcc4ff48708ac63596b416b8ed, type: 3}
   m_Name: Baby
   m_EditorClassIdentifier: 
-  JobPosName: School
-  JobType: 2
-  BuildingData: {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
+  jobName: Baby
+  jobType: 2
+  buildingData: {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}

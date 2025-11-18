@@ -72,7 +72,6 @@ public class Unit : MonoBehaviour
         {
             navAgent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);
-
             float attackRange = (_unitType == UnitType.Player) ? _weapon.weaponData.attackRange : data.attackRange;
             
             if (distance < attackRange)
@@ -102,8 +101,7 @@ public class Unit : MonoBehaviour
             switch (_weapon.weaponData._WeaponType) 
             {
                 case WeaponType.Sword:
-                    _weapon.Swing();
-                    _target.GetComponent<HealthSystem>().GetDamage(data.attack);
+                    _weapon.Swing(_target);
                     break;
                 case WeaponType.Pistol:
                     _weapon.ShotBullet();

@@ -15,5 +15,5 @@ MonoBehaviour:
   _WeaponType: 2
   animatorController: {fileID: 9100000, guid: 63c96dc74ede8e74188ed7cfa84c1f00, type: 2}
   bulletPrefab: {fileID: 2374837753700084175, guid: 61fcf14ed90272d4699e006cc1670cdd, type: 3}
-  attackRange: 6
-  damage: 10
+  attackRange: 5
+  damage: 7
