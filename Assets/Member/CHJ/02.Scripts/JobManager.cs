@@ -6,11 +6,11 @@ using UnityEngine;
 
 public enum JobType
 {
-    Miner,Soldier,Baby,Farmer,
+    Miner,Baby,Farmer,Chef,WoodHarvester
 }
 public class JobManager : MonoBehaviour
 {
-    [SerializeField] private JobDataListSO _jobDataListSo;
+    public JobDataListSO jobDataListSo;
     public Dictionary<JobType, JobDataSO> JobDictionary= new();
     public static JobManager Instance;
 
@@ -20,9 +20,9 @@ public class JobManager : MonoBehaviour
             Instance = this;
         else if(Instance != null)
             Destroy(gameObject);
-        foreach (var jobScr in _jobDataListSo.list)
+        foreach (var jobScr in jobDataListSo.list)
         { 
-            JobDictionary.Add(jobScr.JobType, jobScr);
+            JobDictionary.Add(jobScr.jobType, jobScr);
         }
     }
 

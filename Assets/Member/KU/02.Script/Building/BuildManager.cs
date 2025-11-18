@@ -17,6 +17,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
 
     [SerializeField] TilemapCollider2D _tilemapCollider;
+    [SerializeField] private ParticleSystem _minionSpawnParticle;
+    [SerializeField] private ParticleSystem _minionBuildParticle;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
@@ -191,7 +193,23 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildedClear()
     {
-        if (!CanSpawn() || !CanResourceAmount() || !IsOnTheGround()) return;
+        if (!CanResourceAmount())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "자원이 부족합니다!");
+            return;
+        }
+        if (!IsOnTheGround())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물은 땅위에서만 건축합니다!");
+            return;
+        }
+        if (!CanSpawn())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물이 겹쳐있습니다!");
+            return;
+        }
+        NotifictionManager.Instance.NotifictionEvent.Invoke("설치완료", $"{buildingCount+1}번째 건물을 설치했습니다!");
+
 
         showCollider = false;
         isBuilding = false;
@@ -205,6 +223,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
         building.buildingSO = buildingSO;
+        building.minionSpawnParticle = _minionSpawnParticle;
+        building.minionBuildParticle = _minionBuildParticle;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
