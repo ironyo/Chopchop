@@ -22,7 +22,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     [SerializeField] private int _maxPage = 2;
 
     [SerializeField] List<InventoryCreate> _invPrefObj = new();
-    [SerializeField] List<BuildingSO> _buildSO = new();
+    public List<BuildingSO> _buildSO = new();
 
     public bool IsNowClose { get; private set; } = true;
     bool _isMoveInv = false;
@@ -34,14 +34,14 @@ public class InventoryManager : MonoSingleton<InventoryManager>
             GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
             _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
 
-            GameObject tex = Instantiate(_texPref, transform.position, Quaternion.identity);
+            //GameObject tex = Instantiate(_texPref, transform.position, Quaternion.identity);
 
-            tex.transform.SetParent(_rectTransform, false);
+            //tex.transform.SetParent(_rectTransform, false);
 
-            RectTransform rect = tex.GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(i * _fallPos - 550f, -220f);
+            //RectTransform rect = tex.GetComponent<RectTransform>();
+            //rect.anchoredPosition = new Vector2(i * _fallPos - 550f, -220f);
 
-            tex.GetComponent<TextMeshProUGUI>().text = $"{i + 1} / {_maxPage} Page";
+            //tex.GetComponent<TextMeshProUGUI>().text = $"{i + 1} / {_maxPage} Page";
         }
         for (int i = 0; i < _invPrefObj.Count; i++)
         {

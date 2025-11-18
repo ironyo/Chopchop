@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class SceneChangeManager : MonoSingleton<SceneChangeManager>
 {
@@ -10,6 +11,8 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
     private bool isSceneMoving = false;
 
     private string currentTip;
+
+    public UnityEvent OnSceneChangeLoaded;
 
     protected override void Awake()
     {
@@ -68,6 +71,7 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
         seq.OnComplete(() =>
         {
             isSceneMoving = false;
+            OnSceneChangeLoaded.Invoke();
         });
     }
 

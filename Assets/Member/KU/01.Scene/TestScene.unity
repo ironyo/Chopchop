@@ -28511,6 +28511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilemapCollider: {fileID: 229691195}
+  _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -232761,7 +232762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59e821d7e519024fbc689a69d378b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jobDataListSo: {fileID: 11400000, guid: e3a327d8cc6748c4893ed20e9ac4133c, type: 2}
+  jobDataListSo: {fileID: 0}
 --- !u!1 &1588988521
 GameObject:
   m_ObjectHideFlags: 0
