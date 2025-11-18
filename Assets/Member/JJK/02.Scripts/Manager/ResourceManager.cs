@@ -24,7 +24,7 @@ public class ResourceManager : MonoSingleton<ResourceManager>
             clonedPref.Set(resource.StartCount, resource.Icon);
             resourceAmountDictionary.Add(resource, (0, clonedPref));
 
-            AddResource(resource, resource.StartCount); // Ã³À½ ±âº»ÀÚ¿ø
+            AddResource(resource, resource.StartCount); // Ã³ï¿½ï¿½ ï¿½âº»ï¿½Ú¿ï¿½
         }
 
         AddResource(_resourceTypeListSO.list[0], 10);

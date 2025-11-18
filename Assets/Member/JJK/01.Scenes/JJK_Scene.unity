@@ -577,7 +577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   _unitType: 2
-  attackRange: 2
   <OnTargetChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -748,7 +747,7 @@ Transform:
   m_GameObject: {fileID: 569208173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21799491, y: -0.40292633, z: 0.004500015}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1446,10 +1445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 275127846613913689, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1368271190790181576, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4838,10 +4837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 275127846613913689, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1368271190790181576, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5117,17 +5116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37d7c4a2d99cf448a0908211f4d800b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  options:
-  - cost: 50
-    type: {fileID: 0}
-  - cost: 50
-    type: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
-  - cost: 50
-    type: {fileID: 0}
-  - cost: 50
-    type: {fileID: 0}
-  - cost: 50
-    type: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+  resourceTypeList: {fileID: 11400000, guid: 23b5ca1ba353b194e975f9cf9d918d84, type: 2}
 --- !u!1001 &1938887940
 PrefabInstance:
   m_ObjectHideFlags: 0

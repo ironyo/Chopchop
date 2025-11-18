@@ -45,11 +45,11 @@ public class InvasionManager : MonoSingleton<InvasionManager>
         if (!isInvading && timer <= 5f)
         {
             StartCoroutine(InvasionWarning());
+            InitInvasion();
         }
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            //Invasion();
             DialogManager.Instance.InvasionDialog();
         }
     }

@@ -49,6 +49,16 @@ public class DialogManager : MonoSingleton<DialogManager>
                 NextInvasionLine();
         }
     }
+    
+    private string ProcessDialog(string rawText)
+    {
+        string result = rawText
+            .Replace("{RESOURCE}", NegotiationManager.Instance.resourceName)
+            .Replace("{COUNT}", NegotiationManager.Instance.resourceAmount.ToString());
+        NegotiationManager.Instance.SetResource();
+        
+        return result;
+    }
 
     private void NextInvasionLine()
     {
@@ -67,7 +77,7 @@ public class DialogManager : MonoSingleton<DialogManager>
         if (index < invasionDialogData.explain.Length - 2)
         {
             StopAllCoroutines();
-            StartCoroutine(Typing(invasionDialogData.explain[index]));
+            StartCoroutine(Typing(ProcessDialog(invasionDialogData.explain[index])));
         }
         else
         {
@@ -109,6 +119,7 @@ public class DialogManager : MonoSingleton<DialogManager>
         choiceBox.SetActive(false);
         spaceBar.SetActive(true);
         canFight = false;
+        NegotiationManager.Instance.Negotiation();
     }
 
     public void Disagree()

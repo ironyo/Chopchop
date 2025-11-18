@@ -72,8 +72,13 @@ public class DayCycleManager : MonoBehaviour
                 hours = 0;
                 OnNextDay?.Invoke();
             }
+            
+            string ampm = hours < 12 ? "AM" : "PM";
+            
+            int displayHour = hours % 12;
+            if (displayHour == 0) displayHour = 12;
 
-            Debug.Log($"{hours:00} : {minute:00}");
+            Debug.Log($"{displayHour:00} : {minute:00} {ampm}");
         }
 
         switch (state)
