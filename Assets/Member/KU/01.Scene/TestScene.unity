@@ -28512,6 +28512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilemapCollider: {fileID: 229691195}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
+  _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -182428,30 +182429,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 238957928}
-        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: BuildingMode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1849345730}
-        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
-        m_MethodName: CloseInv
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1224833121
 GameObject:
   m_ObjectHideFlags: 0
@@ -252032,18 +252009,16 @@ MonoBehaviour:
   _texPref: {fileID: 6613956694696932738, guid: 0ece08930f6a76e4a874f7c15c2d316a, type: 3}
   _rectTransform: {fileID: 72639980}
   _nowPage: 1
-  _maxPage: 2
+  _maxPage: 1
   _invPrefObj: []
   _buildSO:
-  - {fileID: 11400000, guid: 3aef583cde101a04cbe540a195b88514, type: 2}
-  - {fileID: 11400000, guid: cd80db1a7a4fabd46ab6671aeb18a34d, type: 2}
-  - {fileID: 11400000, guid: 33d2116cfb5a3a84cab8ec720cedcb8c, type: 2}
-  - {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
-  - {fileID: 11400000, guid: 6930bf3d3609ff2449fd27e4322a09ff, type: 2}
-  - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
-  - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
-  - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
   - {fileID: 11400000, guid: d3f71deb2c8d5544fb6d2003604c1a1c, type: 2}
+  - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
+  - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
+  - {fileID: 11400000, guid: cd80db1a7a4fabd46ab6671aeb18a34d, type: 2}
+  - {fileID: 11400000, guid: 3f642ffaecb53b24b9f90d1cd31ab8de, type: 2}
+  - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
+  - {fileID: 11400000, guid: 3aef583cde101a04cbe540a195b88514, type: 2}
 --- !u!114 &1849345731
 MonoBehaviour:
   m_ObjectHideFlags: 0
