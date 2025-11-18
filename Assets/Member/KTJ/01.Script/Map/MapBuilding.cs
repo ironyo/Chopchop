@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NavMeshPlus.Components;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
@@ -20,6 +21,8 @@ public class MapBuilding : UIBase
 
     [SerializeField] private AudioClip MapSetSound;
 
+    [SerializeField] private NavMeshSurface navMeshSurface;
+
     private int currentTileSIze = 2;
     private bool isBuildActivate = false;
 
@@ -36,7 +39,9 @@ public class MapBuilding : UIBase
         if (isBuildActivate)
         {
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
                 return;
+            }
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2Int mousePos = new Vector2Int(
                     Mathf.FloorToInt(mouseWorldPos.x),
@@ -58,15 +63,35 @@ public class MapBuilding : UIBase
         isBuildActivate = true;
     }
 
-    public void OnSliderValChanged() // ½½¶óÀÌ´õ °ª º¯È­ °¨Áö
+    public void OnSliderValChanged() // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     {
         currentTileSIze = (int)TileSizeSlider.value;
     }
 
-    private void SetTile(Vector2Int anchor) // Å¸ÀÏ¼³Ä¡
+    private int GetTileCount(Vector2Int anchor)
+    {
+        int setTileCount = 0;
+
+        for (int x = 0; x < currentTileSIze; x++)
+        {
+            for (int y = 0; y < currentTileSIze; y++)
+            {
+                if (!visualTilemap.HasTile(new Vector3Int(anchor.x + x, anchor.y + y, 0)))
+                {
+                    setTileCount++; // ì—¬ê¸°í•˜ëŠ”ì¤‘
+                }
+            }
+        }
+
+        return setTileCount;
+    }
+
+    private void SetTile(Vector2Int anchor)
     {
         cis.GenerateImpulse();
         SoundManager.Instance.SFXPlay("MapSet", MapSetSound);
+
+        int setTileCount = 0;
 
         for (int x = 0; x < currentTileSIze; x++)
         {
@@ -75,7 +100,18 @@ public class MapBuilding : UIBase
                 tilemap.SetTile(new Vector3Int(anchor.x + x, anchor.y + y, 0), ruleTile);
             }
         }
+
+        Debug.Log(GetTileCount(anchor));
+
+        StartCoroutine(RebuildNavMeshNextFrame());
     }
+
+    private IEnumerator RebuildNavMeshNextFrame()
+    {
+        yield return null; // ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ Tilemap Mesh ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
+        navMeshSurface.BuildNavMesh();
+    }
+
 
 
     private void SetVisualTIle(Vector2Int anchor)

@@ -2,45 +2,58 @@ using System;
 using Unity.Behavior;
 using UnityEngine;
 
-[Serializable, Unity.Properties.GeneratePropertyBag]
-[Condition(name: "CanEnterHouse", story: "[Self] [Target]", category: "Conditions", id: "6344f805c832a9a1b72d591876557b3d")]
-public partial class CanEnterHouseCondition : Condition
+namespace Member.CHJ._02.Scripts.Action
 {
-    [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<Transform> Target;
-
-    public override bool IsTrue()
+    [Serializable, Unity.Properties.GeneratePropertyBag]
+    [Condition(name: "CanEnterHouse", story: "[Self] [Target] [HouseSO]", category: "Conditions", id: "6344f805c832a9a1b72d591876557b3d")]
+    public partial class CanEnterHouseCondition : Condition
     {
-        if (Self.Value == null)
-            return false;
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 30f);
-        Transform foundTrm = null;
-
-        foreach (var hit in hits)
-        {
-            if (hit.TryGetComponent<Building>(out var building))
-            {
-                if (building.buildingSO == null) continue;
-                if (building.buildingSO.name != "House") continue;
-                if (building.NowMinion >= building.maxMinion) continue;
-
-                foundTrm = hit.transform;
-                break;
-            }
-        }
-
-        if (foundTrm != null)
-        {
-            Target.Value = foundTrm;
-            return true;
-        }
-        else
+        [SerializeReference] public BlackboardVariable<GameObject> Self;
+        [SerializeReference] public BlackboardVariable<Building> Target;
+        [SerializeReference] public BlackboardVariable<BuildingSO> HouseSO;
+    
+        public override bool IsTrue()
         {
             Target.Value = null;
-            Debug.Log("[Condition] No available building found.");
-            return false;
-        }
-    }
+            if (Self.Value == null)
+                return false;
+            
+            var buildingManager = MinionManager.Instance.MinionsBuildingManager;
+            var house = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, HouseSO.Value, 30f);
 
+            return house != null;   
+            // Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 30f);
+            // Building foundTrm = null;
+            //
+            // foreach (var hit in hits)
+            // {
+            //     if (hit.TryGetComponent<Building>(out var building))
+            //     { 
+            //         if (building.buildingSO == null) continue;
+            //         Debug.Log(hit.gameObject.name);
+            //         if (building.buildingSO.name != "NormalBuildSO") continue;
+            //         Debug.Log(hit.gameObject.name);
+            //         if (building.TryReserve()) continue;
+            //         Debug.Log(hit.gameObject.name);
+            //     
+            //         foundTrm = building;
+            //         break;
+            //     }
+            // }
+            //
+            // if (foundTrm != null)
+            // {
+            //     Target.Value = foundTrm;
+            //     Debug.Log("Find House");
+            //     return true;
+            // }
+            // else
+            // {
+            //     Target.Value = null;
+            //     Debug.Log("[Condition] No available building found.");
+            //     return false;
+            // }
+        }
+
+    }
 }

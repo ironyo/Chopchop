@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class Minion : MonoBehaviour, IPointerClickHandler
+public class Minion : MonoBehaviour
 {
     [SerializeField] private int firstWork;
     [SerializeField] private int patrol;
@@ -20,7 +20,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     
     public BehaviorGraphAgent behaviorGraph {get; private set;}
 
-    public GameObject visualObj { get; private set;}
+    [field: SerializeField]public GameObject visualObj { get; private set;}
 
     public MinionStats Stats;
     
@@ -40,10 +40,8 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         TimeStruct = new MinionTime();
         behaviorGraph = GetComponent<BehaviorGraphAgent>();
         _navMesh = GetComponent<NavMeshAgent>();
-        behaviorGraph.BlackboardReference.SetVariableValue("Self", gameObject);
         _navMesh.updateUpAxis = false;
         _navMesh.updateRotation = false;
-        visualObj = transform.GetChild(0).gameObject;
         currentState = AiStates.None;
         SetState(currentState);
     }
@@ -51,14 +49,7 @@ public class Minion : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         InitializeDay();
-        try
-        {
-            MinionManager.Instance.AddMinion(this);
-        }
-        catch(NullReferenceException)
-        {
-            Debug.Log(MinionManager.Instance);
-        }
+        MinionManager.Instance.RegisterMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
     }
 
@@ -67,14 +58,19 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
         secondWork = 55 - patrol - firstWork;
-        sleep = 55;
-        
+        sleep = 60;
+
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;
-        
+
+        if (Stats.Age == Stats.MaxAge)
+        {
+            GetComponent<TestMinion>().Die("너무 늙었어");
+        }
         TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
+    
     public void SetState(AiStates newState)
     {
         Debug.Log($"{newState} 로 Set State");
@@ -82,17 +78,15 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
 
+    // public void OnPointerClick(PointerEventData eventData)
+    // {
+    //     if (JobButtonManager.Instance.Minion != this)
+    //     {
+    //         JobButtonManager.Instance.OnValueChanged?.Invoke(this);
+    //     }
+    // }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (JobButtonManager.Instance.Minion != this)
-        {
-            JobButtonManager.Instance.OnValueChanged?.Invoke(this);
-        }
-    }
-
-    private void OnDestroy() => TimeManager.Instance.OnDayStarted -= InitializeDay;
-    
+    public GameObject GetVisualObject() => visualObj;
     private void LateUpdate()
     {
         Vector3 p = transform.position;
@@ -100,40 +94,17 @@ public class Minion : MonoBehaviour, IPointerClickHandler
         transform.position = p;
     }
 
-    #region Mate
-
-    
-
-    public IEnumerator Mate(Minion minion)
+    private void OnDestroy()
     {
-        isFoundPartner = true;
-        behaviorGraph.End();
-        _particleSystem.SetActive(true);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 6);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("House"))
-                _navMesh.SetDestination(hit.transform.position);
-        }
-        if (_navMesh.remainingDistance <= 0.01f)
-        {
-            Debug.Log(_navMesh.destination);
-            visualObj.SetActive(false);
-            yield return new WaitForSeconds(3);
-            Debug.Log("뿌직응가호이짜");
-        }
+        MinionManager.Instance.UnRegisterMinion(this);
+        TimeManager.Instance.OnDayStarted -= InitializeDay;
+    } 
         
-        EndMate();
-    }
-    
-    private void EndMate()
+
+    private void OnDrawGizmos()
     {
-        visualObj.SetActive(true);
-        _particleSystem.SetActive(false);
-        behaviorGraph.Start();
-        isFoundPartner = false;
+        Gizmos.DrawWireSphere(transform.position, 30f);
     }
-    #endregion
 }
 public struct MinionTime
 {

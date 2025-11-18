@@ -8,16 +8,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-public class BuildManager : MonoBehaviour
+public class BuildManager : MonoSingleton<BuildManager>
 {
     private Vector3Int currentCell;
     private Vector3Int lastCell;
     private int width;
     private int maxW = 3;
 
-    [SerializeField] private TextMeshProUGUI _logPrefab;
+    [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
@@ -27,7 +26,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject _buildingCanvus;
     [SerializeField] private GameObject _blockTilemap;
 
-    [SerializeField] private List<Building> buildingParent = new();
+    [SerializeField] List<Building> buildingParent = new();
 
     [Header("UISetting")]
     [SerializeField] private float _moveDistance = 600f;
@@ -37,6 +36,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _buildHPTex;
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
+    [SerializeField] private Button _upgradeBtn;
+    [SerializeField] private Button _destroyBtn;
 
     private Vector2 _targetPos;
     private float _time = 0;
@@ -48,10 +49,15 @@ public class BuildManager : MonoBehaviour
 
     private List<GameObject> spawnGrid = new();
     private List<BuildingSelector> selectorCompo = new();
-    private bool isBuilding;
+
+    public bool isBuilding { get; private set; }
+
     private BuildingSO buildingSO;
     private int buildingCount = 0;
 
+    int selectLevel = 0;
+    bool isDestroing = false;
+    public bool isMoveInv = false;
 
     private int selectCount = 0;
 
@@ -62,18 +68,25 @@ public class BuildManager : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
-    public static BuildManager Instance { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if(Instance == null)
-            Instance = this;
+        base.Awake();
+
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
     private void Start()
     {
+        _upgradeBtn.onClick.AddListener(() =>
+        {
+            SelectButton(true);
+        });
+        _destroyBtn.onClick.AddListener(() =>
+        {
+            SelectButton(false);
+        });
         InitializeLineRenderer();
     }
 
@@ -84,7 +97,7 @@ public class BuildManager : MonoBehaviour
         BuildUISetting(!BuildingSelect());
 
 
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); // 강유야 여기 아아아아아아아아아ㅏ 진짜ㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         currentCell = grid.WorldToCell(mouseWorldPos);
 
         if (currentCell != lastCell)
@@ -94,17 +107,8 @@ public class BuildManager : MonoBehaviour
             transform.position = snappedPos;
             lastCell = currentCell;
         }
-        
-        if (isBuilding)
-        {
-            _helpUI.SetActive(true);
-            boxCollider.enabled = true;
-        }
-        else
-        {
-            _helpUI.SetActive(false);
-            boxCollider.enabled = false;
-        }
+        _helpUI.SetActive(isBuilding);
+        boxCollider.enabled = isBuilding;
     }
 
     private void BuildOrCancle()
@@ -115,7 +119,7 @@ public class BuildManager : MonoBehaviour
             isBuilding = false;
             GridDestroy();
         }
-        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding && !EventSystem.current.IsPointerOverGameObject())
+        if (spawnGrid != null && Mouse.current.leftButton.wasPressedThisFrame && isBuilding)
         {
             BuildedClear();
         }
@@ -240,7 +244,7 @@ public class BuildManager : MonoBehaviour
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshProUGUI>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion}";
+        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
@@ -249,13 +253,14 @@ public class BuildManager : MonoBehaviour
         {
             ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
         }
+
     }
     private bool CanSpawn()
     {
         Vector2 center = boxCollider.bounds.center;
         Vector2 size = boxCollider.bounds.size;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, size, 0f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, new Vector2(size.x -1, size.y-1), 0f);
 
         foreach (var hit in hits)
         {
@@ -298,12 +303,16 @@ public class BuildManager : MonoBehaviour
 
     public void BuildingMode()
     {
+        //if (!isMoveInv) return;
+
+        CloseAllBuildUI(null);
         GridDestroy();
         isBuilding = false;
         showCollider = false;
-        foreach (var item in buildingParent)
+
+        foreach (var parent in buildingParent)
         {
-            item.showCollider = !item.showCollider;
+            parent.showCollider = !parent.showCollider;
         }
     }
     private bool BuildingSelect()
@@ -324,36 +333,92 @@ public class BuildManager : MonoBehaviour
     }
     private void BuildUISetting(bool isClose)
     {
-        if(buildingParent.Count != 0)
-        {
-            _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
-            _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
-            _levelTex.text = $"레벨: {buildingParent[selectCount].NowLevel}";
-            _spawnKindTex.text = "자원:" ;
-            if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
-                _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : " " + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].resourceTypeSO.name + " +" + buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel].resourceTypeSOs[0].amount + "/s";
-        }
-
+        BuildTextSet();
         if (isClose)
         {
             _targetPos = new Vector2(_moveDistance, 0);
-            _time += Time.deltaTime * _moveSpeed;
-            _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
         }
         else
         {
             _targetPos = Vector2.zero;
-            _time += Time.deltaTime * _moveSpeed;
-            _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
         }
+        _time += Time.deltaTime * _moveSpeed;
+        _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
+    }
+    private void BuildTextSet()
+    {
+        if (buildingParent.Count != 0 && !isDestroing)
+        {
+            _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
+            _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
+            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _spawnKindTex.text = "자원:";
+            if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
+            {
+                if(buildingParent[selectCount].buildingSO.levelResourceType[selectCount].minion == null)
+                {
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" +  $"{buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount}/s";
+                }
+                else
+                {
+                    _spawnKindTex.text += "미니언";
+                }
+            }
+        }
+    }
+    private void SelectButton(bool nowSelect)
+    {
+        isDestroing = true;
+
+        if (nowSelect)
+        {
+            buildingParent[selectCount].BuildUpgrade();
+        }
+        else
+        {
+            for (int i = 0; i < buildingParent.Count; i++)
+            {
+                if (buildingParent[i].buildCount > selectCount)
+                {
+                    buildingParent[i].buildCount -= 1;
+                }
+            }
+            buildingCount--;
+            selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
+            Destroy(buildingParent[selectCount].gameObject);
+            buildingParent.Remove(buildingParent[selectCount]);
+            CloseAllBuildUI(null);
+        }
+        isDestroing = false;
     }
 
 
+
+
     public BuildingSO GetBuildData() => buildingSO;
-    public void GetSelectData(int count)
+    public void CloseAllBuildUI(Building me)
+    {
+        if(me == null)
+        {
+            foreach (var b in buildingParent)
+                b.buildingSelector.isOpen = false;
+        }
+        else
+        {
+            foreach (var b in buildingParent)
+            {
+                if (b != me)
+                    b.buildingSelector.isOpen = false;
+                else
+                    b.buildingSelector.isOpen = true;
+            }
+        }
+    }
+    public void GetSelectData(int count, int level)
     {
         _time = 0;
         selectCount = count;
+        selectLevel = level;
     }
 
 
