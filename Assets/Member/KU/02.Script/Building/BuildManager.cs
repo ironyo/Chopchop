@@ -24,7 +24,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
-    [field: SerializeField]public GameObject _buildSpritePref { get; set; }
+    [field: SerializeField]public GameObject buildSpritePref { get; set; }
     [SerializeField] private GameObject _helpUI;
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;

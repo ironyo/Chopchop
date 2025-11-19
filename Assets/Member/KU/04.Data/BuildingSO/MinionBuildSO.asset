@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: MinionBuildSO
   m_EditorClassIdentifier: 
-  sprite: {fileID: 498129411607201345, guid: 54c2df7acf4051d439f748820bf16a45, type: 3}
+  buildSprite: {fileID: 21300000, guid: f925980428083604296a8fd906f9290a, type: 3}
+  buildSelcetSprite: {fileID: 21300000, guid: facff943a0ecad74ba87ca1e37288136, type: 3}
   maxLevel: 3
   buildName: "\uBBF8\uB2C8\uC5B8\uC0DD\uC131\uAE30"
   MaxHealth: c80000009001000058020000
-  width: 4
-  maxW: 2
+  width: 9
+  maxW: 3
   maxMinion: 000000000000000000000000
   levelResourceType:
   - resourceTypeSOs: []
