@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Member.CHJ._02.Scripts;
+using Member.CHJ._02.Scripts.SO;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,7 +18,7 @@ public class Minion : MonoBehaviour
     [SerializeField] private bool isCanMate;
 
     [SerializeField] private GameObject _particleSystem;
-    
+
     public BehaviorGraphAgent behaviorGraph {get; private set;}
 
     [field: SerializeField]public GameObject visualObj { get; private set;}
@@ -33,6 +34,10 @@ public class Minion : MonoBehaviour
     public bool isMating;
 
     public MinionTime TimeStruct;
+
+    private bool _isStudent = false;
+    
+    private JobDataSO _jobData;
 
     private void Awake()
     {
@@ -63,14 +68,50 @@ public class Minion : MonoBehaviour
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;
+        TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
+        AgeCheck();
+    }
 
+    private void AgeCheck()
+    {
+        //학교 확인 후 -> 학교다닌 날 증가
+        SchoolCheck();
+        if(_isStudent)
+            Stats.SchoolDay++;
+        //등교일 수 10일 이상이면 직업 얻음
+        if (Stats.SchoolDay == 10)
+        {
+            Debug.Log("Stats.SchoolDay >= 10" + Stats.SchoolDay);
+            GetJob();
+        }
+        //자연사
         if (Stats.Age == Stats.MaxAge)
         {
             GetComponent<TestMinion>().Die("너무 늙었어");
         }
-        TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
-    
+    private void SchoolCheck()
+    {
+        if(MinionManager.Instance.MinionsBuildingManager.IsBuilding(MinionManager.Instance.schoolSo))
+            _isStudent = true;
+        else
+            _isStudent = false;
+    }
+// 학교 다닌 일수로 계산
+    private void GetJob()
+    {
+        _isStudent = false;
+        
+        //직업 중복 제거
+        do
+        {
+            _jobData = JobManager.Instance.jobDataListSo.list
+                [Random.Range(0, JobManager.Instance.jobDataListSo.list.Count)];
+        } 
+        while (_jobData == GetComponent<WorkActionScr>().jobData);
+        GetComponent<WorkActionScr>().ChangeJob(_jobData);
+    }
+
     public void SetState(AiStates newState)
     {
         Debug.Log($"{newState} 로 Set State");

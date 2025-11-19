@@ -5,7 +5,7 @@ using Member.CHJ._02.Scripts;
 
 public class BombEvent : MonoBehaviour, IGameEvent
 {
-    int bombDuration = 3;
+    float bombDuration = 1f;
     float currentTime = 0;
 
     bool isRunning = false;

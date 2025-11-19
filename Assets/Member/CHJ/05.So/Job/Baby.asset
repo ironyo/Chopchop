@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Baby
   m_EditorClassIdentifier: 
   jobName: Baby
-  jobType: 2
+  jobType: 1
   buildingData: {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
+  hat: {fileID: -1016359579, guid: b96cafd382b4e69449f99c4357080573, type: 3}

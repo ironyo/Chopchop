@@ -5,11 +5,10 @@ using Unity.Behavior;
 using UnityEngine;
 
 [Serializable, Unity.Properties.GeneratePropertyBag]
-[Condition(name: "CanWorkBuildingCondition ", story: "[Self] [Job] [Target] [WorkScript]", category: "Conditions", id: "77f4bd65fd1b66f7c36a94fd729a6b23")]
+[Condition(name: "CanWorkBuildingCondition ", story: "[Self] [Target] [WorkScript]", category: "Conditions", id: "77f4bd65fd1b66f7c36a94fd729a6b23")]
 public partial class CanWorkBuildingCondition : Condition
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-    [SerializeReference] public BlackboardVariable<JobDataSO> Job;
     [SerializeReference] public BlackboardVariable<Building> Target;
     [SerializeReference] public BlackboardVariable<WorkActionScr> WorkScript;
     
@@ -22,7 +21,7 @@ public partial class CanWorkBuildingCondition : Condition
             return true;
         var buildingManager = MinionManager.Instance.MinionsBuildingManager;
 
-        var building = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, Job.Value.buildingData, 30f);
+        var building = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, WorkScript.Value.jobData.buildingData, 30f);
 
         if (building != null)
             Target.Value = building;
