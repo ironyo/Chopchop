@@ -35,7 +35,6 @@ public class Minion : MonoBehaviour
 
     public MinionTime TimeStruct;
 
-    private bool _isStudent = false;
     
     private JobDataSO _jobData;
 
@@ -56,14 +55,15 @@ public class Minion : MonoBehaviour
         InitializeDay();
         MinionManager.Instance.RegisterMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
+        GetJob();
     }
 
     private void InitializeDay()
     {
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
-        secondWork = 55 - patrol - firstWork;
-        sleep = 60;
+        secondWork = 50 - patrol - firstWork;
+        sleep = 50;
 
         patrol += firstWork;
         secondWork += patrol;
@@ -74,33 +74,13 @@ public class Minion : MonoBehaviour
 
     private void AgeCheck()
     {
-        //학교 확인 후 -> 학교다닌 날 증가
-        SchoolCheck();
-        if(_isStudent)
-            Stats.SchoolDay++;
-        //등교일 수 10일 이상이면 직업 얻음
-        if (Stats.SchoolDay == 10)
-        {
-            Debug.Log("Stats.SchoolDay >= 10" + Stats.SchoolDay);
-            GetJob();
-        }
-        //자연사
         if (Stats.Age == Stats.MaxAge)
         {
             GetComponent<TestMinion>().Die("너무 늙었어");
         }
     }
-    private void SchoolCheck()
-    {
-        if(MinionManager.Instance.MinionsBuildingManager.IsBuilding(MinionManager.Instance.schoolSo))
-            _isStudent = true;
-        else
-            _isStudent = false;
-    }
-// 학교 다닌 일수로 계산
     private void GetJob()
     {
-        _isStudent = false;
         
         //직업 중복 제거
         do
