@@ -19,6 +19,8 @@ public class Building : MonoBehaviour
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
 
+    public SpriteRenderer spr { get; set; }
+
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
     public ParticleSystem minionSpawnParticle;
@@ -84,9 +86,11 @@ public class Building : MonoBehaviour
             if (buildingSO.levelResourceType[0].minion != null)
             {
                 GameObject particle = Instantiate(minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
-                particle.transform.position += new Vector3(buildingSO.maxW * 0.5f, buildingSO.width / buildingSO.maxW * 0.5f);
+                particle.transform.position += new Vector3(-0.5f, 1.1f);
             }
         }
+        spr = Instantiate(BuildManager.Instance.buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+        spr.sprite = buildingSO.buildSprite;
     }
 
     private void Update()
@@ -116,7 +120,7 @@ public class Building : MonoBehaviour
             {
                 spawnCurrentTime = 0;
                 Instantiate(minionSpawnParticle, transform.position, Quaternion.identity);
-                Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
+                Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
 
             }
