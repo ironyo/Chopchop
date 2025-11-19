@@ -13,8 +13,16 @@ public class SoundUI : MonoBehaviour
     
     private void Start()
     {
-        bgmSlider.onValueChanged.AddListener((value)=>mixer.SetFloat("BGSound",  Mathf.Log10(value) * 20));
-        sfxSlider.onValueChanged.AddListener((value)=>mixer.SetFloat("SFX", Mathf.Log10(value) * 20));
-        masterSlider.onValueChanged.AddListener((value)=>mixer.SetFloat("Master", Mathf.Log10(value) * 20));
+        bgmSlider.onValueChanged.AddListener((value)=>ChangeVolume("BGM", value));
+        sfxSlider.onValueChanged.AddListener((value)=>ChangeVolume("SFX", value));
+        masterSlider.onValueChanged.AddListener((value)=>ChangeVolume("Master", value));
+    }
+
+    private void ChangeVolume(string id, float value)
+    {
+        if(value <= 0.001f)
+            mixer.SetFloat(id, -80f);
+        else
+            mixer.SetFloat(id, Mathf.Log10(value) * 20);
     }
 }
