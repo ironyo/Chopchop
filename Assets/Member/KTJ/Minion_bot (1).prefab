@@ -19787,7 +19787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d2fba545150641bbbc6b50e165200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jobData: {fileID: 11400000, guid: b5640cf3d80730c498ade35adf7b7146, type: 2}
+  jobData: {fileID: 11400000, guid: 41a2ee81d5d24df4da0b5bc4c134ec69, type: 2}
+  _hatRenderer: {fileID: 1513304839453076005}
 --- !u!58 &293394543867635596
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class BuildingSelector : MonoBehaviour
 {
@@ -17,22 +18,25 @@ public class BuildingSelector : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("isNowClose: "+ InventoryManager.Instance.IsNowClose);
         if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint (Mouse.current.position.ReadValue());
 
             Collider2D hit = Physics2D.OverlapPoint(mousePos);
 
-            if (hit != null && hit == boxCollider && hit.isTrigger == false)
+            hit.gameObject.TryGetComponent<TilemapCollider2D>(out TilemapCollider2D tile);
+
+            if (hit != null && hit.isTrigger == false || tile != null)
             {
                 if (isOpen)
                 {
                     isOpen = false;
+                    buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
                 }
                 else
                 {
                     BuildManager.Instance.CloseAllBuildUI(buildCompo);
+                    buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
                 }
                 int count = buildCompo.buildCount;
                 BuildManager.Instance.GetSelectData(count, buildCompo.level);
