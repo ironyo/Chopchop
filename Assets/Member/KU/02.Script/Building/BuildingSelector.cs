@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class BuildingSelector : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class BuildingSelector : MonoBehaviour
 
             Collider2D hit = Physics2D.OverlapPoint(mousePos);
 
-            if (hit != null && hit == boxCollider && hit.isTrigger == false)
+            hit.gameObject.TryGetComponent<TilemapCollider2D>(out TilemapCollider2D tile);
+
+            if (hit != null && hit.isTrigger == false || tile != null)
             {
                 if (isOpen)
                 {

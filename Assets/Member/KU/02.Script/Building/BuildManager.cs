@@ -93,6 +93,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             SelectButton(false);
         });
         InitializeLineRenderer();
+        
     }
 
     private void Update()
@@ -414,7 +415,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             //_upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.}";
         }
     }
-    private void SelectButton(bool nowSelect)
+    public void SelectButton(bool nowSelect)
     {
         isDestroing = true;
 
@@ -424,24 +425,25 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         else
         {
-            for (int i = 0; i < buildingParent.Count; i++)
-            {
-                if (buildingParent[i].buildCount > selectCount)
-                {
-                    buildingParent[i].buildCount -= 1;
-                }
-            }
-            buildingCount--;
-            selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
-            Destroy(buildingParent[selectCount].gameObject);
-            buildingParent.Remove(buildingParent[selectCount]);
-            CloseAllBuildUI(null);
+            DestroyBuilding(buildingParent[selectCount]);
         }
         isDestroing = false;
     }
-
-
-
+    public void DestroyBuilding(Building build)
+    {
+        for (int i = 0; i < buildingParent.Count; i++)
+        {
+            if (buildingParent[i].buildCount > selectCount)
+            {
+                buildingParent[i].buildCount -= 1;
+            }
+        }
+        buildingCount--;
+        selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
+        Destroy(build.gameObject);
+        buildingParent.Remove(buildingParent[selectCount]);
+        CloseAllBuildUI(null);
+    }
 
     public BuildingSO GetBuildData() => buildingSO;
     public void CloseAllBuildUI(Building me)
