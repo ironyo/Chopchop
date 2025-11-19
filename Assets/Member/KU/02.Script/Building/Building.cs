@@ -84,9 +84,11 @@ public class Building : MonoBehaviour
             if (buildingSO.levelResourceType[0].minion != null)
             {
                 GameObject particle = Instantiate(minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
-                particle.transform.position += new Vector3(buildingSO.maxW * 0.5f, buildingSO.width / buildingSO.maxW * 0.5f);
+                particle.transform.position += new Vector3(-0.4f, 1.3f);
             }
         }
+        SpriteRenderer spr = Instantiate(BuildManager.Instance._buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+        spr.sprite = buildingSO.sprite;
     }
 
     private void Update()
