@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: MinerBuildSO
   m_EditorClassIdentifier: 
-  sprite: {fileID: -1565018188, guid: b96cafd382b4e69449f99c4357080573, type: 3}
+  buildSprite: {fileID: 0}
+  buildSelcetSprite: {fileID: 0}
   maxLevel: 3
   buildName: "\uAD11\uC0B0"
   MaxHealth: c800000090010000bc020000
