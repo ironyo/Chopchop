@@ -401,9 +401,6 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-
-                    Debug.Log("here");
-
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0];
                     _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }

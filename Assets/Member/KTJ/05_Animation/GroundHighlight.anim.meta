@@ -1,17 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Member/KTJ/05_Animation/GroundHighlight.anim.meta
 guid: df8707f017f718a4d8123580a7ea9bd4
 ========
 guid: 332fb2bf32b432f46b31f6911753bc56
 >>>>>>>> JJK:Assets/Member/JJK/05.SO/Weapon/Fist.asset.meta
-=======
-<<<<<<<< HEAD:Assets/Member/JJK/05.SO/Weapon/Sword_1.asset.meta
-guid: 5a613abf898582942ba20857d4175f45
-========
-guid: df8707f017f718a4d8123580a7ea9bd4
->>>>>>>> main:Assets/Member/KTJ/05_Animation/GroundHighlight.anim.meta
->>>>>>> main
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
