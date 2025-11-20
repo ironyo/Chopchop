@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Member/CHJ/01.Scene/JW.unity
     guid: c3f5f756881c69a46ae5532ddc528bbf
+  - enabled: 1
+    path: Assets/Member/KTJ/02.Scene/New Scene.unity
+    guid: ac041e9e3be9b334a81a3c14df8d9cd9
+  - enabled: 1
+    path: Assets/Member/KTJ/02.Scene/New Scene 1.unity
+    guid: 83dae1ac6a84d604790b8ef8f8f1dd4c
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

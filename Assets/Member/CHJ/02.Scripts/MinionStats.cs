@@ -7,7 +7,6 @@ public class MinionStats
     public int Age { get; set; }
     
     public int MaxAge { get; set; }
-    public int SchoolDay { get; set; }
     public string Name { get; private set; }
 
     public WorkActionScr Job { get; set; }
@@ -23,7 +22,6 @@ public class MinionStats
     {
         Hp = Random.Range(10, 30);
         Age = 1;
-        SchoolDay = 0;
         MaxAge = Random.Range(40, 51);
         Name = NameList[Random.Range(0, NameList.Count)];
     }
