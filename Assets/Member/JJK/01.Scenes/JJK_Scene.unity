@@ -527,7 +527,6 @@ GameObject:
   m_Component:
   - component: {fileID: 392666828}
   - component: {fileID: 392666827}
-  - component: {fileID: 392666829}
   - component: {fileID: 392666830}
   - component: {fileID: 392666831}
   m_Layer: 0
@@ -608,23 +607,6 @@ Transform:
   - {fileID: 943294424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &392666829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392666826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc652fd41106d844dbf44e9d6916eab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  _unitType: 2
-  <OnTargetChanged>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &392666830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,10 +1473,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1368271190790181576, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
-      propertyPath: weaponData
-      value: 
-      objectReference: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4883,10 +4861,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1368271190790181576, guid: 847d0d4234ef2a34f8876b21c739d44c, type: 3}
-      propertyPath: weaponData
-      value: 
-      objectReference: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

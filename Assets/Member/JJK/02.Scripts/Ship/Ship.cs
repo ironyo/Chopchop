@@ -30,6 +30,7 @@ public class Ship : MonoBehaviour
             agent.enabled = false;
             
             enemy.transform.SetParent(transform);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             var unit = enemy.GetComponent<Unit>();
             unit._unitType = UnitType.Enemy;
@@ -37,6 +38,9 @@ public class Ship : MonoBehaviour
 =======
             UnitManager.Instance.RegisterEnemy(enemy.transform);
 >>>>>>> Stashed changes
+=======
+            EnemyManager.Instance.RegisterEnemy(enemy.transform);
+>>>>>>> JJK
             loadedEnemies.Add(enemy);
             
             if (canFlip) FlipY(enemy);
