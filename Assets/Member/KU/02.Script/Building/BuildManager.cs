@@ -41,6 +41,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
     [SerializeField] private TextMeshProUGUI _upgradeCcostTex;
+    [SerializeField] private TextMeshProUGUI _explaneTxt;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
 
@@ -396,6 +397,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
             {
