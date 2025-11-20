@@ -9,11 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 99855579944526547}
-  - component: {fileID: 8875622985497736304}
   - component: {fileID: 2091681236416521673}
   - component: {fileID: 3581832905501873390}
   - component: {fileID: 9128234324354796437}
   - component: {fileID: -5376354544302552884}
+  - component: {fileID: 5115367320520506354}
+  - component: {fileID: 7641838495003686109}
+  - component: {fileID: 5814880150445863167}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -39,35 +41,6 @@ Transform:
   - {fileID: 1454702697597032646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8875622985497736304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275127846613913689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc652fd41106d844dbf44e9d6916eab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
-  _unitType: 0
-  <OnTargetChanged>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4070699779897668395}
-        m_TargetAssemblyTypeName: AgentWeapon, Assembly-CSharp
-        m_MethodName: AimWeapon
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2091681236416521673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +150,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5115367320520506354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275127846613913689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28a1dd63cef75948a02b0dd24568007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
+--- !u!114 &7641838495003686109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275127846613913689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eee322003fcc3c4d8f5b80241cf270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5814880150445863167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275127846613913689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279c8c9eb1a6a734ea51d8660bbdb570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5549055757669483266
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +395,7 @@ PrefabInstance:
     - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: weaponData
       value: 
-      objectReference: {fileID: 11400000, guid: 08e7d29881dc91646b434c0d37dacb1a, type: 2}
+      objectReference: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
     - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: _WeaponType
       value: 2
@@ -491,14 +501,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4070699779897668395 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6085179753537981986, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
-  m_PrefabInstance: {fileID: 7785845654559423753}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a2e0e8a9e4a884292585a36407c701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

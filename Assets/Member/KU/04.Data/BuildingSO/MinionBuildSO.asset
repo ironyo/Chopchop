@@ -23,12 +23,15 @@ MonoBehaviour:
   levelResourceType:
   - resourceTypeSOs: []
     minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
+    weaponDataSO: {fileID: 0}
     level: 1
   - resourceTypeSOs: []
     minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
+    weaponDataSO: {fileID: 0}
     level: 2
   - resourceTypeSOs: []
     minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
+    weaponDataSO: {fileID: 0}
     level: 3
   spawnTime: 6
   resourceTypeCost:

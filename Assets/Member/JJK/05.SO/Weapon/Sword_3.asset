@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5519ea2108e712e4e85dab0863f7a183, type: 3}
-  m_Name: Sword
+  m_Name: Sword_3
   m_EditorClassIdentifier: 
   _WeaponType: 0
-  animatorController: {fileID: 9100000, guid: 9bffa9d589158f9418073214c9490a86, type: 2}
-  bulletPrefab: {fileID: 2374837753700084175, guid: 61fcf14ed90272d4699e006cc1670cdd, type: 3}
-  attackRange: 2
-  damage: 10
+  animatorController: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  attackRange: 0
+  damage: 0
