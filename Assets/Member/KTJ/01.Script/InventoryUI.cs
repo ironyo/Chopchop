@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class InventoryUI : UIBase
 {
+    private void Start()
+    {
+        StartCoroutine(CloseEffect());
+    }
+
     public override IEnumerator CloseEffect()
     {
         var rt = toggleObject.GetComponent<RectTransform>();
@@ -11,8 +16,6 @@ public class InventoryUI : UIBase
         BuildManager.Instance.BuildingMode();
         InventoryManager.Instance.CloseInv();
         yield return t.WaitForCompletion();
-
-
     }
 
     public override IEnumerator OpenEffect()

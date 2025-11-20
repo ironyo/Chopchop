@@ -41,6 +41,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
     [SerializeField] private TextMeshProUGUI _upgradeCcostTex;
+    [SerializeField] private TextMeshProUGUI _explaneTxt;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
 
@@ -102,7 +103,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         BuildOrCancle();
         BuildUISetting(!BuildingSelect());
 
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); // 강유야 여기 아아아아아아아아아ㅏ 진짜ㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         currentCell = grid.WorldToCell(mouseWorldPos);
 
         if (currentCell != lastCell)
@@ -396,12 +397,13 @@ public class BuildManager : MonoSingleton<BuildManager>
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0];
+                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
                     _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
@@ -409,9 +411,10 @@ public class BuildManager : MonoSingleton<BuildManager>
                     _spawnKindTex.text += "미니언";
                 }
             }
-            if(buildingParent[selectCount].NowLevel != 3)
+            ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
+            if (buildingParent[selectCount].NowLevel != 3)
             {
-                _upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].resourceTypeSO.name} ({buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].amount})";
+                _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
             }
             else
             {
@@ -426,14 +429,10 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             if(buildingParent[selectCount].level != 3)
             {
-                Debug.Log("여긴됨");
-
                 var selected = buildingParent[selectCount];
                 var costSO = selected.buildingSO.levelResourceTypeCost[selected.NowLevel - 1];
 
                 int typeData = ResourceManager.Instance.resourceAmountDictionary[costSO.resourceTypeSO].Item1;
-
-                Debug.Log("여긴됨: " + typeData);
 
                 if (typeData < costSO.amount)
                 {
@@ -442,7 +441,6 @@ public class BuildManager : MonoSingleton<BuildManager>
                 }
                 else
                 {
-                    Debug.Log("들어와짐");
                     buildingParent[selectCount].BuildUpgrade();
                     ResourceManager.Instance.UseResource(costSO.resourceTypeSO, typeData);
                 }
