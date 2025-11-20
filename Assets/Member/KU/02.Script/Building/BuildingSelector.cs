@@ -35,7 +35,7 @@ public class BuildingSelector : MonoBehaviour
                 if (building.buildCount == buildCompo.buildCount)
                 {
                     hasBuilding = true;
-                    Debug.LogError($"Hit: {h.name}");
+                    //Debug.LogError($"Hit: {h.name}");
                     break;
                 }
             }

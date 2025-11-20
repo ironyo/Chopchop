@@ -17,21 +17,14 @@ public class DailyReport : MonoBehaviour
     [SerializeField] private RectTransform Base_back;
     [SerializeField] private Image Stamp;
 
-    public UnityEvent OnDailyReport;
-
     Sequence seq;
-
-    private void Awake()
-    {
-        seq = DOTween.Sequence();
-        OnDailyReport.AddListener(RunReport);
-    }
 
     private void Start()
     {
+        seq = DOTween.Sequence();
     }
 
-    private void RunReport()
+    public void RunReport()
     {
         if (seq != null)
         {
@@ -39,7 +32,7 @@ public class DailyReport : MonoBehaviour
             seq = DOTween.Sequence();
         }
         CheckImage.gameObject.SetActive(false);
-        reportTxt.text = "오늘도 수고하셨습니다! 보고 드립니다.\n미니언들의 상태는 양호함.\n1개의 민원이 들어왔음.\n날씨는 매우 화창함\n\n본부장 김철수 드림";
+        reportTxt.text = "오늘도 수고하셨습니다! 보고 드립니다.\n오늘 총 N번의 침략을 막아내셨습니다.\n날씨는 매우 좋습니다.\n본부장 김철수 드림";
         seq.Append(Anchor.DOAnchorPosY(0f, 1f));
         seq.Insert(0.2f ,Base_front.DOAnchorPosY(0f, 1f).SetEase(Ease.OutBack));
     }
