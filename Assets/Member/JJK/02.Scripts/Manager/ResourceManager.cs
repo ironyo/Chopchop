@@ -55,6 +55,10 @@ public class ResourceManager : MonoSingleton<ResourceManager>
             current.Item1 -= amount;
             resourceAmountDictionary[resourceType] = current; TestLog();
         }
+        else if (resourceAmountDictionary[resourceType].Item1 < amount)
+        {
+            
+        }
     }
 
     //private void ToText()
