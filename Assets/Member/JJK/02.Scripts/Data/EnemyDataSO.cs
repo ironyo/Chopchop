@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum TargetType {Minion, Building, HQ}
+public enum TargetType {Player, Building, HQ}
 
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "SO/EnemyDataSO")]
 public class EnemyDataSO : ScriptableObject

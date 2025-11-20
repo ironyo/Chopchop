@@ -16,6 +16,7 @@ TagManager:
   - telescope
   - HQ
   - Building
+  - Enemy
   layers:
   - Default
   - TransparentFX
