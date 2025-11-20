@@ -198,7 +198,7 @@ public class Building : MonoBehaviour
     {
         TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
-            obj.text = $"+�̴Ͼ�";
+            obj.text = $"+�̴Ͼ�";
         else
             obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
     }
