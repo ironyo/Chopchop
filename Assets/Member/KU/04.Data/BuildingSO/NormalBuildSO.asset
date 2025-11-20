@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: NormalBuildSO
   m_EditorClassIdentifier: 
-  buildSprite: {fileID: 6038959413764206012, guid: 1714ec0e475982a4090407889266763f, type: 3}
-  buildSelcetSprite: {fileID: 1509280044334896305, guid: 672b0d96b12bd8249a8e54a2e244b2bb, type: 3}
+  explaneStr: "\uBBF8\uB2C8\uC5B8\uC774 \uC790\uB294 \uAC74\uBB3C"
+  buildSprite: {fileID: 21300000, guid: 1714ec0e475982a4090407889266763f, type: 3}
+  buildSelcetSprite: {fileID: 21300000, guid: 672b0d96b12bd8249a8e54a2e244b2bb, type: 3}
   maxLevel: 3
   buildName: "\uAE30\uBCF8 \uC8FC\uD0DD"
   MaxHealth: 960000002c010000f4010000

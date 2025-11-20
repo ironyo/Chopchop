@@ -16,8 +16,6 @@ public class InventoryUI : UIBase
         BuildManager.Instance.BuildingMode();
         InventoryManager.Instance.CloseInv();
         yield return t.WaitForCompletion();
-
-
     }
 
     public override IEnumerator OpenEffect()
