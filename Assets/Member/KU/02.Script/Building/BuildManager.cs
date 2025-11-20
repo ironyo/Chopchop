@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -58,7 +59,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     public bool isBuilding { get; private set; }
 
-    private BuildingSO buildingSO;
+    public BuildingSO buildingSO { get; private set; }
     private int buildingCount = 0;
 
     bool isDestroing = false;
@@ -84,6 +85,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private void Start()
     {
+        //BuildHQ();
         _upgradeBtn.onClick.AddListener(() =>
         {
             SelectButton(true);
@@ -94,6 +96,14 @@ public class BuildManager : MonoSingleton<BuildManager>
         });
         InitializeLineRenderer();
         
+    }
+
+    private void BuildHQ()
+    {
+        transform.position = Vector2.zero;
+        GridSpawn();
+        BuildedClear();
+        GridDestroy();
     }
 
     private void Update()
@@ -296,12 +306,15 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private bool CanResourceAmount()
     {
-        foreach (var item in buildingSO.resourceTypeCost)
+        if(buildingSO.resourceTypeCost.Length != 0)
         {
-            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
-            if(typeData < item.amount)
+            foreach (var item in buildingSO.resourceTypeCost)
             {
-                return false;
+                int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
+                if (typeData < item.amount)
+                {
+                    return false;
+                }
             }
         }
 
@@ -410,9 +423,9 @@ public class BuildManager : MonoSingleton<BuildManager>
                     _spawnKindTex.text += "미니언";
                 }
             }
-            ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
             if (buildingParent[selectCount].NowLevel != 3)
             {
+                ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
                 _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
             }
             else
