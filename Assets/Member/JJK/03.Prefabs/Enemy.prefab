@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3498480867095744402}
   - component: {fileID: 5768528547408912887}
-  - component: {fileID: 7205561367051622720}
   - component: {fileID: -2199623820880431438}
   - component: {fileID: 7958597625279174968}
   - component: {fileID: -7452397690577305493}
+  - component: {fileID: 4345510159016677789}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -60,23 +60,6 @@ NavMeshAgent:
   m_BaseOffset: 0.48
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 3
---- !u!114 &7205561367051622720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6499337727230964603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc652fd41106d844dbf44e9d6916eab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
-  _unitType: 1
-  <OnTargetChanged>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-2199623820880431438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +147,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &4345510159016677789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499337727230964603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a4c25fd9ab3044f8451e40a7b53728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: f9ac767137250e84ba3bcf3d076fe79f, type: 2}
+  targetTags:
+  - Player
+  - Building
+  - HQ
 --- !u!1 &8762298014354357664
 GameObject:
   m_ObjectHideFlags: 0

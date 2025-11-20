@@ -9,6 +9,7 @@ public class PlayerUnit : MonoBehaviour
     private WeaponHolder _weaponHolder;
     private Chase _chase;
     private Combat _combat;
+    private string targetTag = "Enemy";
     
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void SetTarget()
     {
-        _target = UnitManager.Instance.GetNearestEnemy(transform);
+        _chase.GetNearestTarget(targetTag);
     }
 
     private void MoveToTarget()

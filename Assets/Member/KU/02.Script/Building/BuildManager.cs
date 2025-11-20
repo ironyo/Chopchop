@@ -401,6 +401,10 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
+<<<<<<< HEAD
+=======
+                    Debug.Log("here");
+>>>>>>> main
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0];
                     _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
@@ -409,6 +413,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                     _spawnKindTex.text += "미니언";
                 }
             }
+<<<<<<< HEAD
             if(buildingParent[selectCount].NowLevel != 3)
             {
                 _upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].resourceTypeSO.name} ({buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].amount})";
@@ -417,6 +422,9 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 _upgradeCcostTex.text = "Max";
             }
+=======
+            //_upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.}";
+>>>>>>> main
         }
     }
     public void SelectButton(bool nowSelect)

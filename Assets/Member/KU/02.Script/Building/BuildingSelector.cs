@@ -25,12 +25,16 @@ public class BuildingSelector : MonoBehaviour
             Collider2D hit = Physics2D.OverlapPoint(mousePos);
 
             hit.gameObject.TryGetComponent<TilemapCollider2D>(out TilemapCollider2D tile);
+<<<<<<< HEAD
             hit.gameObject.TryGetComponent<Building>(out Building build);
+=======
+>>>>>>> main
 
             if (hit != null && hit.isTrigger == false || tile != null)
             {
                 if(build != null)
                 {
+<<<<<<< HEAD
                     if (isOpen)
                     {
                         isOpen = false;
@@ -44,6 +48,18 @@ public class BuildingSelector : MonoBehaviour
                     int count = buildCompo.buildCount;
                     BuildManager.Instance.GetSelectData(count, buildCompo.level);
                 }
+=======
+                    isOpen = false;
+                    buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
+                }
+                else
+                {
+                    BuildManager.Instance.CloseAllBuildUI(buildCompo);
+                    buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
+                }
+                int count = buildCompo.buildCount;
+                BuildManager.Instance.GetSelectData(count, buildCompo.level);
+>>>>>>> main
             }
         }
     }

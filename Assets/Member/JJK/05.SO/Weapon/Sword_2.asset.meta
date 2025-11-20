@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Member/JJK/05.SO/Weapon/Sword_2.asset.meta
 guid: 24e1801163809db4c80c25c2bc95b1ff
+========
+guid: aca32f939bbb98d498744f78ceae883a
+>>>>>>>> main:Assets/Member/KTJ/05_Animation/GroundHighlight.controller.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 11400000
+  mainObjectFileID: 9100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
