@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: MinerBuildSO
   m_EditorClassIdentifier: 
-  buildSprite: {fileID: 0}
-  buildSelcetSprite: {fileID: 0}
+  explaneStr: "\uC9F1\uB3CC\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4"
+  buildSprite: {fileID: 21300000, guid: 597a22c197c4d3d4b8edddc94d46c57a, type: 3}
+  buildSelcetSprite: {fileID: 21300000, guid: 342a27f180017f446b2923bfc9abdff4, type: 3}
   maxLevel: 3
   buildName: "\uAD11\uC0B0"
   MaxHealth: c800000090010000bc020000
@@ -40,3 +41,4 @@ MonoBehaviour:
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 30
+  levelResourceTypeCost: []
