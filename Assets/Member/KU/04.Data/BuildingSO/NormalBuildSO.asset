@@ -23,5 +23,5 @@ MonoBehaviour:
   levelResourceType: []
   spawnTime: 0
   resourceTypeCost:
-  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+  - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 20
