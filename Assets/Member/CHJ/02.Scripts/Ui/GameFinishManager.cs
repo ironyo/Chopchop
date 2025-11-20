@@ -3,10 +3,11 @@ using UnityEngine.Events;
 
 namespace Member.CHJ._02.Scripts.Ui
 {
-    public class GameOverManager : MonoBehaviour
+    public class GameFinishManager : MonoBehaviour
     {
         public UnityEvent onGameOver;
-        public static GameOverManager Instance;
+        public UnityEvent onGameClear;
+        public static GameFinishManager Instance;
         protected void Awake()
         {
             if (Instance == null)
