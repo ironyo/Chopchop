@@ -15,6 +15,7 @@ TagManager:
   - Village_Hall
   - telescope
   - HQ
+  - Building
   layers:
   - Default
   - TransparentFX
