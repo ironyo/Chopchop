@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: MinerBuildSO
   m_EditorClassIdentifier: 
+  buildSprite: {fileID: 0}
+  buildSelcetSprite: {fileID: 0}
   maxLevel: 3
   buildName: "\uAD11\uC0B0"
   MaxHealth: c800000090010000bc020000
@@ -34,7 +36,7 @@ MonoBehaviour:
       amount: 5
     minion: {fileID: 0}
     level: 3
-  spawnTime: 2
+  spawnTime: 1
   resourceTypeCost:
-  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+  - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 30

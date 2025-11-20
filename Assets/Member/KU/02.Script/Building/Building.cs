@@ -19,9 +19,12 @@ public class Building : MonoBehaviour
     private BoxCollider2D boxCollider;
     private LineRenderer lineRenderer;
 
+    public SpriteRenderer spr { get; set; }
+
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
-
+    public ParticleSystem minionSpawnParticle;
+    public ParticleSystem minionBuildParticle;
     public TextMeshPro logPrefab;
     private TextMeshPro _minionText;
 
@@ -78,6 +81,16 @@ public class Building : MonoBehaviour
 
         boxCollider.size = new Vector2(buildingSO.maxW, wSize);
 
+        if(buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion != null)
+            {
+                GameObject particle = Instantiate(minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
+                particle.transform.position += new Vector3(-0.5f, 1.1f);
+            }
+        }
+        spr = Instantiate(BuildManager.Instance.buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
+        spr.sprite = buildingSO.buildSprite;
     }
 
     private void Update()
@@ -90,22 +103,30 @@ public class Building : MonoBehaviour
         {
             MinionPlus(1);
         }
-        if(buildingSO.levelResourceType.Length != 0)
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            AttackBuild(10);
+        }
+        if (buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
     }
 
+    private int minusTimer;
     private void UpdateSpawnResource()
     {
+        minusTimer = buildingSO.levelResourceType[0].minion != null ? level : 0;
         if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
         spawnCurrentTime += Time.deltaTime;
-        if (spawnCurrentTime >= spawnTime)
+        if (spawnCurrentTime >= spawnTime - minusTimer)
         {
             if (buildingSO.levelResourceType[level - 1].minion != null)
             {
                 spawnCurrentTime = 0;
-                Instantiate(buildingSO.levelResourceType[level - 1].minion, transform.position, Quaternion.identity);
+                Instantiate(minionSpawnParticle, transform.position, Quaternion.identity);
+                Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
+
             }
             else
             {
@@ -187,6 +208,15 @@ public class Building : MonoBehaviour
         {
             spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
             spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
+        }
+    }
+
+    public void AttackBuild(int damage)
+    {
+        nowHealth -= damage;
+        if (nowHealth <= 0)
+        {
+            BuildManager.Instance.DestroyBuilding(this);
         }
     }
 

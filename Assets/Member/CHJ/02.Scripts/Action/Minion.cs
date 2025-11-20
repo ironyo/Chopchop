@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Member.CHJ._02.Scripts;
+using Member.CHJ._02.Scripts.SO;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,7 +18,7 @@ public class Minion : MonoBehaviour
     [SerializeField] private bool isCanMate;
 
     [SerializeField] private GameObject _particleSystem;
-    
+
     public BehaviorGraphAgent behaviorGraph {get; private set;}
 
     [field: SerializeField]public GameObject visualObj { get; private set;}
@@ -33,6 +34,9 @@ public class Minion : MonoBehaviour
     public bool isMating;
 
     public MinionTime TimeStruct;
+
+    
+    private JobDataSO _jobData;
 
     private void Awake()
     {
@@ -51,26 +55,43 @@ public class Minion : MonoBehaviour
         InitializeDay();
         MinionManager.Instance.RegisterMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
+        GetJob();
     }
 
     private void InitializeDay()
     {
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
-        secondWork = 55 - patrol - firstWork;
-        sleep = 60;
+        secondWork = 50 - patrol - firstWork;
+        sleep = 50;
 
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;
+        TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
+        AgeCheck();
+    }
 
+    private void AgeCheck()
+    {
         if (Stats.Age == Stats.MaxAge)
         {
             GetComponent<TestMinion>().Die("너무 늙었어");
         }
-        TimeStruct.SetTime(firstWork,patrol,secondWork,sleep);
     }
-    
+    private void GetJob()
+    {
+        
+        //직업 중복 제거
+        do
+        {
+            _jobData = JobManager.Instance.jobDataListSo.list
+                [Random.Range(0, JobManager.Instance.jobDataListSo.list.Count)];
+        } 
+        while (_jobData == GetComponent<WorkActionScr>().jobData);
+        GetComponent<WorkActionScr>().ChangeJob(_jobData);
+    }
+
     public void SetState(AiStates newState)
     {
         Debug.Log($"{newState} 로 Set State");

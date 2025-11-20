@@ -16,22 +16,19 @@ public class JobManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        try
+        {
             Instance = this;
-        else if(Instance != null)
-            Destroy(gameObject);
+        }
+        catch (Exception a)
+        {
+            Debug.Log(a);
+        }
         foreach (var jobScr in jobDataListSo.list)
         { 
             JobDictionary.Add(jobScr.jobType, jobScr);
         }
     }
 
-    public void AddJob(Minion minion, JobType type)
-    {
-        if (JobDictionary.TryGetValue(type, out JobDataSO jobSO))
-        {
-            minion.GetComponent<WorkActionScr>().jobData = jobSO;
-            minion.behaviorGraph.BlackboardReference.SetVariableValue("SO", jobSO);
-        }
-    }
+    public void AddJob(Minion minion, JobDataSO type) => minion.GetComponent<WorkActionScr>().jobData = type;
 }

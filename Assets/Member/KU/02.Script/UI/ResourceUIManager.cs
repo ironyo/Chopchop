@@ -34,8 +34,7 @@ public class ResourceUIManager : MonoBehaviour
         for (int i = 0; i < buildData.resourceTypeCost.Length; i++)
         {
             resourceUIList.Add(Instantiate(_resourceUIPref, transform).GetComponent<ResourceSs>());
-            resourceUIList[i].count = i;
-            resourceUIList[i].ResourceSet(buildData);
+            resourceUIList[i].ResourceSet(buildData, i);
         }
     }
 

@@ -17,12 +17,14 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
 
     [SerializeField] TilemapCollider2D _tilemapCollider;
+    [SerializeField] private ParticleSystem _minionSpawnParticle;
+    [SerializeField] private ParticleSystem _minionBuildParticle;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
-    [SerializeField] private GameObject _buildClone;
+    [field: SerializeField]public GameObject buildSpritePref { get; set; }
     [SerializeField] private GameObject _helpUI;
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;
@@ -38,6 +40,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _buildHPTex;
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
+    [SerializeField] private TextMeshProUGUI _upgradeCcostTex;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
 
@@ -90,6 +93,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             SelectButton(false);
         });
         InitializeLineRenderer();
+        
     }
 
     private void Update()
@@ -97,7 +101,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         UpdateColliderView();
         BuildOrCancle();
         BuildUISetting(!BuildingSelect());
-
 
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); // 강유야 여기 아아아아아아아아아ㅏ 진짜ㅏㅏㅏㅏㅏㅏㅏㅏㅏ
         currentCell = grid.WorldToCell(mouseWorldPos);
@@ -191,7 +194,23 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildedClear()
     {
-        if (!CanSpawn() || !CanResourceAmount() || !IsOnTheGround()) return;
+        if (!CanResourceAmount())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "자원이 부족합니다!");
+            return;
+        }
+        if (!IsOnTheGround())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물은 땅위에서만 건축합니다!");
+            return;
+        }
+        if (!CanSpawn())
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물이 겹쳐있습니다!");
+            return;
+        }
+        NotifictionManager.Instance.NotifictionEvent.Invoke("설치완료", $"{buildingCount+1}번째 건물을 설치했습니다!");
+
 
         showCollider = false;
         isBuilding = false;
@@ -205,14 +224,15 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
         building.buildingSO = buildingSO;
+        building.minionSpawnParticle = _minionSpawnParticle;
+        building.minionBuildParticle = _minionBuildParticle;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {
-            //이건 이미지 스파리트 이미지로 하고싶을때 -> Instantiate(_buildClone, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
-            Instantiate(_blockTilemap, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
+            GameObject obj = Instantiate(_blockTilemap, spawnGrid[i].transform.position, Quaternion.identity, par.transform);
             Destroy(spawnGrid[i]);
         }
         spawnGrid.Clear();
@@ -383,16 +403,19 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].resourceTypeSO.name + " +" +  $"{buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0].amount}/s";
+                    Debug.Log("here");
+                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0];
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
                 {
                     _spawnKindTex.text += "미니언";
                 }
             }
+            //_upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.}";
         }
     }
-    private void SelectButton(bool nowSelect)
+    public void SelectButton(bool nowSelect)
     {
         isDestroing = true;
 
@@ -402,24 +425,25 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         else
         {
-            for (int i = 0; i < buildingParent.Count; i++)
-            {
-                if (buildingParent[i].buildCount > selectCount)
-                {
-                    buildingParent[i].buildCount -= 1;
-                }
-            }
-            buildingCount--;
-            selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
-            Destroy(buildingParent[selectCount].gameObject);
-            buildingParent.Remove(buildingParent[selectCount]);
-            CloseAllBuildUI(null);
+            DestroyBuilding(buildingParent[selectCount]);
         }
         isDestroing = false;
     }
-
-
-
+    public void DestroyBuilding(Building build)
+    {
+        for (int i = 0; i < buildingParent.Count; i++)
+        {
+            if (buildingParent[i].buildCount > selectCount)
+            {
+                buildingParent[i].buildCount -= 1;
+            }
+        }
+        buildingCount--;
+        selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
+        Destroy(build.gameObject);
+        buildingParent.Remove(buildingParent[selectCount]);
+        CloseAllBuildUI(null);
+    }
 
     public BuildingSO GetBuildData() => buildingSO;
     public void CloseAllBuildUI(Building me)
