@@ -13,6 +13,7 @@ namespace Member.CHJ._02.Scripts
         public List<Minion> minionList = new List<Minion>();
         public int MinionMaxCount { get; private set; }
         [SerializeField] public BuildingSO houseSo;
+        [SerializeField] public BuildingSO schoolSo;
         private Building _buildingTarget;
         public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 
