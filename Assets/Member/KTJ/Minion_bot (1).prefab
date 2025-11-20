@@ -4864,7 +4864,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1909316090135964926}
-  m_Father: {fileID: 3246093516547021079}
+  m_Father: {fileID: 4572604396890466684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4286729462442362922
 MonoBehaviour:
@@ -14711,7 +14711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02adcf1aecf989a4e96e98fafe96f0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePos: {fileID: 7027657034203212991}
   weaponData: {fileID: 11400000, guid: 26126c66a8ed72b44bddfc7c21f59072, type: 2}
 --- !u!114 &1607136539796839388
 MonoBehaviour:
@@ -20417,6 +20416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
+  <OnTargetChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6701542453612670930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20776,7 +20778,6 @@ Transform:
   m_Children:
   - {fileID: 2033051541875329131}
   - {fileID: 3848425101225759400}
-  - {fileID: 1671862677825741767}
   - {fileID: 1280320323285494310}
   m_Father: {fileID: 4572604396890466684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30677,6 +30678,7 @@ Transform:
   - {fileID: 3106904371425180998}
   - {fileID: 1607774444569376033}
   - {fileID: 124306952845357019}
+  - {fileID: 1671862677825741767}
   - {fileID: 3246093516547021079}
   m_Father: {fileID: 5363027515492264325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

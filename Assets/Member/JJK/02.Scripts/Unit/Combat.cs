@@ -10,7 +10,7 @@ public class Combat : MonoBehaviour
 
     private void Awake()
     {
-        weaponHolder = transform.Find("WeaponParent/Weapon").GetComponent<WeaponHolder>();
+        weaponHolder = transform.Find("Visual/WeaponParent/Weapon").GetComponent<WeaponHolder>();
     }
 
     private void Update()
