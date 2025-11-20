@@ -32,11 +32,13 @@ public class BuildingSelector : MonoBehaviour
 
 
                 h.TryGetComponent(out Building building);
-                if (building.buildCount == buildCompo.buildCount)
+                if(building != null)
                 {
-                    hasBuilding = true;
-                    Debug.LogError($"Hit: {h.name}");
-                    break;
+                    if (building.buildCount == buildCompo.buildCount)
+                    {
+                        hasBuilding = true;
+                        break;
+                    }
                 }
             }
 
