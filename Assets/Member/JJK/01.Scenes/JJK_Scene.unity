@@ -874,6 +874,9 @@ MonoBehaviour:
   nightColor: {r: 0.2044848, g: 0.2044848, b: 0.48787057, a: 1}
   dayVignetteIntensity: 0
   nightVignetteIntensity: 0.5
+  OnTimeChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &587475312
 Transform:
   m_ObjectHideFlags: 0
@@ -1242,7 +1245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4109021472e65844a76c95aae9a7aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
 --- !u!1 &1244471370
 GameObject:
   m_ObjectHideFlags: 0

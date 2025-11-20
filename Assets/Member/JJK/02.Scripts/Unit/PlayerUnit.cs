@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerUnit : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerUnit : MonoBehaviour
     private Chase _chase;
     private Combat _combat;
     private string targetTag = "Enemy";
+
+    [field:SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; set; }
     
     private void Awake()
     {
@@ -24,14 +27,19 @@ public class PlayerUnit : MonoBehaviour
     {
         if (InvasionManager.Instance.isLanding)
         {
-            SetTarget();
+            if (_target == null)
+            {
+                SetTarget();
+                OnTargetChanged.Invoke(_target.position);
+            }
+            
             MoveToTarget();
         }
     }
 
     private void SetTarget()
     {
-        _chase.GetNearestTarget(targetTag);
+        _target = _chase.GetNearestTarget(targetTag);
     }
 
     private void MoveToTarget()

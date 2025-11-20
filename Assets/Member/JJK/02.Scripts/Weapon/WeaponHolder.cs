@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class WeaponHolder : MonoBehaviour
 {
-    [SerializeField] private Transform firePos;
     public WeaponDataSO weaponData;
     public WeaponAnimation AnimCompo { get; private set; }
     private Animator animator;
@@ -20,21 +19,6 @@ public class WeaponHolder : MonoBehaviour
         animator.runtimeAnimatorController = weaponData.animatorController;
     }
 
-    // public void ShotBullet()
-    // {
-    //     AnimCompo.FireWeapon();
-    //     SpawnBullet(firePos.position, weaponData.damage);
-    // }
-
-    // public IEnumerator TripleShot()
-    // {
-    //     ShotBullet();
-    //     yield return new WaitForSeconds(reloadTime);
-    //     ShotBullet();
-    //     yield return new WaitForSeconds(reloadTime);
-    //     ShotBullet();
-    // }
-
     public void Swing(Transform target)
     {
         AnimCompo.FireWeapon();
@@ -45,12 +29,5 @@ public class WeaponHolder : MonoBehaviour
     {
         if (_target == null) return;
         _target.GetComponent<HealthSystem>().GetDamage(weaponData.damage);
-    }
-
-    private void SpawnBullet(Vector2 position, int dmg)
-    {
-        //PoolManager.Instance.GetMinionFromPool("BulletPool", position);
-        //var bullet = Instantiate(weaponData.bulletPrefab, position, transform.rotation * Quaternion.Euler(0, 0, -90));
-        //bullet.GetComponent<Bullet>().Initialize(dmg);
     }
 }

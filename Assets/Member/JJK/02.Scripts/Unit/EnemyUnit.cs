@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyUnit : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class EnemyUnit : MonoBehaviour
     private WeaponHolder _weaponHolder;
     private Chase _chase;
     private Combat _combat;
+    
+    [field:SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; set; }
     
     private void Awake()
     {
@@ -26,8 +29,11 @@ public class EnemyUnit : MonoBehaviour
         if (InvasionManager.Instance.isLanding)
         {
             if (_target == null)
+            {
                 SetTarget();
+            }
             
+            OnTargetChanged.Invoke(_target.position);
             ChaseAndAttack();
         }
     }
