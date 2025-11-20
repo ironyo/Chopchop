@@ -33,6 +33,9 @@ namespace Member.CHJ._02.Scripts.Ui
             _resourceText.DOFade(1, 1f);
             _dayText.DOFade(1, 1f);
             _maxText.DOFade(1, 1f);
+            
+            _dayText.SetText($"생존 일수 : {TimeManager.Instance.Day}");
+            _maxText.SetText($"최대 미니언 : {MinionManager.Instance.MinionMaxCount}");
         }
     }
 }

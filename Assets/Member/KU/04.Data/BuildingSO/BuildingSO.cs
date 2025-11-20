@@ -25,6 +25,7 @@ public class BuildingSO : ScriptableObject
     public float spawnTime;
     [Header("필요 자원")]
     public ResourceTypeCost[] resourceTypeCost;
+    public ResourceTypeCost[] levelResourceTypeCost;
 
 }
 
