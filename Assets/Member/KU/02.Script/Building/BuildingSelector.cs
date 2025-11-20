@@ -4,15 +4,13 @@ using UnityEngine.Tilemaps;
 
 public class BuildingSelector : MonoBehaviour
 {
-    private Collider2D boxCollider;
-    public bool isOpen = false;
+    public bool isOpen { get; set; } = false;
     
     Building buildCompo;
 
 
     private void Start()
     {
-        boxCollider = GetComponent<Collider2D>();
         buildCompo = GetComponent<Building>();
     }
 
@@ -22,29 +20,45 @@ public class BuildingSelector : MonoBehaviour
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint (Mouse.current.position.ReadValue());
 
-            Collider2D hit = Physics2D.OverlapPoint(mousePos);
+            Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
 
-            hit.gameObject.TryGetComponent<TilemapCollider2D>(out TilemapCollider2D tile);
-            hit.gameObject.TryGetComponent<Building>(out Building build);
+            if (hits.Length == 0)
+                return;
+            bool hasBuilding = false;
 
-            if (hit != null && hit.isTrigger == false || tile != null)
+            foreach (var h in hits)
             {
-                if(build != null)
+                if (h == null) continue;
+
+
+                h.TryGetComponent(out Building building);
+                if (building.buildCount == buildCompo.buildCount)
                 {
-                    if (isOpen)
-                    {
-                        isOpen = false;
-                        buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
-                    }
-                    else
-                    {
-                        BuildManager.Instance.CloseAllBuildUI(buildCompo);
-                        buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
-                    }
-                    int count = buildCompo.buildCount;
-                    BuildManager.Instance.GetSelectData(count, buildCompo.level);
+                    hasBuilding = true;
+                    Debug.LogError($"Hit: {h.name}");
+                    break;
                 }
             }
+
+            if (hasBuilding)
+            {
+                OpenCloseUI();
+            }
         }
+    }
+    public void OpenCloseUI()
+    {
+        if (isOpen)
+        {
+            isOpen = false;
+            buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
+        }
+        else
+        {
+            BuildManager.Instance.CloseAllBuildUI(buildCompo);
+            buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
+        }
+        int count = buildCompo.buildCount;
+        BuildManager.Instance.GetSelectData(count, buildCompo.level);
     }
 }
