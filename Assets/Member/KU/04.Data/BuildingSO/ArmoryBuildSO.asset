@@ -10,15 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
-  m_Name: MilitaryBuildSO
+  m_Name: ArmoryBuildSO
   m_EditorClassIdentifier: 
   maxLevel: 3
-  buildName: "\uAD70\uC0AC \uD6C8\uB828\uC18C"
+  buildName: "\uBB34\uAE30\uACE0"
   MaxHealth: f4010000e8030000dc050000
   width: 8
   maxW: 4
-  maxMinion: 030000000500000009000000
-  levelResourceType: []
+  maxMinion: 030000000600000009000000
+  levelResourceType:
+  - resourceTypeSOs: []
+    minion: {fileID: 0}
+    weaponDataSO: {fileID: 11400000, guid: fb4c53f9352a9ec45877df4817dbe804, type: 2}
+    level: 0
+  - resourceTypeSOs: []
+    minion: {fileID: 0}
+    weaponDataSO: {fileID: 0}
+    level: 0
+  - resourceTypeSOs: []
+    minion: {fileID: 0}
+    weaponDataSO: {fileID: 11400000, guid: 08e7d29881dc91646b434c0d37dacb1a, type: 2}
+    level: 0
+  - resourceTypeSOs: []
+    minion: {fileID: 0}
+    weaponDataSO: {fileID: 11400000, guid: 8e5c91bf780c64848b321cbbbb6cd99b, type: 2}
+    level: 0
   spawnTime: 0
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}

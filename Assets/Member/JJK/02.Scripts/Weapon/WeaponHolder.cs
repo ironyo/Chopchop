@@ -3,15 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Weapon : MonoBehaviour
+public class WeaponHolder : MonoBehaviour
 {
     [SerializeField] private Transform firePos;
     public WeaponDataSO weaponData;
     public WeaponAnimation AnimCompo { get; private set; }
     private Animator animator;
     private float reloadTime = 0.2f;
-
-    private Unit _target;
+    private Transform _target;
 
     private void Awake()
     {
@@ -21,22 +20,22 @@ public class Weapon : MonoBehaviour
         animator.runtimeAnimatorController = weaponData.animatorController;
     }
 
-    public void ShotBullet()
-    {
-        AnimCompo.FireWeapon();
-        SpawnBullet(firePos.position, weaponData.damage);
-    }
+    // public void ShotBullet()
+    // {
+    //     AnimCompo.FireWeapon();
+    //     SpawnBullet(firePos.position, weaponData.damage);
+    // }
 
-    public IEnumerator TripleShot()
-    {
-        ShotBullet();
-        yield return new WaitForSeconds(reloadTime);
-        ShotBullet();
-        yield return new WaitForSeconds(reloadTime);
-        ShotBullet();
-    }
+    // public IEnumerator TripleShot()
+    // {
+    //     ShotBullet();
+    //     yield return new WaitForSeconds(reloadTime);
+    //     ShotBullet();
+    //     yield return new WaitForSeconds(reloadTime);
+    //     ShotBullet();
+    // }
 
-    public void Swing(Unit target)
+    public void Swing(Transform target)
     {
         AnimCompo.FireWeapon();
         _target = target;
@@ -51,7 +50,7 @@ public class Weapon : MonoBehaviour
     private void SpawnBullet(Vector2 position, int dmg)
     {
         //PoolManager.Instance.GetMinionFromPool("BulletPool", position);
-        var bullet = Instantiate(weaponData.bulletPrefab, position, transform.rotation * Quaternion.Euler(0, 0, -90));
-        bullet.GetComponent<Bullet>().Initialize(dmg);
+        //var bullet = Instantiate(weaponData.bulletPrefab, position, transform.rotation * Quaternion.Euler(0, 0, -90));
+        //bullet.GetComponent<Bullet>().Initialize(dmg);
     }
 }
