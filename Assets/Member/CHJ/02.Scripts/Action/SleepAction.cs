@@ -45,8 +45,11 @@ public partial class SleepAction : Action
         }
         
         WorkAction.Value.CheckBuilding(_minion);
-        if(_minion.GetVisualObject().activeSelf)
-            WorkAction.Value.CheckBuilding(_minion);
+        if (_minion.GetVisualObject().activeSelf)
+        {
+            //체력 회복
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               WorkAction.Value.CheckBuilding(_minion);
+        }
         return Status.Running;
     }
 

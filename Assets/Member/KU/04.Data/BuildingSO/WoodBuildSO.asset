@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: WoodBuildSO
   m_EditorClassIdentifier: 
-  sprite: {fileID: -1052850646, guid: b96cafd382b4e69449f99c4357080573, type: 3}
+  buildSprite: {fileID: 0}
+  buildSelcetSprite: {fileID: 0}
   maxLevel: 3
   buildName: "\uBC8C\uBAA9\uC7A5"
   MaxHealth: c800000090010000bc020000
@@ -24,17 +25,17 @@ MonoBehaviour:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
       amount: 1
     minion: {fileID: 0}
-    level: 1
+    level: 0
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
       amount: 3
     minion: {fileID: 0}
-    level: 2
+    level: 0
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
       amount: 5
     minion: {fileID: 0}
-    level: 3
+    level: 0
   spawnTime: 1
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}

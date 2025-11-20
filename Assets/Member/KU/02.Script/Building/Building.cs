@@ -103,7 +103,11 @@ public class Building : MonoBehaviour
         {
             MinionPlus(1);
         }
-        if(buildingSO.levelResourceType.Length != 0)
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            AttackBuild(10);
+        }
+        if (buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
     }
 
@@ -204,6 +208,15 @@ public class Building : MonoBehaviour
         {
             spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
             spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
+        }
+    }
+
+    public void AttackBuild(int damage)
+    {
+        nowHealth -= damage;
+        if (nowHealth <= 0)
+        {
+            BuildManager.Instance.DestroyBuilding(this);
         }
     }
 
