@@ -19614,6 +19614,9 @@ GameObject:
   - component: {fileID: 4876610386822580684}
   - component: {fileID: 6838453046169932647}
   - component: {fileID: 8951156765233776581}
+  - component: {fileID: 1981023586209593401}
+  - component: {fileID: 6701542453612670930}
+  - component: {fileID: -867504633710255339}
   m_Layer: 11
   m_Name: Minion_bot (1)
   m_TagString: Untagged
@@ -19946,6 +19949,43 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1981023586209593401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692593926029088029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28a1dd63cef75948a02b0dd24568007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
+--- !u!114 &6701542453612670930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692593926029088029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279c8c9eb1a6a734ea51d8660bbdb570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-867504633710255339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692593926029088029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eee322003fcc3c4d8f5b80241cf270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6256502448586261068
 GameObject:
   m_ObjectHideFlags: 0
