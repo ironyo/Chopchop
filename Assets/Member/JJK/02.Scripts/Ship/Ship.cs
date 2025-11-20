@@ -14,20 +14,13 @@ public class Ship : MonoBehaviour
     private Vector3 landPoint;
     
     private int enemyCount;
-    private bool canFlip;
 
-    public void Initialize(Vector3 position, int count, bool canFlip)
+    public void Initialize(Vector3 position, int count)
     {
         landPoint = position;
         enemyCount = count;
-        this.canFlip = canFlip;
         
         StartCoroutine(MoveToLandPoint());
-    }
-
-    private void FlipY(GameObject obj)
-    {
-        obj.transform.Rotate(0, 0, 180);
     }
 
     private IEnumerator MoveToLandPoint()
@@ -56,21 +49,17 @@ public class Ship : MonoBehaviour
         for (int i = 0; i < enemyCount; i++)
         {
             Transform point = spawnPoint[i % spawnPoint.Length];
-            GameObject enemy = Instantiate(enemyPrefab, point.position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, point.position, Quaternion.Euler(0, 0, 0));
             
-            if (canFlip)
-                FlipY(enemy);
+            //var agent = enemy.GetComponent<NavMeshAgent>();
+            //if (agent != null)
+                //agent.enabled = true;
             
-            var agent = enemy.GetComponent<NavMeshAgent>();
-            if (agent != null)
-                agent.enabled = true;
-            
-            UnitManager.Instance.RegisterEnemy(enemy.transform);
+            //UnitManager.Instance.RegisterEnemy(enemy.transform);
             
             yield return new WaitForSeconds(Interval);
         }
-
-        // 모두 내린 뒤 배 제거
+        
         Destroy(gameObject);
     }
 }

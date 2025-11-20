@@ -10,19 +10,16 @@ public class ShipSpawner : MonoBehaviour
     
     private Transform _spawnPoint;
     private Transform _landPoint;
-    private int index;
+    private int _index;
 
     public void SpawnShip(int enemyCount)
     {
-        index = Random.Range(0, spawnPoints.Length);
-        _spawnPoint = spawnPoints[index];
-        _landPoint = landPoints[index];
+        _index = Random.Range(0, spawnPoints.Length);
+        _spawnPoint = spawnPoints[_index];
+        _landPoint = landPoints[_index];
         
         var shipObj = Instantiate(shipPrefab, _spawnPoint.position, Quaternion.identity);
         var ship = shipObj.GetComponent<Ship>();
-        if (index < 2)
-            ship.Initialize(_landPoint.position, enemyCount, true);
-        else
-            ship.Initialize(_landPoint.position, enemyCount, false);
+        ship.Initialize(_landPoint.position, enemyCount);
     }
 }
