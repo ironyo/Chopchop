@@ -6,7 +6,7 @@ public class InventoryUI : UIBase
 {
     private void Start()
     {
-        StartCoroutine(CloseEffect());
+        //StartCoroutine(CloseEffect());
     }
 
     public override IEnumerator CloseEffect()
