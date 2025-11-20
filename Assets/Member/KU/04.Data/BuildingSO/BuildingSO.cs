@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BuildingSO", menuName = "SO/BuildingSO")]
 public class BuildingSO : ScriptableObject
 {
+    [Header("건물설명")]
+    public string explaneStr;
     [Header("건물이미지")]
     public Sprite buildSprite;
     public Sprite buildSelcetSprite;
