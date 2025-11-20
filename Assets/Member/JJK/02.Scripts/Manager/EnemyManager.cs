@@ -5,32 +5,32 @@ using UnityEngine;
 
 public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    public List<Unit> enemies = new List<Unit>();
+    public List<Transform> enemies = new List<Transform>();
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public void RegisterEnemy(Unit unit)
+    public void RegisterEnemy(Transform enemy)
     {
-        enemies.Add(unit);
+        enemies.Add(enemy);
     }
 
-    public void UnregisterEnemy(Unit unit)
+    public void UnregisterEnemy(Transform enemy)
     {
-        enemies.Remove(unit);
+        enemies.Remove(enemy);
 
         if (enemies.Count == 0)
             BattleManager.Instance.Win();
     }
 
-    public Unit GetNearestEnemy(Unit requester)
+    public Transform GetNearestEnemy(Transform requester)
     {
         if (enemies.Count == 0) return null;
 
-        Unit nearest = enemies.OrderBy(u => 
-            Vector2.Distance(u.transform.position, requester.transform.position)).First();
+        Transform nearest = enemies.OrderBy(u => 
+            Vector2.Distance(u.transform.position, requester.position)).First();
 
         return nearest;
     }

@@ -349,8 +349,6 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     public void BuildingMode()
     {
-        //if (!isMoveInv) return;
-
         CloseAllBuildUI(null);
         GridDestroy();
         isBuilding = false;
@@ -403,7 +401,6 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    Debug.Log("here");
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].NowLevel - 1].resourceTypeSOs[0];
                     _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
@@ -412,16 +409,44 @@ public class BuildManager : MonoSingleton<BuildManager>
                     _spawnKindTex.text += "미니언";
                 }
             }
-            //_upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.}";
+            if(buildingParent[selectCount].NowLevel != 3)
+            {
+                _upgradeCcostTex.text = $"비용: {buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].resourceTypeSO.name} ({buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].amount})";
+            }
+            else
+            {
+                _upgradeCcostTex.text = "Max";
+            }
         }
     }
     public void SelectButton(bool nowSelect)
     {
         isDestroing = true;
-
         if (nowSelect)
         {
-            buildingParent[selectCount].BuildUpgrade();
+            if(buildingParent[selectCount].level != 3)
+            {
+                Debug.Log("여긴됨");
+
+                var selected = buildingParent[selectCount];
+                var costSO = selected.buildingSO.levelResourceTypeCost[selected.NowLevel - 1];
+
+                int typeData = ResourceManager.Instance.resourceAmountDictionary[costSO.resourceTypeSO].Item1;
+
+                Debug.Log("여긴됨: " + typeData);
+
+                if (typeData < costSO.amount)
+                {
+                    NotifictionManager.Instance.NotifictionEvent.Invoke("업그레이드불가", "자원이 부족합니다!");
+                    return;
+                }
+                else
+                {
+                    Debug.Log("들어와짐");
+                    buildingParent[selectCount].BuildUpgrade();
+                    ResourceManager.Instance.UseResource(costSO.resourceTypeSO, typeData);
+                }
+            }
         }
         else
         {

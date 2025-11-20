@@ -30,15 +30,15 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = transform.up * speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent<Unit>(out Unit unit) && unit._unitType == UnitType.Enemy)
-        {
-            unit.HealthCompo.GetDamage(damage);
-            //PoolManager.Instance.ReturnToPool("BulletPool", gameObject);
-            Destroy(gameObject);
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.TryGetComponent<Unit>(out Unit unit) && unit._unitType == UnitType.Enemy)
+    //     {
+    //         unit.HealthCompo.GetDamage(damage);
+    //         //PoolManager.Instance.ReturnToPool("BulletPool", gameObject);
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     private IEnumerator DestroyCoroutine()
     {
