@@ -18,7 +18,7 @@ namespace Member.CHJ._02.Scripts.Ui
 
         public void GameOverStart()
         {
-            GameOverManager.Instance.onGameOver?.Invoke();
+            GameFinishManager.Instance.onGameOver?.Invoke();
         }
         public void Gameover()
         {

@@ -73,7 +73,7 @@ public class DayCycleManager : MonoBehaviour
         }
             
         string ampm = hours < 12 ? "AM" : "PM";
-            
+        DayNightIconUI.Instance.Check(ampm);
         int displayHour = hours % 12;
         if (displayHour == 0) displayHour = 12;
 
