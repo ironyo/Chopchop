@@ -11182,7 +11182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &140469410
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19195,11 +19195,9 @@ MonoBehaviour:
   toggleObject: {fileID: 788624541}
   visualTilemap: {fileID: 1933392905}
   ruleTile: {fileID: 11400000, guid: 312da01fcb99fb24db6125ed08a90fde, type: 2}
-  mapSizeTxt: {fileID: 586220194}
-  miniMapSizeTxt: {fileID: 266270867}
-  TileSizeSlider: {fileID: 1237950769}
   MapSetSound: {fileID: 8300000, guid: 429a9eccb3101054eaf1db7a732356ba, type: 3}
   navMeshSurface: {fileID: 452579192}
+  NextTileGroundEffect: {fileID: 0}
 --- !u!114 &715369863
 MonoBehaviour:
   m_ObjectHideFlags: 0
