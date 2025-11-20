@@ -30,9 +30,8 @@ public class Ship : MonoBehaviour
             agent.enabled = false;
             
             enemy.transform.SetParent(transform);
-            var unit = enemy.GetComponent<Unit>();
-            unit._unitType = UnitType.Enemy;
-            EnemyManager.Instance.RegisterEnemy(unit);
+            UnitManager.Instance.RegisterEnemy(enemy.transform);
+
             loadedEnemies.Add(enemy);
             
             if (canFlip) FlipY(enemy);

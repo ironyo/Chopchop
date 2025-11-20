@@ -11,6 +11,7 @@ namespace Member.CHJ._02.Scripts
     {
         public static MinionManager Instance;
         public List<Minion> minionList = new List<Minion>();
+        public int MinionMaxCount { get; private set; }
         [SerializeField] public BuildingSO houseSo;
         [SerializeField] public BuildingSO schoolSo;
         private Building _buildingTarget;
@@ -33,8 +34,12 @@ namespace Member.CHJ._02.Scripts
 
         public void RegisterMinion(Minion minion)
         {
-            if(!minionList.Contains(minion))
+            if (!minionList.Contains(minion))
+            {
                 minionList.Add(minion);
+                if(MinionMaxCount <= minionList.Count)
+                    MinionMaxCount = minionList.Count;
+            }
         }
         public void UnRegisterMinion(Minion minion)
         {
