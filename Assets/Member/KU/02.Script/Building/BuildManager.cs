@@ -61,7 +61,6 @@ public class BuildManager : MonoSingleton<BuildManager>
     private BuildingSO buildingSO;
     private int buildingCount = 0;
 
-    int selectLevel = 0;
     bool isDestroing = false;
     public bool isMoveInv = false;
 
@@ -491,7 +490,6 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         _time = 0;
         selectCount = count;
-        selectLevel = level;
     }
 
 
