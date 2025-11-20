@@ -25,3 +25,4 @@ MonoBehaviour:
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 20
+  levelResourceTypeCost: []
