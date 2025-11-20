@@ -36,14 +36,14 @@ public class MinionCounterSystem : MonoBehaviour
 
     private void SetHandlePosY()
     {
-        if (counterSlider.value < counterSlider.maxValue / 2.5)
-        {
-            handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_up, handle.localPosition.z);
-        }
-        else
-        {
-            handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_down, handle.localPosition.z);
-        }
+        //if (counterSlider.value < counterSlider.maxValue / 2.5)
+        //{
+        //    handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_up, handle.localPosition.z);
+        //}
+        //else
+        //{
+        //    handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_down, handle.localPosition.z);
+        //}
     }
 
     private void Update()
