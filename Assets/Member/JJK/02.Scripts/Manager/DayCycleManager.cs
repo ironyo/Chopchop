@@ -36,7 +36,7 @@ public class DayCycleManager : MonoBehaviour
     private int minute;
     private int hours;
 
-    public Action OnNextDay { get; set; }
+    public UnityEvent OnNextDay;
     
     public UnityEvent<string> OnTimeChanged; // <HH:MM AM/PM>
 

@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Member/CHJ/04.Prefabs/JW_Setting.prefab.meta
+guid: 36329c1d39742834aa4bbf7bb3b5b99f
+PrefabImporter:
+========
 guid: a6e70ed5b8da6be40a21c118757a99d7
 NativeFormatImporter:
+>>>>>>>> Taejun:Assets/Member/KTJ/10_Fonts/얇은픽셀체.asset.meta
   externalObjects: {}
-  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

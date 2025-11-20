@@ -6,11 +6,11 @@ public class Combat : MonoBehaviour
     private float cooldown;
     private WeaponHolder weaponHolder;
 
-    public bool CanAttack => cooldown <= 0f;
+    private bool CanAttack => cooldown <= 0f;
 
     private void Awake()
     {
-        weaponHolder = GameObject.Find("WeaponParent/Weapon").GetComponent<WeaponHolder>();
+        weaponHolder = transform.Find("WeaponParent/Weapon").GetComponent<WeaponHolder>();
     }
 
     private void Update()
@@ -22,6 +22,8 @@ public class Combat : MonoBehaviour
     public void TryAttack(Transform target, float atkSpeed)
     {
         if (!CanAttack || target == null) return;
+        
+        weaponHolder.Swing(target);
         cooldown = atkSpeed;
     }
 }

@@ -9,33 +9,20 @@ public class Ship : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoint;
+    [SerializeField] private float Interval = 0.5f;
 
     private Vector3 landPoint;
-    private List<GameObject> loadedEnemies = new List<GameObject>();
     
+    private int enemyCount;
+    private bool canFlip;
+
     public void Initialize(Vector3 position, int count, bool canFlip)
     {
         landPoint = position;
-        LoadEnemyOnShip(count, canFlip);
+        enemyCount = count;
+        this.canFlip = canFlip;
+        
         StartCoroutine(MoveToLandPoint());
-    }
-
-    private void LoadEnemyOnShip(int count, bool canFlip)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            var enemy = Instantiate(enemyPrefab, spawnPoint[i].position, Quaternion.identity);
-            
-            var agent = enemy.GetComponent<NavMeshAgent>();
-            agent.enabled = false;
-            
-            enemy.transform.SetParent(transform);
-            UnitManager.Instance.RegisterEnemy(enemy.transform);
-
-            loadedEnemies.Add(enemy);
-            
-            if (canFlip) FlipY(enemy);
-        }
     }
 
     private void FlipY(GameObject obj)
@@ -59,17 +46,31 @@ public class Ship : MonoBehaviour
 
     private void Land()
     {
-        foreach (var enemy in loadedEnemies)
+        StartCoroutine(DisembarkRoutine());
+    }
+
+    private IEnumerator DisembarkRoutine()
+    {
+        InvasionManager.Instance.isLanding = true;
+
+        for (int i = 0; i < enemyCount; i++)
         {
-            enemy.transform.SetParent(null);
-            enemy.transform.rotation = Quaternion.identity;
+            Transform point = spawnPoint[i % spawnPoint.Length];
+            GameObject enemy = Instantiate(enemyPrefab, point.position, Quaternion.identity);
+            
+            if (canFlip)
+                FlipY(enemy);
             
             var agent = enemy.GetComponent<NavMeshAgent>();
-            agent.enabled = true;
+            if (agent != null)
+                agent.enabled = true;
             
-            InvasionManager.Instance.isLanding = true;
+            UnitManager.Instance.RegisterEnemy(enemy.transform);
+            
+            yield return new WaitForSeconds(Interval);
         }
-        
+
+        // 모두 내린 뒤 배 제거
         Destroy(gameObject);
     }
 }

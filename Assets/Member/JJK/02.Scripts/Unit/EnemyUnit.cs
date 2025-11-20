@@ -1,15 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
     [SerializeField] private EnemyDataSO data;
+    [SerializeField] private string[] targetTags;
     
     private Transform _target;
     private WeaponHolder _weaponHolder;
     private Chase _chase;
     private Combat _combat;
+    
+    [field:SerializeField] public UnityEvent<Vector3> OnTargetChanged { get; set; }
     
     private void Awake()
     {
@@ -24,14 +28,50 @@ public class EnemyUnit : MonoBehaviour
     {
         if (InvasionManager.Instance.isLanding)
         {
-            SetTarget();
+            if (_target == null)
+            {
+                SetTarget();
+            }
+            
+            OnTargetChanged.Invoke(_target.position);
             ChaseAndAttack();
         }
     }
 
     private void SetTarget()
     {
-        UnitManager.Instance.GetNearestPlayer(transform);
+        switch (data.targetType)
+        {
+            case TargetType.Player:
+                _target = GetTargetByPriority(
+                    targetTags[0], // Minion
+                    targetTags[1], // Building
+                    targetTags[2]); // HQ
+                break;
+            case TargetType.Building:
+                _target = GetTargetByPriority(
+                    targetTags[1], //Building
+                    targetTags[2]); //HQ
+                break;
+            case TargetType.HQ:
+                _target = GetTargetByPriority(targetTags[2]); //HQ
+                break;
+        }
+    }
+    
+    private Transform GetTargetByPriority(params string[] tags)
+    {
+        foreach (var tag in tags)
+        {
+            if (string.IsNullOrEmpty(tag)) 
+                continue;
+
+            Transform t = _chase.GetNearestTarget(tag);
+            if (t != null)
+                return t;
+        }
+
+        return null;
     }
 
     private void ChaseAndAttack()
