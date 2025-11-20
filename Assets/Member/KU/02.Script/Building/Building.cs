@@ -66,6 +66,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
+        gameObject.tag = "Building";
         MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
