@@ -18,19 +18,10 @@ public class Combat : MonoBehaviour
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
     }
-
-<<<<<<< HEAD
+    
     public void TryAttack(Transform target, float atkSpeed)
     {
         if (!CanAttack || target == null) return;
         cooldown = atkSpeed;
-=======
-    public void TryAttack(Transform target, UnitDataSO data)
-    {
-        if (!CanAttack || target == null) return;
-        cooldown = data.attackSpeed;
->>>>>>> JJK
-
-        weaponHolder.Swing(target);
     }
 }

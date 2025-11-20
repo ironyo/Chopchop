@@ -30,11 +30,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void SetTarget()
     {
-<<<<<<< HEAD
         _target = UnitManager.Instance.GetNearestEnemy(transform);
-=======
-        _target = EnemyManager.Instance.GetNearestEnemy(transform);
->>>>>>> JJK
     }
 
     private void MoveToTarget()
@@ -48,11 +44,7 @@ public class PlayerUnit : MonoBehaviour
             if (distance < attackRange)
             {
                 _chase.Stop();
-<<<<<<< HEAD
                 _combat.TryAttack(_target, data.attackSpeed);
-=======
-                _combat.TryAttack(_target, data);
->>>>>>> JJK
             }
         }
     }

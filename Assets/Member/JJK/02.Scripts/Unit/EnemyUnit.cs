@@ -4,11 +4,7 @@ using UnityEngine;
 public class EnemyUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
-<<<<<<< HEAD
     [SerializeField] private EnemyDataSO data;
-=======
-    [SerializeField] private UnitDataSO data;
->>>>>>> JJK
     
     private Transform _target;
     private WeaponHolder _weaponHolder;
@@ -35,11 +31,7 @@ public class EnemyUnit : MonoBehaviour
 
     private void SetTarget()
     {
-<<<<<<< HEAD
         UnitManager.Instance.GetNearestPlayer(transform);
-=======
-        _target = EnemyManager.Instance.GetNearestEnemy(transform);
->>>>>>> JJK
     }
 
     private void ChaseAndAttack()
@@ -53,11 +45,7 @@ public class EnemyUnit : MonoBehaviour
             if (distance < attackRange)
             {
                 _chase.Stop();
-<<<<<<< HEAD
                 _combat.TryAttack(_target, data.attackSpeed);
-=======
-                _combat.TryAttack(_target, data);
->>>>>>> JJK
             }
         }
     }

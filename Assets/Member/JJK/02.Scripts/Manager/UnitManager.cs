@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class UnitManager : MonoSingleton<UnitManager>
 {
-<<<<<<< Updated upstream:Assets/Member/JJK/02.Scripts/Manager/EnemyManager.cs
-    public List<Unit> enemies = new List<Unit>();
-
-    protected override void Awake()
-=======
     public List<Transform> enemies = new List<Transform>();
     public List<Transform> players = new List<Transform>();
     
     public void RegisterPlayer(Transform player)
->>>>>>> Stashed changes:Assets/Member/JJK/02.Scripts/Manager/UnitManager.cs
     {
         enemies.Add(player);
     }
@@ -26,12 +20,12 @@ public class UnitManager : MonoSingleton<UnitManager>
             BattleManager.Instance.Win();
     }
 
-    public void RegisterEnemy(Unit unit)
+    public void RegisterEnemy(Transform unit)
     {
         enemies.Add(unit);
     }
 
-    public void UnregisterEnemy(Unit unit)
+    public void UnregisterEnemy(Transform unit)
     {
         enemies.Remove(unit);
 
@@ -39,11 +33,11 @@ public class UnitManager : MonoSingleton<UnitManager>
             BattleManager.Instance.Win();
     }
 
-    public Unit GetNearestEnemy(Unit requester)
+    public Transform GetNearestEnemy(Transform requester)
     {
         if (enemies.Count == 0) return null;
 
-        Unit nearest = enemies.OrderBy(u => 
+        Transform nearest = enemies.OrderBy(u => 
             Vector2.Distance(u.transform.position, requester.transform.position)).First();
 
         return nearest;
