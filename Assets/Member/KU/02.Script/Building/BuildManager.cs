@@ -430,25 +430,24 @@ public class BuildManager : MonoSingleton<BuildManager>
     public void SelectButton(bool nowSelect)
     {
         isDestroing = true;
-        if (nowSelect)
+        if (nowSelect && buildingSO.levelResourceTypeCost.Length != 3)
         {
-
             Debug.Log("여긴됨");
 
-            int typeData = ResourceManager.Instance.resourceAmountDictionary[buildingSO.levelResourceTypeCost[0].resourceTypeSO].Item1;
+            int typeData = ResourceManager.Instance.resourceAmountDictionary[buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1].resourceTypeSO].Item1;
 
             Debug.Log("여긴됨: " + typeData);
 
-            if (typeData > buildingParent[selectCount].buildingSO.levelResourceTypeCost[selectCount].amount)
+            if (typeData <= buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1].amount)
+            {
+                NotifictionManager.Instance.NotifictionEvent.Invoke("업그레이드불가", "자원이 부족합니다!");
+                return;
+            }
+            else
             {
                 Debug.Log("들어와짐");
                 buildingParent[selectCount].BuildUpgrade();
                 ResourceManager.Instance.UseResource(buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].NowLevel - 1].resourceTypeSO, typeData);
-            }
-            else
-            {
-                NotifictionManager.Instance.NotifictionEvent.Invoke("업그레이드불가", "자원이 부족합니다!");
-                return;
             }
         }
         else
