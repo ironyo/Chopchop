@@ -9,13 +9,14 @@ using UnityEngine.AI;
 using NavMeshSurface = NavMeshPlus.Components.NavMeshSurface;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Sleep", story: "[Self] Sleep [House] [NavMesh] [WorkAction]", category: "Action", id: "f3fece142aa3a1f7c90885af7376da67")]
+[NodeDescription(name: "Sleep", story: "[Self] Sleep [House] [NavMesh] [WorkAction] [HpSystem]", category: "Action", id: "f3fece142aa3a1f7c90885af7376da67")]
 public partial class SleepAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<Building> House;
     [SerializeReference] public BlackboardVariable<NavMeshAgent> NavMesh;
     [SerializeReference] public BlackboardVariable<WorkActionScr> WorkAction;
+    [SerializeReference] public BlackboardVariable<HealthSystem> HpSystem;
     private Minion _minion;
     protected override Status OnStart()
     {
@@ -47,8 +48,8 @@ public partial class SleepAction : Action
         WorkAction.Value.CheckBuilding(_minion);
         if (_minion.GetVisualObject().activeSelf)
         {
-            //체력 회복
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               WorkAction.Value.CheckBuilding(_minion);
+            HpSystem.Value.GetDamage(HpSystem.Value.maxHealth - HpSystem.Value.HP);
+            WorkAction.Value.CheckBuilding(_minion);
         }
         return Status.Running;
     }
