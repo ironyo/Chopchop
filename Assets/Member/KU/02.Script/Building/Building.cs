@@ -67,6 +67,8 @@ public class Building : MonoBehaviour
     public int showMinion = 0;
     private void Start()
     {
+        LevelManager.Instance.IncreseLevel(10);
+
         if (buildingSO.resourceTypeCost.Length != 0)
         {
             gameObject.tag = "Building";
