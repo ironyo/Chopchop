@@ -29,11 +29,18 @@ public partial class WorkAction : Action
         // return Status.Running;
         _minion = Self.Value.GetComponent<Minion>();
         Navmesh.Value.ResetPath();
-        if (Target != null)
+        if (Target.Value == null)
+        {
+            Work.Value.CantWork();
+        }
+        if (Target.Value != null)
+        {
             Navmesh.Value.SetDestination(Target.Value.transform.position);
-        
-        
-        Work.Value.DoWork(Target);
+
+
+            Work.Value.DoWork(Target);
+        }
+
         return Status.Running;
     }
     private bool CheckTime()
