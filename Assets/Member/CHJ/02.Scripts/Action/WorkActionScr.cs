@@ -36,7 +36,7 @@ public class WorkActionScr : MonoBehaviour
     {
         if (IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
         {
-            Debug.Log("ACTIVE FALSE");
+            _building.AddShowMinion();
             minion.GetVisualObject().SetActive(false);
         }
     }

@@ -64,6 +64,7 @@ public class Building : MonoBehaviour
         }
     }
 
+    public int showMinion = 0;
     private void Start()
     {
         if (buildingSO.resourceTypeCost.Length != 0)
@@ -177,9 +178,14 @@ public class Building : MonoBehaviour
         return true;
     }
 
+    public void AddShowMinion()
+    {
+        showMinion++;
+    }
     public void Release()
     {
         NowMinion = Mathf.Max(0, NowMinion - 1);
+        showMinion--;
         BuildUISetUp();
     }
     public void MinionPlus(int plus)
