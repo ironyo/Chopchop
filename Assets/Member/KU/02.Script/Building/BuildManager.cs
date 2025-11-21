@@ -94,10 +94,10 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             SelectButton(true);
         });
-        _destroyBtn.onClick.AddListener(() =>
-        {
-            SelectButton(false);
-        });
+        //_destroyBtn.onClick.AddListener(() =>
+        //{
+        //    SelectButton(false);
+        //});
         InitializeLineRenderer();
         
     }
@@ -300,7 +300,10 @@ public class BuildManager : MonoSingleton<BuildManager>
             isNotHQ = false;
         }
 
-        BuildingClear?.Invoke();
+        if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)
+        {
+            BuildingClear?.Invoke();
+        }
     }
     private bool CanSpawn()
     {
