@@ -64,6 +64,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     bool isDestroing = false;
     public bool isMoveInv = false;
+    public bool isNotHQ { get; private set; } = true;
 
     private int selectCount = 0;
 
@@ -119,7 +120,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private void BuildOrCancle()
     {
-        if (spawnGrid != null && Mouse.current.rightButton.wasPressedThisFrame && isBuilding)
+        if (spawnGrid != null && Mouse.current.rightButton.wasPressedThisFrame && isBuilding && !isNotHQ)
         {
             showCollider = false;
             isBuilding = false;
@@ -277,6 +278,11 @@ public class BuildManager : MonoSingleton<BuildManager>
             ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
         }
 
+        if(building.buildingSO.resourceTypeCost.Length == 0)
+        {
+            Destroy(InventoryManager.Instance.startText);
+            isNotHQ = false;
+        }
     }
     private bool CanSpawn()
     {
@@ -492,6 +498,10 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         _time = 0;
         selectCount = count;
+        if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)
+            _destroyBtn.gameObject.SetActive(false);
+        else
+            _destroyBtn.gameObject.SetActive(true);
     }
 
 

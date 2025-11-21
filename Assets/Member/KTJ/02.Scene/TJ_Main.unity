@@ -6748,6 +6748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipPrefab: {fileID: 0}
   distance: 5
+  increaseHpRatio: 0.15
 --- !u!1 &449099745
 GameObject:
   m_ObjectHideFlags: 0
@@ -30189,6 +30190,8 @@ MonoBehaviour:
   _closPos: 320
   _pagePrefab: {fileID: 5736882769278271623, guid: cd80b4a7e73e57847b54182768c14fb4, type: 3}
   _texPref: {fileID: 6613956694696932738, guid: 0ece08930f6a76e4a874f7c15c2d316a, type: 3}
+  _startTextPref: {fileID: 4625573080454531403, guid: ec139b10fb9351e45a6c46d3c92dc1bd, type: 3}
+  startText: {fileID: 0}
   _rectTransform: {fileID: 72639980}
   _nowPage: 1
   _maxPage: 1

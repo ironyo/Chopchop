@@ -11,7 +11,7 @@ public class ShipSpawner : MonoBehaviour
     private Vector3 _spawnPoint;
     private int _index;
 
-    public void SpawnShip(int enemyCount, )
+    public void SpawnShip(int enemyCount)
     {
         RandomCircleSpawn();
         
