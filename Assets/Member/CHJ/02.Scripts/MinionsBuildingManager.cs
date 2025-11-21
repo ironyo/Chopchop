@@ -33,38 +33,7 @@ namespace Member.CHJ._02.Scripts
             if(Buildings.Contains(building))
                 Buildings.Remove(building);
         }
-        public Building GetAvailableHouse(Vector3 pos, BuildingSO type, float maxRange = 30f)
-        {
-            Building target = null;
-            float bestDist = float.MaxValue;
-
-            foreach (var building in Buildings)
-            {
-                if (building == null) continue;
-                if (building.buildingSO != type)
-                    continue;
-                if (!building.CanReserve())
-                    continue;
-
-                float dist = Vector2.Distance(pos, building.transform.position);
-                if (dist > maxRange) continue;
-
-                if (dist < bestDist)
-                {
-                    bestDist = dist;
-                    target = building;
-                }
-            }
-
-            // 여기서 예약
-            if (target != null)
-            {
-                Debug.Log($"MinionsBuildingManager {target}");
-                target.TryReserve(); // 예약 성공/실패 다시 확인해도 되고
-            }
-
-            return target;
-        }
+        
         public Building GetAvailableHouseCheckOnly(Vector3 pos, BuildingSO type, float maxRange)
         {
             Building target = null;

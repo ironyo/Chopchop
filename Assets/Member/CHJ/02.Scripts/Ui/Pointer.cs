@@ -1,57 +1,93 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
-namespace Member.CHJ._02.Scripts.Ui
+public class UIPointerAlpha : MonoBehaviour
 {
-    public class Pointer : MonoBehaviour
+    public Transform target;
+    public float moveSpeed = 15f;
+    public float borderOffset = 0.05f;
+    public GameObject foundEffectPrefab;
+
+    private RectTransform _rect;
+    private Canvas _canvas;
+    private Camera _cam;
+    private CanvasGroup _cg;
+    private float baseOrthoSize;
+
+    void Awake()
     {
-        [SerializeField] private Transform target;
-        [SerializeField] private float speed = 5;
-        private bool _isTrigger = false;
-        private void Update()
-        {
-            Vector3 dir = target.position - transform.position;
-            dir.z = 0;
-            transform.position += dir.normalized * (speed * Time.deltaTime);
-            
-            
-            Vector2 vp = Camera.main.WorldToViewportPoint(transform.position); // 자기 위치를 뷰포르토 받음
-            vp.x = Mathf.Clamp(vp.x, 0.05f, 0.95f); // 카메라 안넘어가게 보정
-            vp.y = Mathf.Clamp(vp.y, 0.05f, 0.95f);    
-            
-            Vector3 worldPos = Camera.main.ViewportToWorldPoint(vp);
-            worldPos.z = transform.position.z;
-            transform.position = worldPos;
-            
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
+        _rect = GetComponent<RectTransform>();
+        _canvas = GetComponentInParent<Canvas>();
+        _cam = Camera.main;
+        _cg = GetComponent<CanvasGroup>();
+        if (_cg == null) _cg = gameObject.AddComponent<CanvasGroup>();
 
-        private void OnTriggerEnter2D(Collider2D other)
+        if (_cam.orthographic)
+            baseOrthoSize = _cam.orthographicSize;
+
+        _rect.SetAsLastSibling();
+    }
+
+    void Update()
+    {
+        if (target == null) return;
+
+        Vector3 vp = _cam.WorldToViewportPoint(target.position);
+        bool targetVisible = vp.z > 0 && vp.x > 0 && vp.x < 1 && vp.y > 0 && vp.y < 1;
+
+        // 화면 안 → 포인터 숨기기 + 연출
+        if (targetVisible)
         {
-            if (other.transform.gameObject == target.gameObject)
+            if (_cg.alpha > 0f)
             {
-                Debug.Log("FINDTARGEt");
-                _isTrigger = true;
-                FindTarget();
+                _cg.DOFade(0f, 0.2f);
+                PlayFoundEffect();
             }
         }
-
-        private void OnTriggerExit2D(Collider2D other)
+        else
         {
-            if (other.transform.gameObject == target.gameObject)
-            {
-                _isTrigger = false;
-                Debug.Log("Cant Find Target");
-                GetComponent<SpriteRenderer>().enabled = true;
-            }
+            if (_cg.alpha < 1f) _cg.DOFade(1f, 0.1f);
+            MovePointerToScreenEdge();
         }
+    }
 
-        private void FindTarget()
-        {
-            transform.position = target.position;
-            transform.DOMoveY(4, 0.5f).OnComplete(() => GetComponent<SpriteRenderer>().enabled = false);
-        }
+    private void MovePointerToScreenEdge()
+    {
+        Vector2 screenPos = _cam.WorldToScreenPoint(target.position);
+        RectTransform canvasRect = _canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, null, out Vector2 localPoint);
+
+        localPoint /= canvasRect.localScale.x;
+
+        float halfW = canvasRect.rect.width * 0.5f;
+        float halfH = canvasRect.rect.height * 0.5f;
+
+        localPoint.x = Mathf.Clamp(localPoint.x, -halfW + borderOffset * canvasRect.rect.width, halfW - borderOffset * canvasRect.rect.width);
+        localPoint.y = Mathf.Clamp(localPoint.y, -halfH + borderOffset * canvasRect.rect.height, halfH - borderOffset * canvasRect.rect.height);
+
+        _rect.anchoredPosition = Vector2.Lerp(_rect.anchoredPosition, localPoint, Time.deltaTime * moveSpeed);
+
+        Vector2 dir = screenPos - RectTransformUtility.WorldToScreenPoint(null, _rect.position);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _rect.localRotation = Quaternion.Euler(0, 0, angle + 90);
+    }
+
+    private void PlayFoundEffect()
+    {
+        if (foundEffectPrefab == null) return;
+
+        GameObject effect = Instantiate(foundEffectPrefab, _canvas.transform);
+        RectTransform effectRect = effect.GetComponent<RectTransform>();
+
+        Vector2 screenPos = _cam.WorldToScreenPoint(target.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.GetComponent<RectTransform>(), screenPos, null, out Vector2 localPoint);
+        localPoint /= _canvas.transform.localScale.x;
+        effectRect.anchoredPosition = localPoint;
+
+        CanvasGroup cg = effect.GetComponent<CanvasGroup>() ?? effect.AddComponent<CanvasGroup>();
+        cg.alpha = 1f;
+
+        effectRect.DOLocalMoveY(effectRect.localPosition.y + 120f, 0.8f).SetEase(Ease.OutCubic);
+        cg.DOFade(0f, 0.8f).OnComplete(() => Destroy(effect));
     }
 }
