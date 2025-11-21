@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class UIPointerAlpha : MonoBehaviour
 {
@@ -13,9 +15,18 @@ public class UIPointerAlpha : MonoBehaviour
     private Camera _cam;
     private CanvasGroup _cg;
     private float baseOrthoSize;
+    private bool isFound;
 
-    void Awake()
+    void Start()
     {
+        try
+        {
+            target = GameObject.FindWithTag("HQ").transform;
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
         _rect = GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
         _cam = Camera.main;
@@ -48,6 +59,7 @@ public class UIPointerAlpha : MonoBehaviour
         {
             if (_cg.alpha < 1f) _cg.DOFade(1f, 0.1f);
             MovePointerToScreenEdge();
+            isFound = false;
         }
     }
 
@@ -75,7 +87,8 @@ public class UIPointerAlpha : MonoBehaviour
     private void PlayFoundEffect()
     {
         if (foundEffectPrefab == null) return;
-
+        if(isFound) return;
+        isFound = true;
         GameObject effect = Instantiate(foundEffectPrefab, _canvas.transform);
         RectTransform effectRect = effect.GetComponent<RectTransform>();
 
@@ -84,8 +97,7 @@ public class UIPointerAlpha : MonoBehaviour
         localPoint /= _canvas.transform.localScale.x;
         effectRect.anchoredPosition = localPoint;
 
-        CanvasGroup cg = effect.GetComponent<CanvasGroup>() ?? effect.AddComponent<CanvasGroup>();
-        cg.alpha = 1f;
+        Image cg = effect.GetComponent<Image>();
 
         effectRect.DOLocalMoveY(effectRect.localPosition.y + 120f, 0.8f).SetEase(Ease.OutCubic);
         cg.DOFade(0f, 0.8f).OnComplete(() => Destroy(effect));
