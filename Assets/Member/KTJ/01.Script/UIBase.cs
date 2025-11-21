@@ -38,6 +38,7 @@ public abstract class UIBase : MonoBehaviour
 
     public void ToggleBtn()
     {
+        if (BuildManager.Instance.isNotHQ) return;
         UIManager.Instance?.Toggle(this);
         SoundManager.Instance.ClickSound_01();
     }
