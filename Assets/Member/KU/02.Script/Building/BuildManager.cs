@@ -19,9 +19,11 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
 
+    public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
     [SerializeField] private ParticleSystem _minionBuildParticle;
+    [SerializeField] private Image _timerPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
@@ -94,10 +96,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             SelectButton(true);
         });
-        //_destroyBtn.onClick.AddListener(() =>
-        //{
-        //    SelectButton(false);
-        //});
         InitializeLineRenderer();
         
     }
@@ -232,6 +230,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.buildingSO = buildingSO;
         building.minionSpawnParticle = _minionSpawnParticle;
         building.minionBuildParticle = _minionBuildParticle;
+        //building.timerPref = _timerPref;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
@@ -423,7 +422,6 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
-            Debug.Log("선택번호:" + selectCount);
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
@@ -517,11 +515,13 @@ public class BuildManager : MonoSingleton<BuildManager>
                 {
                     b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
+                    cameraSystem.UnFocusOnBuilding();
                 }
                 else
                 {
                     b.spr.sprite = b.buildingSO.buildSelcetSprite;
                     b.buildingSelector.isOpen = true;
+                    cameraSystem.FocusOnBuilding(b.gameObject);
                 }
             }
         }

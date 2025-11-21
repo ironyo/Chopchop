@@ -54,6 +54,7 @@ public class BuildingSelector : MonoBehaviour
         {
             isOpen = false;
             buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
+            BuildManager.Instance. cameraSystem.UnFocusOnBuilding();
         }
         else
         {

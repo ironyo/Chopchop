@@ -6,6 +6,7 @@ using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Building : MonoBehaviour
     public ParticleSystem minionSpawnParticle;
     public ParticleSystem minionBuildParticle;
     public TextMeshPro logPrefab;
+    public Image timerPref;
     private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
@@ -68,7 +70,7 @@ public class Building : MonoBehaviour
     private void Start()
     {
         LevelManager.Instance.IncreseLevel(10);
-
+        //Image timerImg = Instantiate(timerPref, new Vector3(transform.position.x, transform.position.y + 2), Quaternion.identity, transform);
         if (buildingSO.resourceTypeCost.Length != 0)
         {
             gameObject.tag = "Building";
@@ -116,8 +118,12 @@ public class Building : MonoBehaviour
         {
             MinionPlus(1);
         }
-        if (buildingSO.levelResourceType.Length != 0)
-            UpdateSpawnResource();
+        if(buildingSO != null)
+        {
+            if (buildingSO.levelResourceType.Length != 0)
+                UpdateSpawnResource();
+        }
+
     }
 
     private int minusTimer;
