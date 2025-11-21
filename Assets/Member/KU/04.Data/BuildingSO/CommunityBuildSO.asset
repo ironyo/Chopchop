@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CommunityBuildSO
   m_EditorClassIdentifier: 
   explaneStr: "\uC9C0\uCF1C\uC57C\uD558\uB294 \uBCF8\uBD80\uC785\uB2C8\uB2E4!"
-  buildSprite: {fileID: 21300000, guid: c45fd269367662644b24df5f8c5049e1, type: 3}
-  buildSelcetSprite: {fileID: 21300000, guid: ce2f720f6c766ce4f91ba7b2dce829b9, type: 3}
-  maxLevel: 3
+  buildSprite: {fileID: 21300000, guid: 2898897875fd7cc40bfd27008f53b8aa, type: 3}
+  buildSelcetSprite: {fileID: 21300000, guid: 5e456bb49a1ac5b4abc9a66f8dfd2235, type: 3}
+  maxLevel: 5
   buildName: "\uBCF8\uBD80"
-  MaxHealth: f401000084030000dc050000d0070000
+  MaxHealth: f401000084030000dc050000d0070000c4090000
   width: 16
   maxW: 4
   maxMinion: 000000000000000000000000
