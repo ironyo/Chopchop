@@ -92,12 +92,15 @@ public class Building : MonoBehaviour
         }
         spr = Instantiate(BuildManager.Instance.buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
         spr.sprite = buildingSO.buildSprite;
+        spr.size = new Vector2(buildingSO.maxW, buildingSO.maxW);
+
+        _minionText.text = $"{buildingSO.buildName}";
+        if (buildingSO.maxMinion[0] != 0)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
     }
 
     private void Update()
     {
-         _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
-
         UpdateColliderView();
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
@@ -155,6 +158,7 @@ public class Building : MonoBehaviour
     {
         NowLevel++;
         BuildingSetUp();
+        BuildUISetUp();
     }
 
     public bool CanReserve()
@@ -174,10 +178,12 @@ public class Building : MonoBehaviour
     public void Release()
     {
         NowMinion = Mathf.Max(0, NowMinion - 1);
+        BuildUISetUp();
     }
     public void MinionPlus(int plus)
     {
         NowMinion += plus;
+        BuildUISetUp();
     }
     private void BuildingSetUp()
     {
@@ -210,6 +216,7 @@ public class Building : MonoBehaviour
             spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
             spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
         }
+        BuildUISetUp();
     }
 
     public void AttackBuild(int damage)
@@ -219,6 +226,16 @@ public class Building : MonoBehaviour
         {
             BuildManager.Instance.DestroyBuilding(this);
         }
+        BuildUISetUp();
+    }
+
+    public void BuildUISetUp()
+    {
+        _minionText.text = $"{buildingSO.buildName}";
+        if (buildingSO.levelResourceType.Length == 0)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
+        else if (buildingSO.levelResourceType[0].minion == null)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
     }
 
     private void InitializeLineRenderer()
@@ -234,8 +251,8 @@ public class Building : MonoBehaviour
 
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        lineRenderer.startColor = colliderColor;
-        lineRenderer.endColor = colliderColor;
+        lineRenderer.startColor = Color.white;
+        lineRenderer.endColor = Color.white;
 
         lineRenderer.enabled = showCollider;
     }

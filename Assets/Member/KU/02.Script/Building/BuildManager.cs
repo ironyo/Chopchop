@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -58,7 +59,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     public bool isBuilding { get; private set; }
 
-    private BuildingSO buildingSO;
+    public BuildingSO buildingSO { get; private set; }
     private int buildingCount = 0;
 
     bool isDestroing = false;
@@ -296,12 +297,15 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private bool CanResourceAmount()
     {
-        foreach (var item in buildingSO.resourceTypeCost)
+        if(buildingSO.resourceTypeCost.Length != 0)
         {
-            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
-            if(typeData < item.amount)
+            foreach (var item in buildingSO.resourceTypeCost)
             {
-                return false;
+                int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
+                if (typeData < item.amount)
+                {
+                    return false;
+                }
             }
         }
 
@@ -344,8 +348,6 @@ public class BuildManager : MonoSingleton<BuildManager>
             Gizmos.DrawWireCube(boxPos, boxSize);
         }
     }
-
-
 
     public void BuildingMode()
     {
@@ -395,7 +397,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
-            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
             _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
@@ -410,9 +412,9 @@ public class BuildManager : MonoSingleton<BuildManager>
                     _spawnKindTex.text += "미니언";
                 }
             }
-            ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
             if (buildingParent[selectCount].NowLevel != 3)
             {
+                ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
                 _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
             }
             else

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerUnit : MonoBehaviour
 {
@@ -30,10 +31,18 @@ public class PlayerUnit : MonoBehaviour
             if (_target == null)
             {
                 SetTarget();
-                OnTargetChanged.Invoke(_target.position);
             }
+            else
+            {
+                OnTargetChanged.Invoke(_target.position);
             
-            MoveToTarget();
+                MoveToTarget();
+            }
+        }
+
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            HealthCompo.GetDamage(10);
         }
     }
 

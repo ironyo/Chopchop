@@ -17,6 +17,7 @@ TagManager:
   - HQ
   - Building
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX

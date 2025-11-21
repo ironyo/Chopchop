@@ -1,52 +1,55 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Ship : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private Transform[] spawnPoint;
     [SerializeField] private float Interval = 0.5f;
 
-    private Vector3 landPoint;
-    
+    private Transform target;
     private int enemyCount;
-    private bool canFlip;
+    private bool hasLanded = false;
 
-    public void Initialize(Vector3 position, int count, bool canFlip)
+    private void Awake()
     {
-        landPoint = position;
+        target =  GameObject.FindGameObjectWithTag("HQ").transform;
+    }
+
+    public void Initialize(int count)
+    {
         enemyCount = count;
-        this.canFlip = canFlip;
         
         StartCoroutine(MoveToLandPoint());
     }
 
-    private void FlipY(GameObject obj)
-    {
-        obj.transform.Rotate(0, 0, 180);
-    }
-
     private IEnumerator MoveToLandPoint()
     {
-        while (Vector3.Distance(transform.position, landPoint) > 0.1f)
+        Vector2 dir = target.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
+        while (!hasLanded)
         {
-            Vector2 dir = landPoint - transform.position;
-            float _angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
-            transform.position = Vector3.MoveTowards(transform.position, landPoint, moveSpeed * Time.deltaTime);
-            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+            yield return new WaitForFixedUpdate();
         }
-
-        Land();
     }
 
-    private void Land()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(DisembarkRoutine());
+        Debug.Log("Collision");
+        
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            hasLanded = true;
+            StartCoroutine(DisembarkRoutine());
+            Debug.Log("collision");
+        }
     }
 
     private IEnumerator DisembarkRoutine()
@@ -55,22 +58,15 @@ public class Ship : MonoBehaviour
 
         for (int i = 0; i < enemyCount; i++)
         {
-            Transform point = spawnPoint[i % spawnPoint.Length];
-            GameObject enemy = Instantiate(enemyPrefab, point.position, Quaternion.identity);
-            
-            if (canFlip)
-                FlipY(enemy);
+            GameObject enemy = Instantiate(enemyPrefab, transform.position + Vector3.forward * 3, Quaternion.identity);
             
             var agent = enemy.GetComponent<NavMeshAgent>();
             if (agent != null)
                 agent.enabled = true;
             
-            UnitManager.Instance.RegisterEnemy(enemy.transform);
-            
             yield return new WaitForSeconds(Interval);
         }
-
-        // 모두 내린 뒤 배 제거
+        
         Destroy(gameObject);
     }
 }
