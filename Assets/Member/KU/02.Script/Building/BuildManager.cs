@@ -19,6 +19,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
 
+    public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
     [SerializeField] private ParticleSystem _minionBuildParticle;
@@ -514,11 +515,13 @@ public class BuildManager : MonoSingleton<BuildManager>
                 {
                     b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
+                    cameraSystem.UnFocusOnBuilding();
                 }
                 else
                 {
                     b.spr.sprite = b.buildingSO.buildSelcetSprite;
                     b.buildingSelector.isOpen = true;
+                    cameraSystem.FocusOnBuilding(b.gameObject);
                 }
             }
         }
