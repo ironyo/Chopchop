@@ -515,7 +515,6 @@ public class BuildManager : MonoSingleton<BuildManager>
                 {
                     b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
-                    cameraSystem.UnFocusOnBuilding();
                 }
                 else
                 {
