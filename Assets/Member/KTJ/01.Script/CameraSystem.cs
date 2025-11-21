@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class CameraMovement : MonoBehaviour
+public class CameraSystem : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
 
@@ -25,6 +25,8 @@ public class CameraMovement : MonoBehaviour
 
     private Coroutine zoomCoroutine;
 
+    private bool onFocusedBuilding = false;
+
     private void Start()
     {
         globalVolume.profile.TryGet(out dof);
@@ -39,14 +41,32 @@ public class CameraMovement : MonoBehaviour
         HandleZoom();
     }
 
+    public void FocusOnBuilding(GameObject building)
+    {
+        onFocusedBuilding = true;
+        cam.Target.TrackingTarget = building.transform;
+
+        cam.Lens.OrthographicSize = 2.5f;
+    }
+
+    public void UnFocusOnBuilding()
+    {
+        onFocusedBuilding = false;
+        cam.Target.TrackingTarget = this.transform;
+    }
+
     private void Movement()
     {
+        if (onFocusedBuilding == true) return;
+
         gameObject.transform.position += moveSpeed * moveDir * Time.deltaTime;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
     }
 
     private void HandleZoom()
     {
+        if (onFocusedBuilding == true) return;
+
         float zoom = scroll.y * zoomSpeed * Time.deltaTime;
         if (Mathf.Abs(zoom) > 0.001f)
         {
