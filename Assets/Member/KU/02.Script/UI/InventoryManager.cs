@@ -34,7 +34,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         base.Awake();
         for(int i = 0; i < _maxPage; i++)
         {
-            GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
+            GameObject obj = Instantiate(_pagePrefab, transform);
             _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
         }
         for (int i = 0; i < _invPrefObj.Count; i++)
@@ -42,13 +42,20 @@ public class InventoryManager : MonoSingleton<InventoryManager>
             _invPrefObj[i].pageNum = i;
             _invPrefObj[i].manager = this;
         }
+
+        _rectTransform.anchoredPosition = new Vector2(
+    _rectTransform.anchoredPosition.x,
+    0                 // ´ÝÈû »óÅÂ
+);
+        IsNowClose = true;
     }
+
+    
     private void Start()
     {
-        _rectTransform.Translate(0,-_closPos, 0);
+
 
         int count = 0;
-
         for (int i = 0; i < _invPrefObj.Count; i++)
         {
             for (int j = 0; j < _invPrefObj[i].invBoxes.Count; j++)
@@ -61,6 +68,8 @@ public class InventoryManager : MonoSingleton<InventoryManager>
             }
         }
     }
+
+
 
     private void Update()
     {
@@ -111,18 +120,12 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         if (!IsNowClose)
         {
             IsNowClose = true;
-            _rectTransform.DOAnchorPosY(-_closPos, _durTime).OnComplete(() =>
-            {
-                BuildManager.Instance.isMoveInv = false;
-            });
+            BuildManager.Instance.isMoveInv = false;
         }
         else if (IsNowClose)
         {
             IsNowClose = false;
-            _rectTransform.DOAnchorPosY(0, _durTime).OnComplete(() =>
-            {
-                BuildManager.Instance.isMoveInv = false;
-            });
+            BuildManager.Instance.isMoveInv = false;
         }
     }
 
