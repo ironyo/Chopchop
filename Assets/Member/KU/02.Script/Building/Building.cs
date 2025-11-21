@@ -66,9 +66,12 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        gameObject.tag = "Building";
-        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        if (buildingSO.resourceTypeCost.Length != 0)
+            gameObject.tag = "Building";
+        else
+            gameObject.tag = "HQ"; MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
+
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();

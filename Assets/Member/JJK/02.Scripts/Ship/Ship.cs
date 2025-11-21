@@ -58,7 +58,7 @@ public class Ship : MonoBehaviour
 
         for (int i = 0; i < enemyCount; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position + transform.right * 4, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, transform.position + transform.right * 5, Quaternion.identity);
             
             var agent = enemy.GetComponent<NavMeshAgent>();
             if (agent != null)

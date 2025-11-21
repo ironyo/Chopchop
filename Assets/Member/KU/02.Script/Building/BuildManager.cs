@@ -54,6 +54,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] float lineWidth = 0.05f;
     private bool showCollider = false;
 
+    [SerializeField] private GameObject healthBar;
+
     private List<GameObject> spawnGrid = new();
     private List<BuildingSelector> selectorCompo = new();
 
@@ -230,6 +232,18 @@ public class BuildManager : MonoSingleton<BuildManager>
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
+
+        // 1) 빌딩에 HealthSystem 추가
+        HealthSystem hs = par.AddComponent<HealthSystem>();
+
+        // 2) 체력 초기화
+        hs.SetHealth(100);
+
+        // 3) HealthBar 프리팹을 빌딩 아래에 생성
+        GameObject hb = Instantiate(healthBar, par.transform);
+
+        // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
+
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {

@@ -19,21 +19,34 @@ public class HealthSystem : MonoBehaviour
 
     private void Update()
     {
-        if (healthBar.OnDead)
-        {
+        if (healthBar == null)
+            healthBar = GetComponentInChildren<HealthBar>();
+
+        if (healthBar != null && healthBar.OnDead)
             OnDead?.Invoke();
-        }
     }
+
 
     public void GetDamage(int damage)
     {
         HP -= damage;
         HP = Mathf.Clamp(HP, 0, maxHealth);
         OnDamaged?.Invoke();
+
+        if (HP <= 0)
+        {
+            Debug.Log("게임오버호출");
+        }
     }
 
     public float GetNormalizeHealth()
     {
         return (float)HP / maxHealth;   
+    }
+
+    public void SetHealth(int amount)
+    {
+        maxHealth = amount;
+        HP = amount;
     }
 }
