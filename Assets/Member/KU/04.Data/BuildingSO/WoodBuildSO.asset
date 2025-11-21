@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: WoodBuildSO
   m_EditorClassIdentifier: 
-  explaneStr: 
+  explaneStr: "\uB098\uBB34\uB97C \uC0DD\uC131\uD569\uB2C8\uB2E4."
   buildSprite: {fileID: 21300000, guid: 23e853eab5e1767419c1fb04fe642060, type: 3}
   buildSelcetSprite: {fileID: 21300000, guid: 775b768a2ba3fd446b35114a01a894a6, type: 3}
   maxLevel: 3
@@ -39,7 +39,7 @@ MonoBehaviour:
     level: 0
   spawnTime: 1
   resourceTypeCost:
-  - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
+  - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
     amount: 10
   levelResourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}

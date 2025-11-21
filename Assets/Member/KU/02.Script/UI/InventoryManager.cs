@@ -33,15 +33,6 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         {
             GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
             _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
-
-            //GameObject tex = Instantiate(_texPref, transform.position, Quaternion.identity);
-
-            //tex.transform.SetParent(_rectTransform, false);
-
-            //RectTransform rect = tex.GetComponent<RectTransform>();
-            //rect.anchoredPosition = new Vector2(i * _fallPos - 550f, -220f);
-
-            //tex.GetComponent<TextMeshProUGUI>().text = $"{i + 1} / {_maxPage} Page";
         }
         for (int i = 0; i < _invPrefObj.Count; i++)
         {
@@ -130,5 +121,11 @@ public class InventoryManager : MonoSingleton<InventoryManager>
                 BuildManager.Instance.isMoveInv = false;
             });
         }
+    }
+
+    public void StartBuildHQ()
+    {
+        List<InvBuild> build = _invPrefObj[_invPrefObj.Count - 1].invBoxes;
+        build[build.Count-1].Building();
     }
 }
