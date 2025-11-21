@@ -3700,6 +3700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aaffe4dc1d84748852db8b559af2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingClear:
+    m_PersistentCalls:
+      m_Calls: []
   _tilemapCollider: {fileID: 1206304586}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
@@ -5682,7 +5685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _durTime: 0.4
   _fallPos: 2000
-  _closPos: 320
+  _closPos: 420
   _pagePrefab: {fileID: 5736882769278271623, guid: cd80b4a7e73e57847b54182768c14fb4, type: 3}
   _texPref: {fileID: 6613956694696932738, guid: 0ece08930f6a76e4a874f7c15c2d316a, type: 3}
   _startTextPref: {fileID: 4625573080454531403, guid: ec139b10fb9351e45a6c46d3c92dc1bd, type: 3}
