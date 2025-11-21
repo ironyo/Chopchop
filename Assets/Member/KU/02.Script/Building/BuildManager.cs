@@ -22,6 +22,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
     [SerializeField] private ParticleSystem _minionBuildParticle;
+    [SerializeField] private Image _timerPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
@@ -94,10 +95,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             SelectButton(true);
         });
-        //_destroyBtn.onClick.AddListener(() =>
-        //{
-        //    SelectButton(false);
-        //});
         InitializeLineRenderer();
         
     }
@@ -232,6 +229,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.buildingSO = buildingSO;
         building.minionSpawnParticle = _minionSpawnParticle;
         building.minionBuildParticle = _minionBuildParticle;
+        //building.timerPref = _timerPref;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
@@ -423,7 +421,6 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
-            Debug.Log("선택번호:" + selectCount);
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";

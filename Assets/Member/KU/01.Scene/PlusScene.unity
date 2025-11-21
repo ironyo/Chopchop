@@ -3706,6 +3706,7 @@ MonoBehaviour:
   _tilemapCollider: {fileID: 1206304586}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
+  _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 1397653377}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -22390,6 +22391,8 @@ MonoBehaviour:
   MapSetSound: {fileID: 8300000, guid: 429a9eccb3101054eaf1db7a732356ba, type: 3}
   navMeshSurface: {fileID: 243894915}
   NextTileGroundEffect: {fileID: 1205566122}
+  costText: {fileID: 0}
+  useResource: {fileID: 0}
 --- !u!1 &1232246571
 GameObject:
   m_ObjectHideFlags: 0
