@@ -32,12 +32,11 @@ public class WorkActionScr : MonoBehaviour
         _target = building.GetComponent<Collider2D>();
         isWorking = true;
     }
-
     public void CheckBuilding(Minion minion)
     {
         if (IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
         {
-            Debug.Log("ACTIVE FALSE");
+            _building.AddShowMinion();
             minion.GetVisualObject().SetActive(false);
         }
     }
