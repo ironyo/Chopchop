@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Member.CHJ._02.Scripts.Ui
 {
-    public class GameoverUI : MonoBehaviour
+    public class GameoverUI : MonoSingleton<GameoverUI>
     {
         [SerializeField] private GameObject _gameoverUI;
         [SerializeField] private Image _gameoverBackGround;
@@ -15,6 +15,11 @@ namespace Member.CHJ._02.Scripts.Ui
         [SerializeField] private TextMeshProUGUI _dayText;
         [SerializeField] private TextMeshProUGUI _maxText;
         private Sequence _sequence;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         public void GameOverStart()
         {
