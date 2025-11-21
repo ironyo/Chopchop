@@ -66,8 +66,10 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        if(buildingSO.resourceTypeCost.Length == 0)
-        gameObject.tag = "Building";
+        if (buildingSO.resourceTypeCost.Length != 0)
+            gameObject.tag = "Building";
+        else
+            gameObject.tag = "HQ";
         MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 

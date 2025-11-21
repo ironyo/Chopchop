@@ -481,16 +481,25 @@ public class BuildManager : MonoSingleton<BuildManager>
         if(me == null)
         {
             foreach (var b in buildingParent)
+            {
+                b.spr.sprite = b.buildingSO.buildSprite;
                 b.buildingSelector.isOpen = false;
+            }
         }
         else
         {
             foreach (var b in buildingParent)
             {
                 if (b != me)
+                {
+                    b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
+                }
                 else
+                {
+                    b.spr.sprite = b.buildingSO.buildSelcetSprite;
                     b.buildingSelector.isOpen = true;
+                }
             }
         }
     }
