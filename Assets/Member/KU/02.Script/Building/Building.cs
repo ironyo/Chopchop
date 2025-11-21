@@ -66,9 +66,14 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        gameObject.tag = "Building";
-        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        if (buildingSO.resourceTypeCost.Length != 0)
+        {
+            gameObject.tag = "Building";
+        }
+        else
+            gameObject.tag = "HQ"; MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
+
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -103,13 +108,10 @@ public class Building : MonoBehaviour
     {
         UpdateColliderView();
 
+
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             MinionPlus(1);
-        }
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            AttackBuild(10);
         }
         if (buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
@@ -200,14 +202,21 @@ public class Building : MonoBehaviour
         }
         else if(spawnAmount.Count != 0)
             SpawnResourceTypeChange();
+
     }
     private void ResourceLog(int num, bool isMinion)
     {
         TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
-            obj.text = $"+�̴Ͼ�";
+        {
+            obj.text = $"+미니언";
+            obj.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        }
         else
-            obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
+        {
+            obj.text = $"+{spawnAmount[num].amount * minionCount}";
+            obj.GetComponentInChildren<SpriteRenderer>().sprite = buildingSO.levelResourceType[0].resourceTypeSOs[0].resourceTypeSO.Icon;
+        }
     }
     private void SpawnResourceTypeChange()
     {

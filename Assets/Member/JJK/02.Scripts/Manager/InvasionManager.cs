@@ -15,6 +15,7 @@ public class InvasionManager : MonoSingleton<InvasionManager>
     private float invasionTime;
     private float timer;
     private bool isInvading = false;
+    private int count = 0;
     
     private ShipSpawner spawner;
 
@@ -66,7 +67,11 @@ public class InvasionManager : MonoSingleton<InvasionManager>
     public void Invasion()
     {
         InitInvasion();
-        spawner.SpawnShip(enemyCount);
+        count++;
+        for (int i = 0; i < count; i++)
+        {
+            spawner.SpawnShip(enemyCount);
+        }
         isInvading = true;
     }
 }
