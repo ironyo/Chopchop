@@ -45,7 +45,11 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     }
     private void Start()
     {
-        _rectTransform.Translate(0,-_closPos, 0);
+        //_rectTransform.Translate(0,-_closPos, 0);
+
+        _rectTransform.anchoredPosition = new Vector2(
+        _rectTransform.anchoredPosition.x,
+        -_closPos);
 
         int count = 0;
 
