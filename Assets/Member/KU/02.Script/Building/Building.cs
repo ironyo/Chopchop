@@ -251,8 +251,8 @@ public class Building : MonoBehaviour
 
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        lineRenderer.startColor = colliderColor;
-        lineRenderer.endColor = colliderColor;
+        lineRenderer.startColor = Color.white;
+        lineRenderer.endColor = Color.white;
 
         lineRenderer.enabled = showCollider;
     }
