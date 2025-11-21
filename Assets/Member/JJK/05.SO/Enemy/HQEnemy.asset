@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df31048e4a0a52543b73262cc1069dcb, type: 3}
   m_Name: HQEnemy
   m_EditorClassIdentifier: 
-  targetType: 0
+  targetType: 2
   moveSpeed: 0
   attackSpeed: 2
   attackRange: 2

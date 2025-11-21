@@ -8,8 +8,6 @@ public class WeaponRotation : MonoBehaviour
 
     public void AimWeapon(Vector3 targetPos)
     {
-        if (targetPos == null) return;
-        
         Vector3 dir = targetPos - transform.position;
         dir.z = 0;
         
@@ -21,6 +19,6 @@ public class WeaponRotation : MonoBehaviour
     private void FlipSprite(bool val)
     {
         int flipX = val ? -1 : 1;
-        transform.localScale = new Vector3(transform.localScale.x, flipX * Mathf.Abs(transform.localScale.y), transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, flipX * Mathf.Abs(transform.localScale.x), transform.localScale.z);
     }
 }
