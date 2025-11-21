@@ -400,6 +400,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private void BuildUISetting(bool isClose)
     {
         BuildTextSet();
+
         if (isClose)
         {
             _targetPos = new Vector2(_moveDistance, 0);
@@ -413,8 +414,9 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing)
+        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
+            Debug.Log("선택번호:" + selectCount);
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
@@ -425,7 +427,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
                 {
@@ -448,7 +450,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         isDestroing = true;
         if (nowSelect)
         {
-            if(buildingParent[selectCount].level != 3)
+            if(buildingParent[selectCount].level != buildingParent[selectCount].buildingSO.maxLevel)
             {
                 var selected = buildingParent[selectCount];
                 var costSO = selected.buildingSO.levelResourceTypeCost[selected.NowLevel - 1];
@@ -463,7 +465,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 else
                 {
                     buildingParent[selectCount].BuildUpgrade();
-                    ResourceManager.Instance.UseResource(costSO.resourceTypeSO, typeData);
+                    ResourceManager.Instance.UseResource(costSO.resourceTypeSO, costSO.amount);
                 }
             }
         }
@@ -492,7 +494,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     public BuildingSO GetBuildData() => buildingSO;
     public void CloseAllBuildUI(Building me)
     {
-        if(me == null)
+        if (me == null)
         {
             foreach (var b in buildingParent)
             {

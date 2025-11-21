@@ -67,7 +67,9 @@ public class Building : MonoBehaviour
     private void Start()
     {
         if (buildingSO.resourceTypeCost.Length != 0)
+        {
             gameObject.tag = "Building";
+        }
         else
             gameObject.tag = "HQ"; MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
@@ -106,13 +108,10 @@ public class Building : MonoBehaviour
     {
         UpdateColliderView();
 
+
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             MinionPlus(1);
-        }
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            AttackBuild(10);
         }
         if (buildingSO.levelResourceType.Length != 0)
             UpdateSpawnResource();
@@ -203,6 +202,7 @@ public class Building : MonoBehaviour
         }
         else if(spawnAmount.Count != 0)
             SpawnResourceTypeChange();
+
     }
     private void ResourceLog(int num, bool isMinion)
     {

@@ -20,7 +20,7 @@ MonoBehaviour:
   MaxHealth: c800000090010000bc020000
   width: 9
   maxW: 3
-  maxMinion: 030000000600000009000000
+  maxMinion: 010000000300000005000000
   levelResourceType:
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
@@ -40,7 +40,7 @@ MonoBehaviour:
   spawnTime: 1
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
-    amount: 10
+    amount: 20
   levelResourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
     amount: 15

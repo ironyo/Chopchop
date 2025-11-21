@@ -20,7 +20,7 @@ MonoBehaviour:
   MaxHealth: c800000090010000bc020000
   width: 9
   maxW: 3
-  maxMinion: 030000000600000009000000
+  maxMinion: 010000000300000005000000
   levelResourceType:
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
