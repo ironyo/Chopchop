@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -16,6 +17,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private Vector3Int lastCell;
     private int width;
     private int maxW = 3;
+    [SerializeField] private UnityEvent BuildingClear;
 
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
@@ -297,6 +299,8 @@ public class BuildManager : MonoSingleton<BuildManager>
             Destroy(InventoryManager.Instance.startText);
             isNotHQ = false;
         }
+
+        BuildingClear?.Invoke();
     }
     private bool CanSpawn()
     {
