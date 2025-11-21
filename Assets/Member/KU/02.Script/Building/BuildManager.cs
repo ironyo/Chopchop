@@ -494,6 +494,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         Destroy(build.gameObject);
         buildingParent.Remove(buildingParent[selectCount]);
         CloseAllBuildUI(null);
+
+        cameraSystem.UnFocusOnBuilding();
     }
 
     public BuildingSO GetBuildData() => buildingSO;
