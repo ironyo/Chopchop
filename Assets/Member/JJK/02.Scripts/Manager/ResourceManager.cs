@@ -47,18 +47,22 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         TestLog();
     }
     
-    public void UseResource(ResourceTypeSO resourceType ,int amount)
+    public bool UseResource(ResourceTypeSO resourceType ,int amount)
     {
         if (resourceAmountDictionary[resourceType].Item1 >= amount)
         {
             var current = resourceAmountDictionary[resourceType];
             current.Item1 -= amount;
             resourceAmountDictionary[resourceType] = current; TestLog();
+
+            return true;
         }
         else if (resourceAmountDictionary[resourceType].Item1 < amount)
         {
-            
+            return false;
         }
+
+        return false;
     }
 
     //private void ToText()
