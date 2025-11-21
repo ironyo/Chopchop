@@ -15,4 +15,4 @@ MonoBehaviour:
   jobName: WoodHarvester
   jobType: 4
   buildingData: {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
-  hat: {fileID: 46749623, guid: b96cafd382b4e69449f99c4357080573, type: 3}
+  hat: {fileID: 21300000, guid: 441b44831b089564096d211c7f64f3e9, type: 3}
