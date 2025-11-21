@@ -48,7 +48,6 @@ public partial class SleepAction : Action
         WorkAction.Value.CheckBuilding(_minion);
         if (_minion.GetVisualObject().activeSelf)
         {
-            HpSystem.Value.GetDamage(HpSystem.Value.maxHealth - HpSystem.Value.HP);
             WorkAction.Value.CheckBuilding(_minion);
         }
         return Status.Running;
@@ -56,6 +55,7 @@ public partial class SleepAction : Action
 
     protected override void OnEnd()
     {
+        HpSystem.Value.GetDamage(-(HpSystem.Value.maxHealth - HpSystem.Value.HP));
         Debug.Log("Sleep End");
         WorkAction.Value.ExitWork();
         base.OnEnd();
