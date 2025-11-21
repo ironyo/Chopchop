@@ -22,9 +22,15 @@ public class MapBuilding : UIBase
 
     [SerializeField] private Transform NextTileGroundEffect;
 
+    [SerializeField] private TextMeshPro costText;
+
+    [SerializeField] private ResourceTypeSO useResource;
+
     private int currentTileSIze = 8;
 
     private CinemachineImpulseSource cis;
+
+    private int currentTileCost = 8;
 
     // 시작 좌표
     private Vector3Int anchorPos = new Vector3Int(-4, -4, 0);
@@ -65,9 +71,17 @@ public class MapBuilding : UIBase
 
     public void SetTile()
     {
+
+        if (ResourceManager.Instance.UseResource(useResource, currentTileCost) == false)
+        {
+            Debug.Log("타일맵 설치 실패, 자원부족");
+            return;
+        }
         // 현재 방향으로 1칸 이동
         anchorPos += dirs[dirIdx];
         moved++;
+
+        currentTileCost += 8;
 
         // 실제 타일 생성
         cis.GenerateImpulse();
@@ -118,6 +132,8 @@ public class MapBuilding : UIBase
     private void SetVisualTile(Vector3Int anchor)
     {
         visualTilemap.ClearAllTiles();
+
+        costText.text = "흙("+currentTileCost.ToString()+")";
 
         for (int x = 0; x < currentTileSIze; x++)
         {
