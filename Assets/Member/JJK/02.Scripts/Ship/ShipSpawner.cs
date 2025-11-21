@@ -5,21 +5,20 @@ using Random = UnityEngine.Random;
 public class ShipSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject shipPrefab;
-    [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private Transform[] landPoints;
+    [SerializeField] private float distance = 5f;
     
-    private Transform _spawnPoint;
-    private Transform _landPoint;
+    private Vector3 _spawnPoint;
     private int _index;
 
     public void SpawnShip(int enemyCount)
     {
-        _index = Random.Range(0, spawnPoints.Length);
-        _spawnPoint = spawnPoints[_index];
-        _landPoint = landPoints[_index];
+        int deg = Random.Range(0, 360);
+        float x = Mathf.Cos(deg * Mathf.Deg2Rad) * distance;
+        float y = Mathf.Sin(deg * Mathf.Deg2Rad) * distance;
+        _spawnPoint = transform.position + new Vector3(x, y, 0);
         
-        var shipObj = Instantiate(shipPrefab, _spawnPoint.position, Quaternion.identity);
+        var shipObj = Instantiate(shipPrefab, _spawnPoint, Quaternion.identity);
         var ship = shipObj.GetComponent<Ship>();
-        ship.Initialize(_landPoint.position, enemyCount);
+        ship.Initialize(enemyCount);
     }
 }

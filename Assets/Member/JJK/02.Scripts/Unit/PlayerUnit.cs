@@ -32,9 +32,12 @@ public class PlayerUnit : MonoBehaviour
             {
                 SetTarget();
             }
-            OnTargetChanged.Invoke(_target.position);
+            else
+            {
+                OnTargetChanged.Invoke(_target.position);
             
-            MoveToTarget();
+                MoveToTarget();
+            }
         }
 
         if (Keyboard.current.pKey.wasPressedThisFrame)
