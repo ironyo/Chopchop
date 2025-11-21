@@ -85,7 +85,6 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private void Start()
     {
-        //BuildHQ();
         _upgradeBtn.onClick.AddListener(() =>
         {
             SelectButton(true);
@@ -96,14 +95,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         });
         InitializeLineRenderer();
         
-    }
-
-    private void BuildHQ()
-    {
-        transform.position = Vector2.zero;
-        GridSpawn();
-        BuildedClear();
-        GridDestroy();
     }
 
     private void Update()
@@ -358,8 +349,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
     }
 
-
-
     public void BuildingMode()
     {
         CloseAllBuildUI(null);
@@ -408,7 +397,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
-            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
             _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
