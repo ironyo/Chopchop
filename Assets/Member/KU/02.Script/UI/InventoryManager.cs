@@ -130,6 +130,9 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     {
         startText = Instantiate(_startTextPref, GameObject.Find("Canvas").transform);
         List<InvBuild> build = _invPrefObj[_invPrefObj.Count - 1].invBoxes;
-        build[build.Count-1].Building();
+        build[build.Count - 1].Building();
+
+        Destroy(_invPrefObj[_invPrefObj.Count - 1].invBoxes[_invPrefObj[_invPrefObj.Count - 1].invBoxes.Count - 1].gameObject);
+        _invPrefObj[_invPrefObj.Count - 1].invBoxes.RemoveAt(_invPrefObj[_invPrefObj.Count - 1].invBoxes.Count - 1);
     }
 }
