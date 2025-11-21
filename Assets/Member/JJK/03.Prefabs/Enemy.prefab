@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a4c25fd9ab3044f8451e40a7b53728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 6abeda048cf6d484a8ac0e1e06e478fc, type: 2}
+  data: {fileID: 11400000, guid: f9ac767137250e84ba3bcf3d076fe79f, type: 2}
   targetTags:
   - Player
   - Building
@@ -377,6 +377,10 @@ PrefabInstance:
     - target: {fileID: 501050490448884764, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774635403142425313, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7180628501657400539, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
       propertyPath: m_LocalPosition.x
