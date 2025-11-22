@@ -26600,6 +26600,8 @@ MonoBehaviour:
   countTxt_s: {fileID: 0}
   icon: {fileID: 0}
   icon_s: {fileID: 0}
+  shakeValue: 10
+  shakeTime: 0.1
 --- !u!1 &1490531786
 GameObject:
   m_ObjectHideFlags: 0

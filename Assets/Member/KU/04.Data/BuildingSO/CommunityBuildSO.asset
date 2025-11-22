@@ -20,7 +20,7 @@ MonoBehaviour:
   MaxHealth: f401000084030000dc050000d0070000c4090000
   width: 16
   maxW: 4
-  maxMinion: 000000000000000000000000
+  maxMinion: 0000000000000000000000000000000000000000
   buildTime: 0
   levelResourceType: []
   spawnTime: 0
