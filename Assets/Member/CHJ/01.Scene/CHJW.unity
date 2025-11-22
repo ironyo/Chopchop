@@ -23894,6 +23894,7 @@ MonoBehaviour:
   _tilemapCollider: {fileID: 229691195}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   _minionBuildParticle: {fileID: 0}
+  _timerPref: {fileID: 0}
   _logPrefab: {fileID: 0}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
