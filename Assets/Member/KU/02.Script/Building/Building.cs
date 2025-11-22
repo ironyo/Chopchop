@@ -38,6 +38,7 @@ public class Building : MonoBehaviour
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
+    public List<AudioClip> audioClips { get; private set; } = new();
 
     [Header("Collider View Settings")]
     public bool showCollider { get; set; } = true;
@@ -185,7 +186,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj, List<AudioClip> list)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
@@ -193,6 +194,7 @@ public class Building : MonoBehaviour
         _minionBuildParticle = build;
         _timerPref = timer;
         _timerBuildingPref = timerObj;
+        audioClips = list;
     }
 
     public void BuildUpgrade()
@@ -202,6 +204,7 @@ public class Building : MonoBehaviour
         NowLevel++;
         BuildingSetUp();
         BuildUISetUp();
+        SoundManager.Instance.SFXPlay("Upgrade", audioClips[0]);
     }
 
     private void SetAColor(float amount)
