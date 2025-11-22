@@ -48,18 +48,21 @@ public class GameClearUI : MonoSingleton<GameClearUI>
         _sequence.Append(_subText.DOAnchorPosY(_subTextMoveValue, 0.9f));
         _sequence.Append(_restart.DOAnchorPosY(_restartMoveValue, 0.9f));   
         _sequence.Append(_menu.DOAnchorPosY(_menuMoveValue, 0.9f));
-        _sequence.Append(_exit.DOAnchorPosY(_exitMoveValue, 0.9f));
-
+        _sequence.Append(_exit.DOAnchorPosY(_exitMoveValue, 0.9f)).OnComplete(() => Time.timeScale = 0);
+        
         _sequence.Play();
     }
 
     public void Restart()
     {
         SceneManager.LoadScene("Member/KTJ/02.Scene/TJ_Main");
+        Time.timeScale = 1;
     }
     public void Menu()
     {
         SceneManager.LoadScene("TJ_Start");
+        Time.timeScale = 1;
+        
     }
 
     public void Exit()
