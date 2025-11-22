@@ -21,10 +21,29 @@ public class TestMinion : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+
     public int Mood { get; private set; } // 0 ~ 100 (¹è°íÇÄ, ¸ñ¸¶¸§, ´õ·¯¿ò ¼¼ ¼öÄ¡ÀÇ Æò±Õ)
-    public int Hungry { get; private set; } // 0~100
-    public int Thirsty { get; private set; } // 0~100
-    public int Dirty { get; private set; } // 0~100
+
+    private int _hungry;
+    public int Hungry
+    {
+        get => _hungry;
+        set => _hungry = Mathf.Clamp(value, 0, 100);
+    }
+
+    private int _thirsty;
+    public int Thirsty
+    {
+        get => _thirsty;
+        set => _thirsty = Mathf.Clamp(value, 0, 100);
+    }
+
+    private int _dirty;
+    public int Dirty
+    {
+        get => _dirty;
+        set => _dirty = Mathf.Clamp(value, 0, 100);
+    }
 
     IEnumerator WaitDestroy(int wait)
     {
@@ -71,7 +90,6 @@ public class TestMinion : MonoBehaviour
 
     public void EatApple(int amount)
     {
-        Hungry = Mathf.Clamp(amount + Hungry, 0, 100);
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¹è°íÇÄ: " + Hungry);
         minionChat.AddMessage("¿ì°Æ¿ì°Æ");
         AppleParticels.Play();
@@ -81,7 +99,6 @@ public class TestMinion : MonoBehaviour
 
     public void EatWater(int amount)
     {
-        Thirsty = Mathf.Clamp(amount + Thirsty, 0, 100);
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¸ñ¸¶¸§: " + Thirsty);
         minionChat.AddMessage("²Ü²©²Ü²©!");
         WaterParticels.Play();
@@ -91,7 +108,6 @@ public class TestMinion : MonoBehaviour
 
     public void Clean(int amount)
     {
-        Dirty = Mathf.Clamp(amount + Dirty, 0, 100);
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ´õ·¯¿ò: " + Dirty);
         minionChat.AddMessage("±ú²ýÇØÁ³´Ù");
         CleanParticels.Play();
