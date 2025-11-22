@@ -641,6 +641,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.563
       objectReference: {fileID: 0}
+    - target: {fileID: 8462303123760622326, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 8664016637329581519, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.100000024
@@ -681,6 +685,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: 26126c66a8ed72b44bddfc7c21f59072, type: 2}
     - target: {fileID: 9147358645589864385, guid: 372863219ba2e3d47891e7475f0cdf7f, type: 3}
       propertyPath: weaponSprite
       value: 
