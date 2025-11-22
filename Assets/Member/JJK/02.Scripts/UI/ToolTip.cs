@@ -57,7 +57,7 @@ public class ToolTip : MonoSingleton<ToolTip>
 
     private IEnumerator SetTimerCoroutine()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(30f);
         Hide();
     }
 
