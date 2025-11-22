@@ -19,6 +19,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
 
+    [SerializeField] List<AudioClip> _audioClips = new();
+
     public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
@@ -227,7 +229,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips);
+
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
@@ -485,6 +488,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         else
         {
             DestroyBuilding(buildingParent[selectCount]);
+            SoundManager.Instance.SFXPlay("Destroy", _audioClips[1]);
         }
         isDestroing = false;
     }
