@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class BuildingSelector : MonoBehaviour
+public class BuildingSelector : MonoBehaviour, IPointerClickHandler
 {
     public bool isOpen { get; set; } = false;
     
@@ -22,6 +22,39 @@ public class BuildingSelector : MonoBehaviour
         if (!buildCompo.isNowBuilding)
         {
             if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose && !EventSystem.current.IsPointerOverGameObject())
+            {
+               
+            }
+        }
+    }
+    public void OpenCloseUI()
+    {
+        if (buildCompo.isNowBuilding) return;
+
+        if (isOpen)
+        {
+            isOpen = false;
+            buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
+            BuildManager.Instance. cameraSystem.UnFocusOnBuilding();
+        }
+        else
+        {
+            BuildManager.Instance.CloseAllBuildUI(buildCompo);
+            buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
+            BuildManager.Instance.cameraSystem.FocusOnBuilding(gameObject);
+        }
+        int count = buildCompo.buildCount;
+        BuildManager.Instance.GetSelectData(count, buildCompo.level);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("sddssdds");
+
+
+        if (!buildCompo.isNowBuilding)
+        {
+            if (InventoryManager.Instance.IsNowClose)
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
@@ -53,24 +86,5 @@ public class BuildingSelector : MonoBehaviour
                 }
             }
         }
-    }
-    public void OpenCloseUI()
-    {
-        if (buildCompo.isNowBuilding) return;
-
-        if (isOpen)
-        {
-            isOpen = false;
-            buildCompo.spr.sprite = buildCompo.buildingSO.buildSprite;
-            BuildManager.Instance. cameraSystem.UnFocusOnBuilding();
-        }
-        else
-        {
-            BuildManager.Instance.CloseAllBuildUI(buildCompo);
-            buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
-            BuildManager.Instance.cameraSystem.FocusOnBuilding(gameObject);
-        }
-        int count = buildCompo.buildCount;
-        BuildManager.Instance.GetSelectData(count, buildCompo.level);
     }
 }
