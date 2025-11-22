@@ -106,6 +106,11 @@ public class Building : MonoBehaviour
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.maxMinion[0] != 0)
             _minionText.text += $"\n{showMinion} / {maxMinion}";
+
+        if(buildingSO.resourceTypeCost.Length == 0)
+        {
+            boxCollider.offset += new Vector2(0, -0.2f);
+        }
     }
 
     private void Update()
