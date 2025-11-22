@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Member.CHJ._02.Scripts.Ui;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +12,7 @@ namespace Member.CHJ._02.Scripts
     {
         public static MinionManager Instance;
         public List<Minion> minionList = new List<Minion>();
-        public int MinionMaxCount { get; private set; }
+        public int MinionMaxCount => minionList.Count;
         [SerializeField] public BuildingSO houseSo;
         [SerializeField] public BuildingSO schoolSo;
 
@@ -86,8 +87,11 @@ namespace Member.CHJ._02.Scripts
             if (!minionList.Contains(minion))
             {
                 minionList.Add(minion);
-                if(MinionMaxCount <= minionList.Count)
-                    MinionMaxCount = minionList.Count;
+                if (MinionMaxCount >= 300)
+                {
+                    Debug.Log("asdasd");
+                    GameFinishManager.Instance.onGameClear?.Invoke();
+                }
             }
         }
         public void UnRegisterMinion(Minion minion)
