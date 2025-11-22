@@ -443,14 +443,18 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
                 {
                     _spawnKindTex.text += "미니언";
                 }
             }
-            if (buildingParent[selectCount].NowLevel != 3)
+            else
+            {
+                _spawnKindTex.text += "생성안함";
+            }
+            if (buildingParent[selectCount].NowLevel != buildingParent[selectCount].buildingSO.maxLevel)
             {
                 ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
                 _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
