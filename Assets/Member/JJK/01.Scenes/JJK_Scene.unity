@@ -960,6 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipPrefab: {fileID: 5351807106936120375, guid: 77f6d93dd0e00e4459a33909fbb20b0c, type: 3}
   distance: 20
+  increaseHpRatio: 0.15
 --- !u!1 &775587209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6011987575778525745, guid: e0d1fb47b7dffd240a82f93db058ef88, type: 3}
@@ -1193,8 +1194,8 @@ Transform:
   m_GameObject: {fileID: 1294068202}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.2548, y: -0.0088, z: 0}
+  m_LocalScale: {x: 0.9137225, y: 0.927124, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 73515534}
