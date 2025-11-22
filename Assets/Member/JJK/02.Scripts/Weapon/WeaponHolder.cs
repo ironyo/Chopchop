@@ -7,6 +7,7 @@ public class WeaponHolder : MonoBehaviour
 {
     public WeaponDataSO weaponData;
     public WeaponAnimation AnimCompo { get; private set; }
+    [SerializeField] private SpriteRenderer weaponSprite;
     private Animator animator;
     private float reloadTime = 0.2f;
     private Transform _target;
@@ -17,6 +18,8 @@ public class WeaponHolder : MonoBehaviour
         animator = GetComponent<Animator>();
         
         animator.runtimeAnimatorController = weaponData.animatorController;
+        if (weaponData.sprite != null && weaponSprite != null)
+                weaponSprite.sprite = weaponData.sprite;
     }
 
     public void Swing(Transform target)
