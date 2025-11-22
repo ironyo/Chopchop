@@ -6,6 +6,7 @@ using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Building : MonoBehaviour
     public ParticleSystem minionSpawnParticle;
     public ParticleSystem minionBuildParticle;
     public TextMeshPro logPrefab;
+    public Image timerPref;
     private TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
@@ -64,11 +66,19 @@ public class Building : MonoBehaviour
         }
     }
 
+    public int showMinion = 0;
     private void Start()
     {
-        gameObject.tag = "Building";
-        MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
+        LevelManager.Instance.IncreseLevel(10);
+        //Image timerImg = Instantiate(timerPref, new Vector3(transform.position.x, transform.position.y + 2), Quaternion.identity, transform);
+        if (buildingSO.resourceTypeCost.Length != 0)
+        {
+            gameObject.tag = "Building";
+        }
+        else
+            gameObject.tag = "HQ"; MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
+
 
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -92,24 +102,28 @@ public class Building : MonoBehaviour
         }
         spr = Instantiate(BuildManager.Instance.buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
         spr.sprite = buildingSO.buildSprite;
+        spr.size = new Vector2(buildingSO.maxW, buildingSO.maxW);
+
+        _minionText.text = $"{buildingSO.buildName}";
+        if (buildingSO.maxMinion[0] != 0)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
     }
 
     private void Update()
     {
-         _minionText.text = $"{buildingSO.buildName}\n{minionCount} / {maxMinion}";
-
         UpdateColliderView();
+
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             MinionPlus(1);
         }
-        if (Keyboard.current.kKey.wasPressedThisFrame)
+        if(buildingSO != null)
         {
-            AttackBuild(10);
+            if (buildingSO.levelResourceType.Length != 0)
+                UpdateSpawnResource();
         }
-        if (buildingSO.levelResourceType.Length != 0)
-            UpdateSpawnResource();
+
     }
 
     private int minusTimer;
@@ -155,6 +169,7 @@ public class Building : MonoBehaviour
     {
         NowLevel++;
         BuildingSetUp();
+        BuildUISetUp();
     }
 
     public bool CanReserve()
@@ -171,13 +186,20 @@ public class Building : MonoBehaviour
         return true;
     }
 
+    public void AddShowMinion()
+    {
+        showMinion++;
+    }
     public void Release()
     {
         NowMinion = Mathf.Max(0, NowMinion - 1);
+        showMinion--;
+        BuildUISetUp();
     }
     public void MinionPlus(int plus)
     {
         NowMinion += plus;
+        BuildUISetUp();
     }
     private void BuildingSetUp()
     {
@@ -194,14 +216,21 @@ public class Building : MonoBehaviour
         }
         else if(spawnAmount.Count != 0)
             SpawnResourceTypeChange();
+
     }
     private void ResourceLog(int num, bool isMinion)
     {
         TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
-            obj.text = $"+�̴Ͼ�";
+        {
+            obj.text = $"+미니언";
+            obj.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        }
         else
-            obj.text = $"{spawnAmount[num].resourceTypeSO.name} +{spawnAmount[num].amount * minionCount}";
+        {
+            obj.text = $"+{spawnAmount[num].amount * minionCount}";
+            obj.GetComponentInChildren<SpriteRenderer>().sprite = buildingSO.levelResourceType[0].resourceTypeSOs[0].resourceTypeSO.Icon;
+        }
     }
     private void SpawnResourceTypeChange()
     {
@@ -210,6 +239,7 @@ public class Building : MonoBehaviour
             spawnAmount[i].resourceTypeSO = buildingSO.levelResourceType[level].resourceTypeSOs[i].resourceTypeSO;
             spawnAmount[i].amount = buildingSO.levelResourceType[level].resourceTypeSOs[i].amount;
         }
+        BuildUISetUp();
     }
 
     public void AttackBuild(int damage)
@@ -219,6 +249,16 @@ public class Building : MonoBehaviour
         {
             BuildManager.Instance.DestroyBuilding(this);
         }
+        BuildUISetUp();
+    }
+
+    public void BuildUISetUp()
+    {
+        _minionText.text = $"{buildingSO.buildName}";
+        if (buildingSO.levelResourceType.Length == 0)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
+        else if (buildingSO.levelResourceType[0].minion == null)
+            _minionText.text += $"\n{minionCount} / {maxMinion}";
     }
 
     private void InitializeLineRenderer()
@@ -234,8 +274,8 @@ public class Building : MonoBehaviour
 
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        lineRenderer.startColor = colliderColor;
-        lineRenderer.endColor = colliderColor;
+        lineRenderer.startColor = Color.white;
+        lineRenderer.endColor = Color.white;
 
         lineRenderer.enabled = showCollider;
     }

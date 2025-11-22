@@ -15,6 +15,9 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     [SerializeField] private float _closPos;
     [SerializeField] private GameObject _pagePrefab;
     [SerializeField] private GameObject _texPref;
+    [SerializeField] private GameObject _startTextPref;
+
+    public GameObject startText;
 
     [SerializeField] RectTransform _rectTransform;
 
@@ -31,30 +34,28 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         base.Awake();
         for(int i = 0; i < _maxPage; i++)
         {
-            GameObject obj = Instantiate(_pagePrefab, gameObject.transform, transform);
+            GameObject obj = Instantiate(_pagePrefab, transform);
             _invPrefObj.Add(obj.GetComponent<InventoryCreate>());
-
-            //GameObject tex = Instantiate(_texPref, transform.position, Quaternion.identity);
-
-            //tex.transform.SetParent(_rectTransform, false);
-
-            //RectTransform rect = tex.GetComponent<RectTransform>();
-            //rect.anchoredPosition = new Vector2(i * _fallPos - 550f, -220f);
-
-            //tex.GetComponent<TextMeshProUGUI>().text = $"{i + 1} / {_maxPage} Page";
         }
         for (int i = 0; i < _invPrefObj.Count; i++)
         {
             _invPrefObj[i].pageNum = i;
             _invPrefObj[i].manager = this;
         }
+
+        _rectTransform.anchoredPosition = new Vector2(
+    _rectTransform.anchoredPosition.x,
+    0                 // ´ÝÈû »óÅÂ
+);
+        IsNowClose = true;
     }
+
+    
     private void Start()
     {
-        _rectTransform.Translate(0,-_closPos, 0);
+
 
         int count = 0;
-
         for (int i = 0; i < _invPrefObj.Count; i++)
         {
             for (int j = 0; j < _invPrefObj[i].invBoxes.Count; j++)
@@ -67,6 +68,8 @@ public class InventoryManager : MonoSingleton<InventoryManager>
             }
         }
     }
+
+
 
     private void Update()
     {
@@ -117,18 +120,22 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         if (!IsNowClose)
         {
             IsNowClose = true;
-            _rectTransform.DOAnchorPosY(-_closPos, _durTime).OnComplete(() =>
-            {
-                BuildManager.Instance.isMoveInv = false;
-            });
+            BuildManager.Instance.isMoveInv = false;
         }
         else if (IsNowClose)
         {
             IsNowClose = false;
-            _rectTransform.DOAnchorPosY(0, _durTime).OnComplete(() =>
-            {
-                BuildManager.Instance.isMoveInv = false;
-            });
+            BuildManager.Instance.isMoveInv = false;
         }
+    }
+
+    public void StartBuildHQ()
+    {
+        startText = Instantiate(_startTextPref, GameObject.Find("Canvas").transform);
+        List<InvBuild> build = _invPrefObj[_invPrefObj.Count - 1].invBoxes;
+        build[build.Count - 1].Building();
+
+        Destroy(_invPrefObj[_invPrefObj.Count - 1].invBoxes[_invPrefObj[_invPrefObj.Count - 1].invBoxes.Count - 1].gameObject);
+        _invPrefObj[_invPrefObj.Count - 1].invBoxes.RemoveAt(_invPrefObj[_invPrefObj.Count - 1].invBoxes.Count - 1);
     }
 }

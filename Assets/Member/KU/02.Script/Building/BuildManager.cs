@@ -1,9 +1,11 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -15,10 +17,13 @@ public class BuildManager : MonoSingleton<BuildManager>
     private Vector3Int lastCell;
     private int width;
     private int maxW = 3;
+    [SerializeField] private UnityEvent BuildingClear;
 
+    public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
     [SerializeField] private ParticleSystem _minionBuildParticle;
+    [SerializeField] private Image _timerPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
@@ -53,17 +58,19 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] float lineWidth = 0.05f;
     private bool showCollider = false;
 
+    [SerializeField] private GameObject healthBar;
+
     private List<GameObject> spawnGrid = new();
     private List<BuildingSelector> selectorCompo = new();
 
     public bool isBuilding { get; private set; }
 
-    private BuildingSO buildingSO;
+    public BuildingSO buildingSO { get; private set; }
     private int buildingCount = 0;
 
-    int selectLevel = 0;
     bool isDestroing = false;
     public bool isMoveInv = false;
+    public bool isNotHQ { get; private set; } = true;
 
     private int selectCount = 0;
 
@@ -88,10 +95,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         _upgradeBtn.onClick.AddListener(() =>
         {
             SelectButton(true);
-        });
-        _destroyBtn.onClick.AddListener(() =>
-        {
-            SelectButton(false);
         });
         InitializeLineRenderer();
         
@@ -119,7 +122,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
     private void BuildOrCancle()
     {
-        if (spawnGrid != null && Mouse.current.rightButton.wasPressedThisFrame && isBuilding)
+        if (spawnGrid != null && Mouse.current.rightButton.wasPressedThisFrame && isBuilding && !isNotHQ)
         {
             showCollider = false;
             isBuilding = false;
@@ -227,9 +230,22 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.buildingSO = buildingSO;
         building.minionSpawnParticle = _minionSpawnParticle;
         building.minionBuildParticle = _minionBuildParticle;
+        //building.timerPref = _timerPref;
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
+
+        // 1) 빌딩에 HealthSystem 추가
+        HealthSystem hs = par.AddComponent<HealthSystem>();
+
+        // 2) 체력 초기화
+        hs.SetHealth(100);
+
+        // 3) HealthBar 프리팹을 빌딩 아래에 생성
+        GameObject hb = Instantiate(healthBar, par.transform);
+
+        // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
+
 
         for (int i = 0; i < spawnGrid.Count; i++)
         {
@@ -267,7 +283,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].NowMinion} / {buildingSO.maxMinion[0]}";
+        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
@@ -277,6 +293,16 @@ public class BuildManager : MonoSingleton<BuildManager>
             ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);
         }
 
+        if(building.buildingSO.resourceTypeCost.Length == 0)
+        {
+            Destroy(InventoryManager.Instance.startText);
+            isNotHQ = false;
+        }
+
+        if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)
+        {
+            BuildingClear?.Invoke();
+        }
     }
     private bool CanSpawn()
     {
@@ -297,12 +323,15 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private bool CanResourceAmount()
     {
-        foreach (var item in buildingSO.resourceTypeCost)
+        if(buildingSO.resourceTypeCost.Length != 0)
         {
-            int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
-            if(typeData < item.amount)
+            foreach (var item in buildingSO.resourceTypeCost)
             {
-                return false;
+                int typeData = ResourceManager.Instance.resourceAmountDictionary[item.resourceTypeSO].Item1;
+                if (typeData < item.amount)
+                {
+                    return false;
+                }
             }
         }
 
@@ -346,8 +375,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
     }
 
-
-
     public void BuildingMode()
     {
         CloseAllBuildUI(null);
@@ -379,6 +406,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private void BuildUISetting(bool isClose)
     {
         BuildTextSet();
+
         if (isClose)
         {
             _targetPos = new Vector2(_moveDistance, 0);
@@ -392,11 +420,11 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     private void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing)
+        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
-            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].NowLevel ? $"레벨: {buildingParent[selectCount].NowLevel} Max" : $"레벨: {buildingParent[selectCount].NowLevel}";
+            _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
             _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
             _spawnKindTex.text = "자원:";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
@@ -404,16 +432,16 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType[selectCount].resourceTypeSOs.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
                 {
                     _spawnKindTex.text += "미니언";
                 }
             }
-            ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
             if (buildingParent[selectCount].NowLevel != 3)
             {
+                ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
                 _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
             }
             else
@@ -427,7 +455,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         isDestroing = true;
         if (nowSelect)
         {
-            if(buildingParent[selectCount].level != 3)
+            if(buildingParent[selectCount].level != buildingParent[selectCount].buildingSO.maxLevel)
             {
                 var selected = buildingParent[selectCount];
                 var costSO = selected.buildingSO.levelResourceTypeCost[selected.NowLevel - 1];
@@ -442,7 +470,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 else
                 {
                     buildingParent[selectCount].BuildUpgrade();
-                    ResourceManager.Instance.UseResource(costSO.resourceTypeSO, typeData);
+                    ResourceManager.Instance.UseResource(costSO.resourceTypeSO, costSO.amount);
                 }
             }
         }
@@ -466,24 +494,37 @@ public class BuildManager : MonoSingleton<BuildManager>
         Destroy(build.gameObject);
         buildingParent.Remove(buildingParent[selectCount]);
         CloseAllBuildUI(null);
+
+        cameraSystem.UnFocusOnBuilding();
     }
 
     public BuildingSO GetBuildData() => buildingSO;
     public void CloseAllBuildUI(Building me)
     {
-        if(me == null)
+        if (me == null)
         {
             foreach (var b in buildingParent)
+            {
+                b.spr.sprite = b.buildingSO.buildSprite;
                 b.buildingSelector.isOpen = false;
+            }
         }
         else
         {
             foreach (var b in buildingParent)
             {
                 if (b != me)
+                {
+                    b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
+                    cameraSystem.UnFocusOnBuilding();
+                }
                 else
+                {
+                    b.spr.sprite = b.buildingSO.buildSelcetSprite;
                     b.buildingSelector.isOpen = true;
+                    cameraSystem.FocusOnBuilding(b.gameObject);
+                }
             }
         }
     }
@@ -491,7 +532,10 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         _time = 0;
         selectCount = count;
-        selectLevel = level;
+        if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)
+            _destroyBtn.gameObject.SetActive(false);
+        else
+            _destroyBtn.gameObject.SetActive(true);
     }
 
 

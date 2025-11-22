@@ -35,9 +35,13 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        healthSystem.OnDamaged += UpdateBar;
-        healthSystem.OnDamaged += OnDamagedHandler;
         targetHealthNormalized = currentHealthNormalized = healthSystem.GetNormalizeHealth();
+    }
+
+    private void OnEnable()
+    {
+        healthSystem.OnDamaged += OnDamagedHandler;
+        healthSystem.OnDamaged += UpdateBar;        
     }
 
     private void Update()
@@ -47,6 +51,7 @@ public class HealthBar : MonoBehaviour
 
         if (currentHealthNormalized <= 0.01f)
         {
+            Debug.Log($"Dead{currentHealthNormalized}");
             OnDead = true;
         }
     }

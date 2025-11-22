@@ -50,7 +50,6 @@ public class InventoryCreate : MonoBehaviour
             invBoxes.Add(pref.GetComponent<InvBuild>());
             _oneB = pref.GetComponent<Button>();
             _twoB = pref.GetComponent<Button>();
-
         }
 
     }

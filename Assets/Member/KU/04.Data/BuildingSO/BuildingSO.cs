@@ -22,6 +22,8 @@ public class BuildingSO : ScriptableObject
     public int maxW;
     [Header("건물인원수")]
     public int[] maxMinion;
+    [Header("건물 생성시간")]
+    public float buildTime;
     [Header("레벨별 생산력")]
     public LevelResourceTypeCost[] levelResourceType;
     public float spawnTime;

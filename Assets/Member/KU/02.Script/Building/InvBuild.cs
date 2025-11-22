@@ -20,9 +20,19 @@ public class InvBuild : MonoBehaviour
     {
         if(BuildingSO != null)
         {
+            if(BuildingSO == InventoryManager.Instance._buildSO[InventoryManager.Instance._buildSO.Count - 1])
+            {
+
+            }
             _button.onClick.AddListener(() => { BuildManager.Instance.Buildings(true, BuildingSO); });
             _button.onClick.AddListener(() => { ResourceUIManager.Instance.ChooseButton(); });
             tex.text = BuildingSO.buildName;
         }
+    }
+
+    public void Building()
+    {
+        BuildManager.Instance.Buildings(true, BuildingSO);
+        ResourceUIManager.Instance.ChooseButton();
     }
 }

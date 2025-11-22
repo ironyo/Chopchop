@@ -32,12 +32,11 @@ public class WorkActionScr : MonoBehaviour
         _target = building.GetComponent<Collider2D>();
         isWorking = true;
     }
-
     public void CheckBuilding(Minion minion)
     {
         if (IsCollisionWithWorkBuilding() && minion.GetVisualObject().activeSelf)
         {
-            Debug.Log("ACTIVE FALSE");
+            _building.AddShowMinion();
             minion.GetVisualObject().SetActive(false);
         }
     }
@@ -60,6 +59,14 @@ public class WorkActionScr : MonoBehaviour
         _target = null;
     }
 
+    public virtual void CantWork()
+    {
+        if(!transform.GetChild(0).gameObject.activeSelf)
+            transform.GetChild(0).gameObject.SetActive(true);
+        _mycollder.gameObject.GetComponent<Minion>().behaviorGraph.Restart();
+        isWorking = false;
+        _target = null;
+    }
     public void ChangeJob(JobDataSO job)
     {
         jobData = job;
