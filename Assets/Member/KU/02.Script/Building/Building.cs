@@ -112,6 +112,10 @@ public class Building : MonoBehaviour
         {
             boxCollider.offset += new Vector2(0, -0.2f);
         }
+        if (buildingSO.levelResourceType[0].minion != null)
+        {
+            boxCollider.offset += new Vector2(0, 0.05f);
+        }
     }
 
     private void Update()
