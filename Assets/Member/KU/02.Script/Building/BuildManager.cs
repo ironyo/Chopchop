@@ -430,9 +430,9 @@ public class BuildManager : MonoSingleton<BuildManager>
         _time += Time.deltaTime * _moveSpeed;
         _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
     }
-    private void BuildTextSet()
+    public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
+        if (buildingParent.Count != 0 && !isDestroing)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -481,6 +481,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if (typeData < costSO.amount)
                 {
                     NotifictionManager.Instance.NotifictionEvent.Invoke("업그레이드불가", "자원이 부족합니다!");
+                    isDestroing = false;
                     return;
                 }
                 else

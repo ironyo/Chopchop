@@ -33,9 +33,8 @@ public class BuildingSelector : MonoBehaviour, IPointerClickHandler
             buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
             BuildManager.Instance.upgradeUIGroupCompo.UpgradeLevelTileSpawn(buildCompo.buildingSO, buildCompo.level);
             BuildManager.Instance.cameraSystem.FocusOnBuilding(gameObject);
+            BuildManager.Instance.GetSelectData(buildCompo.buildCount, buildCompo.level);
         }
-        int count = buildCompo.buildCount;
-        BuildManager.Instance.GetSelectData(count, buildCompo.level);
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -282,7 +282,7 @@ public class Building : MonoBehaviour
         minionCount = 0;
         showMinion = 0;
     }
-    private void BuildingSetUp()
+    public void BuildingSetUp()
     {
         maxHealth = buildingSO.MaxHealth[level-1];
         maxMinion = buildingSO.maxMinion[level-1];
