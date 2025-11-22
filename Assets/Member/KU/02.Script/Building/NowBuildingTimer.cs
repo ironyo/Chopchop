@@ -11,7 +11,7 @@ public class NowBuildingTimer : MonoBehaviour
     float _buildingTime;
     float _currentTime;
 
-    public float _realValue = -1.5f;
+    float _realValue = -1.5f;
 
     void Awake()
     {
