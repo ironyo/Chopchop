@@ -240,7 +240,11 @@ public class BuildManager : MonoSingleton<BuildManager>
         hs.SetHealth(100);
 
         // 3) HealthBar 프리팹을 빌딩 아래에 생성
-        GameObject hb = Instantiate(healthBar, boxCollider.bounds.center, Quaternion.identity, building.transform);
+        float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
+        float xIf = maxW % 2 == 1 ? 0f : -0.5f;
+        GameObject hb = Instantiate(healthBar, building.transform);
+        hb.transform.position = new Vector3(transform.position.x + xIf,
+            transform.position.y + width / maxW * 0.5f + yIf + 1, 0);
 
         // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
 
@@ -278,8 +282,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             col.offset = centerLocal;
         }
 
-        float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
-        float xIf = maxW % 2 == 1 ? 0f : -0.5f;
+
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
         ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,

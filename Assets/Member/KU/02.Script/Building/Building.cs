@@ -99,7 +99,7 @@ public class Building : MonoBehaviour
         spr.sprite = buildingSO.buildSprite;
         spr.size = new Vector2(buildingSO.maxW, buildingSO.maxW);
         SetAColor(0.25f);
-        Image timerImg = Instantiate(_timerPref, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y-2f), Quaternion.identity, transform);
+        Image timerImg = Instantiate(_timerPref, boxCollider.bounds.center, Quaternion.identity, transform);
         NowBuildingTimer buildTimer = Instantiate(_timerBuildingPref, boxCollider.bounds.center, Quaternion.identity, spr.gameObject.transform).GetComponent<NowBuildingTimer>();
         buildTimer.GetData(this, timerImg);
 
@@ -299,10 +299,13 @@ public class Building : MonoBehaviour
     public void BuildUISetUp()
     {
         _minionText.text = $"{buildingSO.buildName}";
-        if (buildingSO.levelResourceType.Length == 0)
+        if (buildingSO.levelResourceType.Length == 0 && buildingSO.resourceTypeCost.Length != 0)
             _minionText.text += $"\n{showMinion} / {maxMinion}";
-        else if (buildingSO.levelResourceType[0].minion == null)
-            _minionText.text += $"\n{showMinion} / {maxMinion}";
+        if(buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion == null)
+                _minionText.text += $"\n{showMinion} / {maxMinion}";
+        }
     }
 
     private void InitializeLineRenderer()
