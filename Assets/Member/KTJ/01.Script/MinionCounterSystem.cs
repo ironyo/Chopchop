@@ -1,9 +1,14 @@
+using System.Collections;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Febucci.UI;
 using Member.CHJ._02.Scripts;
+using UnityEngine.Rendering;
 
 public class MinionCounterSystem : MonoBehaviour
 {
@@ -16,34 +21,12 @@ public class MinionCounterSystem : MonoBehaviour
     [SerializeField] private GameObject MopeTxt_anim;
 
     private RectTransform handle;
-    
-    private float sliderYPos_up;
-    private float sliderYPos_down;
+    private float lastSliderVal;           // 실제로 회전 처리 기준 값
+    private Sequence rotateSequence;
 
     private void Awake()
     {
         handle = counterSlider.targetGraphic.GetComponent<RectTransform>();
-        sliderYPos_down = handle.localPosition.y;
-        sliderYPos_up = handle.localPosition.y + 100;
-
-        SetHandlePosY();
-    }
-
-    private void Start()
-    {
-        counterSlider.onValueChanged.AddListener(delegate { SetHandlePosY(); });
-    }
-
-    private void SetHandlePosY()
-    {
-        //if (counterSlider.value < counterSlider.maxValue / 2.5)
-        //{
-        //    handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_up, handle.localPosition.z);
-        //}
-        //else
-        //{
-        //    handle.localPosition = new Vector3(handle.localPosition.x, sliderYPos_down, handle.localPosition.z);
-        //}
     }
 
     private void Update()
@@ -54,16 +37,25 @@ public class MinionCounterSystem : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
-        minionCounterTxt.text = "미니언: " + MinionManager.Instance.minionList.Count.ToString();
-        counterSlider.value = sliderVal;
+        minionCounterTxt.text = "미니언: " + MinionManager.Instance.minionList.Count;
 
-        if (counterSlider.value <= 25)
+        // 슬라이더 부드럽게 이동
+        counterSlider.DOValue(sliderVal, 0.3f).SetEase(Ease.OutCubic);
+
+        if (Mathf.Abs(sliderVal - lastSliderVal) >= 1f)
+        {
+            bool isIncrease = sliderVal > lastSliderVal;
+            RotateHandleOnce(isIncrease);
+            lastSliderVal = sliderVal;
+        }
+
+        if (sliderVal <= 25)
         {
             GameEventManager.Instance.RunEvent(GameEventType.MinionMope);
             MopeTxt_anim.SetActive(true);
             MopeTxt.SetActive(false);
         }
-        else if (counterSlider.value >= 75)
+        else if (sliderVal >= 75)
         {
             GameEventManager.Instance.RunEvent(GameEventType.MinionBomb);
             OverloadTxt.SetActive(false);
@@ -72,7 +64,6 @@ public class MinionCounterSystem : MonoBehaviour
         else
         {
             GameEventManager.Instance.StopEvent();
-
             OverloadTxt.SetActive(true);
             OverloadTxt_anim.SetActive(false);
             MopeTxt_anim.SetActive(false);
@@ -80,39 +71,47 @@ public class MinionCounterSystem : MonoBehaviour
         }
     }
 
+    private void RotateHandleOnce(bool isIncrease)
+    {
+        float targetZ = isIncrease ? 160f : 200f;
+
+        // 기존 Sequence Kill
+        if (rotateSequence != null && rotateSequence.IsActive())
+            rotateSequence.Kill();
+
+        rotateSequence = DOTween.Sequence();
+        rotateSequence.Append(handle.DORotate(new Vector3(0, 0, targetZ), 0.2f).SetEase(Ease.OutCubic));
+        rotateSequence.Append(handle.DORotate(new Vector3(0, 0, 180f), 0.2f).SetEase(Ease.OutCubic));
+    }
+
     private int CalculateValue()
     {
         int tileCount = MapManager.Instance.GetTileCount();
         int minionCount = MinionManager.Instance.minionList.Count;
-        //int minionCount = 100;
 
-        if (minionCount == 0)
-            return 0;
+        if (minionCount == 0) return 0;
 
-        // �̴Ͼ� 1������ Ÿ�� ���� ����
         float ratio = (float)tileCount / minionCount;
 
-        // ������ ����
-        float minRatio = 4f;     // ���� �� 100
-        float midRatio = 32f;    // ���� �� 50
-        float maxRatio = 100f;   // ��� �� 0
+        float minRatio = 4f;
+        float midRatio = 32f;
+        float maxRatio = 100f;
 
         float sliderValue;
 
         if (ratio <= midRatio)
         {
-            // 4~32 ����: 100 �� 50
             float t = Mathf.InverseLerp(minRatio, midRatio, ratio);
             sliderValue = Mathf.Lerp(100f, 50f, t);
         }
         else
         {
-            // 32~100 ����: 50 �� 0
             float t = Mathf.InverseLerp(midRatio, maxRatio, ratio);
             sliderValue = Mathf.Lerp(50f, 0f, t);
         }
 
         return Mathf.RoundToInt(Mathf.Clamp(sliderValue, 0f, 100f));
     }
-
 }
+
+
