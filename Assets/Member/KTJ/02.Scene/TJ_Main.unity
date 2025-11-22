@@ -5294,7 +5294,7 @@ GameObject:
   - component: {fileID: 353538384}
   - component: {fileID: 353538385}
   m_Layer: 0
-  m_Name: WeaponParent (1)
+  m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20815,7 +20815,7 @@ GameObject:
   - component: {fileID: 1050380291}
   - component: {fileID: 1050380292}
   m_Layer: 0
-  m_Name: WeaponParent (1)
+  m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35971,8 +35971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalLight: {fileID: 506369292}
   postProcessVolume: {fileID: 1500537948}
-  transitionDuration: 20
-  holdDuration: 5
+  transitionDuration: 5
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   nightColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
   dayVignetteIntensity: 0.2
