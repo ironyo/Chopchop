@@ -29,7 +29,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private Grid grid;
 
     [SerializeField] private GameObject _clone;
-    [field: SerializeField]public GameObject buildSpritePref { get; set; }
+    [field: SerializeField] public GameObject buildSpritePref { get; set; }
+    [field: SerializeField] public GameObject buildTimePref { get; set; }
     [SerializeField] private GameObject _helpUI;
     [SerializeField] private GameObject _buildingUI;
     [SerializeField] private GameObject _buildingCanvus;
@@ -224,13 +225,10 @@ public class BuildManager : MonoSingleton<BuildManager>
         par.transform.position = mousePos;
 
         Building building = par.AddComponent<Building>();
-        building.logPrefab = _logPrefab;
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.buildingSO = buildingSO;
-        building.minionSpawnParticle = _minionSpawnParticle;
-        building.minionBuildParticle = _minionBuildParticle;
-        //building.timerPref = _timerPref;
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref);
+
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
         selectorCompo.Add(building.GetComponent<BuildingSelector>());
@@ -242,7 +240,11 @@ public class BuildManager : MonoSingleton<BuildManager>
         hs.SetHealth(100);
 
         // 3) HealthBar 프리팹을 빌딩 아래에 생성
-        GameObject hb = Instantiate(healthBar, par.transform);
+        float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
+        float xIf = maxW % 2 == 1 ? 0f : -0.5f;
+        GameObject hb = Instantiate(healthBar, building.transform);
+        hb.transform.position = new Vector3(transform.position.x + xIf,
+            transform.position.y + width / maxW * 0.5f + yIf + 1, 0);
 
         // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
 
@@ -280,8 +282,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             col.offset = centerLocal;
         }
 
-        float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
-        float xIf = maxW % 2 == 1 ? 0f : -0.5f;
+
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
         ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
         ui.transform.position = new Vector3(transform.position.x + xIf,
@@ -381,6 +382,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         GridDestroy();
         isBuilding = false;
         showCollider = false;
+        cameraSystem.UnFocusOnBuilding();
 
         foreach (var parent in buildingParent)
         {
@@ -517,13 +519,11 @@ public class BuildManager : MonoSingleton<BuildManager>
                 {
                     b.spr.sprite = b.buildingSO.buildSprite;
                     b.buildingSelector.isOpen = false;
-                    cameraSystem.UnFocusOnBuilding();
                 }
                 else
                 {
                     b.spr.sprite = b.buildingSO.buildSelcetSprite;
                     b.buildingSelector.isOpen = true;
-                    cameraSystem.FocusOnBuilding(b.gameObject);
                 }
             }
         }

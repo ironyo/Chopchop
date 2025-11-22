@@ -14,6 +14,15 @@ namespace Member.CHJ._02.Scripts
         public int MinionMaxCount { get; private set; }
         [SerializeField] public BuildingSO houseSo;
         [SerializeField] public BuildingSO schoolSo;
+
+        [SerializeField] private TextMeshProUGUI hungryTxt;
+        [SerializeField] private TextMeshProUGUI thirstyTxt;
+        [SerializeField] private TextMeshProUGUI dirtyTxt;
+
+        private float currentTime = 0;
+        private float duration = 1f;
+
+
         private Building _buildingTarget;
         public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 
@@ -30,6 +39,46 @@ namespace Member.CHJ._02.Scripts
         private void Start()
         {
             TimeManager.Instance.OnOneSecond += UpdateTime;
+        }
+
+        private void Update()
+        {
+            currentTime += Time.deltaTime;
+            if (duration <= currentTime)
+            {
+                foreach(Minion minion in minionList)
+                {
+                    TestMinion tm = minion.gameObject.GetComponent<TestMinion>();
+                    tm.Hungry--;
+                    tm.Thirsty--;
+                    tm.Dirty--;
+                }
+                SetMinionAverageState();
+                currentTime = 0;
+            }
+        }
+
+        private void SetMinionAverageState()
+        {
+            int hAdd = 0;
+            int tAdd = 0;
+            int dAdd = 0;
+
+            foreach(Minion minion in minionList)
+            {
+                TestMinion tm = minion.gameObject.GetComponent<TestMinion>();
+                hAdd += tm.Hungry;
+                tAdd += tm.Thirsty;
+                dAdd += tm.Dirty;
+            }
+
+            hAdd /= minionList.Count;
+            tAdd /= minionList.Count;
+            dAdd /= minionList.Count;
+
+            hungryTxt.text = "에너지: "+hAdd.ToString();
+            thirstyTxt.text = "수분: " + tAdd.ToString();
+            dirtyTxt.text = "청결: " + dAdd.ToString();
         }
 
         public void RegisterMinion(Minion minion)

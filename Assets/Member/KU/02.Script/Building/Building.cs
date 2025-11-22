@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
+    public bool isNowBuilding { get; private set; } = true;
+
     public int buildCount = 0;
 
     public int nowHealth = 0;
@@ -17,18 +19,19 @@ public class Building : MonoBehaviour
     private int maxHealth = 0;
     public int maxMinion { get; private set; } = 0;
 
-    private BoxCollider2D boxCollider;
+    public BoxCollider2D boxCollider { get; private set; }
     private LineRenderer lineRenderer;
 
     public SpriteRenderer spr { get; set; }
+    GameObject _timerBuildingPref;
 
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
-    public ParticleSystem minionSpawnParticle;
-    public ParticleSystem minionBuildParticle;
-    public TextMeshPro logPrefab;
-    public Image timerPref;
-    private TextMeshPro _minionText;
+    ParticleSystem _minionSpawnParticle;
+    ParticleSystem _minionBuildParticle;
+    TextMeshPro _logPrefab;
+    Image _timerPref;
+    TextMeshPro _minionText;
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -70,7 +73,7 @@ public class Building : MonoBehaviour
     private void Start()
     {
         LevelManager.Instance.IncreseLevel(10);
-        //Image timerImg = Instantiate(timerPref, new Vector3(transform.position.x, transform.position.y + 2), Quaternion.identity, transform);
+        
         if (buildingSO.resourceTypeCost.Length != 0)
         {
             gameObject.tag = "Building";
@@ -92,17 +95,13 @@ public class Building : MonoBehaviour
 
         boxCollider.size = new Vector2(buildingSO.maxW, wSize);
 
-        if(buildingSO.levelResourceType.Length != 0)
-        {
-            if (buildingSO.levelResourceType[0].minion != null)
-            {
-                GameObject particle = Instantiate(minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
-                particle.transform.position += new Vector3(-0.5f, 1.1f);
-            }
-        }
         spr = Instantiate(BuildManager.Instance.buildSpritePref, boxCollider.bounds.center, Quaternion.identity, transform).GetComponent<SpriteRenderer>();
         spr.sprite = buildingSO.buildSprite;
         spr.size = new Vector2(buildingSO.maxW, buildingSO.maxW);
+        SetAColor(0.25f);
+        Image timerImg = Instantiate(_timerPref, boxCollider.bounds.center, Quaternion.identity, transform);
+        NowBuildingTimer buildTimer = Instantiate(_timerBuildingPref, boxCollider.bounds.center, Quaternion.identity, spr.gameObject.transform).GetComponent<NowBuildingTimer>();
+        buildTimer.GetData(this, timerImg);
 
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.maxMinion[0] != 0)
@@ -129,6 +128,8 @@ public class Building : MonoBehaviour
     private int minusTimer;
     private void UpdateSpawnResource()
     {
+        if (isNowBuilding) return; 
+
         minusTimer = buildingSO.levelResourceType[0].minion != null ? level : 0;
         if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
@@ -138,7 +139,7 @@ public class Building : MonoBehaviour
             if (buildingSO.levelResourceType[level - 1].minion != null)
             {
                 spawnCurrentTime = 0;
-                Instantiate(minionSpawnParticle, transform.position, Quaternion.identity);
+                Instantiate(_minionSpawnParticle, transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
 
@@ -152,6 +153,19 @@ public class Building : MonoBehaviour
         }
     }
 
+    public void BuildingRealClear()
+    {
+        if (buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion != null)
+            {
+                GameObject particle = Instantiate(_minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
+                particle.transform.position += new Vector3(-0.5f, 1.1f);
+            }
+        }
+        SetAColor(1);
+        isNowBuilding = false;
+    }
     private void OnDrawGizmos()
     {
         if (boxCollider != null)
@@ -165,13 +179,32 @@ public class Building : MonoBehaviour
             Gizmos.DrawWireCube(boxPos, boxSize);
         }
     }
+
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj)
+    {
+        _logPrefab = logpre;
+        buildingSO = buildSo;
+        _minionSpawnParticle = spawn;
+        _minionBuildParticle = build;
+        _timerPref = timer;
+        _timerBuildingPref = timerObj;
+    }
+
     public void BuildUpgrade()
     {
+        if (isNowBuilding) return;
+
         NowLevel++;
         BuildingSetUp();
         BuildUISetUp();
     }
 
+    private void SetAColor(float amount)
+    {
+        Color color = spr.color;
+        color.a = amount;
+        spr.color = color;
+    }
     public bool CanReserve()
     {
         Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
@@ -188,18 +221,24 @@ public class Building : MonoBehaviour
 
     public void AddShowMinion()
     {
+        if (isNowBuilding) return;
+
         showMinion++;
         BuildUISetUp();
         Debug.Log($"Add Show Minion {showMinion}");
     }
     public void Release()
     {
+        if (isNowBuilding) return;
+
         NowMinion = Mathf.Max(0, NowMinion - 1);
         showMinion--;
         BuildUISetUp();
     }
     public void MinionPlus(int plus)
     {
+        if (isNowBuilding) return;
+
         NowMinion += plus;
         BuildUISetUp();
     }
@@ -237,7 +276,7 @@ public class Building : MonoBehaviour
     }
     private void ResourceLog(int num, bool isMinion)
     {
-        TextMeshPro obj = Instantiate(logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        TextMeshPro obj = Instantiate(_logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
         {
             obj.text = $"+미니언";
@@ -261,6 +300,8 @@ public class Building : MonoBehaviour
 
     public void AttackBuild(int damage)
     {
+        if (isNowBuilding) return;
+
         nowHealth -= damage;
         if (nowHealth <= 0)
         {
@@ -274,10 +315,13 @@ public class Building : MonoBehaviour
     public void BuildUISetUp()
     {
         _minionText.text = $"{buildingSO.buildName}";
-        if (buildingSO.levelResourceType.Length == 0)
+        if (buildingSO.levelResourceType.Length == 0 && buildingSO.resourceTypeCost.Length != 0)
             _minionText.text += $"\n{showMinion} / {maxMinion}";
-        else if (buildingSO.levelResourceType[0].minion == null)
-            _minionText.text += $"\n{showMinion} / {maxMinion}";
+        if(buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion == null)
+                _minionText.text += $"\n{showMinion} / {maxMinion}";
+        }
     }
 
     private void InitializeLineRenderer()
