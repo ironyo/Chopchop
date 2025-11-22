@@ -20,7 +20,7 @@ public partial class CanWorkBuildingCondition : Condition
         if (WorkScript.Value.isWorking)
             return true;
         var buildingManager = MinionManager.Instance.MinionsBuildingManager;
-
+        
         var building = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, WorkScript.Value.jobData.buildingData, 30f);
 
         if (building != null)

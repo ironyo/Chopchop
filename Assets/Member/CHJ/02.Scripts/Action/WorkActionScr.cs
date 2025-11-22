@@ -64,7 +64,6 @@ public class WorkActionScr : MonoBehaviour
     {
         if(!transform.GetChild(0).gameObject.activeSelf)
             transform.GetChild(0).gameObject.SetActive(true);
-        _mycollder.gameObject.GetComponent<Minion>().behaviorGraph.Restart();
         isWorking = false;
         _target = null;
     }
