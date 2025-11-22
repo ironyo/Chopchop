@@ -15557,7 +15557,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _audioClips: []
+  _audioClips:
+  - {fileID: 8300000, guid: 60df8b82a040b6349b26bae301e60bc3, type: 3}
+  - {fileID: 8300000, guid: 90ad6c74d96d14d4da1dec3c870aaf1a, type: 3}
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
