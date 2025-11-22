@@ -63,8 +63,8 @@ public class Minion : MonoBehaviour
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
         secondWork = 50 - patrol - firstWork;
-        sleep = 50;
-
+        sleep = 60;
+    
         patrol += firstWork;
         secondWork += patrol;
         Stats.Age++;

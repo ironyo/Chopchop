@@ -247,6 +247,21 @@ public class Building : MonoBehaviour
         NowMinion += plus;
         BuildUISetUp();
     }
+    public void ExitAllWorkers()
+    {
+        foreach (var minion in MinionManager.Instance.minionList)
+        {
+            var work = minion.GetComponent<WorkActionScr>();
+            if (work != null && work.isWorking && work.CurrentBuilding == this)
+            {
+                work.CantWork();
+            }
+        }
+
+        // 그 외 내부 카운트 정리
+        minionCount = 0;
+        showMinion = 0;
+    }
     private void BuildingSetUp()
     {
         maxHealth = buildingSO.MaxHealth[level-1];
@@ -297,6 +312,7 @@ public class Building : MonoBehaviour
         {
             BuildManager.Instance.DestroyBuilding(this);
             MinionManager.Instance.MinionsBuildingManager.RemoveBuilding(this);
+            ExitAllWorkers();
         }
         BuildUISetUp();
     }
