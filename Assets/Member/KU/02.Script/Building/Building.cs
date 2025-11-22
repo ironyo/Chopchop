@@ -131,7 +131,7 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return; 
 
         minusTimer = buildingSO.levelResourceType[0].minion != null ? level : 0;
-        if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
+        if (showMinion == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
         spawnCurrentTime += Time.deltaTime;
         if (spawnCurrentTime >= spawnTime - minusTimer)
@@ -147,7 +147,7 @@ public class Building : MonoBehaviour
             else
             {
                 spawnCurrentTime = 0;
-                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
+                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * showMinion);
                 ResourceLog(level - 1, false);
             }
         }
@@ -207,6 +207,11 @@ public class Building : MonoBehaviour
     }
     public bool CanReserve()
     {
+        if (isNowBuilding)
+        {
+            Debug.Log("건물 공사 중이라 예약 불가");
+            return false;
+        }
         Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
         return NowMinion < maxMinion;
     }
@@ -222,7 +227,7 @@ public class Building : MonoBehaviour
     public void AddShowMinion()
     {
         if (isNowBuilding) return;
-
+        if (showMinion >= maxMinion) return;
         showMinion++;
         BuildUISetUp();
         Debug.Log($"Add Show Minion {showMinion}");
@@ -232,7 +237,7 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return;
 
         NowMinion = Mathf.Max(0, NowMinion - 1);
-        showMinion--;
+        showMinion = Mathf.Max(0, showMinion - 1);
         BuildUISetUp();
     }
     public void MinionPlus(int plus)
@@ -284,7 +289,7 @@ public class Building : MonoBehaviour
         }
         else
         {
-            obj.text = $"+{spawnAmount[num].amount * minionCount}";
+            obj.text = $"+{spawnAmount[num].amount * showMinion}";
             obj.GetComponentInChildren<SpriteRenderer>().sprite = buildingSO.levelResourceType[0].resourceTypeSOs[0].resourceTypeSO.Icon;
         }
     }
