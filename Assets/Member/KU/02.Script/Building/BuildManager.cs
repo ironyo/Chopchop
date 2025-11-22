@@ -247,7 +247,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject hb = Instantiate(healthBar, building.transform);
         hb.transform.position = new Vector3(transform.position.x + xIf,
-            transform.position.y + width / maxW * 0.5f + yIf + (buildingSO.resourceTypeCost.Length == 0 ? 0.5f : 1), 0);
+            transform.position.y + width / maxW * 0.5f + yIf + (buildingSO.maxMinion[0] == 0 || buildingSO.resourceTypeCost.Length == 0 ? 0.7f : 1), 0);
 
         // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
 
