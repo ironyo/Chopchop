@@ -46,6 +46,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private RectTransform _uiRectTransform;
     [SerializeField] private TextMeshProUGUI _buildNameTex;
     [SerializeField] private TextMeshProUGUI _buildHPTex;
+    [field:SerializeField] public UpgradeUIGroup upgradeUIGroupCompo { get; private set; }
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
     [SerializeField] private TextMeshProUGUI _upgradeCcostTex;
@@ -229,7 +230,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
 
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
@@ -240,7 +241,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         HealthSystem hs = par.AddComponent<HealthSystem>();
 
         // 2) 체력 초기화
-        hs.SetHealth(100);
+        hs.SetHealth(building.buildingSO.MaxHealth[0]);
 
         // 3) HealthBar 프리팹을 빌딩 아래에 생성
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
