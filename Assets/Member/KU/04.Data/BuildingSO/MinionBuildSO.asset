@@ -21,6 +21,7 @@ MonoBehaviour:
   width: 9
   maxW: 3
   maxMinion: 000000000000000000000000
+  buildTime: 8
   levelResourceType:
   - resourceTypeSOs: []
     minion: {fileID: 4692593926029088029, guid: fd1fdbdfc145bd94ea7435cd28798998, type: 3}
