@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class BuildingSelector : MonoBehaviour
 {
@@ -18,7 +21,7 @@ public class BuildingSelector : MonoBehaviour
     {
         if (!buildCompo.isNowBuilding)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose)
+            if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose && !EventSystem.current.IsPointerOverGameObject())
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
