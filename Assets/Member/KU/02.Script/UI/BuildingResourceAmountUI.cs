@@ -1,8 +1,12 @@
+using DG.Tweening;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class BuildingResourceAmountUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshPro textCompo;
+    [SerializeField] private SpriteRenderer _sprite;
     private Vector2 _target;
     void Start()
     {
@@ -15,6 +19,9 @@ public class BuildingResourceAmountUI : MonoBehaviour
     }
     IEnumerator DestroyObj()
     {
+        yield return new WaitForSeconds(0.5f);
+        textCompo.DOFade(0, 0.6f);
+        _sprite.DOFade(0, 0.6f);
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
