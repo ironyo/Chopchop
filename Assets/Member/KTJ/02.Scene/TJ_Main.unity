@@ -3901,7 +3901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
-  weaponSprite: {fileID: 594898660}
+  weaponSprite: {fileID: 0}
 --- !u!1 &264741166
 GameObject:
   m_ObjectHideFlags: 0
@@ -9155,6 +9155,7 @@ MonoBehaviour:
   WhiteBg: {fileID: 372263989}
   purchaseParticle: {fileID: 731228676}
   RotateEffect: {fileID: 86803109}
+  resourceType: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
 --- !u!1 &580448152
 GameObject:
   m_ObjectHideFlags: 0
@@ -16432,11 +16433,12 @@ MonoBehaviour:
   _tilemapCollider: {fileID: 229691195}
   _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
-  _timerPref: {fileID: 0}
+  _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
   <buildSpritePref>k__BackingField: {fileID: 734453638338503675, guid: 0cd08e6fd67436f4e9e2dce5ac9ba32a, type: 3}
+  <buildTimePref>k__BackingField: {fileID: 8005153017445768296, guid: 2cafd1f066f8e8a4ca5eaa6e92c974f6, type: 3}
   _helpUI: {fileID: 992393149}
   _buildingUI: {fileID: 4529460439877213536, guid: bbd78c4eeb78ec34ca70b2eeab3f6022, type: 3}
   _buildingCanvus: {fileID: 733236812}
@@ -19912,6 +19914,9 @@ MonoBehaviour:
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
   schoolSo: {fileID: 0}
+  hungryTxt: {fileID: 0}
+  thirstyTxt: {fileID: 0}
+  dirtyTxt: {fileID: 0}
 --- !u!1 &984809311
 GameObject:
   m_ObjectHideFlags: 0
@@ -30826,7 +30831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
-  weaponSprite: {fileID: 619198116}
+  weaponSprite: {fileID: 0}
 --- !u!1 &1686245399
 GameObject:
   m_ObjectHideFlags: 0
@@ -52669,7 +52674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
-  weaponSprite: {fileID: 1640910295}
+  weaponSprite: {fileID: 0}
 --- !u!1 &965370290421304403
 GameObject:
   m_ObjectHideFlags: 0
