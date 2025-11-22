@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class BuildingSelector : MonoBehaviour
 {
@@ -16,40 +19,45 @@ public class BuildingSelector : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose)
+        if (!buildCompo.isNowBuilding)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint (Mouse.current.position.ReadValue());
-
-            Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
-
-            if (hits.Length == 0)
-                return;
-            bool hasBuilding = false;
-
-            foreach (var h in hits)
+            if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose && !EventSystem.current.IsPointerOverGameObject())
             {
-                if (h == null) continue;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
+                Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
 
-                h.TryGetComponent(out Building building);
-                if(building != null)
+                if (hits.Length == 0)
+                    return;
+                bool hasBuilding = false;
+
+                foreach (var h in hits)
                 {
-                    if (building.buildCount == buildCompo.buildCount)
+                    if (h == null) continue;
+
+
+                    h.TryGetComponent(out Building building);
+                    if (building != null)
                     {
-                        hasBuilding = true;
-                        break;
+                        if (building.buildCount == buildCompo.buildCount)
+                        {
+                            hasBuilding = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (hasBuilding)
-            {
-                OpenCloseUI();
+                if (hasBuilding)
+                {
+                    OpenCloseUI();
+                }
             }
         }
     }
     public void OpenCloseUI()
     {
+        if (buildCompo.isNowBuilding) return;
+
         if (isOpen)
         {
             isOpen = false;
@@ -60,6 +68,7 @@ public class BuildingSelector : MonoBehaviour
         {
             BuildManager.Instance.CloseAllBuildUI(buildCompo);
             buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
+            BuildManager.Instance.cameraSystem.FocusOnBuilding(gameObject);
         }
         int count = buildCompo.buildCount;
         BuildManager.Instance.GetSelectData(count, buildCompo.level);

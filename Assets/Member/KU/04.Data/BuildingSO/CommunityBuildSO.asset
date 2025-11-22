@@ -21,6 +21,7 @@ MonoBehaviour:
   width: 16
   maxW: 4
   maxMinion: 000000000000000000000000
+  buildTime: 0
   levelResourceType: []
   spawnTime: 0
   resourceTypeCost: []

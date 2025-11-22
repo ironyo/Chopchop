@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponDataSO : ScriptableObject
 {
     public RuntimeAnimatorController animatorController;
+    public Sprite sprite;
     public float attackRange;
     public int damage;
 }
