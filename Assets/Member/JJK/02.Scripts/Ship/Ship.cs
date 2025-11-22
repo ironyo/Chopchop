@@ -42,13 +42,10 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision");
-        
         if (collision.gameObject.CompareTag("Ground"))
         {
             hasLanded = true;
             StartCoroutine(DisembarkRoutine());
-            Debug.Log("collision");
         }
     }
 

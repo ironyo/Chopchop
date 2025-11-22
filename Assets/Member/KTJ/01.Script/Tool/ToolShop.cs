@@ -24,6 +24,7 @@ public class ToolShop : UIBase
     [SerializeField] private Image WhiteBg;
     [SerializeField] private ParticleSystem purchaseParticle;
     [SerializeField] private Image RotateEffect;
+    [SerializeField] private ResourceTypeSO resourceType;
     private List<ToolCard> toolCards = new List<ToolCard>();
 
     private bool canPurchase = true;
@@ -55,6 +56,9 @@ public class ToolShop : UIBase
         if (canPurchase == false) return;
         List<Tool> tools = ToolManager.Instance.MainTools;
         if (tools[idx].ToolLevel == 3) return;
+
+        if (ResourceManager.Instance.UseResource(resourceType, tools[idx].ToolSO.Price[tools[idx].ToolLevel - 1]) == false) return;
+        else NotifictionManager.Instance.NotifictionEvent.Invoke("목재부족", "아이템 업그레이드 실패");
 
         Debug.Log(idx);
         tools[idx].UpgradeLevel();

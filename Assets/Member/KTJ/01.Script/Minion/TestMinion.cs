@@ -1,6 +1,7 @@
 using Member.CHJ._02.Scripts;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestMinion : MonoBehaviour
@@ -21,11 +22,36 @@ public class TestMinion : MonoBehaviour
 
     [SerializeField] Animator animator;
 
-    public int Mood { get; private set; } // 0 ~ 100 (배고픔, 목마름, 더러움 세 수치의 평균)
-    public int Hungry { get; private set; } // 0~100
-    public int Thirsty { get; private set; } // 0~100
-    public int Dirty { get; private set; } // 0~100
 
+    public int Mood { get; private set; } // 0 ~ 100 (배고픔, 목마름, 더러움 세 수치의 평균)
+
+    private int _hungry;
+    public int Hungry
+    {
+        get => _hungry;
+        set => _hungry = Mathf.Clamp(value, 0, 100);
+    }
+
+    private int _thirsty;
+    public int Thirsty
+    {
+        get => _thirsty;
+        set => _thirsty = Mathf.Clamp(value, 0, 100);
+    }
+
+    private int _dirty;
+    public int Dirty
+    {
+        get => _dirty;
+        set => _dirty = Mathf.Clamp(value, 0, 100);
+    }
+
+    private void Start() // 만땅으로 채우기
+    {
+        Hungry = 100;
+        Thirsty = 100;
+        Dirty = 100;
+    }
     IEnumerator WaitDestroy(int wait)
     {
         yield return new WaitForSeconds(wait);  
@@ -71,7 +97,8 @@ public class TestMinion : MonoBehaviour
 
     public void EatApple(int amount)
     {
-        Hungry = Mathf.Clamp(amount + Hungry, 0, 100);
+        Hungry += amount;
+
         Debug.Log("현재 미니언 배고픔: " + Hungry);
         minionChat.AddMessage("우걱우걱");
         AppleParticels.Play();
@@ -81,7 +108,8 @@ public class TestMinion : MonoBehaviour
 
     public void EatWater(int amount)
     {
-        Thirsty = Mathf.Clamp(amount + Thirsty, 0, 100);
+        Thirsty += amount;
+
         Debug.Log("현재 미니언 목마름: " + Thirsty);
         minionChat.AddMessage("꿀꺽꿀꺽!");
         WaterParticels.Play();
@@ -91,7 +119,8 @@ public class TestMinion : MonoBehaviour
 
     public void Clean(int amount)
     {
-        Dirty = Mathf.Clamp(amount + Dirty, 0, 100);
+        Dirty += amount;
+
         Debug.Log("현재 미니언 더러움: " + Dirty);
         minionChat.AddMessage("깨끗해졌다");
         CleanParticels.Play();

@@ -105,7 +105,7 @@ public class Building : MonoBehaviour
 
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.maxMinion[0] != 0)
-            _minionText.text += $"\n{minionCount} / {maxMinion}";
+            _minionText.text += $"\n{showMinion} / {maxMinion}";
     }
 
     private void Update()
@@ -224,6 +224,8 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return;
 
         showMinion++;
+        BuildUISetUp();
+        Debug.Log($"Add Show Minion {showMinion}");
     }
     public void Release()
     {
@@ -289,6 +291,7 @@ public class Building : MonoBehaviour
         if (nowHealth <= 0)
         {
             BuildManager.Instance.DestroyBuilding(this);
+            MinionManager.Instance.MinionsBuildingManager.RemoveBuilding(this);
         }
         BuildUISetUp();
     }
@@ -297,9 +300,9 @@ public class Building : MonoBehaviour
     {
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.levelResourceType.Length == 0)
-            _minionText.text += $"\n{minionCount} / {maxMinion}";
+            _minionText.text += $"\n{showMinion} / {maxMinion}";
         else if (buildingSO.levelResourceType[0].minion == null)
-            _minionText.text += $"\n{minionCount} / {maxMinion}";
+            _minionText.text += $"\n{showMinion} / {maxMinion}";
     }
 
     private void InitializeLineRenderer()
