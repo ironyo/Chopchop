@@ -10,6 +10,7 @@ public class WorkActionScr : MonoBehaviour
     private Collider2D _mycollder;
     private Collider2D _target;
     private Building _building;
+    public Building CurrentBuilding => _building;
     public bool isWorking { get; private set; }
 
     private void Awake()
