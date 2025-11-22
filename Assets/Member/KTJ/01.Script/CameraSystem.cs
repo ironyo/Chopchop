@@ -46,7 +46,7 @@ public class CameraSystem : MonoBehaviour
         onFocusedBuilding = true;
         cam.Target.TrackingTarget = building.transform;
 
-        cam.Lens.OrthographicSize = 2.5f;
+        cam.Lens.OrthographicSize = 3.5f;
     }
 
     public void UnFocusOnBuilding()
