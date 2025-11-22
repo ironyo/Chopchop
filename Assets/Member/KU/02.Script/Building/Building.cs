@@ -38,6 +38,7 @@ public class Building : MonoBehaviour
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
+    public List<AudioClip> audioClips { get; private set; } = new();
 
     [Header("Collider View Settings")]
     public bool showCollider { get; set; } = true;
@@ -106,6 +107,11 @@ public class Building : MonoBehaviour
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.maxMinion[0] != 0)
             _minionText.text += $"\n{showMinion} / {maxMinion}";
+
+        if(buildingSO.resourceTypeCost.Length == 0)
+        {
+            boxCollider.offset += new Vector2(0, -0.2f);
+        }
     }
 
     private void Update()
@@ -131,7 +137,7 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return; 
 
         minusTimer = buildingSO.levelResourceType[0].minion != null ? level : 0;
-        if (minionCount == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
+        if (showMinion == 0 && buildingSO.levelResourceType[level-1].minion == null) return;
 
         spawnCurrentTime += Time.deltaTime;
         if (spawnCurrentTime >= spawnTime - minusTimer)
@@ -147,7 +153,7 @@ public class Building : MonoBehaviour
             else
             {
                 spawnCurrentTime = 0;
-                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * minionCount);
+                ResourceManager.Instance.AddResource(spawnAmount[level - 1].resourceTypeSO, spawnAmount[level - 1].amount * showMinion);
                 ResourceLog(level - 1, false);
             }
         }
@@ -180,7 +186,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj, List<AudioClip> list)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
@@ -188,6 +194,7 @@ public class Building : MonoBehaviour
         _minionBuildParticle = build;
         _timerPref = timer;
         _timerBuildingPref = timerObj;
+        audioClips = list;
     }
 
     public void BuildUpgrade()
@@ -197,6 +204,7 @@ public class Building : MonoBehaviour
         NowLevel++;
         BuildingSetUp();
         BuildUISetUp();
+        SoundManager.Instance.SFXPlay("Upgrade", audioClips[0]);
     }
 
     private void SetAColor(float amount)
@@ -207,6 +215,11 @@ public class Building : MonoBehaviour
     }
     public bool CanReserve()
     {
+        if (isNowBuilding)
+        {
+            Debug.Log("건물 공사 중이라 예약 불가");
+            return false;
+        }
         Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
         return NowMinion < maxMinion;
     }
@@ -222,7 +235,7 @@ public class Building : MonoBehaviour
     public void AddShowMinion()
     {
         if (isNowBuilding) return;
-
+        if (showMinion >= maxMinion) return;
         showMinion++;
         BuildUISetUp();
         Debug.Log($"Add Show Minion {showMinion}");
@@ -232,7 +245,7 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return;
 
         NowMinion = Mathf.Max(0, NowMinion - 1);
-        showMinion--;
+        showMinion = Mathf.Max(0, showMinion - 1);
         BuildUISetUp();
     }
     public void MinionPlus(int plus)
@@ -276,7 +289,7 @@ public class Building : MonoBehaviour
     }
     private void ResourceLog(int num, bool isMinion)
     {
-        TextMeshPro obj = Instantiate(_logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        TextMeshPro obj = Instantiate(_logPrefab, new Vector2(boxCollider.bounds.center.x+(isMinion ? 0f : 0.33f), boxCollider.bounds.center.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
         {
             obj.text = $"+미니언";
@@ -284,7 +297,7 @@ public class Building : MonoBehaviour
         }
         else
         {
-            obj.text = $"+{spawnAmount[num].amount * minionCount}";
+            obj.text = $"+{spawnAmount[num].amount * showMinion}";
             obj.GetComponentInChildren<SpriteRenderer>().sprite = buildingSO.levelResourceType[0].resourceTypeSOs[0].resourceTypeSO.Icon;
         }
     }

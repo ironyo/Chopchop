@@ -19,6 +19,8 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
 
+    [SerializeField] List<AudioClip> _audioClips = new();
+
     public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
     [SerializeField] private ParticleSystem _minionSpawnParticle;
@@ -227,7 +229,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips);
+
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
@@ -244,7 +247,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         float xIf = maxW % 2 == 1 ? 0f : -0.5f;
         GameObject hb = Instantiate(healthBar, building.transform);
         hb.transform.position = new Vector3(transform.position.x + xIf,
-            transform.position.y + width / maxW * 0.5f + yIf + 1, 0);
+            transform.position.y + width / maxW * 0.5f + yIf + (buildingSO.maxMinion[0] == 0 || buildingSO.resourceTypeCost.Length == 0 ? 0.7f : 1), 0);
 
         // 4) HealthBar가 HealthSystem을 인식하도록 (HealthBar가 GetComponentInParent로 찾음)
 
@@ -256,7 +259,12 @@ public class BuildManager : MonoSingleton<BuildManager>
         }
         spawnGrid.Clear();
 
-        int childCount = par.transform.childCount;
+        int childCount;
+        if (building.buildingSO.resourceTypeCost.Length == 0)
+            childCount = par.transform.childCount;
+        else
+            childCount = par.transform.childCount - 3;
+      
         if (childCount == 0)
         {
             col.offset = Vector2.zero;
@@ -285,6 +293,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
         ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
+
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
@@ -479,6 +488,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         else
         {
             DestroyBuilding(buildingParent[selectCount]);
+            SoundManager.Instance.SFXPlay("Destroy", _audioClips[1]);
         }
         isDestroing = false;
     }
