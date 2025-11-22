@@ -22,13 +22,10 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         {
             ResourcePref clonedPref = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
             clonedPref.Set(resource.StartCount, resource.Icon);
-            resourceAmountDictionary.Add(resource, (0, clonedPref));
+            resourceAmountDictionary.Add(resource, (100, clonedPref));
 
             AddResource(resource, resource.StartCount); // ó�� �⺻�ڿ�
         }
-
-        AddResource(_resourceTypeListSO.list[0], 10);
-        UseResource(_resourceTypeListSO.list[1], 10);
     }
 
     private void TestLog()

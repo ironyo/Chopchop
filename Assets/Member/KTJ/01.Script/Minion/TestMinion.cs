@@ -1,6 +1,7 @@
 using Member.CHJ._02.Scripts;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestMinion : MonoBehaviour
@@ -45,6 +46,12 @@ public class TestMinion : MonoBehaviour
         set => _dirty = Mathf.Clamp(value, 0, 100);
     }
 
+    private void Start() // ¸¸¶¥À¸·Î Ã¤¿ì±â
+    {
+        Hungry = 100;
+        Thirsty = 100;
+        Dirty = 100;
+    }
     IEnumerator WaitDestroy(int wait)
     {
         yield return new WaitForSeconds(wait);  
@@ -90,6 +97,8 @@ public class TestMinion : MonoBehaviour
 
     public void EatApple(int amount)
     {
+        Hungry += amount;
+
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¹è°íÇÄ: " + Hungry);
         minionChat.AddMessage("¿ì°Æ¿ì°Æ");
         AppleParticels.Play();
@@ -99,6 +108,8 @@ public class TestMinion : MonoBehaviour
 
     public void EatWater(int amount)
     {
+        Thirsty += amount;
+
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¸ñ¸¶¸§: " + Thirsty);
         minionChat.AddMessage("²Ü²©²Ü²©!");
         WaterParticels.Play();
@@ -108,6 +119,8 @@ public class TestMinion : MonoBehaviour
 
     public void Clean(int amount)
     {
+        Dirty += amount;
+
         Debug.Log("ÇöÀç ¹Ì´Ï¾ð ´õ·¯¿ò: " + Dirty);
         minionChat.AddMessage("±ú²ýÇØÁ³´Ù");
         CleanParticels.Play();

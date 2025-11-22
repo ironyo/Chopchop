@@ -8457,6 +8457,7 @@ MonoBehaviour:
   WhiteBg: {fileID: 372263989}
   purchaseParticle: {fileID: 731228676}
   RotateEffect: {fileID: 86803109}
+  resourceType: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
 --- !u!1 &580448152
 GameObject:
   m_ObjectHideFlags: 0
@@ -9994,7 +9995,7 @@ MonoBehaviour:
   navMeshSurface: {fileID: 452579192}
   NextTileGroundEffect: {fileID: 2065396302}
   costText: {fileID: 1583746523}
-  useResource: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
+  useResource: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
 --- !u!114 &715369863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35122,7 +35123,19 @@ MonoBehaviour:
       m_Calls: []
   OnTimeChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1144537513}
+        m_TargetAssemblyTypeName: ClockUI, Assembly-CSharp
+        m_MethodName: UpdateClock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2053702501
 Transform:
   m_ObjectHideFlags: 0
