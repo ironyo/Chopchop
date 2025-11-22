@@ -13192,6 +13192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
+  weaponSprite: {fileID: 0}
 --- !u!1 &176138779
 GameObject:
   m_ObjectHideFlags: 0
@@ -13394,6 +13395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
+  weaponSprite: {fileID: 0}
 --- !u!1 &187014769
 GameObject:
   m_ObjectHideFlags: 0
@@ -42438,6 +42440,7 @@ MonoBehaviour:
   WhiteBg: {fileID: 1843359940}
   purchaseParticle: {fileID: 2036022568}
   RotateEffect: {fileID: 47210799}
+  resourceType: {fileID: 0}
 --- !u!1 &529297640
 GameObject:
   m_ObjectHideFlags: 0
@@ -56292,6 +56295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
+  weaponSprite: {fileID: 0}
 --- !u!1 &794569757
 GameObject:
   m_ObjectHideFlags: 0
@@ -100892,7 +100896,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
-  schoolSo: {fileID: 0}
+  schoolSo: {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
+  hungryTxt: {fileID: 0}
+  thirstyTxt: {fileID: 0}
+  dirtyTxt: {fileID: 0}
 --- !u!1 &1743562658
 GameObject:
   m_ObjectHideFlags: 0

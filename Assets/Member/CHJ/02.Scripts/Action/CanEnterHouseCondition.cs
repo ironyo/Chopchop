@@ -20,6 +20,7 @@ namespace Member.CHJ._02.Scripts.Action
             
             var buildingManager = MinionManager.Instance.MinionsBuildingManager;
             var house = buildingManager.GetAvailableHouseCheckOnly(Self.Value.transform.position, HouseSO.Value, 30f);
+            Debug.Log($"Find House {house != null}");
 
             return house != null;   
             // Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 30f);

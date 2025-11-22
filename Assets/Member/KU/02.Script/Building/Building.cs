@@ -99,7 +99,7 @@ public class Building : MonoBehaviour
         spr.sprite = buildingSO.buildSprite;
         spr.size = new Vector2(buildingSO.maxW, buildingSO.maxW);
         SetAColor(0.25f);
-        Image timerImg = Instantiate(_timerPref, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y-2f), Quaternion.identity, transform);
+        Image timerImg = Instantiate(_timerPref, boxCollider.bounds.center, Quaternion.identity, transform);
         NowBuildingTimer buildTimer = Instantiate(_timerBuildingPref, boxCollider.bounds.center, Quaternion.identity, spr.gameObject.transform).GetComponent<NowBuildingTimer>();
         buildTimer.GetData(this, timerImg);
 
@@ -242,6 +242,21 @@ public class Building : MonoBehaviour
         NowMinion += plus;
         BuildUISetUp();
     }
+    public void ExitAllWorkers()
+    {
+        foreach (var minion in MinionManager.Instance.minionList)
+        {
+            var work = minion.GetComponent<WorkActionScr>();
+            if (work != null && work.isWorking && work.CurrentBuilding == this)
+            {
+                work.CantWork();
+            }
+        }
+
+        // 그 외 내부 카운트 정리
+        minionCount = 0;
+        showMinion = 0;
+    }
     private void BuildingSetUp()
     {
         maxHealth = buildingSO.MaxHealth[level-1];
@@ -292,6 +307,7 @@ public class Building : MonoBehaviour
         {
             BuildManager.Instance.DestroyBuilding(this);
             MinionManager.Instance.MinionsBuildingManager.RemoveBuilding(this);
+            ExitAllWorkers();
         }
         BuildUISetUp();
     }
@@ -299,10 +315,13 @@ public class Building : MonoBehaviour
     public void BuildUISetUp()
     {
         _minionText.text = $"{buildingSO.buildName}";
-        if (buildingSO.levelResourceType.Length == 0)
+        if (buildingSO.levelResourceType.Length == 0 && buildingSO.resourceTypeCost.Length != 0)
             _minionText.text += $"\n{showMinion} / {maxMinion}";
-        else if (buildingSO.levelResourceType[0].minion == null)
-            _minionText.text += $"\n{showMinion} / {maxMinion}";
+        if(buildingSO.levelResourceType.Length != 0)
+        {
+            if (buildingSO.levelResourceType[0].minion == null)
+                _minionText.text += $"\n{showMinion} / {maxMinion}";
+        }
     }
 
     private void InitializeLineRenderer()
