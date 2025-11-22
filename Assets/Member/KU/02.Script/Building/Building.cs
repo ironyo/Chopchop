@@ -289,7 +289,7 @@ public class Building : MonoBehaviour
     }
     private void ResourceLog(int num, bool isMinion)
     {
-        TextMeshPro obj = Instantiate(_logPrefab, new Vector2(transform.position.x, transform.position.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
+        TextMeshPro obj = Instantiate(_logPrefab, new Vector2(boxCollider.bounds.center.x+(isMinion ? 0f : 0.33f), boxCollider.bounds.center.y + buildingSO.width/buildingSO.maxW-1), Quaternion.identity,transform);
         if(isMinion)
         {
             obj.text = $"+미니언";
