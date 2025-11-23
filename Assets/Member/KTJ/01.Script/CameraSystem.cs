@@ -27,6 +27,7 @@ public class CameraSystem : MonoBehaviour
 
     private bool onFocusedBuilding = false;
 
+    private float zoomValSave = 5f;
     private void Start()
     {
         globalVolume.profile.TryGet(out dof);
@@ -45,6 +46,7 @@ public class CameraSystem : MonoBehaviour
     {
         onFocusedBuilding = true;
         cam.Target.TrackingTarget = building.transform;
+        zoomValSave = cam.Lens.OrthographicSize;
 
         cam.Lens.OrthographicSize = 3.5f;
     }
@@ -53,6 +55,7 @@ public class CameraSystem : MonoBehaviour
     {
         onFocusedBuilding = false;
         cam.Target.TrackingTarget = this.transform;
+        cam.Lens.OrthographicSize = zoomValSave;
     }
 
     private void Movement()
