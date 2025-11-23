@@ -40,7 +40,7 @@ public class Building : MonoBehaviour
     private float spawnTime = 0;
     private float spawnCurrentTime = 0;
     [SerializeField]private List<ResourceTypeCost> spawnAmount = new();
-    public List<AudioClip> audioClips { get; private set; } = new();
+    List<AudioClip> _audioClips = new();
 
     [Header("Collider View Settings")]
     public bool showCollider { get; set; } = true;
@@ -115,7 +115,11 @@ public class Building : MonoBehaviour
         {
             boxCollider.offset += new Vector2(0, -0.2f);
         }
-        if(buildingSO.levelResourceType.Length != 0)
+        else
+        {
+            SoundManager.Instance.SFXPlay("isBuilding", _audioClips[2]);
+        }
+        if (buildingSO.levelResourceType.Length != 0)
         {
             if (buildingSO.levelResourceType[0].minion != null)
             {
@@ -202,7 +206,7 @@ public class Building : MonoBehaviour
         _particleList = particle;
         _timerPref = timer;
         _timerBuildingPref = timerObj;
-        audioClips = list;
+        _audioClips = list;
         _upgradeUIGroupCompo = upgradeUi;
     }
 
@@ -215,7 +219,7 @@ public class Building : MonoBehaviour
         BuildingSetUp();
         BuildUISetUp();
         BuildManager.Instance.upgradeUIGroupCompo.SetUpgrade(buildingSO, level);
-        SoundManager.Instance.SFXPlay("Upgrade", audioClips[0]);
+        SoundManager.Instance.SFXPlay("Upgrade", _audioClips[0]);
         Instantiate(_particleList[2], boxCollider.bounds.center, Quaternion.identity, transform);
     }
 

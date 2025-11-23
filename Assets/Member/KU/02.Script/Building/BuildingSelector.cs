@@ -21,6 +21,7 @@ public class BuildingSelector : MonoBehaviour, IPointerClickHandler
     {
         if (buildCompo.isNowBuilding) return;
 
+        SoundManager.Instance.ClickSound_01();
         if (isOpen)
         {
             isOpen = false;
