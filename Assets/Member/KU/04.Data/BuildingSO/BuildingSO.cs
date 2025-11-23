@@ -30,7 +30,6 @@ public class BuildingSO : ScriptableObject
     [Header("필요 자원")]
     public ResourceTypeCost[] resourceTypeCost;
     public ResourceTypeCost[] levelResourceTypeCost;
-
 }
 
 [Serializable]

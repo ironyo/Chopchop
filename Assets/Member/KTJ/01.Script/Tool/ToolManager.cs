@@ -102,24 +102,26 @@ public class ToolManager : MonoBehaviour
 
     private bool CanGiveTool(int index)
     {
-        if (toolInventory[index].count <= 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        //if (toolInventory[index].count <= 0)
+        //{
+        //    return false;
+        //}
+        //else
+        //{
+        //    return true;
+        //}
+
+        return true;
     }
 
     private void ToolCountSpent(int index)
     {
-        ToolSlot toolSlot = toolInventory[index];
-        toolSlot.count--;
-        toolInventory[index] = toolSlot;
-        toolSlotList[index].countText.text = toolSlot.count.ToString();
+        //ToolSlot toolSlot = toolInventory[index];
+        //toolSlot.count--;
+        //toolInventory[index] = toolSlot;
+        //toolSlotList[index].countText.text = toolSlot.count.ToString();
 
-        Debug.Log("현재" + toolSlot.tool.ToolName + " 툴 재고: " + toolSlot.count);
+        //Debug.Log("현재" + toolSlot.tool.ToolName + " 툴 재고: " + toolSlot.count);
     }
 
     private void ToolGive(int index)
