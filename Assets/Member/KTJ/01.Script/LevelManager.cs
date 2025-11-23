@@ -1,3 +1,4 @@
+using Member.CHJ._02.Scripts;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     [SerializeField] private Slider expSlider;
 
     private int _level;
-    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 50); } }
+    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 5); } }
 
     public void IncreseLevel(int amount)
     {
