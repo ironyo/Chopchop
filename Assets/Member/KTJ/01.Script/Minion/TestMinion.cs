@@ -103,6 +103,11 @@ public class TestMinion : MonoBehaviour
         AppleParticels.Play();
 
         SoundManager.Instance.SFXPlay("EatSound",EatSound);
+
+        if (TutorialManager.Instance.GetCurrentStepId() == "prey")
+        {
+            TutorialManager.Instance.CompleteCurrentStepExternally();
+        }
     }
 
     public void EatWater(int amount)

@@ -22,6 +22,11 @@ public class EnemyUnit : MonoBehaviour
         
         _chase = GetComponent<Chase>();
         _combat = GetComponent<Combat>();
+
+        if (EnemyManager.Instance != null)
+        {
+            EnemyManager.Instance.RegisterEnemy(this);
+        }
     }
 
     private void Update()
@@ -92,6 +97,7 @@ public class EnemyUnit : MonoBehaviour
 
     private void Die()
     {
+        EnemyManager.Instance.UnregisterEnemy(this);
         Destroy(gameObject);
     }
 }

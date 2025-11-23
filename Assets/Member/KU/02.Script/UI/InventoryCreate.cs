@@ -23,35 +23,45 @@ public class InventoryCreate : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < _invCount; i++)
+        if (TutorialManager.Instance != null)
         {
             GameObject pref;
-
-            //if (i == 0)
-            //{
-            //    if (pageNum != 0)
-            //    {
-            //        pref = Instantiate(_firstPref, transform.position, Quaternion.identity, transform);
-            //    }
-            //}
-
-            //else if (i == _invCount - 1)
-            //{
-            //    if (pageNum != 1)
-            //    {
-            //        pref = Instantiate(_lastPref, transform.position, Quaternion.identity, transform);
-            //    }
-            //}
-            //else
-            //{
-
-            //}
             pref = Instantiate(_normalPref, transform.position, Quaternion.identity, transform);
             invBoxes.Add(pref.GetComponent<InvBuild>());
             _oneB = pref.GetComponent<Button>();
             _twoB = pref.GetComponent<Button>();
         }
+        else
+        {
+            for (int i = 0; i < _invCount; i++)
+            {
+                GameObject pref;
 
+                //if (i == 0)
+                //{
+                //    if (pageNum != 0)
+                //    {
+                //        pref = Instantiate(_firstPref, transform.position, Quaternion.identity, transform);
+                //    }
+                //}
+
+                //else if (i == _invCount - 1)
+                //{
+                //    if (pageNum != 1)
+                //    {
+                //        pref = Instantiate(_lastPref, transform.position, Quaternion.identity, transform);
+                //    }
+                //}
+                //else
+                //{
+
+                //}
+                pref = Instantiate(_normalPref, transform.position, Quaternion.identity, transform);
+                invBoxes.Add(pref.GetComponent<InvBuild>());
+                _oneB = pref.GetComponent<Button>();
+                _twoB = pref.GetComponent<Button>();
+            }
+        }
     }
     private void Start()
     {
