@@ -29,6 +29,8 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject invenSlotPref;
     [SerializeField] private GameObject toolRemoveBtnPref;
     [SerializeField] private Image handToolImage;
+
+    [SerializeField] private PlayerInput playerInput;
     #endregion
 
     private class UISlot
@@ -52,6 +54,8 @@ public class ToolManager : MonoBehaviour
         {
             Destroy(gameObject); // 중복 방지
         }
+
+        playerInput.OnItemInvenKeyReleased += ToolGive;
     }
 
     private void Init()

@@ -13,6 +13,7 @@ public class PlayerInput : ScriptableObject, IPlayerActions
 
     public event Action<Key> OnKeyPressed;
     public event Action<Key> OnKeyReleased;
+    public event Action<int> OnItemInvenKeyReleased;
     private void OnEnable() 
     {
         if (_controls == null)
@@ -54,4 +55,37 @@ public class PlayerInput : ScriptableObject, IPlayerActions
             }
         }
     }
+    public void OnItemGive(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        // 어떤 키가 눌렸는지 확인
+        string keyName = context.control.name;  // "1", "2", "3"
+
+        int number = -1;
+
+        switch (keyName)
+        {
+            case "1":
+                number = 0;
+                break;
+
+            case "2":
+                number = 1;
+                break;
+
+            case "3":
+                number = 2;
+                break;
+        }
+
+        if (number >= 0)
+        {
+            OnItemInvenKeyReleased?.Invoke(number);
+            Debug.Log("입력된 숫자: " + number);
+        }
+    }
+
+
 }
