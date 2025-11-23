@@ -34,14 +34,14 @@ public class LevelManager : MonoSingleton<LevelManager>
     }
 
 
-    private void Start()
-    {
-        StartCoroutine(AA());
-    }
-    IEnumerator AA()
-    {
-        yield return new WaitForSeconds(0.1f);
-        IncreseLevel(2);
-        StartCoroutine(AA());
-    }
+    //private void Start()
+    //{
+    //    StartCoroutine(AA());
+    //}
+    //IEnumerator AA()
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    IncreseLevel(2);
+    //    StartCoroutine(AA());
+    //}
 }
