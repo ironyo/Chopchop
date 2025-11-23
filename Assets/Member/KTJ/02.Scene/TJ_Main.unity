@@ -15576,6 +15576,7 @@ MonoBehaviour:
   - {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   - {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   - {fileID: 8578243236299453818, guid: 47f4f24fbc5eb1c419050144db9fe523, type: 3}
+  - {fileID: 3057795124728848183, guid: 1c8441aa4e8309049b5144bd864aea85, type: 3}
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
   _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
@@ -30366,7 +30367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fillImage: {fileID: 417168041}
-  holdTime: 2
+  holdTime: 1
 --- !u!1 &1806543275
 GameObject:
   m_ObjectHideFlags: 0
