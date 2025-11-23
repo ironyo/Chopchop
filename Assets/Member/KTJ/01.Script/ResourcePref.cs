@@ -16,10 +16,22 @@ public class ResourcePref : MonoBehaviour
     private Sequence shakeSeq;
     private ResourceTypeSO typeData;
 
+    private Vector2 startPos1;
+    private Vector2 startPos2;
+
+    void Awake()
+    {
+        if (countTxt != null && countTxt_s != null)
+        {
+            startPos1 = countTxt.rectTransform.anchoredPosition;
+            startPos2 = countTxt_s.rectTransform.anchoredPosition;
+        }
+    }
+
     public void Set(int count, Sprite icon, ResourceTypeSO type)
     {
-        countTxt.text = count.ToString() + " :";
-        countTxt_s.text = count.ToString() + " :";
+        countTxt.text = count + " :";
+        countTxt_s.text = count + " :";
         this.icon.sprite = icon;
         this.icon_s.sprite = icon;
         typeData = type;
@@ -27,20 +39,17 @@ public class ResourcePref : MonoBehaviour
 
     public void UpdateCount(int count)
     {
-        countTxt.text = count.ToString() + " :";
-        countTxt_s.text = count.ToString() + " :";
+        countTxt.text = count + " :";
+        countTxt_s.text = count + " :";
     }
 
-    public void UpdateResource(ResourceTypeSO  type)
+    public void UpdateResource(ResourceTypeSO type)
     {
         if (type != typeData) return;
         shakeSeq?.Kill();
 
         var rt1 = countTxt.rectTransform;
         var rt2 = countTxt_s.rectTransform;
-
-        Vector2 startPos1 = rt1.anchoredPosition;
-        Vector2 startPos2 = rt2.anchoredPosition;
 
         shakeSeq = DOTween.Sequence();
 

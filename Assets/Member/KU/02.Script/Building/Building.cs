@@ -85,7 +85,6 @@ public class Building : MonoBehaviour
             gameObject.tag = "HQ"; MinionManager.Instance.MinionsBuildingManager.AddBuilding(this);
         BuildingSetUp();
 
-
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
         _minionText = GetComponentInChildren<TextMeshPro>();
@@ -125,6 +124,11 @@ public class Building : MonoBehaviour
             {
                 boxCollider.offset += new Vector2(0, 0.05f);
             }
+        }
+
+        if (buildingSO.particleSystem != null)
+        { 
+            Instantiate(buildingSO.particleSystem, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y+0.6f), Quaternion.identity, transform); 
         }
     }
 

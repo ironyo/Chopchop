@@ -15668,10 +15668,14 @@ MonoBehaviour:
   _audioClips:
   - {fileID: 8300000, guid: 60df8b82a040b6349b26bae301e60bc3, type: 3}
   - {fileID: 8300000, guid: 90ad6c74d96d14d4da1dec3c870aaf1a, type: 3}
+  - {fileID: 8300000, guid: 19adbf630ee29c14895737de5bc41d90, type: 3}
   _particleSystemList:
   - {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
   - {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   - {fileID: 8578243236299453818, guid: 47f4f24fbc5eb1c419050144db9fe523, type: 3}
+  - {fileID: 8489707211035243181, guid: a89421c435feecb4f8092f65a56c3dab, type: 3}
+  - {fileID: 5799577008512816722, guid: f481be629ec3b5a4ca94447634b1f2dd, type: 3}
+  - {fileID: 3301640221903738673, guid: 81a2164ed5a0b1943903c5ecffa4d01f, type: 3}
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
   _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
@@ -31949,7 +31953,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1a00ec896d6b5a4da2445fc4556ae9b, type: 2}
   - {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
   - {fileID: 11400000, guid: cd80db1a7a4fabd46ab6671aeb18a34d, type: 2}
-  - {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
   - {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
   - {fileID: 11400000, guid: 3aef583cde101a04cbe540a195b88514, type: 2}
 --- !u!114 &1849345731
