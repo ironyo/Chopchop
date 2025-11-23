@@ -71,7 +71,6 @@ public class TestMinion : MonoBehaviour
         MinionManager.Instance.minionList.Remove(gameObject.GetComponent<Minion>());
         StartCoroutine(WaitDestroy(1));
     }
-
     public void Bomb()
     {
         minionChat.AddMessage("너무 숨막혀.. 터진다!");
