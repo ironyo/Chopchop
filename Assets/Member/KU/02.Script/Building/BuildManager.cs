@@ -46,6 +46,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private RectTransform _uiRectTransform;
     [SerializeField] private TextMeshProUGUI _buildNameTex;
     [SerializeField] private TextMeshProUGUI _buildHPTex;
+    [field:SerializeField] public UpgradeUIGroup upgradeUIGroupCompo { get; private set; }
     [SerializeField] private TextMeshProUGUI _levelTex;
     [SerializeField] private TextMeshProUGUI _spawnKindTex;
     [SerializeField] private TextMeshProUGUI _upgradeCcostTex;
@@ -229,7 +230,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
 
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
@@ -240,7 +241,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         HealthSystem hs = par.AddComponent<HealthSystem>();
 
         // 2) 체력 초기화
-        hs.SetHealth(100);
+        hs.SetHealth(building.buildingSO.MaxHealth[0]);
 
         // 3) HealthBar 프리팹을 빌딩 아래에 생성
         float yIf = width / maxW % 2 == 1 ? 0.5f : 0;
@@ -429,9 +430,9 @@ public class BuildManager : MonoSingleton<BuildManager>
         _time += Time.deltaTime * _moveSpeed;
         _uiRectTransform.anchoredPosition = Vector3.Lerp(_uiRectTransform.anchoredPosition, _targetPos, _time);
     }
-    private void BuildTextSet()
+    public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
+        if (buildingParent.Count != 0 && !isDestroing)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -443,14 +444,18 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
                     ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
-                    _spawnKindTex.text += buildingParent[selectCount].buildingSO.levelResourceType.Length == 0 ? "생성안함" : type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
                 {
                     _spawnKindTex.text += "미니언";
                 }
             }
-            if (buildingParent[selectCount].NowLevel != 3)
+            else
+            {
+                _spawnKindTex.text += "생성안함";
+            }
+            if (buildingParent[selectCount].NowLevel != buildingParent[selectCount].buildingSO.maxLevel)
             {
                 ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
                 _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
@@ -476,6 +481,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if (typeData < costSO.amount)
                 {
                     NotifictionManager.Instance.NotifictionEvent.Invoke("업그레이드불가", "자원이 부족합니다!");
+                    isDestroing = false;
                     return;
                 }
                 else
