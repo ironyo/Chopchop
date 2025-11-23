@@ -29,8 +29,8 @@ public class Building : MonoBehaviour
 
     public BuildingSO buildingSO;
     public BuildingSelector buildingSelector { get; private set; }
-    ParticleSystem _minionSpawnParticle;
-    ParticleSystem _minionBuildParticle;
+    List<ParticleSystem> _particleList;
+
     TextMeshPro _logPrefab;
     Image _timerPref;
     TextMeshPro _minionText;
@@ -155,7 +155,7 @@ public class Building : MonoBehaviour
             if (buildingSO.levelResourceType[level - 1].minion != null)
             {
                 spawnCurrentTime = 0;
-                Instantiate(_minionSpawnParticle, transform.position, Quaternion.identity);
+                Instantiate(_particleList[0], transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
             }
@@ -174,7 +174,7 @@ public class Building : MonoBehaviour
         {
             if (buildingSO.levelResourceType[0].minion != null)
             {
-                GameObject particle = Instantiate(_minionBuildParticle, transform.position, Quaternion.identity, transform).gameObject;
+                GameObject particle = Instantiate(_particleList[1], transform.position, Quaternion.identity, transform).gameObject;
                 particle.transform.position += new Vector3(-0.5f, 1.1f);
             }
         }
@@ -195,12 +195,11 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, List<ParticleSystem> particle, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
-        _minionSpawnParticle = spawn;
-        _minionBuildParticle = build;
+        _particleList = particle;
         _timerPref = timer;
         _timerBuildingPref = timerObj;
         audioClips = list;
@@ -217,6 +216,7 @@ public class Building : MonoBehaviour
         BuildUISetUp();
         BuildManager.Instance.upgradeUIGroupCompo.SetUpgrade(buildingSO, level);
         SoundManager.Instance.SFXPlay("Upgrade", audioClips[0]);
+        Instantiate(_particleList[2], boxCollider.bounds.center, Quaternion.identity, transform);
     }
 
     private void SetAColor(float amount)

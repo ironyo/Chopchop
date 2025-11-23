@@ -15647,10 +15647,12 @@ MonoBehaviour:
   _audioClips:
   - {fileID: 8300000, guid: 60df8b82a040b6349b26bae301e60bc3, type: 3}
   - {fileID: 8300000, guid: 90ad6c74d96d14d4da1dec3c870aaf1a, type: 3}
+  _particleSystemList:
+  - {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
+  - {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
+  - {fileID: 8578243236299453818, guid: 47f4f24fbc5eb1c419050144db9fe523, type: 3}
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
-  _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
-  _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
