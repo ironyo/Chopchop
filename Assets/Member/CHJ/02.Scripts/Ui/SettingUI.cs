@@ -12,8 +12,8 @@ public class SettingUI : MonoBehaviour
         _sequence = DOTween.Sequence();
         _sequence.SetUpdate(true);
         _sequence.Append(transform.DOScale(1, 0.5f).SetEase(Ease.InOutElastic));
+        Debug.Log(gameObject);
         _sequence.onComplete += () => Time.timeScale = 0;
-        _sequence.Play();
     }
     public void Close()
     {

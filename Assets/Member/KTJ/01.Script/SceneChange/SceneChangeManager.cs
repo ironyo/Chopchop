@@ -19,7 +19,7 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
         base.Awake();
         seq = DOTween.Sequence();
 
-        // ¾À ·Îµå ÀÌº¥Æ® µî·Ï
+        // ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         currentTip = RandomTip[Random.Range(0, RandomTip.Length)];
@@ -27,7 +27,7 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
 
     private void OnDestroy()
     {
-        // ¸Þ¸ð¸® ´©¼ö ¹æÁö¸¦ À§ÇØ ÀÌº¥Æ® ÇØÁ¦
+        // ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -41,20 +41,16 @@ public class SceneChangeManager : MonoSingleton<SceneChangeManager>
         }
     }
 
-    private void Update()
+    public void ExitStartScene()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             if (isSceneMoving == false)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
                     OnSceneEnd(1);
-                }
             }
         }
     }
-
     public void OnSceneStart()
     {
         isSceneMoving = true;
