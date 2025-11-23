@@ -126,6 +126,6 @@ public class DayCycleManager : MonoBehaviour
     
     private bool IsDayTime()
     {
-        return hours >= 7 && hours < 19;
+        return hours >= 19 || hours < 23;
     }
 }
