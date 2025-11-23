@@ -432,7 +432,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing)
+        if (buildingParent.Count != 0 && !isDestroing )
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -443,7 +443,10 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
+                    BuildingSO buildingSO = buildingParent[selectCount].buildingSO;
+                    LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
+                    ResourceTypeCost type = cost.resourceTypeSOs[0];
+
                     _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
