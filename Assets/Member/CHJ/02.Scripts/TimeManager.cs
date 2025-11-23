@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TimeManager : MonoBehaviour
     [field: SerializeField]public int CurrentTime { get; private set; }
     public int Day { get; private set; }
     public event Action OnDayStarted;
+    public UnityEvent OnDayEnded; // 보고 시스템 용도
     public Action<int> OnOneSecond;
     private const float Tick = 1;
     private WaitForSeconds _waitT = new WaitForSeconds(Tick);
@@ -38,6 +40,11 @@ public class TimeManager : MonoBehaviour
                 Day++;
                 CurrentTime = 0;
                 OnDayStarted?.Invoke();
+
+                if (Day == 2)
+                {
+                    OnDayEnded?.Invoke();
+                }
             }
         }
     }
