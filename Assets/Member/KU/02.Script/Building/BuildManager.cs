@@ -20,11 +20,11 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private UnityEvent BuildingClear;
 
     [SerializeField] List<AudioClip> _audioClips = new();
+    [SerializeField] private List<ParticleSystem> _particleSystemList;
 
     public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
-    [SerializeField] private ParticleSystem _minionSpawnParticle;
-    [SerializeField] private ParticleSystem _minionBuildParticle;
+
     [SerializeField] private Image _timerPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
@@ -230,7 +230,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _particleSystemList, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
 
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
