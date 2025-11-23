@@ -510,6 +510,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             }
         }
         buildingCount--;
+        Instantiate(_particleSystemList[4], build.boxCollider.bounds.center, Quaternion.identity);
         selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
         Destroy(build.gameObject);
         buildingParent.Remove(buildingParent[selectCount]);

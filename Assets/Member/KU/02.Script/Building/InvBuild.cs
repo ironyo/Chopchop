@@ -10,11 +10,13 @@ public class InvBuild : MonoBehaviour
     [SerializeField] TextMeshProUGUI tex;
     [SerializeField] Image visual;
     Button _button;
-    private BuildManager _buildManager;
+
+    private UseToolTip _toolTip;
     
     private void Awake()
     {
         _button = GetComponent<Button>();
+        _toolTip = GetComponent<UseToolTip>();
     }
     private void Start()
     {
@@ -28,6 +30,7 @@ public class InvBuild : MonoBehaviour
             _button.onClick.AddListener(() => { ResourceUIManager.Instance.ChooseButton(); });
             tex.text = BuildingSO.buildName;
         }
+        _toolTip.tip = BuildingSO.explaneStr;
     }
 
     public void Building()
