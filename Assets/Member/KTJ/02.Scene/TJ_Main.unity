@@ -35206,7 +35206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalLight: {fileID: 506369292}
   postProcessVolume: {fileID: 1500537948}
-  transitionDuration: 20
+  transitionDuration: 5
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   nightColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
   dayVignetteIntensity: 0.2
