@@ -22,7 +22,10 @@ MonoBehaviour:
   maxW: 4
   maxMinion: 0000000000000000000000000000000000000000
   buildTime: 0
-  levelResourceType: []
+  levelResourceType:
+  - resourceTypeSOs: []
+    minion: {fileID: 0}
+    level: 0
   spawnTime: 0
   resourceTypeCost: []
   levelResourceTypeCost:
