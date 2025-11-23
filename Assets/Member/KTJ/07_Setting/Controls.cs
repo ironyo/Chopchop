@@ -118,6 +118,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ItemGive"",
+                    ""type"": ""Button"",
+                    ""id"": ""407d6614-439e-4aa2-b07b-0e31c5756787"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -197,6 +206,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""KeyboardEtc"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b89fea8-f75b-452e-ad45-fbd9d4bf2459"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemGive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""845d2578-fc65-4252-abd8-00716eb2d3c0"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemGive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e414c279-c9d4-4bc7-a31d-d16c8192351b"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ItemGive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +250,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_KeyboardEtc = m_Player.FindAction("KeyboardEtc", throwIfNotFound: true);
+        m_Player_ItemGive = m_Player.FindAction("ItemGive", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -291,6 +334,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_KeyboardEtc;
+    private readonly InputAction m_Player_ItemGive;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -314,6 +358,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/KeyboardEtc".
         /// </summary>
         public InputAction @KeyboardEtc => m_Wrapper.m_Player_KeyboardEtc;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ItemGive".
+        /// </summary>
+        public InputAction @ItemGive => m_Wrapper.m_Player_ItemGive;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -349,6 +397,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @KeyboardEtc.started += instance.OnKeyboardEtc;
             @KeyboardEtc.performed += instance.OnKeyboardEtc;
             @KeyboardEtc.canceled += instance.OnKeyboardEtc;
+            @ItemGive.started += instance.OnItemGive;
+            @ItemGive.performed += instance.OnItemGive;
+            @ItemGive.canceled += instance.OnItemGive;
         }
 
         /// <summary>
@@ -369,6 +420,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @KeyboardEtc.started -= instance.OnKeyboardEtc;
             @KeyboardEtc.performed -= instance.OnKeyboardEtc;
             @KeyboardEtc.canceled -= instance.OnKeyboardEtc;
+            @ItemGive.started -= instance.OnItemGive;
+            @ItemGive.performed -= instance.OnItemGive;
+            @ItemGive.canceled -= instance.OnItemGive;
         }
 
         /// <summary>
@@ -430,5 +484,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnKeyboardEtc(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ItemGive" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnItemGive(InputAction.CallbackContext context);
     }
 }

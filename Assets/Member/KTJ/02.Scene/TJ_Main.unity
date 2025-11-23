@@ -35379,6 +35379,7 @@ MonoBehaviour:
   invenSlotPref: {fileID: 7031386285622990839, guid: 9b9a982d49b8c7246adedead0cecee49, type: 3}
   toolRemoveBtnPref: {fileID: 5913848811946869594, guid: f3fd8896a79441041927033d98758fae, type: 3}
   handToolImage: {fileID: 1653238836}
+  playerInput: {fileID: 11400000, guid: b2b060de5ae9bca4fa62e0b609287822, type: 2}
 --- !u!1 &2063046934
 GameObject:
   m_ObjectHideFlags: 0
