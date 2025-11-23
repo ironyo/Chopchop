@@ -22,7 +22,7 @@ public class SetName : MonoBehaviour
 
     private void Awake()
     {
-        //SceneChangeManager.Instance?.OnSceneChangeLoaded.AddListener(OnSceneChangeLoaded);
+        SceneChangeManager.Instance?.OnSceneChangeLoaded.AddListener(OnSceneChangeLoaded);
     }
 
     public void OnSceneChangeLoaded()
