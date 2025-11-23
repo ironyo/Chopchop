@@ -75,7 +75,6 @@ public class MinionCounterSystem : MonoBehaviour
     {
         float targetZ = isIncrease ? 160f : 200f;
 
-        // 기존 Sequence Kill
         if (rotateSequence != null && rotateSequence.IsActive())
             rotateSequence.Kill();
 
