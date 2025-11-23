@@ -31,12 +31,12 @@ MonoBehaviour:
     level: 0
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-      amount: 3
+      amount: 1
     minion: {fileID: 0}
     level: 0
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-      amount: 5
+      amount: 1
     minion: {fileID: 0}
     level: 0
   spawnTime: 1
