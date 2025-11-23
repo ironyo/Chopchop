@@ -19,9 +19,15 @@ public class PlayerUnit : MonoBehaviour
     {
         HealthCompo = GetComponent<HealthSystem>();
         HealthCompo.OnDead += Die;
+        HealthCompo.OnDead += HitEffect;
         
         _chase = GetComponent<Chase>();
         _combat = GetComponent<Combat>();
+    }
+
+    private void HitEffect()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     private void Update()
@@ -38,11 +44,6 @@ public class PlayerUnit : MonoBehaviour
             
                 MoveToTarget();
             }
-        }
-
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            HealthCompo.GetDamage(10);
         }
     }
 
