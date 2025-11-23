@@ -293,7 +293,6 @@ public class BuildManager : MonoSingleton<BuildManager>
 
 
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
 
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
