@@ -57,8 +57,13 @@ public class ToolShop : UIBase
         List<Tool> tools = ToolManager.Instance.MainTools;
         if (tools[idx].ToolLevel == 3) return;
 
-        if (ResourceManager.Instance.UseResource(resourceType, tools[idx].ToolSO.Price[tools[idx].ToolLevel - 1]) == false) return;
-        else NotifictionManager.Instance.NotifictionEvent.Invoke("목재부족", "아이템 업그레이드 실패");
+        if (ResourceManager.Instance.UseResource(resourceType, tools[idx].ToolSO.Price[tools[idx].ToolLevel - 1]) == false)
+        {
+            NotifictionManager.Instance.NotifictionEvent.Invoke("목재부족", "아이템 업그레이드 실패");
+            return;
+        }
+
+        NotifictionManager.Instance.NotifictionEvent.Invoke("아이템 업글성공", "아이템을 확인해보세요!");
 
         Debug.Log(idx);
         tools[idx].UpgradeLevel();
@@ -111,13 +116,11 @@ public class ToolShop : UIBase
             ToolManager.Instance.SetToolInven();
         });
 
-
         seq.Append(WhiteBg.DOFade(0f, 3f));
         seq.Join(mainCard.WhiteBg.DOFade(0f, 2f));
 
         seq.Join(RotateEffect.gameObject.transform.DORotate(new Vector3(0, 0, 360), 3f, RotateMode.FastBeyond360));
         seq.Join(RotateEffect.DOFade(0, 3f));
-
 
         seq.OnComplete(() =>
         {
