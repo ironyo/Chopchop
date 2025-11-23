@@ -443,7 +443,10 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
+                    BuildingSO buildingSO = buildingParent[selectCount].buildingSO;
+                    LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
+                    ResourceTypeCost type = cost.resourceTypeSOs[0];
+
                     _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
