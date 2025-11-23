@@ -20,14 +20,21 @@ public class UpgradeUIGroup : MonoBehaviour
         {
             var levelTile = Instantiate(levelTilePref, transform);
             levelTileList.Add(levelTile);
-            levelTile.rectTransform.sizeDelta = new Vector2(-15 * buildData.maxLevel + 125 , levelTile.rectTransform.sizeDelta.y);
-            if(i < level)
+            if (buildData.maxLevel == 3)
             {
-                levelTileList[i].color = Color.green;
+                levelTile.rectTransform.sizeDelta = new Vector2(100, levelTile.rectTransform.sizeDelta.y);
             }
             else
             {
-                levelTileList[i].color = Color.white;
+                levelTile.rectTransform.sizeDelta = new Vector2(-15 * buildData.maxLevel + 125, levelTile.rectTransform.sizeDelta.y);
+            }
+            if (i < level)
+            {
+                levelTileList[i].color = new Color(129f / 255f, 229f / 255f, 140f / 255f);
+            }
+            else
+            {
+                levelTileList[i].color = Color.gray;
             }
         }
     }
@@ -38,11 +45,11 @@ public class UpgradeUIGroup : MonoBehaviour
         {
             if (i < level)
             {
-                levelTileList[i].color = Color.green;
+                levelTileList[i].color = new Color(129f / 255f, 229f / 255f, 140f / 255f);
             }
             else
             {
-                levelTileList[i].color = Color.white;
+                levelTileList[i].color = Color.gray;
             }
         }
     }
