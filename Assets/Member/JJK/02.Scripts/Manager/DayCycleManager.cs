@@ -123,7 +123,7 @@ public class DayCycleManager : MonoBehaviour
             }
         }
     }
-    
+
     private bool IsDayTime()
     {
         return hours >= 19 || hours < 23;
