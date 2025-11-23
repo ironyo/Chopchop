@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class UseToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [TextArea]
-    [SerializeField] private string tip;
+    public string tip;
     
     public void OnPointerEnter(PointerEventData eventData)
     {
