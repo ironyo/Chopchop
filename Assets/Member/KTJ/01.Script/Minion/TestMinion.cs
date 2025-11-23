@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestMinion : MonoBehaviour
 {
@@ -104,9 +105,12 @@ public class TestMinion : MonoBehaviour
 
         SoundManager.Instance.SFXPlay("EatSound",EatSound);
 
-        if (TutorialManager.Instance.GetCurrentStepId() == "prey")
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            TutorialManager.Instance.CompleteCurrentStepExternally();
+            if (TutorialManager.Instance.GetCurrentStepId() == "prey")
+            {
+                TutorialManager.Instance.CompleteCurrentStepExternally();
+            }
         }
     }
 
