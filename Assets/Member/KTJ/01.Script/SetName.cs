@@ -16,6 +16,8 @@ public class SetName : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NameTxt;
     [SerializeField] private Image Background;
 
+    private bool isSceneLoaded = false;
+
     //[Header("Events")]
     //[SerializeField] private UnityEvent<string> SetNameEvent;
     //[SerializeField] private UnityEvent StartGameEvent;
@@ -27,10 +29,13 @@ public class SetName : MonoBehaviour
 
     public void OnSceneChangeLoaded()
     {
+        isSceneLoaded = true;
         Time.timeScale = 0;
     }
     public void SetBtn()
     {
+        if (isSceneLoaded == false) return;
+        if (RealNameTxt.text == "") return;
         //SetNameEvent.Invoke(NameTxt.text);
         NameSettingObj.SetActive(false);
         RealNameTxt.text = NameTxt.text;
