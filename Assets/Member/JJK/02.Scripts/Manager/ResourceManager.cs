@@ -14,15 +14,19 @@ public class ResourceManager : MonoSingleton<ResourceManager>
     [SerializeField] private GameObject resourcePref;
     [SerializeField] private RectTransform prefSpawnPos;
 
+    private ResourcePref _resourceCompo;
+    private List<ResourcePref> _resourceList = new();
+
     protected override void Awake()
     {
         base.Awake();
         
         foreach (ResourceTypeSO resource in _resourceTypeListSO.list)
         {
-            ResourcePref clonedPref = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
-            clonedPref.Set(resource.StartCount, resource.Icon);
-            resourceAmountDictionary.Add(resource, (100, clonedPref));
+            _resourceCompo = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
+            _resourceCompo.Set(resource.StartCount, resource.Icon, resource);
+            resourceAmountDictionary.Add(resource, (100, _resourceCompo));
+            _resourceList.Add(_resourceCompo);
 
             AddResource(resource, resource.StartCount); // ó�� �⺻�ڿ�
         }
@@ -42,6 +46,7 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         current.Item1 += amount;
         resourceAmountDictionary[resourceType] = current;
         TestLog();
+        ResourcePrefUpdateResource(resourceType);
     }
     
     public bool UseResource(ResourceTypeSO resourceType ,int amount)
@@ -52,6 +57,7 @@ public class ResourceManager : MonoSingleton<ResourceManager>
             current.Item1 -= amount;
             resourceAmountDictionary[resourceType] = current; TestLog();
 
+            ResourcePrefUpdateResource(resourceType);
             return true;
         }
         else if (resourceAmountDictionary[resourceType].Item1 < amount)
@@ -60,6 +66,14 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         }
 
         return false;
+    }
+
+    public void ResourcePrefUpdateResource(ResourceTypeSO type)
+    {
+        foreach (var item in _resourceList)
+        {
+            item.UpdateResource(type);
+        }
     }
 
     //private void ToText()

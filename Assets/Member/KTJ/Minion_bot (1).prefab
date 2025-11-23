@@ -14761,6 +14761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a613abf898582942ba20857d4175f45, type: 2}
+  weaponSprite: {fileID: 0}
 --- !u!114 &1607136539796839388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15113,12 +15114,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3544059467012289260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.937, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 3246093516547021079}
+  m_Father: {fileID: 2033051541875329131}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1629875876016819348
 SpriteRenderer:
@@ -20662,6 +20663,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 284770173305489323}
+  - {fileID: 3848425101225759400}
   m_Father: {fileID: 3246093516547021079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1513304839453076005
@@ -20795,7 +20797,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2033051541875329131}
-  - {fileID: 3848425101225759400}
   m_Father: {fileID: 4572604396890466684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7402021468030455607

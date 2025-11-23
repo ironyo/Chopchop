@@ -17,16 +17,6 @@ public class BuildingSelector : MonoBehaviour, IPointerClickHandler
         buildCompo = GetComponent<Building>();
     }
 
-    private void Update()
-    {
-        if (!buildCompo.isNowBuilding)
-        {
-            if (Mouse.current.leftButton.wasPressedThisFrame && InventoryManager.Instance.IsNowClose && !EventSystem.current.IsPointerOverGameObject())
-            {
-               
-            }
-        }
-    }
     public void OpenCloseUI()
     {
         if (buildCompo.isNowBuilding) return;
@@ -41,17 +31,14 @@ public class BuildingSelector : MonoBehaviour, IPointerClickHandler
         {
             BuildManager.Instance.CloseAllBuildUI(buildCompo);
             buildCompo.spr.sprite = buildCompo.buildingSO.buildSelcetSprite;
+            BuildManager.Instance.upgradeUIGroupCompo.UpgradeLevelTileSpawn(buildCompo.buildingSO, buildCompo.level);
             BuildManager.Instance.cameraSystem.FocusOnBuilding(gameObject);
+            BuildManager.Instance.GetSelectData(buildCompo.buildCount, buildCompo.level);
         }
-        int count = buildCompo.buildCount;
-        BuildManager.Instance.GetSelectData(count, buildCompo.level);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("sddssdds");
-
-
         if (!buildCompo.isNowBuilding)
         {
             if (InventoryManager.Instance.IsNowClose)
