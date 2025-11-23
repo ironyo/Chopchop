@@ -1939,6 +1939,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180331026}
   m_CullTransparentMesh: 1
+--- !u!1001 &198360228
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1982349109}
+    m_Modifications:
+    - target: {fileID: 8664662990272150659, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_Name
+      value: DayNightIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 508
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+--- !u!224 &198360229 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8675373355098824513, guid: 79256969c2162ec4990a8ca4db06266e, type: 3}
+  m_PrefabInstance: {fileID: 198360228}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212485368
 GameObject:
   m_ObjectHideFlags: 0
@@ -8033,6 +8135,7 @@ MonoBehaviour:
   WhiteBg: {fileID: 372263989}
   purchaseParticle: {fileID: 731228676}
   RotateEffect: {fileID: 86803109}
+  resourceType: {fileID: 0}
 --- !u!1 &580448152
 GameObject:
   m_ObjectHideFlags: 0
@@ -15067,15 +15170,16 @@ MonoBehaviour:
   BuildingClear:
     m_PersistentCalls:
       m_Calls: []
+  _audioClips: []
+  _particleSystemList: []
   cameraSystem: {fileID: 0}
   _tilemapCollider: {fileID: 229691195}
-  _minionSpawnParticle: {fileID: 4453755553591644874, guid: ec42f2d51992f424b839e067ed3bbdae, type: 3}
-  _minionBuildParticle: {fileID: 5826972310855516631, guid: ef8a3b02068784c46a5bcad0e0187919, type: 3}
   _timerPref: {fileID: 0}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
   <buildSpritePref>k__BackingField: {fileID: 734453638338503675, guid: 0cd08e6fd67436f4e9e2dce5ac9ba32a, type: 3}
+  <buildTimePref>k__BackingField: {fileID: 0}
   _helpUI: {fileID: 992393149}
   _buildingUI: {fileID: 4529460439877213536, guid: bbd78c4eeb78ec34ca70b2eeab3f6022, type: 3}
   _buildingCanvus: {fileID: 733236812}
@@ -15086,6 +15190,7 @@ MonoBehaviour:
   _uiRectTransform: {fileID: 486208245}
   _buildNameTex: {fileID: 530627854}
   _buildHPTex: {fileID: 1159953485}
+  <upgradeUIGroupCompo>k__BackingField: {fileID: 0}
   _levelTex: {fileID: 1354722999}
   _spawnKindTex: {fileID: 869642151}
   _upgradeCcostTex: {fileID: 1416998231}
@@ -18411,6 +18516,9 @@ MonoBehaviour:
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
   schoolSo: {fileID: 0}
+  hungryTxt: {fileID: 0}
+  thirstyTxt: {fileID: 0}
+  dirtyTxt: {fileID: 0}
 --- !u!1 &984809311
 GameObject:
   m_ObjectHideFlags: 0
@@ -25692,6 +25800,8 @@ MonoBehaviour:
   countTxt_s: {fileID: 0}
   icon: {fileID: 0}
   icon_s: {fileID: 0}
+  shakeValue: 10
+  shakeTime: 0.1
 --- !u!1 &1490531786
 GameObject:
   m_ObjectHideFlags: 0
@@ -32733,6 +32843,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 198360229}
   - {fileID: 8381561934447771502}
   - {fileID: 422659271}
   - {fileID: 1461202839}
@@ -33620,7 +33731,6 @@ MonoBehaviour:
   globalLight: {fileID: 506369292}
   postProcessVolume: {fileID: 1500537948}
   transitionDuration: 20
-  holdDuration: 5
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   nightColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
   dayVignetteIntensity: 0.2
