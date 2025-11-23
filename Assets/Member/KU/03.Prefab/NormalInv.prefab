@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3035342767037611802}
   - component: {fileID: 6748477825314767372}
   - component: {fileID: 3210317057091693794}
+  - component: {fileID: 7720703580927930768}
   m_Layer: 5
   m_Name: NormalInv
   m_TagString: Untagged
@@ -138,6 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tex: {fileID: 7745747352763333420}
   visual: {fileID: 0}
+--- !u!114 &7720703580927930768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506643059652025009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ca1f8d1839e844f8998766a2260695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tip: "\uAC74\uBB3C\uC124\uBA85"
 --- !u!1 &1760258640981148054
 GameObject:
   m_ObjectHideFlags: 0
