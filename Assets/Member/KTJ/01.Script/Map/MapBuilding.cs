@@ -71,6 +71,15 @@ public class MapBuilding : UIBase
 
     public void SetTile()
     {
+        if (TutorialManager.Instance != null)
+        {
+            if (TutorialManager.Instance.GetCurrentStepId() != "mapBuilding") return;
+            else
+            {
+                TutorialManager.Instance.CompleteCurrentStepExternally();
+                InvasionManager.Instance.Invasion();
+            }
+        }
 
         if (ResourceManager.Instance.UseResource(useResource, currentTileCost) == false)
         {

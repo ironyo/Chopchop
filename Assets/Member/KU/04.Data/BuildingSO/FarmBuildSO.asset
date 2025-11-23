@@ -22,7 +22,7 @@ MonoBehaviour:
   width: 9
   maxW: 3
   maxMinion: 010000000300000005000000
-  buildTime: 3
+  buildTime: 2
   levelResourceType:
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
@@ -31,12 +31,12 @@ MonoBehaviour:
     level: 1
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
-      amount: 3
+      amount: 1
     minion: {fileID: 0}
     level: 2
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 3cd6aa3a6384c7f4d8564539e2cfc309, type: 2}
-      amount: 5
+      amount: 1
     minion: {fileID: 0}
     level: 3
   spawnTime: 1
