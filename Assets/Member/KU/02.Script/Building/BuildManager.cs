@@ -431,7 +431,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing )
+        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
