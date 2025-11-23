@@ -19,8 +19,10 @@ public class Building : MonoBehaviour
     private int maxHealth = 0;
     public int maxMinion { get; private set; } = 0;
 
+    private UpgradeUIGroup _upgradeUIGroupCompo;
     public BoxCollider2D boxCollider { get; private set; }
     private LineRenderer lineRenderer;
+    private HealthSystem _healthCompo;
 
     public SpriteRenderer spr { get; set; }
     GameObject _timerBuildingPref;
@@ -87,6 +89,7 @@ public class Building : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         lineRenderer = GetComponent<LineRenderer>();
         _minionText = GetComponentInChildren<TextMeshPro>();
+        _healthCompo = GetComponent<HealthSystem>();
 
         buildingSelector = GetComponent<BuildingSelector>();
         int wSize = Mathf.RoundToInt(buildingSO.width / buildingSO.maxW);
@@ -112,9 +115,12 @@ public class Building : MonoBehaviour
         {
             boxCollider.offset += new Vector2(0, -0.2f);
         }
-        if (buildingSO.levelResourceType[0].minion != null)
+        if(buildingSO.levelResourceType.Length != 0)
         {
-            boxCollider.offset += new Vector2(0, 0.05f);
+            if (buildingSO.levelResourceType[0].minion != null)
+            {
+                boxCollider.offset += new Vector2(0, 0.05f);
+            }
         }
     }
 
@@ -152,7 +158,6 @@ public class Building : MonoBehaviour
                 Instantiate(_minionSpawnParticle, transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
-
             }
             else
             {
@@ -190,7 +195,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj, List<AudioClip> list)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, ParticleSystem spawn, ParticleSystem build, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
@@ -199,6 +204,7 @@ public class Building : MonoBehaviour
         _timerPref = timer;
         _timerBuildingPref = timerObj;
         audioClips = list;
+        _upgradeUIGroupCompo = upgradeUi;
     }
 
     public void BuildUpgrade()
@@ -206,8 +212,10 @@ public class Building : MonoBehaviour
         if (isNowBuilding) return;
 
         NowLevel++;
+        _healthCompo.SetHealth(buildingSO.MaxHealth[level-1]);
         BuildingSetUp();
         BuildUISetUp();
+        BuildManager.Instance.upgradeUIGroupCompo.SetUpgrade(buildingSO, level);
         SoundManager.Instance.SFXPlay("Upgrade", audioClips[0]);
     }
 
@@ -274,7 +282,7 @@ public class Building : MonoBehaviour
         minionCount = 0;
         showMinion = 0;
     }
-    private void BuildingSetUp()
+    public void BuildingSetUp()
     {
         maxHealth = buildingSO.MaxHealth[level-1];
         maxMinion = buildingSO.maxMinion[level-1];
