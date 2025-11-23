@@ -20,11 +20,11 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private UnityEvent BuildingClear;
 
     [SerializeField] List<AudioClip> _audioClips = new();
+    [SerializeField] private List<ParticleSystem> _particleSystemList;
 
     public CameraSystem cameraSystem;
     [SerializeField] TilemapCollider2D _tilemapCollider;
-    [SerializeField] private ParticleSystem _minionSpawnParticle;
-    [SerializeField] private ParticleSystem _minionBuildParticle;
+
     [SerializeField] private Image _timerPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
@@ -230,7 +230,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _minionSpawnParticle, _minionBuildParticle, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _particleSystemList, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
 
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
@@ -293,7 +293,6 @@ public class BuildManager : MonoSingleton<BuildManager>
 
 
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
-        ui.GetComponentInChildren<TextMeshPro>().text = $"{buildingSO.buildName}\n{buildingParent[buildingParent.Count - 1].showMinion} / {buildingSO.maxMinion[0]}";
 
         ui.transform.position = new Vector3(transform.position.x + xIf,
             transform.position.y + width/maxW * 0.5f + yIf, 0);
@@ -432,7 +431,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing)
+        if (buildingParent.Count != 0 && !isDestroing )
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -443,7 +442,10 @@ public class BuildManager : MonoSingleton<BuildManager>
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
                 {
-                    ResourceTypeCost type = buildingParent[selectCount].buildingSO.levelResourceType[buildingParent[selectCount].level - 1].resourceTypeSOs[0];
+                    BuildingSO buildingSO = buildingParent[selectCount].buildingSO;
+                    LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
+                    ResourceTypeCost type = cost.resourceTypeSOs[0];
+
                     _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
                 }
                 else
