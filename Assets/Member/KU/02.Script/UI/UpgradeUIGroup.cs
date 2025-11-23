@@ -28,6 +28,7 @@ public class UpgradeUIGroup : MonoBehaviour
             {
                 levelTile.rectTransform.sizeDelta = new Vector2(-15 * buildData.maxLevel + 125, levelTile.rectTransform.sizeDelta.y);
             }
+
             if (i < level)
             {
                 levelTileList[i].color = new Color(129f / 255f, 229f / 255f, 140f / 255f);

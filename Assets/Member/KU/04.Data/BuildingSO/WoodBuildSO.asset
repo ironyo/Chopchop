@@ -15,13 +15,14 @@ MonoBehaviour:
   explaneStr: "\uB098\uBB34\uB97C \uC0DD\uC131\uD569\uB2C8\uB2E4."
   buildSprite: {fileID: 21300000, guid: 23e853eab5e1767419c1fb04fe642060, type: 3}
   buildSelcetSprite: {fileID: 21300000, guid: 775b768a2ba3fd446b35114a01a894a6, type: 3}
+  particleSystem: {fileID: 3301640221903738673, guid: 81a2164ed5a0b1943903c5ecffa4d01f, type: 3}
   maxLevel: 3
   buildName: "\uBC8C\uBAA9\uC7A5"
   MaxHealth: c800000090010000bc020000
   width: 9
   maxW: 3
   maxMinion: 010000000300000005000000
-  buildTime: 5
+  buildTime: 3
   levelResourceType:
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514c36e1e998055468b9b7c2cfbe2fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _invCount: 7
+  _invCount: 6
   _normalPref: {fileID: 506643059652025009, guid: d2442bc8670c4e04f8bc6ae4a6e67733, type: 3}
   _firstPref: {fileID: 6020048080171917974, guid: 8ce3f7038190cc146b7fe2103ec2839f, type: 3}
   _lastPref: {fileID: 9077651634349169100, guid: f41db2b73008365439bc81f2360b80af, type: 3}

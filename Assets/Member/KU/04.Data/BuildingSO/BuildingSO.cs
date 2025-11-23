@@ -11,6 +11,7 @@ public class BuildingSO : ScriptableObject
     [Header("건물이미지")]
     public Sprite buildSprite;
     public Sprite buildSelcetSprite;
+    public ParticleSystem particleSystem;
     [Header("최대레벨")]
     public int maxLevel = 3;
     [Header("건물이름")]
