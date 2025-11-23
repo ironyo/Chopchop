@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public enum TutorialConditionType
@@ -19,4 +20,6 @@ public class TutorialStep
     public TutorialConditionType conditionType = TutorialConditionType.None;
     public float waitSeconds = 1f;
     public KeyCode waitKey = KeyCode.Space;
+    public bool lockOtherUI = false;                 // true면 이 단계에서 특정 버튼만 허용
+    public List<Button> allowedButtons = new();
 }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoSingleton<TutorialManager>
 {
@@ -15,6 +17,9 @@ public class TutorialManager : MonoSingleton<TutorialManager>
     // UI가 구독해서 텍스트 띄워주도록 하는 이벤트
     public UnityEvent<string> OnStepStarted;
     public UnityEvent OnTutorialCompleted;
+    
+    private List<Button> _allButtons = new();
+    private bool _buttonsCached = false;
 
     protected override void Awake()
     {
@@ -27,6 +32,8 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         {
             StartTutorial();
         }
+        
+        ToolManager.Instance.SetToolInven();
     }
     
     public void StartTutorial()
@@ -54,17 +61,16 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
             TutorialStep step = steps[_currentIndex];
             _externalCompleted = false;
-
-            // UI에 텍스트 전달 (예: 툴팁, 튜토리얼 패널 등)
+            
             OnStepStarted?.Invoke(step.message);
-
-            // 조건 기다리기
+            
             yield return StartCoroutine(WaitForStepCondition(step));
         }
 
         _isRunning = false;
         OnTutorialCompleted?.Invoke();
-        Debug.Log("[Tutorial] 튜토리얼 종료");
+        //SceneManager.LoadScene(2);
+        //Destroy(gameObject);
     }
 
     private IEnumerator WaitForStepCondition(TutorialStep step)
