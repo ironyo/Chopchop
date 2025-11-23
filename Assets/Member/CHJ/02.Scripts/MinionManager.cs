@@ -89,7 +89,6 @@ namespace Member.CHJ._02.Scripts
                 minionList.Add(minion);
                 if (MinionMaxCount >= 300)
                 {
-                    Debug.Log("asdasd");
                     GameFinishManager.Instance.onGameClear?.Invoke();
                 }
             }
