@@ -18,6 +18,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int width;
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
+    [SerializeField] private UnityEvent bottomUIUp;
 
     [SerializeField] List<AudioClip> _audioClips = new();
     [SerializeField] private List<ParticleSystem> _particleSystemList;
@@ -53,6 +54,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _explaneTxt;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
+    [SerializeField] private Button _buildingBtn;
 
     private Vector2 _targetPos;
     private float _time = 0;
@@ -307,6 +309,16 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             Destroy(InventoryManager.Instance.startText);
             isNotHQ = false;
+        }
+
+        if (TutorialManager.Instance != null)
+        {
+            if (building.buildingSO == TutorialManager.Instance.MinionBuildSO
+                && TutorialManager.Instance.GetCurrentStepId() == "build2")
+            {
+                TutorialManager.Instance.CompleteCurrentStepExternally();
+                bottomUIUp?.Invoke();
+            }
         }
 
         if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)

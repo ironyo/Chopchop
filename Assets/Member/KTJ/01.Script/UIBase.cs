@@ -38,9 +38,13 @@ public abstract class UIBase : MonoBehaviour
 
     public void ToggleBtn()
     {
-        if (BuildManager.Instance.isNotHQ) return;
+        if (BuildManager.Instance.isNotHQ && TutorialManager.Instance == null) return;
         UIManager.Instance?.Toggle(this);
         SoundManager.Instance.ClickSound_01();
+
+        if (TutorialManager.Instance != null
+            && TutorialManager.Instance.GetCurrentStepId() == "build1")
+            TutorialManager.Instance.CompleteCurrentStepExternally();
     }
 
     protected static Tween DoY(RectTransform rt, float y, float duration)

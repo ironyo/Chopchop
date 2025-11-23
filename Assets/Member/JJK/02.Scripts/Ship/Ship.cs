@@ -17,7 +17,14 @@ public class Ship : MonoBehaviour
 
     private void Awake()
     {
-        target =  GameObject.FindGameObjectWithTag("HQ").transform;
+        if (TutorialManager.Instance == null)
+        {
+            target =  GameObject.FindGameObjectWithTag("HQ").transform;
+        }
+        else
+        {
+            target = GameObject.FindGameObjectWithTag("Ground").transform;
+        }
     }
 
     public void Initialize(int count)
