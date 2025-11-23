@@ -45,7 +45,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
 
         _rectTransform.anchoredPosition = new Vector2(
     _rectTransform.anchoredPosition.x,
-    0                 // ´ÝÈû »óÅÂ
+    0                 // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 );
         IsNowClose = true;
     }
@@ -131,6 +131,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
 
     public void StartBuildHQ()
     {
+        
         startText = Instantiate(_startTextPref, GameObject.Find("Canvas").transform);
         List<InvBuild> build = _invPrefObj[_invPrefObj.Count - 1].invBoxes;
         build[build.Count - 1].Building();
