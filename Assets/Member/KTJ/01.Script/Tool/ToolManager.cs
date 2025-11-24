@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEngine.InputSystem;
 
 [System.Serializable]
-public class ToolSlot // ¿©±â±îÁöÇÔ
+public class ToolSlot // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
     public ToolSO tool;
     public int count;
@@ -18,14 +18,14 @@ public class ToolSlot // ¿©±â±îÁöÇÔ
 public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
-    public List<Tool> MainTools { get; private set; } = new List<Tool>(); // ÁøÂ¥ ÅøÀ» ´ã¾ÆµÎ´Â °÷
+    public List<Tool> MainTools { get; private set; } = new List<Tool>(); // ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÆµÎ´ï¿½ ï¿½ï¿½
 
-    #region ÀÎ½ºÆåÅÍ ¼³Á¤
-    [Header("±âº» ¼³Á¤")]
+    #region ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [Header("ï¿½âº» ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private List<ToolSlot> toolInventory = new List<ToolSlot>();
     public IReadOnlyList<ToolSlot> ToolInventory => toolInventory;
 
-    [Header("¿ÀºêÁ§Æ® ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject invenSlotPref;
     [SerializeField] private GameObject toolRemoveBtnPref;
@@ -49,11 +49,11 @@ public class ToolManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾À ÀÌµ¿ ½Ã¿¡µµ À¯Áö
+            DontDestroyOnLoad(gameObject); // ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
-            Destroy(gameObject); // Áßº¹ ¹æÁö
+            Destroy(gameObject); // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         playerInput.OnItemInvenKeyReleased += ToolGive;
@@ -84,7 +84,7 @@ public class ToolManager : MonoBehaviour
     {
         toolSlotList.ForEach((x) => Destroy(x.slotObj.gameObject));
         toolSlotList.Clear();
-        for (int i = 0; i < toolInventory.Count; i++) // i¸¦ -1·Î ¹Ù²Ù¸é ¹ö¸®±â ¹öÆ° »ý±è
+        for (int i = 0; i < toolInventory.Count; i++) // iï¿½ï¿½ -1ï¿½ï¿½ ï¿½Ù²Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         {
             //if (i == -1)
             //{
@@ -137,7 +137,6 @@ public class ToolManager : MonoBehaviour
         //toolInventory[index] = toolSlot;
         //toolSlotList[index].countText.text = toolSlot.count.ToString();
 
-        //Debug.Log("ÇöÀç" + toolSlot.tool.ToolName + " Åø Àç°í: " + toolSlot.count);
     }
 
     private void ToolGive(int index)
@@ -151,7 +150,6 @@ public class ToolManager : MonoBehaviour
             handToolImage.gameObject.SetActive(true);
 
             ToolCountSpent(index);
-            Debug.Log(index);
         }
         else
             currentTool = null;
@@ -167,7 +165,6 @@ public class ToolManager : MonoBehaviour
     {
         if (currentTool == null)
         {
-            Debug.Log("ÀåÂøÇÑ µµ±¸°¡ ¾ø½À´Ï´Ù");
             RemoveTool();
             return false;
         }

@@ -13,7 +13,6 @@ public partial class EndMateAction : Action
     protected override Status OnStart()
     {
         Minion.Value.isMating = false;
-        Debug.Log("NO MATE");
         return Status.Success;
     }
 

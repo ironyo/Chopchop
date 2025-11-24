@@ -36,7 +36,6 @@ public partial class FindBuildingAction : Action
         {
             agent.BlackboardReference.SetVariableValue("IsCanWorkBuilding", foundTrm != null);
             agent.BlackboardReference.GetVariableValue("IsCanWorkBuilding", out bool value);
-            Debug.Log($"[FindBuildingAction] (Runtime Blackboard) IsCanWorkBuilding = {value}");
         }
 
         Target.Value = foundTrm;

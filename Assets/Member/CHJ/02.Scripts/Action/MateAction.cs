@@ -15,7 +15,6 @@ public partial class MateAction : Action
     [SerializeReference] public BlackboardVariable<Building> House;
     protected override Status OnStart()
     {
-        Debug.Log("REAL MATE START");
         NavMesh.Value.SetDestination(House.Value.transform.position);
         Particle.Value.Play();
         return Status.Running;

@@ -57,7 +57,6 @@ public class TestMinion : MonoBehaviour
     IEnumerator WaitDestroy(int wait)
     {
         yield return new WaitForSeconds(wait);  
-        Debug.Log("¹Ì´Ï¾ð »èÁ¦");
         Destroy(gameObject);
     }
     public void Die(string message = null)
@@ -103,7 +102,6 @@ public class TestMinion : MonoBehaviour
     {
         Hungry += amount;
 
-        Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¹è°íÇÄ: " + Hungry);
         minionChat.AddMessage("¿ì°Æ¿ì°Æ");
         AppleParticels.Play();
 
@@ -122,7 +120,6 @@ public class TestMinion : MonoBehaviour
     {
         Thirsty += amount;
 
-        Debug.Log("ÇöÀç ¹Ì´Ï¾ð ¸ñ¸¶¸§: " + Thirsty);
         minionChat.AddMessage("²Ü²©²Ü²©!");
         WaterParticels.Play();
 
@@ -133,7 +130,6 @@ public class TestMinion : MonoBehaviour
     {
         Dirty += amount;
 
-        Debug.Log("ÇöÀç ¹Ì´Ï¾ð ´õ·¯¿ò: " + Dirty);
         minionChat.AddMessage("±ú²ýÇØÁ³´Ù");
         CleanParticels.Play();
 

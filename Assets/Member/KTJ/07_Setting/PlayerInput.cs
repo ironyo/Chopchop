@@ -39,9 +39,9 @@ public class PlayerInput : ScriptableObject, IPlayerActions
 
     public void OnKeyboardEtc(InputAction.CallbackContext context)
     {
-        if (context.performed) // ´­·ÈÀ» ¶§¸¸ È£Ãâ
+        if (context.performed) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
         {
-            // ¾î¶² Å°°¡ ´­·È´ÂÁö °¡Á®¿À±â
+            // ï¿½î¶² Å°ï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (context.control is KeyControl keyControl)
             {
                 OnKeyPressed?.Invoke(keyControl.keyCode);
@@ -60,7 +60,7 @@ public class PlayerInput : ScriptableObject, IPlayerActions
         if (!context.performed)
             return;
 
-        // ¾î¶² Å°°¡ ´­·È´ÂÁö È®ÀÎ
+        // ï¿½î¶² Å°ï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         string keyName = context.control.name;  // "1", "2", "3"
 
         int number = -1;
@@ -83,7 +83,6 @@ public class PlayerInput : ScriptableObject, IPlayerActions
         if (number >= 0)
         {
             OnItemInvenKeyReleased?.Invoke(number);
-            Debug.Log("ÀÔ·ÂµÈ ¼ıÀÚ: " + number);
         }
     }
 

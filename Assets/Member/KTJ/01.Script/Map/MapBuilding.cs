@@ -83,7 +83,6 @@ public class MapBuilding : UIBase
 
         if (ResourceManager.Instance.UseResource(useResource, currentTileCost) == false)
         {
-            Debug.Log("타일맵 설치 실패, 자원부족");
             return;
         }
         // 현재 방향으로 1칸 이동

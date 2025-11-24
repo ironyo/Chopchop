@@ -24,7 +24,6 @@ namespace Member.CHJ._02.Scripts.Action
 
         protected override Status OnStart()
         {
-            Debug.Log("[State] Start Patrol Action!!");
             _minion = Self.Value.GetComponent<Minion>();
             RandomPatrol(Self.Value.transform.position, 3);
             

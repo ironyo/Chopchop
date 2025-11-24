@@ -23,7 +23,6 @@ namespace Member.CHJ._02.Scripts.Ui
         public void Continue()
         {
             _isOpened = false;
-            Debug.Log("asdsd");
             background.SetActive(false);
         }
 
