@@ -68,14 +68,6 @@ public partial class CantFindBuildingAction : Action
             _target.z = 0;
             if (NavMesh.SamplePosition(_target, out NavMeshHit hit, 10, NavMesh.AllAreas))
             {
-                foreach (var c in Physics2D.OverlapCircleAll(randomPos, 1f).ToList())
-                {
-                    if (c.TryGetComponent<Building>(out var a))
-                    {
-                        Debug.Log(c);
-                        return;
-                    }
-                }
                 Navmesh.Value.SetDestination(hit.position);
                 _target = randomPos;
                 return;
