@@ -27,7 +27,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void HitEffect()
     {
-        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        //GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
     private void Update()
