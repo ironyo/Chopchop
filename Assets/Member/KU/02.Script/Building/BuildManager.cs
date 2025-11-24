@@ -306,7 +306,6 @@ public class BuildManager : MonoSingleton<BuildManager>
             col.offset = centerLocal;
         }
 
-
         GameObject ui = Instantiate(_buildingUI, buildingParent[buildingCount].transform);
 
         ui.transform.position = new Vector3(transform.position.x + xIf,
