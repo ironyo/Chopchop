@@ -19919,7 +19919,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
-  weaponDataList: {fileID: 0}
+  weaponDataList: {fileID: 11400000, guid: 13a972d99197d3c4fb4527f73d72d6e2, type: 2}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -36522,8 +36522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayimage: {fileID: 0}
   nightimage: {fileID: 0}
-  dayText: {fileID: 0}
-  nightText: {fileID: 0}
 --- !u!1 &8664662990382799276
 GameObject:
   m_ObjectHideFlags: 0
