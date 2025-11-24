@@ -19919,6 +19919,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
+  weaponDataList: {fileID: 11400000, guid: 13a972d99197d3c4fb4527f73d72d6e2, type: 2}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -20056,7 +20057,7 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
-  invasionWarningBox: {fileID: 1391319070}
+  invasionWarning: {fileID: 0}
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
@@ -36023,6 +36024,7 @@ GameObject:
   - component: {fileID: 2117259006}
   - component: {fileID: 2117259008}
   - component: {fileID: 2117259007}
+  - component: {fileID: 2117259009}
   m_Layer: 5
   m_Name: daynighticon (1)
   m_TagString: Untagged
@@ -36088,6 +36090,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117259005}
   m_CullTransparentMesh: 1
+--- !u!225 &2117259009
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117259005}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2129549825
 GameObject:
   m_ObjectHideFlags: 0
@@ -36368,6 +36382,7 @@ GameObject:
   - component: {fileID: 7029492311189525766}
   - component: {fileID: 7106999070305791202}
   - component: {fileID: 8840975843644499352}
+  - component: {fileID: 8840975843644499353}
   m_Layer: 5
   m_Name: daynighticon
   m_TagString: Untagged
@@ -36455,8 +36470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayimage: {fileID: 0}
   nightimage: {fileID: 0}
-  dayText: {fileID: 0}
-  nightText: {fileID: 0}
 --- !u!1 &8664662990382799276
 GameObject:
   m_ObjectHideFlags: 0
@@ -36528,6 +36541,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.13
+--- !u!225 &8840975843644499353
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208272625663352008}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
