@@ -75,6 +75,9 @@ public class Building : MonoBehaviour
     public int showMinion = 0;
     private void Start()
     {
+        _healthCompo = GetComponent<HealthSystem>();
+        _healthCompo.OnDead += () => BuildManager.Instance.DestroyBuilding(GetComponent<Building>());
+        
         LevelManager.Instance.IncreseLevel(10);
         
         if (buildingSO.resourceTypeCost.Length != 0)
