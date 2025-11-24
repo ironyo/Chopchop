@@ -4864,7 +4864,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7679755352234600601}
-  m_Father: {fileID: 5363027515492264325}
+  m_Father: {fileID: 4572604396890466684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5461352967282658483
 MonoBehaviour:
@@ -15222,7 +15222,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6a66d4715f64475499df7759e9eda2b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0b80d5754d4543488a15b5cc06ede94, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -20198,7 +20198,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8024838419484882373}
   - {fileID: 4572604396890466684}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20413,6 +20412,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 8951156765233776581}
+  weaponHolder: {fileID: 0}
 --- !u!114 &790169270386725078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30868,5 +30868,6 @@ Transform:
   - {fileID: 1607774444569376033}
   - {fileID: 124306952845357019}
   - {fileID: 3246093516547021079}
+  - {fileID: 8024838419484882373}
   m_Father: {fileID: 5363027515492264325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

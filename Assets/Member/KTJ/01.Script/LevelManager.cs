@@ -1,3 +1,4 @@
+using System;
 using Member.CHJ._02.Scripts;
 using System.Collections;
 using NUnit.Framework.Internal;
@@ -23,18 +24,23 @@ public class LevelManager : MonoSingleton<LevelManager>
         if (expSlider.value >= 100)
         {
             _weaponIndex++;
-            foreach (var m in MinionManager.Instance.minionList)
-            {
-                WeaponHolder wh = m.visualObj.GetComponentInChildren<WeaponHolder>();
-                wh.weaponData = weaponDataList.list[_weaponIndex];
-                wh.SetWeapon();
-            }
+            MinionSetWeapon();
             
             int leftAmount = ((int)expSlider.value + amount) - 100;
             Level += 1;
             expSlider.value = leftAmount;
             UpdateUI();
             return;
+        }
+    }
+
+    public void MinionSetWeapon()
+    {
+        foreach (var m in MinionManager.Instance.minionList)
+        {
+            WeaponHolder wh = m.GetComponent<TestMinion>().weaponHolder;
+            wh.weaponData = weaponDataList.list[_weaponIndex];
+            wh.SetWeapon();
         }
     }
 

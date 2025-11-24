@@ -439,6 +439,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27017752}
   m_CullTransparentMesh: 1
+--- !u!1 &50386752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50386754}
+  - component: {fileID: 50386753}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &50386753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50386752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a34afd8061f294a9d9bb4983fd4977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &50386754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50386752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1004.6766, y: 541.5161, z: -1.211372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &57475665
 GameObject:
   m_ObjectHideFlags: 0
@@ -31642,6 +31686,8 @@ MonoBehaviour:
   dialogBox: {fileID: 3763959798340062971}
   spaceBar: {fileID: 3435253073908381477}
   name: {fileID: 535883246}
+  enemyName: {fileID: 3491019232907443756}
+  warningText: {fileID: 1118543152}
   typingSpeed: 0.08
   tutorialDialogData: {fileID: 11400000, guid: 99acc5070a98a214fb5d8806b6fe1635, type: 2}
   invasionDialogData: {fileID: 11400000, guid: 046a5a3999d67b24fb41fe305fce21b1, type: 2}
@@ -35718,7 +35764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2117259006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35785,7 +35831,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117259005}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -37466,6 +37512,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1062661475}
   - {fileID: 1203245999}
+  - {fileID: 50386754}
   - {fileID: 1165987442}
   - {fileID: 264741168}
   - {fileID: 384551704}

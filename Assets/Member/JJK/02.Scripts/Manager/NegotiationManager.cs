@@ -29,5 +29,10 @@ public class NegotiationManager : MonoSingleton<NegotiationManager>
     public void Negotiation()
     {
         ResourceManager.Instance.UseResource(resourceType, resourceAmount);
+
+        if (!ResourceManager.Instance.UseResource(resourceType, resourceAmount))
+        {
+            DialogManager.Instance.Disagree();
+        }
     }
 }

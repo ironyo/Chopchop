@@ -78,6 +78,9 @@ public class Building : MonoBehaviour
     public int showMinion = 0;
     private void Start()
     {
+        _healthCompo = GetComponent<HealthSystem>();
+        _healthCompo.OnDead += () => BuildManager.Instance.DestroyBuilding(GetComponent<Building>());
+        
         LevelManager.Instance.IncreseLevel(10);
         
         if (buildingSO.resourceTypeCost.Length != 0)
@@ -174,6 +177,7 @@ public class Building : MonoBehaviour
                 Instantiate(_particleList[0], transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
+                LevelManager.Instance.MinionSetWeapon();
             }
             else
             {
