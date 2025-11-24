@@ -31597,6 +31597,7 @@ MonoBehaviour:
   dialogBox: {fileID: 3763959798340062971}
   spaceBar: {fileID: 3435253073908381477}
   name: {fileID: 535883246}
+  enemyName: {fileID: 3491019232907443756}
   typingSpeed: 0.08
   tutorialDialogData: {fileID: 11400000, guid: 99acc5070a98a214fb5d8806b6fe1635, type: 2}
   invasionDialogData: {fileID: 11400000, guid: 046a5a3999d67b24fb41fe305fce21b1, type: 2}

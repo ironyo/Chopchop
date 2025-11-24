@@ -15,6 +15,7 @@ public class DialogManager : MonoSingleton<DialogManager>
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private GameObject spaceBar;
     [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI enemyName;
     [SerializeField] private float typingSpeed = 0.1f;
 
     [Header("Dialog Data")]
@@ -65,8 +66,11 @@ public class DialogManager : MonoSingleton<DialogManager>
 
     private string SetName(string rawText)
     {
+        string ranName = RandomName.CreateIslandName();
+        enemyName.text = ranName + " 섬의 왕";
+        
         string result = rawText
-            .Replace("{RANDOM}", RandomName.CreateIslandName())
+            .Replace("{RANDOM}", ranName)
             .Replace("{NAME}", name.text);
         
         return result;
