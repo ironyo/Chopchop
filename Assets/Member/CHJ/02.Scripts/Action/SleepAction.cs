@@ -25,7 +25,7 @@ public partial class SleepAction : Action
         var building = buildManager.GetAvailableHouseCheckOnly(Self.Value.transform.position,MinionManager.Instance.houseSo, 30);
         if (building != null)
         {
-            NavMesh.Value.SetDestination(building.transform.position);
+            NavMesh.Value.SetDestination(building.EnterObj.transform.position);
             WorkAction.Value.DoWork(building);
             return Status.Running;
         }

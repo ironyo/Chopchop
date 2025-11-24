@@ -17,16 +17,6 @@ public partial class WorkAction : Action
     private Minion _minion;
     protected override Status OnStart()
     {
-        // Navmesh.Value.ResetPath();
-        // _minion = Self.Value.GetComponent<Minion>();
-        // if (Target.Value != null)
-        // {
-        //     Vector3 targetPos = Target.Value.position;
-        //     targetPos.z = 0;
-        //     Navmesh.Value.SetDestination(targetPos);
-        // }
-        // Work.Value.DoWork(Target);
-        // return Status.Running;
         _minion = Self.Value.GetComponent<Minion>();
         Navmesh.Value.ResetPath();
         if (Target.Value == null)
@@ -35,7 +25,8 @@ public partial class WorkAction : Action
         }
         if (Target.Value != null)
         {
-            Navmesh.Value.SetDestination(Target.Value.transform.position);
+            Debug.Log(Target.Value.enter);
+            Navmesh.Value.SetDestination(Target.Value.EnterObj.transform.position);
 
 
             Work.Value.DoWork(Target);
@@ -59,7 +50,7 @@ public partial class WorkAction : Action
 
         if ((Navmesh.Value.destination - Target.Value.transform.position).sqrMagnitude >= 0.25f)
         {
-            Vector2 targetPos = Target.Value.transform.position;
+            Vector2 targetPos = Target.Value.EnterObj.transform.position;
             Navmesh.Value.SetDestination(targetPos);
         }
         if(_minion.GetVisualObject().activeSelf)
