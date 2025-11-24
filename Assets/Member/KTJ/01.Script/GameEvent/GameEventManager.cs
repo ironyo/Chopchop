@@ -11,6 +11,13 @@ public class GameEventManager : MonoSingleton<GameEventManager>
 {
     [SerializeField] private List<GameEventType> events = new List<GameEventType>();
 
+
+
+
+
+
+
+
     public IGameEvent currentRunEvent = null;
     public void RunEvent(GameEventType eventType)
     {

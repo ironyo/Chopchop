@@ -1805,8 +1805,11 @@ MonoBehaviour:
   RealNameTxt: {fileID: 535883246}
   NameSettingObj: {fileID: 867824638}
   FullObj: {fileID: 702853953}
-  NameTxt: {fileID: 1463294155}
+  NameTxt: {fileID: 0}
   Background: {fileID: 1842509894}
+  NameSetted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &155067436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,6 +2331,16 @@ MonoBehaviour:
     highlightTarget: {fileID: 72639980}
     allowedButtons:
     - {fileID: 0}
+  - id: aaa
+    message: "\uB9DD\uCE58\uC544\uC774\uCF58\uC744 \uD074\uB9AD\uD558\uC5EC \uBE4C\uB4DC\uBAA8\uB4DC\uB97C
+      \uAEBC\uC8FC\uC138\uC694."
+    conditionType: 1
+    waitSeconds: 5
+    waitKey: 0
+    lockOtherUI: 1
+    highlightTarget: {fileID: 0}
+    allowedButtons:
+    - {fileID: 0}
   - id: explain
     message: "\uC544\uB798 UI\uB294 \uB545\uC5D0 \uBD84\uD3EC\uB41C \uBBF8\uB2C8\uC5B8\uC758
       \uBC00\uC9D1\uB3C4\uB97C \uB098\uD0C0\uB0C5\uB2C8\uB2E4."
@@ -2479,10 +2492,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 324745276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1082}
+  m_SizeDelta: {x: 0, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &229691189
 GameObject:
@@ -4902,7 +4915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &324745276
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20683,6 +20696,7 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
+  invasionWarningBox: {fileID: 0}
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
@@ -21181,7 +21195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1115188028
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32865,8 +32879,6 @@ MonoBehaviour:
   uiList:
   - uibase: {fileID: 576878584}
     type: 1
-  - uibase: {fileID: 1699856476}
-    type: 0
   - uibase: {fileID: 715369862}
     type: 2
   toolInventory: {fileID: 1482506562}

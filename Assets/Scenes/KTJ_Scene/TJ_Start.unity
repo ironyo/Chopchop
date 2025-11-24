@@ -3387,7 +3387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2035309203}
-  - component: {fileID: 2035309202}
+  - component: {fileID: 2035309204}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -3395,30 +3395,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2035309202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035309201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36729429f4ffc4a4ba165244109765fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChangePref: {fileID: 8798408909069909411, guid: 274700e98e84bbc42a4db0a031afcde5, type: 3}
-  RandomTip:
-  - "\uAC15\uC720\uB294 160\uC774 \uB118\uB294\uB2E4\uB124\uC694."
-  - "\uBBF8\uB2C8\uC5B8\uC740 \uAC74\uB4E4\uC774\uBA74 \uAC04\uC9C0\uB7FC\uC744 \uD0D1\uB2C8\uB2E4."
-  - "\uC88B\uC544\uC694\uB97C \uB20C\uB7EC\uC8FC\uC138\uC694!!"
-  - "\u3141\u3141\u3141\u3141\u3141\u3141\u3141"
-  - "\u3134\u3134\u3134\u3134\u3134\u3134\u3134\u3134\u3134\u3134\u3134"
-  - "\u3139\u3139\u3139\u3139\u3139\u3139\u3139"
-  - "\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145\u3145"
-  OnSceneChangeLoaded:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &2035309203
 Transform:
   m_ObjectHideFlags: 0
@@ -3434,6 +3410,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035309204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035309201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36729429f4ffc4a4ba165244109765fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangePref: {fileID: 8798408909069909411, guid: 274700e98e84bbc42a4db0a031afcde5, type: 3}
+  RandomTip:
+  - "\uAE40\uD0DC\uC900\uC740 \uC815\uCC98\uAE30 4\uC218\uC785\uB2C8\uB2E4. "
+  - "\uBB34\uB824 \uC800\uD76C \uAC8C\uC784\uC740 \uC790\uCCB4 \uC5D0\uC14B\uC785\uB2C8\uB2E4.  "
+  - "\uBBF8\uB2C8\uC5B8\uC744 \uAD00\uB9AC\uD574\uC8FC\uC9C0 \uC54A\uC73C\uBA74 \uC8FD\uC2B5\uB2C8\uB2E4.  "
+  - "\uAC15\uC720\uB294 \uD0A4\uAC00 \uC791\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.(\uC544\uB9C8\uB3C4)  "
+  - "\uBBF8\uB2C8\uC5B8\uB3C4 \uB299\uC73C\uBA74 \uC8FD\uC2B5\uB2C8\uB2E4."
+  - "\uB9E4\uC8FC \uBAA9\uC694\uC77C\uC740 \uCCAD\uC18C\uD558\uB294 \uB0A0 \uC785\uB2C8\uB2E4."
+  - "\uBBF8\uB2C8\uC5B8\uC740 \uCE5C\uAD6C\uAC00 \uC5C6\uC73C\uBA74 \uC6B0\uC6B8\uD574\uC9D1\uB2C8\uB2E4."
+  - "\uBBF8\uB2C8\uC5B8\uC740 \uCE5C\uAD6C\uAC00 \uB108\uBB34 \uB9CE\uC73C\uBA74
+    \uACFC\uBD80\uD654\uC0C1\uD0DC(\uD130\uC9C0\uAE30)\uB85C \uB3CC\uC785\uD569\uB2C8\uB2E4.. "
+  - "\uCD5C\uC815\uC6B0\uB294 \uC0AC\uB78C\uC785\uB2C8\uB2E4. "
+  - "\uBBF8\uB2C8\uC5B8\uC758 \uBC30\uACE0\uD514, \uBAA9\uB9C8\uB984, \uB354\uB7EC\uC6C0\uC744
+    \uAD00\uB9AC\uD558\uC138\uC694."
+  OnSceneChangeLoaded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2106787989
 GameObject:
   m_ObjectHideFlags: 0
