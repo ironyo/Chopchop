@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Data;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -13,6 +14,7 @@ public class DialogManager : MonoSingleton<DialogManager>
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private GameObject spaceBar;
+    [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private float typingSpeed = 0.1f;
 
     [Header("Dialog Data")]
@@ -64,7 +66,8 @@ public class DialogManager : MonoSingleton<DialogManager>
     private string SetName(string rawText)
     {
         string result = rawText
-            .Replace("{RANDOM}", RandomName.CreateIslandName());
+            .Replace("{RANDOM}", RandomName.CreateIslandName())
+            .Replace("{NAME}", name.text);
         
         return result;
     }
