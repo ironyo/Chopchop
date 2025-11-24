@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Member.CHJ._02.Scripts.Ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -8,6 +9,7 @@ public class InvasionManager : MonoSingleton<InvasionManager>
 {
     [SerializeField] private int minCount = 3, maxCount = 7;
     [SerializeField] private int minTime = 100, maxTime = 300;
+    [SerializeField] private GameObject invasionWarning;
     public bool isLanding = false;
     
     private int enemyCount;
@@ -47,20 +49,20 @@ public class InvasionManager : MonoSingleton<InvasionManager>
             StartCoroutine(InvasionWarning());
             InitInvasion();
         }
-
+        
         if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            DialogManager.Instance.InvasionDialog();
-        }
+            StartCoroutine(InvasionWarning());
     }
 
     private IEnumerator InvasionWarning()
     {
-        Debug.Log($"적{enemyCount}명이 5초 뒤에 침략합니다");
+        var warning = invasionWarning.GetComponent<WarningUI>();
+        warning.OpenUI();
         
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         
-        Invasion();
+        warning.CloseUI();
+        DialogManager.Instance.InvasionDialog();
     }
 
     public void Invasion()

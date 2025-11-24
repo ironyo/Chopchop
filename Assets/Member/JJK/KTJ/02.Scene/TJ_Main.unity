@@ -15568,6 +15568,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  bottomUIUp:
+    m_PersistentCalls:
+      m_Calls: []
   _audioClips:
   - {fileID: 8300000, guid: 60df8b82a040b6349b26bae301e60bc3, type: 3}
   - {fileID: 8300000, guid: 90ad6c74d96d14d4da1dec3c870aaf1a, type: 3}
@@ -15601,6 +15604,7 @@ MonoBehaviour:
   _explaneTxt: {fileID: 1106602067}
   _upgradeBtn: {fileID: 253023289}
   _destroyBtn: {fileID: 1801850674}
+  _buildingBtn: {fileID: 0}
   colliderColor: {r: 0, g: 1, b: 0, a: 1}
   lineWidth: 0.05
   healthBar: {fileID: 501050490448884764, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
@@ -19634,6 +19638,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
+  weaponDataList: {fileID: 0}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -19771,6 +19776,7 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
+  invasionWarning: {fileID: 1391319070}
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
@@ -24899,6 +24905,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1391319071}
+  - component: {fileID: 1391319072}
   m_Layer: 5
   m_Name: AttackAlert_UI
   m_TagString: Untagged
@@ -24927,6 +24934,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1391319072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391319070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e660e344a5433cb7f752afd14f8fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 146835165}
+  text1: {fileID: 1118543152}
+  text2: {fileID: 1231038907}
 --- !u!1 &1393234761
 GameObject:
   m_ObjectHideFlags: 0
