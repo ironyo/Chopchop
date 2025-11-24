@@ -25,7 +25,8 @@ public class LevelManager : MonoSingleton<LevelManager>
             _weaponIndex++;
             foreach (var m in MinionManager.Instance.minionList)
             {
-                m.visualObj.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
+                WeaponHolder wh = m.visualObj.GetComponentInChildren<WeaponHolder>();
+                wh.weaponData = weaponDataList.list[_weaponIndex];
             }
             
             int leftAmount = ((int)expSlider.value + amount) - 100;
