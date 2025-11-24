@@ -177,7 +177,6 @@ public class Building : MonoBehaviour
                 Instantiate(_particleList[0], transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
-                LevelManager.Instance.MinionSetWeapon();
             }
             else
             {
