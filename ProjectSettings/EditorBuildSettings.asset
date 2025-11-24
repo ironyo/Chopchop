@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/KTJ_Scene/TJ_Start.unity
     guid: b9436537933436b4ea934f6dae55e90d
   - enabled: 1
-    path: Assets/Member/JJK/KTJ/02.Scene/TJ_Main.unity
+    path: Assets/Member/KTJ/02.Scene/TJ_Main.unity
     guid: 0887386be1e53d843992b3db88831c42
   - enabled: 1
     path: Assets/Member/JJK/01.Scenes/Tutorial.unity
