@@ -22,6 +22,7 @@ public class Minion : MonoBehaviour
     public BehaviorGraphAgent behaviorGraph {get; private set;}
 
     [field: SerializeField]public GameObject visualObj { get; private set;}
+    [field: SerializeField]public Collider2D detectCollider { get; private set;}
 
     public MinionStats Stats;
     

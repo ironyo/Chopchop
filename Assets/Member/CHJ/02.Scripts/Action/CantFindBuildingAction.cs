@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Member.CHJ._02.Scripts.Action;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 
 [Serializable, GeneratePropertyBag]
@@ -48,7 +50,7 @@ public partial class CantFindBuildingAction : Action
         
         if (Navmesh.Value.remainingDistance <= 0.1f)
         {
-            RandomPatrol(Self.Value.transform.position, 4);
+            RandomPatrol(Self.Value.transform.position, 3);
         }
 
         if (_minion.currentState != AiStates.Patrol) return Status.Success;
@@ -58,19 +60,28 @@ public partial class CantFindBuildingAction : Action
 
     private void RandomPatrol(Vector3 currentPos, float radius)
     {
+        WaitT.Value = Random.Range(1.5f, 3);
         for (int i = 0; i < MaxAttempt; i++)
         {
-            WaitT.Value = Random.Range(1.5f, 4);
             Vector3 randomPos = Random.insideUnitCircle * radius;
-            randomPos += (Vector3)currentPos;
-            _target = randomPos;
+            randomPos += currentPos;
             _target.z = 0;
             if (NavMesh.SamplePosition(_target, out NavMeshHit hit, 10, NavMesh.AllAreas))
             {
+                foreach (var c in Physics2D.OverlapCircleAll(randomPos, 1f).ToList())
+                {
+                    if (c.TryGetComponent<Building>(out var a))
+                    {
+                        Debug.Log(c);
+                        return;
+                    }
+                }
                 Navmesh.Value.SetDestination(hit.position);
+                _target = randomPos;
                 return;
             }
         }
+        Debug.Log("CantFind");
         Navmesh.Value.SetDestination(currentPos);
     }
 

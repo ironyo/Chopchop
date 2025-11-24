@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NavMeshPlus.Components;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -64,6 +65,10 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] Color colliderColor = Color.green;
     [SerializeField] float lineWidth = 0.05f;
     private bool showCollider = false;
+
+
+    [Header("NavMesh Surface")] [SerializeField]
+    public NavMeshSurface surface;
 
     [SerializeField] private GameObject healthBar;
 
@@ -380,7 +385,7 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         for (float x = b.min.x; x <= b.max.x; x += step)
         {
-            for (float y = b.min.y; y <= b.max.y; y += step)
+            for (float y = b.min.y; y <= b.max.y; y += step)    
             {
                 Vector2 point = new Vector2(x, y);
 

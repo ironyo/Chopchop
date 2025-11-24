@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 1595865780184612561}
   - component: {fileID: 2799165523220844376}
   - component: {fileID: 5493327923900230532}
-  - component: {fileID: 3559104817756016642}
-  - component: {fileID: 2444997377025342747}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,36 +177,3 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3559104817756016642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859211351503538524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: 00000000
---- !u!114 &2444997377025342747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859211351503538524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 709c8d6349be44c68dff3d220992400c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AffectedAgents: 00000000
-  m_TileModifiers:
-  - tile: {fileID: 11400000, guid: fd5f43c787fd4424b9897190efe803e5, type: 2}
-    overrideArea: 1
-    area: 1

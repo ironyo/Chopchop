@@ -15,7 +15,7 @@ public class WorkActionScr : MonoBehaviour
 
     private void Awake()
     {
-        _mycollder = GetComponent<Collider2D>();
+        _mycollder = GetComponent<Minion>().detectCollider;
     }
 
     public void DoWork(Building building)

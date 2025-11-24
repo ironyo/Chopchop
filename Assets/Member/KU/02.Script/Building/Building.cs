@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
@@ -130,8 +131,15 @@ public class Building : MonoBehaviour
         { 
             Instantiate(buildingSO.particleSystem, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y+0.6f), Quaternion.identity, transform); 
         }
-    }
 
+        StartCoroutine(RebuildNavMeshNextFrame());
+    }
+    
+    private IEnumerator RebuildNavMeshNextFrame()
+    {
+        yield return null;
+        BuildManager.Instance.surface.BuildNavMesh();
+    }
     private void Update()
     {
         UpdateColliderView();
