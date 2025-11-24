@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class InventoryUI : UIBase
 {
-    private void Start()
-    {
-        //StartCoroutine(CloseEffect());
-    }
 
     public override IEnumerator CloseEffect()
     {
