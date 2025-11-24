@@ -23,18 +23,20 @@ public class DayNightIconUI : MonoSingleton<DayNightIconUI>
 
     private void ChangeToNight()
     {
-        nightimage.DOKill();
-        dayimage.DOKill();
+
 
         dayimage.DOFade(0, 0.3f);
         nightimage.DOFade(1, 0.3f);
+
+        Debug.Log("¹ã");
     }
 
     private void ChangeToDay()
     {
-        nightimage.DOKill();
-        dayimage.DOKill();
+
         nightimage.DOFade(0, 0.3f);
         dayimage.DOFade(1, 0.3f);
+
+        Debug.Log("³·");
     }
 }
