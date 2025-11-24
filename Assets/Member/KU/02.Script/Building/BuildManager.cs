@@ -484,7 +484,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                     LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
                     ResourceTypeCost type = cost.resourceTypeSOs[0];
 
-                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount * buildingParent[selectCount].NowMinion}/s";
+                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount * buildingParent[selectCount].showMinion}/s";
                 }
                 else
                 {
