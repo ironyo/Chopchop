@@ -48,7 +48,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LevelTxt.text = Level.ToString();
         ShadowLevelTxt.text = Level.ToString();
-        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " ������!", "�����ϼ̳׿�!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + "레벨 업그레이드", "새 무기 잠금해제");
     }
 
 
