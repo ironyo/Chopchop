@@ -1,11 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class AddGroundBtn : MonoBehaviour
+public class AddGroundBtn : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField] private UnityEvent AddGroundEvent;
-    private void OnMouseDown()
+
+    public void OnPointerClick(PointerEventData eventData)
     {
         AddGroundEvent.Invoke();
     }
+
+    //private void OnMouseDown()
+    //{
+    //    AddGroundEvent.Invoke();
+    //}
 }
