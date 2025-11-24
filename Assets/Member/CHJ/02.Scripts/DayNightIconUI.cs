@@ -14,7 +14,7 @@ public class DayNightIconUI : MonoSingleton<DayNightIconUI>
 
     public void Check(int time)
     {
-        bool currentT = time is > 19 and < 23;
+        bool currentT = time is >= 19 and <=24;
         if (currentT)
             ChangeToNight();
         else
