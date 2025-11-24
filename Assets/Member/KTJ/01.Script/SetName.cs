@@ -13,8 +13,10 @@ public class SetName : MonoBehaviour
     [SerializeField] private GameObject FullObj;
 
     [Header("UI Settings")]
-    [SerializeField] private TextMeshProUGUI NameTxt;
+    [SerializeField] private TMP_InputField NameTxt;
     [SerializeField] private Image Background;
+
+    [SerializeField] private UnityEvent NameSetted;
 
     private bool isSceneLoaded = false;
 
@@ -35,7 +37,8 @@ public class SetName : MonoBehaviour
     public void SetBtn()
     {
         if (isSceneLoaded == false) return;
-        if (RealNameTxt.text == "") return;
+
+        if (string.IsNullOrWhiteSpace(NameTxt.text)) return;
         //SetNameEvent.Invoke(NameTxt.text);
         NameSettingObj.SetActive(false);
         RealNameTxt.text = NameTxt.text;
@@ -44,6 +47,8 @@ public class SetName : MonoBehaviour
         {
             //StartGameEvent.Invoke();
             FullObj.SetActive(false);
+
+            NameSetted.Invoke();
         });
     }
 }
