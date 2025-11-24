@@ -11,19 +11,19 @@ public class InvasionManager : MonoSingleton<InvasionManager>
     [SerializeField] private int minTime = 100, maxTime = 300;
     [SerializeField] private GameObject invasionWarningBox;
     public bool isLanding = false;
-
+    
     private int enemyCount;
     private float invasionTime;
     private float timer;
     private bool isInvading = false;
     private int count = 0;
-
+    
     private ShipSpawner spawner;
 
     protected override void Awake()
     {
         base.Awake();
-
+        
         spawner = GetComponentInChildren<ShipSpawner>();
     }
 
@@ -58,6 +58,7 @@ public class InvasionManager : MonoSingleton<InvasionManager>
 
     private IEnumerator InvasionWarning()
     {
+       
         invasionWarningBox.GetComponent<WarningUI>().OpenUI();
 
         yield return new WaitForSeconds(5f);

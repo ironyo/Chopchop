@@ -5,6 +5,7 @@ using Member.CHJ._02.Scripts.Ui;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Member.CHJ._02.Scripts
 {
@@ -61,6 +62,7 @@ namespace Member.CHJ._02.Scripts
 
         private void SetMinionAverageState()
         {
+            if (SceneManager.GetActiveScene().buildIndex == 2) return;
             int hAdd = 0;
             int tAdd = 0;
             int dAdd = 0;

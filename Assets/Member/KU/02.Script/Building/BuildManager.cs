@@ -317,7 +317,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                 && TutorialManager.Instance.GetCurrentStepId() == "build2")
             {
                 TutorialManager.Instance.CompleteCurrentStepExternally();
-                bottomUIUp?.Invoke();
+                //bottomUIUp?.Invoke();
             }
         }
 

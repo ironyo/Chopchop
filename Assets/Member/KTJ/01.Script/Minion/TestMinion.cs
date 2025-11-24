@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class TestMinion : MonoBehaviour
 {
     [SerializeField] private MinionChat minionChat;
+    [SerializeField] private GameObject weapon;
 
     [Header("Particels")]
     [SerializeField] private ParticleSystem AppleParticels;
@@ -76,6 +77,7 @@ public class TestMinion : MonoBehaviour
     {
         minionChat.AddMessage("너무 숨막혀.. 터진다!");
         animator.SetTrigger("Bomb");
+        weapon.SetActive(false);
     }
 
     public void OnBombAnimEnd()
@@ -88,11 +90,13 @@ public class TestMinion : MonoBehaviour
         MopeParticles.Play();
         minionChat.AddMessage("친구들이 없어..");
         minionChat.AddMessage("우울하다 ㅠㅠ");
+        minionChat.AddMessage("이동속도가 {2}로 감소함");
     }
     public void UnMope()
     {
         MopeParticles.Stop();
         minionChat.AddMessage("이제 우울하지 않아!");
+        minionChat.AddMessage("이동속도가 {5}로 정상화");
     }
 
     public void EatApple(int amount)
