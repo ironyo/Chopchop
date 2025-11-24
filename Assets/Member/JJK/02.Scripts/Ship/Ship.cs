@@ -65,7 +65,7 @@ public class Ship : MonoBehaviour
         {
             int randomIndex = Random.Range(0, 2);
             
-            GameObject enemy = Instantiate(enemyPrefab, transform.position + transform.right * 5, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, transform.position + transform.right * 4, Quaternion.identity);
             enemy.GetComponent<EnemyUnit>().data = enemyDataList.list[randomIndex];
             
             var agent = enemy.GetComponent<NavMeshAgent>();

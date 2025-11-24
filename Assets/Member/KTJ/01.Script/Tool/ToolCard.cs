@@ -46,7 +46,7 @@ public class ToolCard : MonoBehaviour
         }
         else
         {
-            PriceTxt.text = tool.ToolSO.Price[tool.ToolLevel - 1].ToString() + " Â¯µ¹";
+            PriceTxt.text = tool.ToolSO.Price[tool.ToolLevel - 1].ToString() + " ¸ñÀç";
         }
     }
 }

@@ -94,7 +94,7 @@ public class MinionCounterSystem : MonoBehaviour
 
         float minRatio = 4f;
         float midRatio = 32f;
-        float maxRatio = 100f;
+        float maxRatio = 200f;
 
         float sliderValue;
 
