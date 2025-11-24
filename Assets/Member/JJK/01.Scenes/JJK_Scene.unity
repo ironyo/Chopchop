@@ -516,8 +516,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8602755788060655456}
-  - {fileID: 296144457}
   - {fileID: 381982805}
+  - {fileID: 296144457}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -567,7 +567,6 @@ GameObject:
   - component: {fileID: 381982805}
   - component: {fileID: 381982809}
   - component: {fileID: 381982808}
-  - component: {fileID: 381982807}
   - component: {fileID: 381982806}
   m_Layer: 5
   m_Name: Image
@@ -608,18 +607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: asdfafasfasfa
---- !u!114 &381982807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381982804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67b40a79c8f42e74f9dbb502ed32c551, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &381982808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,7 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

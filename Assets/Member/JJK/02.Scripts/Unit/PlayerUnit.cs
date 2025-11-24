@@ -6,6 +6,7 @@ public class PlayerUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
     [SerializeField] private UnitDataSO data;
+    [SerializeField] private SpriteRenderer body;
     
     private Transform _target;
     private WeaponHolder _weaponHolder;
@@ -19,9 +20,15 @@ public class PlayerUnit : MonoBehaviour
     {
         HealthCompo = GetComponent<HealthSystem>();
         HealthCompo.OnDead += Die;
+        HealthCompo.OnDead += HitEffect;
         
         _chase = GetComponent<Chase>();
         _combat = GetComponent<Combat>();
+    }
+
+    private void HitEffect()
+    {
+        body.color = Color.red;
     }
 
     private void Update()
@@ -38,11 +45,6 @@ public class PlayerUnit : MonoBehaviour
             
                 MoveToTarget();
             }
-        }
-
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            HealthCompo.GetDamage(10);
         }
     }
 

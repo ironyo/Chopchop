@@ -35,7 +35,7 @@ public class ToolTip : MonoSingleton<ToolTip>
 
     private void Update()
     {
-        _rectTrm.anchoredPosition = Mouse.current.position.ReadValue()/ _canvas.localScale.x;
+        //_rectTrm.anchoredPosition = Mouse.current.position.ReadValue()/ _canvas.localScale.x;
         
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
@@ -57,7 +57,7 @@ public class ToolTip : MonoSingleton<ToolTip>
 
     private IEnumerator SetTimerCoroutine()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(30f);
         Hide();
     }
 

@@ -18,6 +18,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     private int width;
     private int maxW = 3;
     [SerializeField] private UnityEvent BuildingClear;
+    [SerializeField] private UnityEvent bottomUIUp;
 
     [SerializeField] List<AudioClip> _audioClips = new();
     [SerializeField] private List<ParticleSystem> _particleSystemList;
@@ -53,6 +54,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] private TextMeshProUGUI _explaneTxt;
     [SerializeField] private Button _upgradeBtn;
     [SerializeField] private Button _destroyBtn;
+    [SerializeField] private Button _buildingBtn;
 
     private Vector2 _targetPos;
     private float _time = 0;
@@ -309,6 +311,16 @@ public class BuildManager : MonoSingleton<BuildManager>
             isNotHQ = false;
         }
 
+        if (TutorialManager.Instance != null)
+        {
+            if (building.buildingSO == TutorialManager.Instance.MinionBuildSO
+                && TutorialManager.Instance.GetCurrentStepId() == "build2")
+            {
+                TutorialManager.Instance.CompleteCurrentStepExternally();
+                //bottomUIUp?.Invoke();
+            }
+        }
+
         if (buildingParent[selectCount].buildingSO.resourceTypeCost.Length == 0)
         {
             BuildingClear?.Invoke();
@@ -431,7 +443,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     public void BuildTextSet()
     {
-        if (buildingParent.Count != 0 && !isDestroing )
+        if (buildingParent.Count != 0 && !isDestroing && buildingParent.Count > selectCount)
         {
             _buildNameTex.text = $"{buildingParent[selectCount].buildingSO.buildName}";
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
@@ -446,7 +458,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                     LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
                     ResourceTypeCost type = cost.resourceTypeSOs[0];
 
-                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount * buildingParent[selectCount].NowMinion}/s";
                 }
                 else
                 {
@@ -510,6 +522,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             }
         }
         buildingCount--;
+        Instantiate(_particleSystemList[3], build.boxCollider.bounds.center, Quaternion.identity);
         selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
         Destroy(build.gameObject);
         buildingParent.Remove(buildingParent[selectCount]);

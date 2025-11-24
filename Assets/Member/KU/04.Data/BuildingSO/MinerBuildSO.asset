@@ -15,13 +15,14 @@ MonoBehaviour:
   explaneStr: "\uC9F1\uB3CC\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4"
   buildSprite: {fileID: 21300000, guid: d8af85165e4d9894cbb3af767d643d2e, type: 3}
   buildSelcetSprite: {fileID: 21300000, guid: b55b41f8949a106459bcf5d7e0de29ca, type: 3}
+  particleSystem: {fileID: 5799577008512816722, guid: f481be629ec3b5a4ca94447634b1f2dd, type: 3}
   maxLevel: 3
   buildName: "\uAD11\uC0B0"
   MaxHealth: c800000090010000bc020000
   width: 9
   maxW: 3
   maxMinion: 010000000300000005000000
-  buildTime: 5
+  buildTime: 2
   levelResourceType:
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
@@ -30,12 +31,12 @@ MonoBehaviour:
     level: 1
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
-      amount: 3
+      amount: 1
     minion: {fileID: 0}
     level: 2
   - resourceTypeSOs:
     - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
-      amount: 5
+      amount: 1
     minion: {fileID: 0}
     level: 3
   spawnTime: 1
@@ -44,6 +45,6 @@ MonoBehaviour:
     amount: 10
   levelResourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-    amount: 15
+    amount: 30
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-    amount: 25
+    amount: 100

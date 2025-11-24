@@ -1,5 +1,7 @@
 using System;
+using Member.CHJ._02.Scripts.Ui;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -35,7 +37,8 @@ public class HealthSystem : MonoBehaviour
 
         if (HP <= 0)
         {
-            Debug.Log("게임오버호출");
+            if(gameObject.CompareTag("HQ"))
+                GameFinishManager.Instance.onGameOver?.Invoke();
         }
     }
 
