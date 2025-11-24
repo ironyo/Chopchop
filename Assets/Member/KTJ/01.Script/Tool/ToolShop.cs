@@ -59,11 +59,11 @@ public class ToolShop : UIBase
 
         if (ResourceManager.Instance.UseResource(resourceType, tools[idx].ToolSO.Price[tools[idx].ToolLevel - 1]) == false)
         {
-            NotifictionManager.Instance.NotifictionEvent.Invoke("�������", "������ ���׷��̵� ����");
+            NotifictionManager.Instance.NotifictionEvent.Invoke("목재부족", "도구 레벨업 실패");
             return;
         }
 
-        NotifictionManager.Instance.NotifictionEvent.Invoke("������ ���ۼ���", "�������� Ȯ���غ�����!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke("구매성공", "도구가 레벨업됩니다");
 
         tools[idx].UpgradeLevel();
         PuchaseEffect(idx);
@@ -135,7 +135,7 @@ public class ToolShop : UIBase
             WhiteBg.gameObject.SetActive(false);
             group.enabled = true;
 
-            NotifictionManager.Instance.NotifictionEvent.Invoke("�������޵�", "�κ��丮 Ȯ��");
+            NotifictionManager.Instance.NotifictionEvent.Invoke("도구 레벨업 성공!", "인벤토리 확인");
         });
 
     }

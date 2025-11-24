@@ -143,6 +143,8 @@ public class ToolManager : MonoBehaviour
     {
         if (currentTool != null) return;
 
+        if (GameManager.Instance.IsGameStarted == false) return;
+
         if (CanGiveTool(index))
         {
             currentTool = MainTools[index];
