@@ -1,3 +1,4 @@
+using Member.CHJ._02.Scripts.Ui;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -8,20 +9,21 @@ public class InvasionManager : MonoSingleton<InvasionManager>
 {
     [SerializeField] private int minCount = 3, maxCount = 7;
     [SerializeField] private int minTime = 100, maxTime = 300;
+    [SerializeField] private GameObject invasionWarningBox;
     public bool isLanding = false;
-    
+
     private int enemyCount;
     private float invasionTime;
     private float timer;
     private bool isInvading = false;
     private int count = 0;
-    
+
     private ShipSpawner spawner;
 
     protected override void Awake()
     {
         base.Awake();
-        
+
         spawner = GetComponentInChildren<ShipSpawner>();
     }
 
@@ -50,16 +52,18 @@ public class InvasionManager : MonoSingleton<InvasionManager>
 
         if (Keyboard.current.tKey.wasPressedThisFrame)
         {
-            DialogManager.Instance.InvasionDialog();
+            StartCoroutine(InvasionWarning());
         }
     }
 
     private IEnumerator InvasionWarning()
     {
-        Debug.Log($"적{enemyCount}명이 5초 뒤에 침략합니다");
-        
+        invasionWarningBox.GetComponent<WarningUI>().OpenUI();
+
         yield return new WaitForSeconds(5f);
-        
+
+        invasionWarningBox.GetComponent<WarningUI>().CloseUI();
+        DialogManager.Instance.InvasionDialog();
         Invasion();
     }
 
