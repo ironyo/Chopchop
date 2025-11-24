@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -235,6 +236,7 @@ public class BuildManager : MonoSingleton<BuildManager>
         Building building = par.AddComponent<Building>();
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
+        NavMeshObstacle navMesh = building.gameObject.AddComponent<NavMeshObstacle>();
         building.BuildSpawnSetting(_logPrefab, buildingSO, _particleSystemList, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
 
 
@@ -303,6 +305,8 @@ public class BuildManager : MonoSingleton<BuildManager>
             transform.position.y + width/maxW * 0.5f + yIf, 0);
         building.buildCount = buildingCount;
         buildingCount++;
+        
+        navMesh.size = new Vector3(boxCollider.size.x - 0.3f, boxCollider.size.y - 0.3f);
         foreach (var item in buildingSO.resourceTypeCost)
         {
             ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);

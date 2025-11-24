@@ -23,6 +23,13 @@ public class TestMinion : MonoBehaviour
     [SerializeField] private AudioClip BrushSound;
 
     [SerializeField] Animator animator;
+    
+    public WeaponHolder weaponHolder;
+
+    private void Awake()
+    {
+        weaponHolder = GetComponentInChildren<WeaponHolder>();
+    }
 
 
     public int Mood { get; private set; } // 0 ~ 100 (배고픔, 목마름, 더러움 세 수치의 평균)

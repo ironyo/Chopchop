@@ -17,11 +17,6 @@ public class NegotiationManager : MonoSingleton<NegotiationManager>
         base.Awake();
     }
 
-    private void Start()
-    {
-        SetResource();
-    }
-
     public void SetResource()
     {
         int nameIndex = Random.Range(0, 2);
@@ -34,5 +29,10 @@ public class NegotiationManager : MonoSingleton<NegotiationManager>
     public void Negotiation()
     {
         ResourceManager.Instance.UseResource(resourceType, resourceAmount);
+
+        if (!ResourceManager.Instance.UseResource(resourceType, resourceAmount))
+        {
+            DialogManager.Instance.Disagree();
+        }
     }
 }
