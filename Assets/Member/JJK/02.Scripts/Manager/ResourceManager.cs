@@ -25,7 +25,7 @@ public class ResourceManager : MonoSingleton<ResourceManager>
         {
             _resourceCompo = Instantiate(resourcePref, prefSpawnPos).GetComponent<ResourcePref>();
             _resourceCompo.Set(resource.StartCount, resource.Icon, resource);
-            resourceAmountDictionary.Add(resource, (100, _resourceCompo));
+            resourceAmountDictionary.Add(resource, (150, _resourceCompo));
             _resourceList.Add(_resourceCompo);
 
             AddResource(resource, resource.StartCount); // ó�� �⺻�ڿ�
