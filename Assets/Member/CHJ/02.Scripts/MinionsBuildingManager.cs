@@ -43,29 +43,15 @@ namespace Member.CHJ._02.Scripts
             foreach (var b in Buildings)
             {
                 if (b == null)
-                {
                     continue;
-                }
-
                 if (b.buildingSO == null)
-                {
                     continue;
-                }
                 if (type == null)
                     continue;
-
-                // ★ 이름 말고 참조로 비교 (더 안전)
                 if (b.buildingSO != type)
-                {
                     continue;
-                }
-
-
                 if (!b.CanReserve())
-                {
                     continue;
-                }
-
 
                 float dist = Vector3.Distance(pos, b.transform.position);
                 if (dist < minDist && dist <= maxRange)
@@ -74,8 +60,6 @@ namespace Member.CHJ._02.Scripts
                     target = b;
                 }
             }
-
-
             return target;
         }
 
