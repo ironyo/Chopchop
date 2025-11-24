@@ -15,4 +15,4 @@ MonoBehaviour:
   jobName: Miner
   jobType: 0
   buildingData: {fileID: 11400000, guid: 3d20a77e8e8486949bbc9fa00232e177, type: 2}
-  hat: {fileID: 21300000, guid: 6a66d4715f64475499df7759e9eda2b3, type: 3}
+  hat: {fileID: 21300000, guid: b1081ab025d33994abdb33e80caee7ef, type: 3}
