@@ -168,6 +168,7 @@ public class ToolManager : MonoBehaviour
         if (currentTool == null)
         {
             Debug.Log("장착한 도구가 없습니다");
+            RemoveTool();
             return false;
         }
         else
