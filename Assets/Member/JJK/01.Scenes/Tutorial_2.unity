@@ -18818,7 +18818,10 @@ MonoBehaviour:
   LevelTxt: {fileID: 0}
   ShadowLevelTxt: {fileID: 0}
   expSlider: {fileID: 0}
+<<<<<<< Updated upstream
   weaponDataList: {fileID: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -18956,7 +18959,11 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
+<<<<<<< Updated upstream
   invasionWarning: {fileID: 8681104653572068153}
+=======
+  invasionWarningBox: {fileID: 0}
+>>>>>>> Stashed changes
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
