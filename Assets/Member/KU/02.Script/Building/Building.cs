@@ -358,11 +358,11 @@ public class Building : MonoBehaviour
     {
         _minionText.text = $"{buildingSO.buildName}";
         if (buildingSO.levelResourceType.Length == 0 && buildingSO.resourceTypeCost.Length != 0)
-            _minionText.text += $"\n<size=3>{showMinion} / {maxMinion}<size>";
+            _minionText.text += $"\n{showMinion} / {maxMinion}";
         if(buildingSO.levelResourceType.Length != 0)
         {
             if (buildingSO.levelResourceType[0].minion == null)
-                _minionText.text += $"\n<size=3>{showMinion} / {maxMinion}<size>";
+                _minionText.text += $"\n{showMinion} / {maxMinion}";
         }
     }
 
