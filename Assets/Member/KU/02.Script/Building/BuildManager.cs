@@ -208,7 +208,6 @@ public class BuildManager : MonoSingleton<BuildManager>
         if (!CanResourceAmount())
         {
             NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "자원이 부족합니다!");
-            StartCoroutine(CancleColor());
             return;
         }
         if (!IsOnTheGround())
@@ -484,7 +483,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             if (buildingParent[selectCount].NowLevel != buildingParent[selectCount].buildingSO.maxLevel)
             {
                 ResourceTypeCost cost = buildingParent[selectCount].buildingSO.levelResourceTypeCost[buildingParent[selectCount].level - 1];
-                _upgradeCcostTex.text = $"비용: {cost.resourceTypeSO.name} ({cost.amount})";
+                _upgradeCcostTex.text = $"{cost.resourceTypeSO.name} ({cost.amount})";
             }
             else
             {
