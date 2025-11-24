@@ -19612,6 +19612,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1062661475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream:Assets/Member/KTJ/02.Scene/TJ_Main.unity
 --- !u!1 &1051206336
 GameObject:
   m_ObjectHideFlags: 0
@@ -19659,6 +19660,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes:Assets/Member/JJK/01.Scenes/Tutorial_2.unity
 --- !u!1 &1053123015
 GameObject:
   m_ObjectHideFlags: 0
@@ -36135,7 +36138,6 @@ SceneRoots:
   - {fileID: 384551704}
   - {fileID: 297801135}
   - {fileID: 1568064356}
-  - {fileID: 1051206338}
   - {fileID: 2062649490}
   - {fileID: 1900117854}
   - {fileID: 60226899}
