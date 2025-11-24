@@ -7291,7 +7291,7 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: c9d4a7910328f2a4ca990820da09b32f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 326f00b8ccfdd7b49bd1e2d99c55b3ae, type: 2}
 --- !u!4 &452579193
 Transform:
   m_ObjectHideFlags: 0
@@ -9646,6 +9646,50 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &631567842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 631567844}
+  - component: {fileID: 631567843}
+  m_Layer: 0
+  m_Name: GameMang
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &631567843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631567842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a34afd8061f294a9d9bb4983fd4977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &631567844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631567842}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1035.2429, y: 345.71417, z: -11.821041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15738,6 +15782,7 @@ MonoBehaviour:
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
   _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
+  _enterPref: {fileID: 7889020894324273730, guid: 310d40c4782f1714592f5bf0c02b86ef, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -15746,7 +15791,7 @@ MonoBehaviour:
   _helpUI: {fileID: 992393149}
   _buildingUI: {fileID: 4529460439877213536, guid: bbd78c4eeb78ec34ca70b2eeab3f6022, type: 3}
   _buildingCanvus: {fileID: 733236812}
-  _blockTilemap: {fileID: 859211351503538524, guid: 7c960064dcd688345a1e7ccb09bd942d, type: 3}
+  _blockTilemap: {fileID: 8302005975961553429, guid: 953988d4bbff3404d9dc1d6f15a5f602, type: 3}
   buildingParent: []
   _moveDistance: 600
   _moveSpeed: 2
@@ -37449,3 +37494,4 @@ SceneRoots:
   - {fileID: 506369293}
   - {fileID: 2053702501}
   - {fileID: 1051206338}
+  - {fileID: 631567844}

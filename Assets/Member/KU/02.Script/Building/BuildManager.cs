@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NavMeshPlus.Components;
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using NavMeshSurface = NavMeshPlus.Components.NavMeshSurface;
 
 public class BuildManager : MonoSingleton<BuildManager>
 {
@@ -29,6 +31,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     [SerializeField] TilemapCollider2D _tilemapCollider;
 
     [SerializeField] private Image _timerPref;
+    [SerializeField] private GameObject _enterPref;
 
     [SerializeField] private TextMeshPro _logPrefab;
     [SerializeField] private Grid grid;
@@ -237,8 +240,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         building.gameObject.AddComponent<LineRenderer>();
         building.gameObject.AddComponent<BuildingSelector>();
         NavMeshObstacle navMesh = building.gameObject.AddComponent<NavMeshObstacle>();
-        building.BuildSpawnSetting(_logPrefab, buildingSO, _particleSystemList, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo);
-
+        building.BuildSpawnSetting(_logPrefab, buildingSO, _particleSystemList, _timerPref, buildTimePref, _audioClips, upgradeUIGroupCompo, _enterPref);
+        building.gameObject.layer = 8;
 
         BoxCollider2D col = par.AddComponent<BoxCollider2D>();
         buildingParent.Add(building);
@@ -307,6 +310,9 @@ public class BuildManager : MonoSingleton<BuildManager>
         buildingCount++;
         
         navMesh.size = new Vector3(boxCollider.size.x - 0.3f, boxCollider.size.y - 0.3f);
+        navMesh.carving = true;
+        NavMeshSurface surface = FindObjectOfType<NavMeshSurface>();
+        surface.BuildNavMesh();
         foreach (var item in buildingSO.resourceTypeCost)
         {
             ResourceManager.Instance.UseResource(item.resourceTypeSO, item.amount);

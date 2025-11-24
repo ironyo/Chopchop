@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
+    public GameObject enter { get; private set; }
     public bool isNowBuilding { get; private set; } = true;
 
     public int buildCount = 0;
@@ -34,6 +35,8 @@ public class Building : MonoBehaviour
     TextMeshPro _logPrefab;
     Image _timerPref;
     TextMeshPro _minionText;
+    GameObject _enterObj;
+    public GameObject EnterObj { get; private set; }
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -130,6 +133,11 @@ public class Building : MonoBehaviour
         { 
             Instantiate(buildingSO.particleSystem, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y+0.6f), Quaternion.identity, transform); 
         }
+
+        if(buildingSO.resourceTypeCost.Length != 0)
+        {
+            EnterObj = Instantiate(_enterObj, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y - 2), Quaternion.identity, transform);
+        }
     }
 
     private void Update()
@@ -203,7 +211,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, List<ParticleSystem> particle, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, List<ParticleSystem> particle, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi, GameObject enterObj)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
@@ -212,6 +220,7 @@ public class Building : MonoBehaviour
         _timerBuildingPref = timerObj;
         _audioClips = list;
         _upgradeUIGroupCompo = upgradeUi;
+        _enterObj = enterObj;
     }
 
     public void BuildUpgrade()
@@ -349,7 +358,7 @@ public class Building : MonoBehaviour
         if(buildingSO.levelResourceType.Length != 0)
         {
             if (buildingSO.levelResourceType[0].minion == null)
-                _minionText.text += $"\n<size=3{showMinion} / {maxMinion}<size>";
+                _minionText.text += $"\n<size=3>{showMinion} / {maxMinion}<size>";
         }
     }
 
