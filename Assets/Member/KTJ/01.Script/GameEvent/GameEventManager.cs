@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameEventType // ¹Ì´Ï¾ð ÅÍÁö±â, ¹Ì´Ï¾ð ¿ì¿ïÁõ
+public enum GameEventType // ï¿½Ì´Ï¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ì´Ï¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 {
     MinionBomb, MinionMope
 }
@@ -31,7 +31,6 @@ public class GameEventManager : MonoSingleton<GameEventManager>
                     currentRunEvent = parentEvent.AddComponent<BombEvent>();
                     currentRunEvent.Run();
 
-                    Debug.Log("¹Ì´Ï¾ð ÆøÆÈ ÀÌº¥Æ® ¹ßµ¿");
                     break;
                 }
             case GameEventType.MinionMope:
@@ -40,7 +39,6 @@ public class GameEventManager : MonoSingleton<GameEventManager>
                     currentRunEvent = parentEvent.AddComponent<MopeEvent>();
                     currentRunEvent.Run();
 
-                    Debug.Log("¹Ì´Ï¾ð ¿ì¿ïÁõ ÀÌº¥Æ® ¹ßµ¿");
                     break;
                 }
         }

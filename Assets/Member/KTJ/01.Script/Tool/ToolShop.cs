@@ -12,7 +12,7 @@ public class ToolInfo
     public ToolSO tool;
     [Range(0, 50)]
     public int price;
-    public string toolAbil; // Åø ´É·Â
+    public string toolAbil; // ï¿½ï¿½ ï¿½É·ï¿½
 
     ToolManager toolManager;
 }
@@ -59,13 +59,12 @@ public class ToolShop : UIBase
 
         if (ResourceManager.Instance.UseResource(resourceType, tools[idx].ToolSO.Price[tools[idx].ToolLevel - 1]) == false)
         {
-            NotifictionManager.Instance.NotifictionEvent.Invoke("¸ñÀçºÎÁ·", "¾ÆÀÌÅÛ ¾÷±×·¹ÀÌµå ½ÇÆÐ");
+            NotifictionManager.Instance.NotifictionEvent.Invoke("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
-        NotifictionManager.Instance.NotifictionEvent.Invoke("¾ÆÀÌÅÛ ¾÷±Û¼º°ø", "¾ÆÀÌÅÛÀ» È®ÀÎÇØº¸¼¼¿ä!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½!");
 
-        Debug.Log(idx);
         tools[idx].UpgradeLevel();
         PuchaseEffect(idx);
     }
@@ -136,7 +135,7 @@ public class ToolShop : UIBase
             WhiteBg.gameObject.SetActive(false);
             group.enabled = true;
 
-            NotifictionManager.Instance.NotifictionEvent.Invoke("µµ±¸Áö±ÞµÊ", "ÀÎº¥Åä¸® È®ÀÎ");
+            NotifictionManager.Instance.NotifictionEvent.Invoke("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þµï¿½", "ï¿½Îºï¿½ï¿½ä¸® È®ï¿½ï¿½");
         });
 
     }

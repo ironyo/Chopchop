@@ -14,7 +14,6 @@ public abstract class GameStartUI : MonoBehaviour,IPointerEnterHandler,IPointerE
         _spawnedObj = Instantiate(arrow, spawnPos);
         _spawnedObj.transform.rotation = Quaternion.Euler(0,0,270);
         _spawnedObj.transform.DOScale(new Vector3(50,50, 0), 0.1f);
-        Debug.Log(_spawnedObj);
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)

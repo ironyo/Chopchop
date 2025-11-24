@@ -94,7 +94,6 @@ public class Minion : MonoBehaviour
 
     public void SetState(AiStates newState)
     {
-        Debug.Log($"{newState} 로 Set State");
         currentState = newState;
         behaviorGraph.BlackboardReference.SetVariableValue("AiStates", newState);
     }
