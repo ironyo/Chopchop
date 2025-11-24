@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System;
 using TMPro;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class ToolSlot // 여기까지함
@@ -56,6 +57,17 @@ public class ToolManager : MonoBehaviour
         }
 
         playerInput.OnItemInvenKeyReleased += ToolGive;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (currentTool != null)
+            {
+                RemoveTool();
+            }
+        }
     }
 
     private void Init()

@@ -1,3 +1,4 @@
+using Member.CHJ._02.Scripts;
 using System.Collections;
 using NUnit.Framework.Internal;
 using TMPro;
@@ -13,7 +14,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private int _weaponIndex = 0;
     private int _level;
-    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 50); } }
+    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 5); } }
 
     public void IncreseLevel(int amount)
     {

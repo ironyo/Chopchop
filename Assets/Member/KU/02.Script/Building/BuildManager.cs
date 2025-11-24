@@ -458,7 +458,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                     LevelResourceTypeCost cost = buildingSO.levelResourceType[buildingParent[selectCount].level - 1];
                     ResourceTypeCost type = cost.resourceTypeSOs[0];
 
-                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount}/s";
+                    _spawnKindTex.text += type.resourceTypeSO.name + " +" +  $"{type.amount * buildingParent[selectCount].NowMinion}/s";
                 }
                 else
                 {
@@ -522,7 +522,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             }
         }
         buildingCount--;
-        Instantiate(_particleSystemList[4], build.boxCollider.bounds.center, Quaternion.identity);
+        Instantiate(_particleSystemList[3], build.boxCollider.bounds.center, Quaternion.identity);
         selectorCompo.Remove(buildingParent[selectCount].buildingSelector);
         Destroy(build.gameObject);
         buildingParent.Remove(buildingParent[selectCount]);
