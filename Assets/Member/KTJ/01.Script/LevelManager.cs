@@ -20,12 +20,12 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         expSlider.value += amount;
 
-        if (expSlider.value >= 100) // �����̴� ������ ��������
+        if (expSlider.value >= 100)
         {
             _weaponIndex++;
-            foreach (var m in TestMinionManager.Instance.alivesMinions)
+            foreach (var m in MinionManager.Instance.minionList)
             {
-                m.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
+                m.visualObj.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
             }
             
             int leftAmount = ((int)expSlider.value + amount) - 100;
