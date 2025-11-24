@@ -54,6 +54,11 @@ namespace Member.CHJ._02.Scripts
                     tm.Hungry--;
                     tm.Thirsty--;
                     tm.Dirty--;
+
+                    if (tm.Hungry <= 0 && tm.Thirsty <= 0 && tm.Dirty <= 0)
+                    {
+                        tm.Die("주인이 날 관리하지 않았어..");
+                    }
                 }
                 SetMinionAverageState();
                 currentTime = 0;
