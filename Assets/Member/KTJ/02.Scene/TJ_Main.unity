@@ -19919,6 +19919,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
+  weaponDataList: {fileID: 11400000, guid: 13a972d99197d3c4fb4527f73d72d6e2, type: 2}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -20056,7 +20057,7 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
-  invasionWarningBox: {fileID: 1391319070}
+  invasionWarning: {fileID: 0}
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
@@ -36467,8 +36468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7fd0fc58f46b54a9368fe8599c83f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  day: {fileID: 0}
-  night: {fileID: 0}
+  dayimage: {fileID: 0}
+  nightimage: {fileID: 0}
 --- !u!1 &8664662990382799276
 GameObject:
   m_ObjectHideFlags: 0
