@@ -28,7 +28,7 @@ public class DayCycleManager : MonoBehaviour
     private Vignette vignette;
 
     private int minute;
-    private int hours = 7;
+    private int hours = 0;
 
     public UnityEvent OnNextDay;
     public UnityEvent<string> OnTimeChanged; // <HH:MM AM/PM>
@@ -126,6 +126,7 @@ public class DayCycleManager : MonoBehaviour
 
     private bool IsDayTime()
     {
-        return hours >= 19 || hours < 23;
+        // 밤: 19시 ~ 23시, 낮: 나머지 시간
+        return !(hours >= 19 && hours <= 23);
     }
 }
