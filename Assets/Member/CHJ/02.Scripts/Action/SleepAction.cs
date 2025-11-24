@@ -20,13 +20,11 @@ public partial class SleepAction : Action
     private Minion _minion;
     protected override Status OnStart()
     {
-        Debug.Log("Sleep Start");
         _minion = Self.Value.GetComponent<Minion>();
         var buildManager = MinionManager.Instance.MinionsBuildingManager;
         var building = buildManager.GetAvailableHouseCheckOnly(Self.Value.transform.position,MinionManager.Instance.houseSo, 30);
         if (building != null)
         {
-            Debug.Log("FIND SLEEP BUILDING");
             NavMesh.Value.SetDestination(building.transform.position);
             WorkAction.Value.DoWork(building);
             return Status.Running;
@@ -56,7 +54,6 @@ public partial class SleepAction : Action
     protected override void OnEnd()
     {
         HpSystem.Value.GetDamage(-(HpSystem.Value.maxHealth - HpSystem.Value.HP));
-        Debug.Log("Sleep End");
         WorkAction.Value.ExitWork();
         base.OnEnd();
     }

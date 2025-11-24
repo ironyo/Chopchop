@@ -25,7 +25,6 @@ public partial class CantFindBuildingAction : Action
     private const int MaxAttempt = 10;
     protected override Status OnStart()
     {
-        Debug.Log("[Patrol] Start Patrol");
         _minion = Self.Value.GetComponent<Minion>();
         RandomPatrol(Self.Value.transform.position, 4);
         
@@ -37,7 +36,6 @@ public partial class CantFindBuildingAction : Action
         if (_minion.currentState == State.Value) return true;
         else
         {
-            Debug.Log("Minion does not working");
             return false;
         };
     }
@@ -45,7 +43,6 @@ public partial class CantFindBuildingAction : Action
     {
         if (!CheckTime())
         {
-            Debug.Log("END");
             return Status.Success;
         }
         

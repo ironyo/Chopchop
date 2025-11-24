@@ -9,7 +9,6 @@ namespace Member.CHJ._02.Scripts.Ui
 
         public void OpenSetting()
         {
-            Debug.Log("Open");
             _setting.Open();
         }
         public override void OnPointerEnter(PointerEventData eventData)

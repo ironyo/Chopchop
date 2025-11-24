@@ -7,21 +7,17 @@ public class FirstLoginChecker : MonoBehaviour
 
     void Start()
     {
-        // Ã³À½ Á¢¼ÓÀÎÁö Ã¼Å©
+        // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
         if (!PlayerPrefs.HasKey(FIRST_PLAY_KEY))
         {
-            // PlayerPrefs ÀúÀå (Ã³À½ Á¢¼Ó ±âÁØ ±â·Ï)
+            // PlayerPrefs ï¿½ï¿½ï¿½ï¿½ (Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
             PlayerPrefs.SetInt(FIRST_PLAY_KEY, 1);
             PlayerPrefs.Save();
 
-            // SceneChangeManager°¡ ÁØºñµÅ ÀÖ´ÂÁö Ã¼Å© ÈÄ È£Ãâ
+            // SceneChangeManagerï¿½ï¿½ ï¿½Øºï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ È£ï¿½ï¿½
             if (SceneChangeManager.Instance != null)
             {
                 MoveToTutorial();
-            }
-            else
-            {
-                Debug.LogError("SceneChangeManager.Instance°¡ nullÀÔ´Ï´Ù! ÃÊ±âÈ­ ¼ø¼­¸¦ È®ÀÎÇÏ¼¼¿ä.");
             }
         }
     }

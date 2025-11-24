@@ -237,17 +237,14 @@ public class Building : MonoBehaviour
     {
         if (isNowBuilding)
         {
-            Debug.Log("건물 공사 중이라 예약 불가");
             return false;
         }
-        Debug.Log($"{NowMinion} < {maxMinion} = {NowMinion < maxMinion}");
         return NowMinion < maxMinion;
     }
     public bool TryReserve()
     {
         if (!CanReserve())
             return false;
-        Debug.Log("Can Add Minion On Building");
         MinionPlus(1);
         return true;
     }
@@ -258,7 +255,6 @@ public class Building : MonoBehaviour
         if (showMinion >= maxMinion) return;
         showMinion++;
         BuildUISetUp();
-        Debug.Log($"Add Show Minion {showMinion}");
     }
     public void Release()
     {

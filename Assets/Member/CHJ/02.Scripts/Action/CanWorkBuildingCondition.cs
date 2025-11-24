@@ -25,39 +25,7 @@ public partial class CanWorkBuildingCondition : Condition
 
         if (building != null)
             Target.Value = building;
-        Debug.Log($"Find Building {building != null}");
         return building != null;
-        // if (Self.Value == null || Job.Value == null)
-        //     return false;
-        //
-        // Collider2D[] hits = Physics2D.OverlapCircleAll(Self.Value.transform.position, 30f);
-        // Transform foundTrm = null;
-        //
-        // foreach (var hit in hits)
-        // {
-        //     if (hit.TryGetComponent<Building>(out var building))
-        //     {
-        //         if (building.buildingSO == null) continue;
-        //         if (building.buildingSO != Job.Value.BuildingData) continue;
-        //         if (building.NowMinion >= building.maxMinion) continue;
-        //
-        //         foundTrm = hit.transform;
-        //         break;
-        //     }
-        // }
-        //
-        // if (foundTrm != null)
-        // {
-        //     Target.Value = foundTrm;
-        //     Debug.Log($"[Condition] Found valid building for {Job.Value.name}.");
-        //     return true;
-        // }
-        // else
-        // {
-        //     Target.Value = null;
-        //     Debug.Log("[Condition] No available building found.");
-        //     return false;
-        // }
     }
 
 }

@@ -42,7 +42,6 @@ public class BombEvent : MonoBehaviour, IGameEvent
     public void Stop()
     {
         isRunning = false;
-        Debug.Log("BombEvent ����");
     }
     #endregion
 }

@@ -46,7 +46,6 @@ public class WorkActionScr : MonoBehaviour
         
         if (_mycollder == null || _target == null)
             return false;
-        // Debug.Log($"{_mycollder.IsTouching(_target)} / My Collider{_mycollder} / Target Collider {_target}");
         return _mycollder.IsTouching(_target);
     }
     public virtual void ExitWork()
