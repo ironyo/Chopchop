@@ -1,5 +1,6 @@
 using Member.CHJ._02.Scripts;
 using System.Collections;
+using NUnit.Framework.Internal;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,9 @@ public class LevelManager : MonoSingleton<LevelManager>
     [SerializeField] private TextMeshProUGUI LevelTxt;
     [SerializeField] private TextMeshProUGUI ShadowLevelTxt;
     [SerializeField] private Slider expSlider;
+    // [SerializeField] private WeaponDataListSO weaponDataList;
 
+    private int _weaponIndex = 0;
     private int _level;
     public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 5); } }
 
@@ -17,8 +20,14 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         expSlider.value += amount;
 
-        if (expSlider.value >= 100) // 슬라이더 꽉차면 레벨증가
+        if (expSlider.value >= 100) // 
         {
+            _weaponIndex++;
+            foreach (var m in MinionManager.Instance.minionList)
+            {
+                // m.visualObj.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
+            }
+            
             int leftAmount = ((int)expSlider.value + amount) - 100;
             Level += 1;
             expSlider.value = leftAmount;
@@ -31,7 +40,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LevelTxt.text = Level.ToString();
         ShadowLevelTxt.text = Level.ToString();
-        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " 레벨업!", "성장하셨네요!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " ??????!", "?????????!");
     }
 
 
