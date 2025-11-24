@@ -41,6 +41,9 @@ public class SetName : MonoBehaviour
 
         Time.timeScale = 1;
         NameSetted.Invoke();
+
+        GameManager.Instance.StartGame();
+
         Background.DOFade(0f, 3f).OnComplete(() =>
         {
             //StartGameEvent.Invoke();
