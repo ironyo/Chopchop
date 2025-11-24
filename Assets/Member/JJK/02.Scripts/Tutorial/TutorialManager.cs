@@ -68,12 +68,12 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             {
                 highlightUI.SetActive(true);
                 int childCount = canvas.transform.childCount;
-                step.highlightTarget.transform.SetSiblingIndex(childCount - 5);
+                step.highlightTarget.transform.SetSiblingIndex(childCount - 3);
             }
             
             _externalCompleted = false;
             ApplyUILock(step);
-            
+
             StartCoroutine(Typing(step.message));
             yield return StartCoroutine(WaitForStepCondition(step));
             
@@ -85,7 +85,8 @@ public class TutorialManager : MonoSingleton<TutorialManager>
 
         _isRunning = false;
         ReleaseAllUI();
-        SceneManager.LoadScene(1);
+        //OnTutorialCompleted?.Invoke();
+        SceneChangeManager.Instance.OnSceneEnd(1);
         Destroy(gameObject);
         Destroy(EnemyManager.Instance.gameObject);
     }

@@ -32,7 +32,7 @@ public class DailyReport : MonoBehaviour
             seq = DOTween.Sequence();
         }
         CheckImage.gameObject.SetActive(false);
-        reportTxt.text = "오늘도 수고하셨습니다! 보고 드립니다.\n오늘 총 N번의 침략을 막아내셨습니다.\n날씨는 매우 좋습니다.\n본부장 김철수 드림";
+        reportTxt.text = "하루가 지났습니다.\n\n오늘 하루도 잘 버텨내셨군요!.\n앞으로도 행운을 빌겠습니다.\nㅎㅇㅌ";
         seq.Append(Anchor.DOAnchorPosY(0f, 1f));
         seq.Insert(0.2f ,Base_front.DOAnchorPosY(0f, 1f).SetEase(Ease.OutBack));
     }

@@ -13,14 +13,12 @@ public class SetName : MonoBehaviour
     [SerializeField] private GameObject FullObj;
 
     [Header("UI Settings")]
-    [SerializeField] private TextMeshProUGUI NameTxt;
+    [SerializeField] private TMP_InputField NameTxt;
     [SerializeField] private Image Background;
 
-    private bool isSceneLoaded = false;
+    [SerializeField] private UnityEvent NameSetted;
 
-    //[Header("Events")]
-    //[SerializeField] private UnityEvent<string> SetNameEvent;
-    //[SerializeField] private UnityEvent StartGameEvent;
+    private bool isSceneLoaded = false;
 
     private void Awake()
     {
@@ -35,15 +33,19 @@ public class SetName : MonoBehaviour
     public void SetBtn()
     {
         if (isSceneLoaded == false) return;
-        if (RealNameTxt.text == "") return;
+
+        if (string.IsNullOrWhiteSpace(NameTxt.text)) return;
         //SetNameEvent.Invoke(NameTxt.text);
         NameSettingObj.SetActive(false);
         RealNameTxt.text = NameTxt.text;
-            Time.timeScale = 1;
+
+        Time.timeScale = 1;
+        NameSetted.Invoke();
         Background.DOFade(0f, 3f).OnComplete(() =>
         {
             //StartGameEvent.Invoke();
             FullObj.SetActive(false);
+
         });
     }
 }

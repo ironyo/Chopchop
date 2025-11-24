@@ -20403,6 +20403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 4876610386822580684}
+  weapon: {fileID: 1135335786196474065}
   AppleParticels: {fileID: 8511327307176439210}
   WaterParticels: {fileID: 572536161895567708}
   CleanParticels: {fileID: 3531178675735326862}
@@ -20524,6 +20525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9d5a07580ef5f9c4d99bf49205035ab8, type: 2}
+  body: {fileID: 1513304839453076005}
   <OnTargetChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
