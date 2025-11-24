@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Data;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class DialogManager : MonoSingleton<DialogManager>
 {
@@ -12,6 +14,7 @@ public class DialogManager : MonoSingleton<DialogManager>
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private GameObject spaceBar;
+    [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private float typingSpeed = 0.1f;
 
     [Header("Dialog Data")]
@@ -52,10 +55,19 @@ public class DialogManager : MonoSingleton<DialogManager>
     
     private string ProcessDialog(string rawText)
     {
+        NegotiationManager.Instance.SetResource();
         string result = rawText
             .Replace("{RESOURCE}", NegotiationManager.Instance.resourceName)
             .Replace("{COUNT}", NegotiationManager.Instance.resourceAmount.ToString());
-        NegotiationManager.Instance.SetResource();
+        
+        return result;
+    }
+
+    private string SetName(string rawText)
+    {
+        string result = rawText
+            .Replace("{RANDOM}", RandomName.CreateIslandName())
+            .Replace("{NAME}", name.text);
         
         return result;
     }
@@ -140,7 +152,7 @@ public class DialogManager : MonoSingleton<DialogManager>
         spaceBar.SetActive(true);
         choiceBox.SetActive(false);
         StopAllCoroutines();
-        StartCoroutine(Typing(invasionDialogData.explain[index]));
+        StartCoroutine(Typing(SetName(invasionDialogData.explain[index])));
     }
     
     public void TutorialDialog()

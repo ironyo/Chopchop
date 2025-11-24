@@ -17,9 +17,14 @@ public class WeaponHolder : MonoBehaviour
         AnimCompo = GetComponent<WeaponAnimation>();
         animator = GetComponent<Animator>();
         
+        SetWeapon();
+    }
+
+    public void SetWeapon()
+    {
         animator.runtimeAnimatorController = weaponData.animatorController;
         if (weaponData.sprite != null && weaponSprite != null)
-                weaponSprite.sprite = weaponData.sprite;
+            weaponSprite.sprite = weaponData.sprite;
     }
 
     public void Swing(Transform target)

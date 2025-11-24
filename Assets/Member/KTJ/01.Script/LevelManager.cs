@@ -27,6 +27,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             {
                 WeaponHolder wh = m.visualObj.GetComponentInChildren<WeaponHolder>();
                 wh.weaponData = weaponDataList.list[_weaponIndex];
+                wh.SetWeapon();
             }
             
             int leftAmount = ((int)expSlider.value + amount) - 100;
