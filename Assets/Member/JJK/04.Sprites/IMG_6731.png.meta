@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7e8553115d6dc1e42af9d089f37ddfec
+guid: aa9fc114ade01a045b6cc60a837415f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5033045915892637892
-    second: Roundy Square_0
+      213: -2103627913257926346
+    second: IMG_6731_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
-  spriteBorder: {x: 550, y: 550, z: 550, w: 550}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Roundy Square_0
+      name: IMG_6731_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 19
-        width: 2010
-        height: 2010
+        x: 0
+        y: 11
+        width: 48
+        height: 26
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3f1dfcd767072ab0800000000000000
-      internalID: -5033045915892637892
+      spriteID: 6314aa2fe896ec2e0800000000000000
+      internalID: -2103627913257926346
       vertices: []
       indices: 
       edges: []
@@ -138,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Roundy Square_0: -5033045915892637892
+      IMG_6731_0: -2103627913257926346
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

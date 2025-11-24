@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class EnemyUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
-    [SerializeField] private EnemyDataSO data;
+    public EnemyDataSO data;
     [SerializeField] private string[] targetTags;
     
     private Transform _target;
@@ -97,7 +97,9 @@ public class EnemyUnit : MonoBehaviour
 
     private void Die()
     {
-        EnemyManager.Instance.UnregisterEnemy(this);
+        if (EnemyManager.Instance != null)
+            EnemyManager.Instance.UnregisterEnemy(this);
+        
         Destroy(gameObject);
     }
 }

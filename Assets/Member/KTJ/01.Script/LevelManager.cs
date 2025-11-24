@@ -10,7 +10,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     [SerializeField] private TextMeshProUGUI LevelTxt;
     [SerializeField] private TextMeshProUGUI ShadowLevelTxt;
     [SerializeField] private Slider expSlider;
-    // [SerializeField] private WeaponDataListSO weaponDataList;
+    [SerializeField] private WeaponDataListSO weaponDataList;
 
     private int _weaponIndex = 0;
     private int _level;
@@ -20,12 +20,12 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         expSlider.value += amount;
 
-        if (expSlider.value >= 100) // 
+        if (expSlider.value >= 100) // �����̴� ������ ��������
         {
             _weaponIndex++;
-            foreach (var m in MinionManager.Instance.minionList)
+            foreach (var m in TestMinionManager.Instance.alivesMinions)
             {
-                // m.visualObj.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
+                m.GetComponentInChildren<WeaponHolder>().weaponData = weaponDataList.list[_weaponIndex];
             }
             
             int leftAmount = ((int)expSlider.value + amount) - 100;
@@ -40,7 +40,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LevelTxt.text = Level.ToString();
         ShadowLevelTxt.text = Level.ToString();
-        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " ??????!", "?????????!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " ������!", "�����ϼ̳׿�!");
     }
 
 
