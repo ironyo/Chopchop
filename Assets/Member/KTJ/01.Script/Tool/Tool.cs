@@ -15,17 +15,16 @@ public class Tool
     {
         if (ToolLevel == 3) return;
         ToolLevel++;
-        Debug.Log(ToolSO.ToolName + "ÀÌ(°¡) " + ToolLevel + "·Î ¾÷±×·¹ÀÌµå µÇ¾ú½À´Ï´Ù!");
     }
     public void Use(GameObject target)
     {
         if (target.TryGetComponent<TestMinion>(out TestMinion minion))
         {
-            if (ToolLevel == 1) // ·¹º§ 1Àº ¹üÀ§¼±ÅÃ ¾øÀÌ ¹Ù·Î Àû¿ë
+            if (ToolLevel == 1) // ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 ToolSO.ToolApply(minion, ToolSO.Amount[0]);
             }
-            else if (ToolLevel == 2) // ¾ÆÀÌÅÛ ·¹º§ÀÌ 2ÀÏ°æ¿ì, ¹üÀ§ ¼±ÅÃ±â´É Àû¿ë
+            else if (ToolLevel == 2) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½Ï°ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 RangeMinionUse(minion, ToolSO.defaultRadius);
             }

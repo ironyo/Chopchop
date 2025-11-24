@@ -14,7 +14,6 @@ public class MinionInteraction : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("미니언 클릭");
         if (ToolManager.Instance.UseTool(gameObject) == false)
         {
             chat.AddMessage(randomMessage[Random.Range(0, randomMessage.Length)]);

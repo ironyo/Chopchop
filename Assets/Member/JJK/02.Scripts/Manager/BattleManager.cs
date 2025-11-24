@@ -18,7 +18,6 @@ public class BattleManager : MonoSingleton<BattleManager>
     public void Win()
     {
         isBattle = false;
-        Debug.Log("Win");
     }
     
     public void Surrender()
@@ -29,6 +28,5 @@ public class BattleManager : MonoSingleton<BattleManager>
     public void Lose()
     {
         isBattle = false;
-        Debug.Log("Game Over");
     }
 }

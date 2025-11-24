@@ -22,7 +22,7 @@ public class JobManager : MonoBehaviour
         }
         catch (Exception a)
         {
-            Debug.Log(a);
+            print(a);
         }
         foreach (var jobScr in jobDataListSo.list)
         { 
