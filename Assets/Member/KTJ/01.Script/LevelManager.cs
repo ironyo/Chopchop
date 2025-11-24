@@ -15,7 +15,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private int _weaponIndex = 0;
     private int _level;
-    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 5); } }
+    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 4); } }
 
     public void IncreseLevel(int amount)
     {
@@ -48,7 +48,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         LevelTxt.text = Level.ToString();
         ShadowLevelTxt.text = Level.ToString();
-        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + " ������!", "�����ϼ̳׿�!");
+        NotifictionManager.Instance.NotifictionEvent.Invoke(Level.ToString() + "레벨 업그레이드", "새 무기 잠금해제");
     }
 
 

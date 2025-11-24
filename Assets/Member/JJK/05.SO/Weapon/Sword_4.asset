@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Sword_4
   m_EditorClassIdentifier: 
   animatorController: {fileID: 9100000, guid: 9bffa9d589158f9418073214c9490a86, type: 2}
-  sprite: {fileID: -1417527636, guid: b96cafd382b4e69449f99c4357080573, type: 3}
+  sprite: {fileID: 21300000, guid: 992377de628c87a4fabed374bc080b4a, type: 3}
   attackRange: 2
   damage: 25

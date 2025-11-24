@@ -57,6 +57,7 @@ public class Minion : MonoBehaviour
         MinionManager.Instance.RegisterMinion(this);
         TimeManager.Instance.OnDayStarted += InitializeDay;
         GetJob();
+        LevelManager.Instance.MinionSetWeapon();
     }
 
     private void InitializeDay()
