@@ -20,10 +20,6 @@ public class SetName : MonoBehaviour
 
     private bool isSceneLoaded = false;
 
-    //[Header("Events")]
-    //[SerializeField] private UnityEvent<string> SetNameEvent;
-    //[SerializeField] private UnityEvent StartGameEvent;
-
     private void Awake()
     {
         SceneChangeManager.Instance?.OnSceneChangeLoaded.AddListener(OnSceneChangeLoaded);
@@ -42,13 +38,14 @@ public class SetName : MonoBehaviour
         //SetNameEvent.Invoke(NameTxt.text);
         NameSettingObj.SetActive(false);
         RealNameTxt.text = NameTxt.text;
-            Time.timeScale = 1;
+
+        Time.timeScale = 1;
+        NameSetted.Invoke();
         Background.DOFade(0f, 3f).OnComplete(() =>
         {
             //StartGameEvent.Invoke();
             FullObj.SetActive(false);
 
-            NameSetted.Invoke();
         });
     }
 }

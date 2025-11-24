@@ -19,6 +19,8 @@ public class ResourcePref : MonoBehaviour
     private Vector2 startPos1;
     private Vector2 startPos2;
 
+    private string rname;
+
     void Awake()
     {
         if (countTxt != null && countTxt_s != null)
@@ -30,17 +32,19 @@ public class ResourcePref : MonoBehaviour
 
     public void Set(int count, Sprite icon, ResourceTypeSO type)
     {
-        countTxt.text = count + " :";
-        countTxt_s.text = count + " :";
+        countTxt.text = type.name+": "+count;
+        countTxt_s.text = type.name + ": " + count;
         this.icon.sprite = icon;
         this.icon_s.sprite = icon;
         typeData = type;
+
+        rname = type.name;
     }
 
     public void UpdateCount(int count)
     {
-        countTxt.text = count + " :";
-        countTxt_s.text = count + " :";
+        countTxt.text = rname + ": " + count;
+        countTxt_s.text = rname + ": " + count;
     }
 
     public void UpdateResource(ResourceTypeSO type)
