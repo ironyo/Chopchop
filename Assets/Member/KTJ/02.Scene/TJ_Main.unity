@@ -15852,6 +15852,7 @@ MonoBehaviour:
   _buildingBtn: {fileID: 0}
   colliderColor: {r: 0, g: 1, b: 0, a: 1}
   lineWidth: 0.05
+  surface: {fileID: 0}
   healthBar: {fileID: 501050490448884764, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
   isMoveInv: 0
 --- !u!4 &736060522

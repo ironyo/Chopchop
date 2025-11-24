@@ -475,7 +475,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             _buildHPTex.text = $"체력: {buildingParent[selectCount].nowHealth}";
             _levelTex.text = buildingSO.maxLevel == buildingParent[selectCount].level ? $"레벨: {buildingParent[selectCount].level} Max" : $"레벨: {buildingParent[selectCount].level}";
             _explaneTxt.text = $"설명: { buildingParent[selectCount].buildingSO.explaneStr}";
-            _spawnKindTex.text = "자원:";
+            _spawnKindTex.text = "자원: ";
             if (buildingParent[selectCount].buildingSO.levelResourceType.Length != 0)
             {
                 if(buildingParent[selectCount].buildingSO.levelResourceType[0].minion == null)
