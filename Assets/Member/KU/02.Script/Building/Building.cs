@@ -2,7 +2,6 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using System.Collections;
 using Member.CHJ._02.Scripts;
 using Random = UnityEngine.Random;
 using TMPro;
@@ -11,6 +10,7 @@ using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
+    public GameObject enter { get; private set; }
     public bool isNowBuilding { get; private set; } = true;
 
     public int buildCount = 0;
@@ -35,6 +35,8 @@ public class Building : MonoBehaviour
     TextMeshPro _logPrefab;
     Image _timerPref;
     TextMeshPro _minionText;
+    GameObject _enterObj;
+    public GameObject EnterObj { get; private set; }
 
     public int level { get; private set; } = 1;
     private int minionCount = 0;
@@ -76,6 +78,9 @@ public class Building : MonoBehaviour
     public int showMinion = 0;
     private void Start()
     {
+        _healthCompo = GetComponent<HealthSystem>();
+        _healthCompo.OnDead += () => BuildManager.Instance.DestroyBuilding(GetComponent<Building>());
+        
         LevelManager.Instance.IncreseLevel(10);
         
         if (buildingSO.resourceTypeCost.Length != 0)
@@ -132,14 +137,12 @@ public class Building : MonoBehaviour
             Instantiate(buildingSO.particleSystem, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y+0.6f), Quaternion.identity, transform); 
         }
 
-        StartCoroutine(RebuildNavMeshNextFrame());
+        if(buildingSO.resourceTypeCost.Length != 0)
+        {
+            EnterObj = Instantiate(_enterObj, new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y - 2), Quaternion.identity, transform);
+        }
     }
-    
-    private IEnumerator RebuildNavMeshNextFrame()
-    {
-        yield return null;
-        BuildManager.Instance.surface.BuildNavMesh();
-    }
+
     private void Update()
     {
         UpdateColliderView();
@@ -174,6 +177,7 @@ public class Building : MonoBehaviour
                 Instantiate(_particleList[0], transform.position, Quaternion.identity);
                 Instantiate(buildingSO.levelResourceType[level - 1].minion, new Vector2(transform.position.x + 1.5f, transform.position.y -1.5f), Quaternion.identity);
                 ResourceLog(level - 1, true);
+                LevelManager.Instance.MinionSetWeapon();
             }
             else
             {
@@ -211,7 +215,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, List<ParticleSystem> particle, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi)
+    public void BuildSpawnSetting(TextMeshPro logpre, BuildingSO buildSo, List<ParticleSystem> particle, Image timer, GameObject timerObj, List<AudioClip> list, UpgradeUIGroup upgradeUi, GameObject enterObj)
     {
         _logPrefab = logpre;
         buildingSO = buildSo;
@@ -220,6 +224,7 @@ public class Building : MonoBehaviour
         _timerBuildingPref = timerObj;
         _audioClips = list;
         _upgradeUIGroupCompo = upgradeUi;
+        _enterObj = enterObj;
     }
 
     public void BuildUpgrade()
@@ -357,7 +362,7 @@ public class Building : MonoBehaviour
         if(buildingSO.levelResourceType.Length != 0)
         {
             if (buildingSO.levelResourceType[0].minion == null)
-                _minionText.text += $"\n<size=3{showMinion} / {maxMinion}<size>";
+                _minionText.text += $"\n<size=3>{showMinion} / {maxMinion}<size>";
         }
     }
 
