@@ -86,7 +86,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
         _isRunning = false;
         ReleaseAllUI();
         //OnTutorialCompleted?.Invoke();
-        SceneManager.LoadScene(1);
+        SceneChangeManager.Instance.OnSceneEnd(1);
         Destroy(gameObject);
         Destroy(EnemyManager.Instance.gameObject);
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Member.CHJ._02.Scripts;
 using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class MopeEvent : MonoBehaviour, IGameEvent
 {
@@ -39,6 +40,7 @@ public class MopeEvent : MonoBehaviour, IGameEvent
         if (availableMinions.Count > 0)
         {
             TestMinion pickedMinion = availableMinions[Random.Range(0, availableMinions.Count)].GetComponent<TestMinion>();
+            pickedMinion.GetComponent<NavMeshAgent>().speed = 2f;
             mopedMinions.Add(pickedMinion);
             return pickedMinion;
         }
@@ -47,7 +49,7 @@ public class MopeEvent : MonoBehaviour, IGameEvent
     }
     private void UnMopeAll()
     {
-        mopedMinions.ForEach(x => x.UnMope());
+        mopedMinions.ForEach(x => { x.UnMope(); x.GetComponent<NavMeshAgent>().speed = 5f; });
         mopedMinions.Clear();
     }
     public void Run()
