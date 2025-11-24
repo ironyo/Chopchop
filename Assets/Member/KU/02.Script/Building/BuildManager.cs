@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -207,16 +208,19 @@ public class BuildManager : MonoSingleton<BuildManager>
         if (!CanResourceAmount())
         {
             NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "자원이 부족합니다!");
+            StartCoroutine(CancleColor());
             return;
         }
         if (!IsOnTheGround())
         {
             NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물은 땅위에서만 건축합니다!");
+            StartCoroutine(CancleColor());
             return;
         }
         if (!CanSpawn())
         {
             NotifictionManager.Instance.NotifictionEvent.Invoke("설치불가", "건물이 겹쳐있습니다!");
+            StartCoroutine(CancleColor());
             return;
         }
         NotifictionManager.Instance.NotifictionEvent.Invoke("설치완료", $"{buildingCount+1}번째 건물을 설치했습니다!");
@@ -325,6 +329,14 @@ public class BuildManager : MonoSingleton<BuildManager>
         {
             BuildingClear?.Invoke();
         }
+    }
+    private IEnumerator CancleColor()
+    {
+        SetViewColor(Color.red);
+        yield return new WaitForSeconds(0.7f);
+        {
+            SetViewColor(colliderColor);
+        }; 
     }
     private bool CanSpawn()
     {
@@ -583,10 +595,15 @@ public class BuildManager : MonoSingleton<BuildManager>
 
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        lineRenderer.startColor = colliderColor;
-        lineRenderer.endColor = colliderColor;
+        SetViewColor(colliderColor);
 
         lineRenderer.enabled = showCollider;
+
+    }
+    private void SetViewColor(Color color)
+    {
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
     }
     private void UpdateColliderView()
     {
