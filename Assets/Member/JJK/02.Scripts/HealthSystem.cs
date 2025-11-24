@@ -39,6 +39,8 @@ public class HealthSystem : MonoBehaviour
         {
             if(gameObject.CompareTag("HQ"))
                 GameFinishManager.Instance.onGameOver?.Invoke();
+            
+            OnDead.Invoke();
         }
     }
 

@@ -1,6 +1,6 @@
-using Member.CHJ._02.Scripts.Ui;
 using System;
 using System.Collections;
+using Member.CHJ._02.Scripts.Ui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -9,7 +9,7 @@ public class InvasionManager : MonoSingleton<InvasionManager>
 {
     [SerializeField] private int minCount = 3, maxCount = 7;
     [SerializeField] private int minTime = 100, maxTime = 300;
-    [SerializeField] private GameObject invasionWarningBox;
+    [SerializeField] private GameObject invasionWarning;
     public bool isLanding = false;
     
     private int enemyCount;
@@ -49,23 +49,20 @@ public class InvasionManager : MonoSingleton<InvasionManager>
             StartCoroutine(InvasionWarning());
             InitInvasion();
         }
-
+        
         if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
             StartCoroutine(InvasionWarning());
-        }
     }
 
     private IEnumerator InvasionWarning()
     {
-       
-        invasionWarningBox.GetComponent<WarningUI>().OpenUI();
-
-        yield return new WaitForSeconds(5f);
-
-        invasionWarningBox.GetComponent<WarningUI>().CloseUI();
+        var warning = invasionWarning.GetComponent<WarningUI>();
+        warning.OpenUI();
+        
+        yield return new WaitForSeconds(3f);
+        
+        warning.CloseUI();
         DialogManager.Instance.InvasionDialog();
-        Invasion();
     }
 
     public void Invasion()

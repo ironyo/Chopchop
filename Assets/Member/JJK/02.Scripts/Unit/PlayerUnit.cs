@@ -6,7 +6,6 @@ public class PlayerUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
     [SerializeField] private UnitDataSO data;
-    [SerializeField] private SpriteRenderer body;
     
     private Transform _target;
     private WeaponHolder _weaponHolder;
@@ -28,7 +27,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void HitEffect()
     {
-        body.color = Color.red;
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
     private void Update()
