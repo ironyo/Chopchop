@@ -15,10 +15,15 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private int _weaponIndex = 0;
     private int _level;
-    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 4); } }
+    public int Level { get { return _level; } private set { _level = Mathf.Clamp(value, 1, 20); } }
 
     public void IncreseLevel(int amount)
     {
+        if (Level == 20)
+        {
+            expSlider.value = 0;
+            return;
+        }
         expSlider.value += amount;
 
         if (expSlider.value >= 100)

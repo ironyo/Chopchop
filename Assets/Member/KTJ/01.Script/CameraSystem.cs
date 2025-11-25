@@ -74,7 +74,7 @@ public class CameraSystem : MonoBehaviour
         if (Mathf.Abs(zoom) > 0.001f)
         {
             // OrthographicSize º¯°æ
-            cam.Lens.OrthographicSize = Mathf.Clamp(cam.Lens.OrthographicSize - zoom, 3f, 10f);
+            cam.Lens.OrthographicSize = Mathf.Clamp(cam.Lens.OrthographicSize - zoom, 3f, 20f);
             zoomTxt.text = "x" + cam.Lens.OrthographicSize.ToString("F1");
 
             if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);

@@ -37,23 +37,24 @@ public class Tool
 
     private void RangeMinionUse(TestMinion minion, float radius)
     {
-        minion.gameObject.GetComponent<SelectEffect>().RangeSelect(radius);
+        // 선택 효과
+        minion.GetComponent<SelectEffect>()?.RangeSelect(radius);
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(minion.transform.position, radius, LayerMask.GetMask("Minion_TJ"));
-        List<TestMinion> foundMinions = new List<TestMinion>();
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+            minion.transform.position,
+            radius,
+            LayerMask.GetMask("Minion_TJ")
+        );
+
         foreach (Collider2D minionCollider in colliders)
         {
-            Debug.Log("aaaaaa");
             TestMinion comp = minionCollider.GetComponent<TestMinion>();
-            if (comp != null)
-            {
-                foundMinions.Add(comp);
-            }
-        }
-        for (int i = 0; i < foundMinions.Count; i++)
-        {
-            ToolSO.ToolApply(foundMinions[i], ToolSO.Amount[ToolLevel - 1]);
-            
+
+            if (comp == null)
+                continue; // ❗ TestMinion 없는 Collider 제외
+
+            ToolSO.ToolApply(comp, ToolSO.Amount[ToolLevel - 1]);
         }
     }
+
 }
