@@ -344,8 +344,9 @@ MonoBehaviour:
   - {fileID: 9138463959089701899}
   - {fileID: 8156467433067757915}
   - {fileID: 6041261293804052150}
-  TitleTxt: {fileID: 0}
-  SubTitleTxt: {fileID: 0}
+  Background: {fileID: 532787155}
+  TitleTxt: {fileID: 411414014}
+  SubTitleTxt: {fileID: 657918905}
 --- !u!1 &532787153
 GameObject:
   m_ObjectHideFlags: 0
