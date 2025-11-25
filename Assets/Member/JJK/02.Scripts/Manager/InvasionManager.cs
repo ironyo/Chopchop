@@ -15,7 +15,6 @@ public class InvasionManager : MonoSingleton<InvasionManager>
     private int enemyCount;
     private float invasionTime;
     private float timer;
-    private bool isInvading = false;
     private int count = 0;
     
     private ShipSpawner spawner;
@@ -37,17 +36,21 @@ public class InvasionManager : MonoSingleton<InvasionManager>
         enemyCount = Random.Range(minCount, maxCount);
         invasionTime = Random.Range(minTime, maxTime);
         timer = invasionTime;
-        isInvading = false;
     }
 
     private void Update()
     {
         timer -= Time.deltaTime;
 
-        if (!isInvading && timer <= 5f)
+        if (timer <= 5f)
         {
             StartCoroutine(InvasionWarning());
             InitInvasion();
+        }
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            StartCoroutine(InvasionWarning());
         }
     }
 
@@ -59,6 +62,9 @@ public class InvasionManager : MonoSingleton<InvasionManager>
         yield return new WaitForSeconds(3f);
         
         warning.CloseUI();
+        
+        yield return new WaitForSeconds(1f);
+        
         DialogManager.Instance.InvasionDialog();
     }
 
@@ -70,6 +76,5 @@ public class InvasionManager : MonoSingleton<InvasionManager>
         {
             spawner.SpawnShip(enemyCount);
         }
-        isInvading = true;
     }
 }
