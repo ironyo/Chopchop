@@ -28,6 +28,7 @@ public class DialogManager : MonoSingleton<DialogManager>
     private bool isInvasion = false;
     private bool isTutorial = false;
     private bool canFight = false;
+    private Coroutine autoSkipRoutine;
 
     private enum DialogState
     {
@@ -107,16 +108,17 @@ public class DialogManager : MonoSingleton<DialogManager>
     {
         string timeLimitText = invasionDialogData.explain[index].Replace("{WAIT}", waitTime.ToString());
         StartCoroutine(Typing(timeLimitText));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         
         for (int i = waitTime - 1; i > 0; i--)
         {
-            yield return new WaitForSeconds(1f);
-            
             timeLimitText = invasionDialogData.explain[index].Replace("{WAIT}", i.ToString());
             _text.text = timeLimitText;
+            
+            yield return new WaitForSeconds(1f);
         }
 
+        Disagree();
         waitTime = 5;
     }
 
@@ -192,11 +194,45 @@ public class DialogManager : MonoSingleton<DialogManager>
     private IEnumerator Typing(string sentence)
     {
         _text.text = null;
+        
+        if (autoSkipRoutine != null)
+        {
+            StopCoroutine(autoSkipRoutine);
+            autoSkipRoutine = null;
+        }
 
+        // 글자 타이핑
         for (int i = 0; i < sentence.Length; i++)
         {
             _text.text += sentence[i];
             yield return new WaitForSeconds(typingSpeed);
+        }
+        
+        autoSkipRoutine = StartCoroutine(AutoSkip());
+    }
+    
+    private IEnumerator AutoSkip()
+    {
+        float timer = 0f;
+
+        while (timer < 5f)
+        {
+            // 스페이스 눌렀으면 AutoSkip 중단
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                yield break;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // 5초 지남 → 자동으로 다음 대사 진행
+        if (state == DialogState.Tutorial)
+        {
+            NextTutorialLine();
+        }
+        else if (state == DialogState.Invasion)
+        {
+            NextInvasionLine();
         }
     }
 }
