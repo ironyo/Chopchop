@@ -30,6 +30,7 @@ namespace Member.CHJ._02.Scripts
         protected override void Awake()
         {
             base.Awake();
+
             MinionsBuildingManager = new MinionsBuildingManager();
         }
 
@@ -89,7 +90,7 @@ namespace Member.CHJ._02.Scripts
             if (!minionList.Contains(minion))
             {
                 minionList.Add(minion);
-                if (minionList.Count >= 1000)
+                if (minionList.Count >= 2)
                 {
                     Debug.Log("GameClear");
                     GameFinishManager.Instance.onGameClear?.Invoke();
@@ -98,8 +99,12 @@ namespace Member.CHJ._02.Scripts
         }
         public void UnRegisterMinion(Minion minion)
         {
-            if(minionList.Contains(minion))
-                minionList.Remove(minion);
+            if (!minionList.Contains(minion)) return;
+            
+            minionList.Remove(minion);
+            if(minionList.Count == 0)
+                GameFinishManager.Instance.onGameClear?.Invoke();
+            
         }
         private void UpdateTime(int time)
         {

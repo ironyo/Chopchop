@@ -118,6 +118,7 @@ public class Minion : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log(MinionManager.Instance);
         MinionManager.Instance.UnRegisterMinion(this);
         TimeManager.Instance.OnDayStarted -= InitializeDay;
     } 

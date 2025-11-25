@@ -554,6 +554,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         CloseAllBuildUI(null);
 
         cameraSystem.UnFocusOnBuilding();
+        NavMeshSurface surface = FindObjectOfType<NavMeshSurface>();
+        surface.BuildNavMesh();
     }
 
     public BuildingSO GetBuildData() => buildingSO;
