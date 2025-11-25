@@ -20414,8 +20414,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minCount: 3
   maxCount: 6
-  minTime: 30
-  maxTime: 40
+  minTime: 90
+  maxTime: 120
   invasionWarning: {fileID: 1391319070}
   isLanding: 0
 --- !u!1 &1077823103

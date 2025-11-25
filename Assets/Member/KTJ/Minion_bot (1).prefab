@@ -20178,6 +20178,7 @@ GameObject:
   - component: {fileID: 5510023222412325579}
   - component: {fileID: 1800965570099978378}
   - component: {fileID: 7755797338883247712}
+  - component: {fileID: 4970315100385206964}
   m_Layer: 11
   m_Name: Minion_bot (1)
   m_TagString: Player
@@ -20567,6 +20568,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4970315100385206964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692593926029088029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ca1f8d1839e844f8998766a2260695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tip: qe3tq4wtqw
 --- !u!1 &4740030885684526177
 GameObject:
   m_ObjectHideFlags: 0
