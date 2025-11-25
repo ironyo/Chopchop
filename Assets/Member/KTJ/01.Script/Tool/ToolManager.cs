@@ -38,6 +38,7 @@ public class ToolManager : MonoSingleton<ToolManager>
         public GameObject slotObj;
         public TextMeshProUGUI countText;
     }
+
     private List<UISlot> toolSlotList = new List<UISlot>();
     private Tool currentTool = null;
 
@@ -45,7 +46,6 @@ public class ToolManager : MonoSingleton<ToolManager>
     {
         base.Awake();
         Init();
-
 
         playerInput.OnItemInvenKeyReleased += ToolGive;
     }

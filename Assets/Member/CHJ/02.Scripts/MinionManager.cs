@@ -20,7 +20,7 @@ namespace Member.CHJ._02.Scripts
         [SerializeField] private TextMeshProUGUI dirtyTxt;
 
         private float currentTime = 0;
-        private float duration = 1f;
+        private float duration = 2f;
 
 
         private Building _buildingTarget;
