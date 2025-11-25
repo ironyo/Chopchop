@@ -1,10 +1,11 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class InvBuild : MonoBehaviour
+public class InvBuild : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public BuildingSO BuildingSO { get; set; }
     [SerializeField] TextMeshProUGUI tex;
@@ -12,7 +13,9 @@ public class InvBuild : MonoBehaviour
     Button _button;
 
     private UseToolTip _toolTip;
-    
+
+    private Vector3 _startPos;
+
     private void Awake()
     {
         _button = GetComponent<Button>();
@@ -37,5 +40,16 @@ public class InvBuild : MonoBehaviour
     {
         BuildManager.Instance.Buildings(true, BuildingSO);
         ResourceUIManager.Instance.ChooseButton();
+        _startPos = transform.position;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.DOMoveY(_startPos.y+ 130, 0.1f);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.DOMoveY(_startPos.y+110, 0.1f);
     }
 }
