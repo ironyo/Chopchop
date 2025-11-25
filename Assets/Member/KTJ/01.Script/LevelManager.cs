@@ -47,6 +47,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             wh.weaponData = weaponDataList.list[_weaponIndex];
             wh.SetWeapon();
         }
+        Debug.Log("Minion Set");
     }
 
     private void UpdateUI()
