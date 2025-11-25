@@ -18328,7 +18328,7 @@ MonoBehaviour:
   m_text: "<bounce>\uC678\uB85C\uC6C0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36329c1d39742834aa4bbf7bb3b5b99f, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: -1428599614146973327, guid: 36329c1d39742834aa4bbf7bb3b5b99f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18352,8 +18352,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18393,7 +18393,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &878470251
@@ -32796,7 +32796,7 @@ MonoBehaviour:
   m_text: "<shake>\uACFC\uBD80\uD654"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36329c1d39742834aa4bbf7bb3b5b99f, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: -1428599614146973327, guid: 36329c1d39742834aa4bbf7bb3b5b99f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -32820,8 +32820,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -32861,7 +32861,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1904300552
@@ -34892,8 +34892,8 @@ RectTransform:
   - {fileID: 2026676753}
   - {fileID: 141265140}
   - {fileID: 72639980}
-  - {fileID: 5364101873126897571}
   - {fileID: 992393150}
+  - {fileID: 5364101873126897571}
   - {fileID: 612257181}
   - {fileID: 1952994709}
   - {fileID: 345131225}
