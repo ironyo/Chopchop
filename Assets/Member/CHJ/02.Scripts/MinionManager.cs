@@ -9,9 +9,8 @@ using UnityEngine.SceneManagement;
 
 namespace Member.CHJ._02.Scripts
 {
-    public class MinionManager : MonoBehaviour
+    public class MinionManager : MonoSingleton<MinionManager>
     {
-        public static MinionManager Instance;
         public List<Minion> minionList = new List<Minion>();
         public int MinionMaxCount => minionList.Count;
         [SerializeField] public BuildingSO houseSo;
@@ -28,12 +27,9 @@ namespace Member.CHJ._02.Scripts
         private Building _buildingTarget;
         public MinionsBuildingManager MinionsBuildingManager { get; private set; }
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
+            base.Awake();
 
             MinionsBuildingManager = new MinionsBuildingManager();
         }
@@ -103,8 +99,12 @@ namespace Member.CHJ._02.Scripts
         }
         public void UnRegisterMinion(Minion minion)
         {
-            if(minionList.Contains(minion))
-                minionList.Remove(minion);
+            if (!minionList.Contains(minion)) return;
+            
+            minionList.Remove(minion);
+            if(minionList.Count == 0)
+                GameFinishManager.Instance.onGameClear?.Invoke();
+            
         }
         private void UpdateTime(int time)
         {

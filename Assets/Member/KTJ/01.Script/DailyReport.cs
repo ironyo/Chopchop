@@ -26,13 +26,14 @@ public class DailyReport : MonoBehaviour
 
     public void RunReport()
     {
+        Debug.Log("ASDWASd");
         if (seq != null)
         {
             seq.Kill();
             seq = DOTween.Sequence();
         }
         CheckImage.gameObject.SetActive(false);
-        reportTxt.text = "ÇÏ·ç°¡ Áö³µ½À´Ï´Ù.\n\n¿À´Ã ÇÏ·çµµ Àß ¹öÅß³»¼Ì±º¿ä!.\n¾ÕÀ¸·Îµµ Çà¿îÀ» ºô°Ú½À´Ï´Ù.\n¤¾¤·¤¼";
+        reportTxt.text = "ï¿½Ï·ç°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.\n\nï¿½ï¿½ï¿½ï¿½ ï¿½Ï·çµµ ï¿½ï¿½ ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ì±ï¿½ï¿½ï¿½!.\nï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú½ï¿½ï¿½Ï´ï¿½.\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
         seq.Append(Anchor.DOAnchorPosY(0f, 1f));
         seq.Insert(0.2f ,Base_front.DOAnchorPosY(0f, 1f).SetEase(Ease.OutBack));
     }
