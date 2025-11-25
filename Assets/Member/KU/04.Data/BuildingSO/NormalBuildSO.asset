@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82b8aa8f97facd4c944c05f1cf4e010, type: 3}
   m_Name: NormalBuildSO
   m_EditorClassIdentifier: 
-  explaneStr: "\uBBF8\uB2C8\uC5B8\uC774 \uC7A1\uB2C8\uB2E4"
+  explaneStr: "\uBBF8\uB2C8\uC5B8\uC774 \uC790\uBA74 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
   buildSprite: {fileID: 21300000, guid: 4331d87bd5c4282498c6683545ef1c8e, type: 3}
   buildSelcetSprite: {fileID: 21300000, guid: 7e371b1f21fcb544fa334c9d112e6d00, type: 3}
   particleSystem: {fileID: 0}
@@ -27,9 +27,9 @@ MonoBehaviour:
   spawnTime: 0
   resourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: e3550a7d5116c7243aa8d40b19ed77e7, type: 2}
-    amount: 20
+    amount: 30
   levelResourceTypeCost:
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-    amount: 10
+    amount: 20
   - resourceTypeSO: {fileID: 11400000, guid: 24a0ce4c17a598a4aa3d2fb5f2d07cfd, type: 2}
-    amount: 30
+    amount: 40
