@@ -16,8 +16,11 @@ public class InvBuild : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private Vector3 _startPos;
 
+    private RectTransform _rectTransform;
+
     private void Awake()
     {
+        _rectTransform = GetComponent<RectTransform>();
         _button = GetComponent<Button>();
         _toolTip = GetComponent<UseToolTip>();
     }
@@ -45,11 +48,11 @@ public class InvBuild : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOMoveY(_startPos.y+ 130, 0.1f);
+        _rectTransform.DOAnchorPosY(_startPos.y-20, 0.1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOMoveY(_startPos.y+110, 0.1f);
+        _rectTransform.DOAnchorPosY(_startPos.y - 50, 0.1f);
     }
 }
