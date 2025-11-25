@@ -43,6 +43,7 @@ public class Tool
         List<TestMinion> foundMinions = new List<TestMinion>();
         foreach (Collider2D minionCollider in colliders)
         {
+            Debug.Log("aaaaaa");
             TestMinion comp = minionCollider.GetComponent<TestMinion>();
             if (comp != null)
             {
@@ -52,6 +53,7 @@ public class Tool
         for (int i = 0; i < foundMinions.Count; i++)
         {
             ToolSO.ToolApply(foundMinions[i], ToolSO.Amount[ToolLevel - 1]);
+            
         }
     }
 }
