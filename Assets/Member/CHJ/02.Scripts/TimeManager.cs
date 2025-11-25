@@ -3,9 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoSingleton<TimeManager>
 {
-    public static TimeManager Instance;
     [field: SerializeField]public int CurrentTime { get; private set; }
     public int Day { get; private set; }
     public event Action OnDayStarted;
@@ -13,14 +12,6 @@ public class TimeManager : MonoBehaviour
     public Action<int> OnOneSecond;
     private const float Tick = 1;
     private WaitForSeconds _waitT = new WaitForSeconds(Tick);
-
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
 
     private void Start()
     {
