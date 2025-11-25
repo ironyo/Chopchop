@@ -8,22 +8,14 @@ public enum JobType
 {
     Miner,Baby,Farmer,Chef,WoodHarvester
 }
-public class JobManager : MonoBehaviour
+public class JobManager : MonoSingleton<JobManager>
 {
     public JobDataListSO jobDataListSo;
     public Dictionary<JobType, JobDataSO> JobDictionary= new();
-    public static JobManager Instance;
 
-    private void Awake()
+    protected override void Awake()
     {
-        try
-        {
-            Instance = this;
-        }
-        catch (Exception a)
-        {
-            print(a);
-        }
+        base.Awake();
         foreach (var jobScr in jobDataListSo.list)
         { 
             JobDictionary.Add(jobScr.jobType, jobScr);

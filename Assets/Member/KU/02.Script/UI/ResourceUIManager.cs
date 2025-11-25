@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using System;
 
-public class ResourceUIManager : MonoBehaviour
+public class ResourceUIManager : MonoSingleton<ResourceUIManager>
 {
     public Dictionary<ResourceTypeSO, int> resourceTypeDic = new();
 
@@ -14,13 +14,6 @@ public class ResourceUIManager : MonoBehaviour
 
     private BuildingSO buildData;
 
-    public static ResourceUIManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if(Instance == null)
-            Instance = this;
-    }
 
     public void ChooseButton()
     {
