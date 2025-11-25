@@ -76,6 +76,8 @@ namespace Member.CHJ._02.Scripts
                 dAdd += tm.Dirty;
             }
 
+            if (minionList.Count == 0) return;
+
             hAdd /= minionList.Count;
             tAdd /= minionList.Count;
             dAdd /= minionList.Count;
