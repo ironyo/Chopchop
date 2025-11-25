@@ -73935,6 +73935,108 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &412762674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412762678}
+  - component: {fileID: 412762677}
+  - component: {fileID: 412762676}
+  - component: {fileID: 412762675}
+  m_Layer: 0
+  m_Name: DamageCanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &412762675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412762674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &412762676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412762674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!223 &412762677
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412762674}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &412762678
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412762674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2057890933}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 404.24994, y: 227.5}
+  m_SizeDelta: {x: 808.4999, y: 455}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &416673872
 GameObject:
   m_ObjectHideFlags: 0
@@ -86196,6 +86298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 566162022}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 871972968}
   WaterParticels: {fileID: 649961298}
   CleanParticels: {fileID: 1665235369}
@@ -86205,6 +86308,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 566162020}
+  weaponHolder: {fileID: 0}
 --- !u!58 &566162026
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86274,6 +86378,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 1404870293}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -86516,6 +86621,7 @@ MonoBehaviour:
   WhiteBg: {fileID: 372263989}
   purchaseParticle: {fileID: 731228676}
   RotateEffect: {fileID: 86803109}
+  resourceType: {fileID: 0}
 --- !u!1 &577359875
 GameObject:
   m_ObjectHideFlags: 0
@@ -86655,6 +86761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 577359878}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 559817238}
   WaterParticels: {fileID: 936026331}
   CleanParticels: {fileID: 308803396}
@@ -86664,6 +86771,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 577359876}
+  weaponHolder: {fileID: 0}
 --- !u!58 &577359882
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86733,6 +86841,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 1873406806}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -117743,6 +117852,8 @@ MonoBehaviour:
   MapSetSound: {fileID: 8300000, guid: 429a9eccb3101054eaf1db7a732356ba, type: 3}
   navMeshSurface: {fileID: 452579192}
   NextTileGroundEffect: {fileID: 0}
+  costText: {fileID: 0}
+  useResource: {fileID: 0}
 --- !u!114 &715369863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117977,6 +118088,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentTime>k__BackingField: 131
+  OnDayEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &724593600
 GameObject:
   m_ObjectHideFlags: 0
@@ -118252,6 +118366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 729062867}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 83047480}
   WaterParticels: {fileID: 178613706}
   CleanParticels: {fileID: 1863143240}
@@ -118261,6 +118376,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 729062865}
+  weaponHolder: {fileID: 0}
 --- !u!58 &729062871
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -118330,6 +118446,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 738787042}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -128531,13 +128648,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aaffe4dc1d84748852db8b559af2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingClear:
+    m_PersistentCalls:
+      m_Calls: []
+  bottomUIUp:
+    m_PersistentCalls:
+      m_Calls: []
+  _audioClips: []
+  _particleSystemList: []
+  cameraSystem: {fileID: 0}
   _tilemapCollider: {fileID: 229691195}
-  _minionSpawnParticle: {fileID: 0}
-  _minionBuildParticle: {fileID: 0}
+  _timerPref: {fileID: 0}
+  _enterPref: {fileID: 0}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
   <buildSpritePref>k__BackingField: {fileID: 0}
+  <buildTimePref>k__BackingField: {fileID: 0}
   _helpUI: {fileID: 992393149}
   _buildingUI: {fileID: 4529460439877213536, guid: bbd78c4eeb78ec34ca70b2eeab3f6022, type: 3}
   _buildingCanvus: {fileID: 733236812}
@@ -128548,13 +128675,18 @@ MonoBehaviour:
   _uiRectTransform: {fileID: 486208245}
   _buildNameTex: {fileID: 530627854}
   _buildHPTex: {fileID: 1159953485}
+  <upgradeUIGroupCompo>k__BackingField: {fileID: 0}
   _levelTex: {fileID: 1354722999}
   _spawnKindTex: {fileID: 869642151}
   _upgradeCcostTex: {fileID: 0}
+  _explaneTxt: {fileID: 0}
   _upgradeBtn: {fileID: 253023289}
   _destroyBtn: {fileID: 1801850674}
+  _buildingBtn: {fileID: 0}
   colliderColor: {r: 0, g: 1, b: 0, a: 1}
   lineWidth: 0.05
+  surface: {fileID: 0}
+  healthBar: {fileID: 0}
   isMoveInv: 0
 --- !u!4 &736060522
 Transform:
@@ -176419,6 +176551,9 @@ MonoBehaviour:
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
   schoolSo: {fileID: 0}
+  hungryTxt: {fileID: 0}
+  thirstyTxt: {fileID: 0}
+  dirtyTxt: {fileID: 0}
 --- !u!1 &984809311
 GameObject:
   m_ObjectHideFlags: 0
@@ -182303,6 +182438,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
+  weaponDataList: {fileID: 0}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -199081,9 +199217,6 @@ MonoBehaviour:
   Base_front: {fileID: 1821648536}
   Base_back: {fileID: 180331027}
   Stamp: {fileID: 1484626259}
-  OnDailyReport:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1216152139
 GameObject:
   m_ObjectHideFlags: 0
@@ -207299,6 +207432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 1405257090}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 630355803}
   WaterParticels: {fileID: 43904382}
   CleanParticels: {fileID: 405909415}
@@ -207308,6 +207442,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 1405257088}
+  weaponHolder: {fileID: 0}
 --- !u!58 &1405257094
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -207377,6 +207512,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 1506333797}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -218466,6 +218602,8 @@ MonoBehaviour:
   countTxt_s: {fileID: 0}
   icon: {fileID: 0}
   icon_s: {fileID: 0}
+  shakeValue: 10
+  shakeTime: 0.1
 --- !u!1 &1490531786
 GameObject:
   m_ObjectHideFlags: 0
@@ -218814,6 +218952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 1493935866}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 145463709}
   WaterParticels: {fileID: 1944570164}
   CleanParticels: {fileID: 108874704}
@@ -218823,6 +218962,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 1493935864}
+  weaponHolder: {fileID: 0}
 --- !u!58 &1493935870
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -218892,6 +219032,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 33335123}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -251829,6 +251970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 1783729787}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 1685582039}
   WaterParticels: {fileID: 493972861}
   CleanParticels: {fileID: 255263594}
@@ -251838,6 +251980,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 1783729785}
+  weaponHolder: {fileID: 0}
 --- !u!58 &1783729791
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -251907,6 +252050,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 1381168306}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -267423,6 +267567,8 @@ MonoBehaviour:
   _closPos: 320
   _pagePrefab: {fileID: 5736882769278271623, guid: cd80b4a7e73e57847b54182768c14fb4, type: 3}
   _texPref: {fileID: 6613956694696932738, guid: 0ece08930f6a76e4a874f7c15c2d316a, type: 3}
+  _startTextPref: {fileID: 0}
+  startText: {fileID: 0}
   _rectTransform: {fileID: 72639980}
   _nowPage: 1
   _maxPage: 2
@@ -283662,6 +283808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 1950302201}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 1158439779}
   WaterParticels: {fileID: 582153724}
   CleanParticels: {fileID: 81014728}
@@ -283671,6 +283818,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 1950302199}
+  weaponHolder: {fileID: 0}
 --- !u!58 &1950302205
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -283740,6 +283888,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 452697573}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -290042,6 +290191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 2028035768}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 1825492774}
   WaterParticels: {fileID: 2106212325}
   CleanParticels: {fileID: 89248158}
@@ -290051,6 +290201,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 2028035766}
+  weaponHolder: {fileID: 0}
 --- !u!58 &2028035772
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -290120,6 +290271,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 491785576}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -290716,11 +290868,13 @@ MonoBehaviour:
   globalLight: {fileID: 506369292}
   postProcessVolume: {fileID: 1500537948}
   transitionDuration: 20
-  holdDuration: 5
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   nightColor: {r: 0.27672952, g: 0.27672952, b: 0.27672952, a: 1}
   dayVignetteIntensity: 0.2
   nightVignetteIntensity: 0.4
+  OnNextDay:
+    m_PersistentCalls:
+      m_Calls: []
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -290739,6 +290893,144 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2057890932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2057890933}
+  - component: {fileID: 2057890935}
+  - component: {fileID: 2057890934}
+  m_Layer: 5
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2057890933
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057890932}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.42109367, y: 0.42109367, z: 0.42109367}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 412762678}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2057890934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057890932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '100
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 430fdd96951555e45b7e43136f8635b2, type: 2}
+  m_sharedMaterial: {fileID: 9027991343264067880, guid: 430fdd96951555e45b7e43136f8635b2, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4284703743
+  m_fontColor: {r: 1, g: 0.3867923, b: 0.3867923, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 42.85
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &2057890935
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057890932}
+  m_CullTransparentMesh: 1
 --- !u!1 &2062649489
 GameObject:
   m_ObjectHideFlags: 0
@@ -290794,6 +291086,7 @@ MonoBehaviour:
   invenSlotPref: {fileID: 7031386285622990839, guid: 9b9a982d49b8c7246adedead0cecee49, type: 3}
   toolRemoveBtnPref: {fileID: 5913848811946869594, guid: f3fd8896a79441041927033d98758fae, type: 3}
   handToolImage: {fileID: 1653238836}
+  playerInput: {fileID: 0}
 --- !u!1 &2063046934
 GameObject:
   m_ObjectHideFlags: 0
@@ -291069,6 +291362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 2063969918}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 1816766342}
   WaterParticels: {fileID: 918142418}
   CleanParticels: {fileID: 950157340}
@@ -291078,6 +291372,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 2063969916}
+  weaponHolder: {fileID: 0}
 --- !u!58 &2063969922
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -291147,6 +291442,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 885938717}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -312091,6 +312387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionChat: {fileID: 2593766200861221328}
+  weapon: {fileID: 0}
   AppleParticels: {fileID: 1607104222201922998}
   WaterParticels: {fileID: 7467484171647908160}
   CleanParticels: {fileID: 5859921552486062226}
@@ -312100,6 +312397,7 @@ MonoBehaviour:
   DrinkSound: {fileID: 8300000, guid: 1314d4cebaed5004d8860c431c0704a5, type: 3}
   BrushSound: {fileID: 8300000, guid: 800a6463b6bbbfb418c882947065f41a, type: 3}
   animator: {fileID: 2047799132745969625}
+  weaponHolder: {fileID: 0}
 --- !u!95 &2047799132745969625
 Animator:
   serializedVersion: 7
@@ -312316,6 +312614,7 @@ MonoBehaviour:
   isCanMate: 0
   _particleSystem: {fileID: 0}
   <visualObj>k__BackingField: {fileID: 2183170804981618565}
+  <detectCollider>k__BackingField: {fileID: 0}
   currentState: 0
   isFoundPartner: 0
   isMating: 0
@@ -332095,6 +332394,7 @@ SceneRoots:
   - {fileID: 2028035777}
   - {fileID: 577359887}
   - {fileID: 588765880}
+  - {fileID: 412762678}
   - {fileID: 963334339}
   - {fileID: 1982349109}
   - {fileID: 631345113}
