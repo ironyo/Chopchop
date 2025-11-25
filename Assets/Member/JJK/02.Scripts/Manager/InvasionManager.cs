@@ -49,9 +49,6 @@ public class InvasionManager : MonoSingleton<InvasionManager>
             StartCoroutine(InvasionWarning());
             InitInvasion();
         }
-        
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-            StartCoroutine(InvasionWarning());
     }
 
     private IEnumerator InvasionWarning()
