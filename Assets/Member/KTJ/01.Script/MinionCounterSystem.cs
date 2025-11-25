@@ -1,14 +1,8 @@
-using System.Collections;
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
+using Member.CHJ._02.Scripts;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using Febucci.UI;
-using Member.CHJ._02.Scripts;
-using UnityEngine.Rendering;
 
 public class MinionCounterSystem : MonoBehaviour
 {
@@ -21,8 +15,12 @@ public class MinionCounterSystem : MonoBehaviour
     [SerializeField] private GameObject MopeTxt_anim;
 
     private RectTransform handle;
-    private float lastSliderVal;           // 실제로 회전 처리 기준 값
+    private float lastSliderVal;
     private Sequence rotateSequence;
+    private Tweener sliderTween;
+
+    private enum State { Normal, Mope, Bomb }
+    private State currentState = State.Normal;
 
     private void Awake()
     {
@@ -37,37 +35,56 @@ public class MinionCounterSystem : MonoBehaviour
     private void UpdateOverloadSlider()
     {
         int sliderVal = CalculateValue();
-        minionCounterTxt.text = "미니언: " + MinionManager.Instance.minionList.Count;
 
-        // 슬라이더 부드럽게 이동
-        counterSlider.DOValue(sliderVal, 0.3f).SetEase(Ease.OutCubic);
+        minionCounterTxt.text = "미니언: " +
+            (MinionManager.Instance ? MinionManager.Instance.minionList.Count : 0);
 
+        //  하루 1회 트윈만 유지
+        if (sliderTween != null && sliderTween.IsActive())
+            sliderTween.Kill();
+
+        sliderTween = counterSlider.DOValue(sliderVal, 0.3f)
+                                   .SetEase(Ease.OutCubic);
+
+        //  핸들 회전
         if (Mathf.Abs(sliderVal - lastSliderVal) >= 1f)
         {
-            bool isIncrease = sliderVal > lastSliderVal;
-            RotateHandleOnce(isIncrease);
+            RotateHandleOnce(sliderVal > lastSliderVal);
             lastSliderVal = sliderVal;
         }
 
+        //  슬라이더 상태에 따른 이벤트 (중복 발동 방지)
         if (sliderVal <= 25)
         {
-            GameEventManager.Instance.RunEvent(GameEventType.MinionMope);
-            MopeTxt_anim.SetActive(true);
-            MopeTxt.SetActive(false);
+            if (currentState != State.Mope)
+            {
+                currentState = State.Mope;
+                GameEventManager.Instance.RunEvent(GameEventType.MinionMope);
+                MopeTxt_anim.SetActive(true);
+                MopeTxt.SetActive(false);
+            }
         }
         else if (sliderVal >= 75)
         {
-            GameEventManager.Instance.RunEvent(GameEventType.MinionBomb);
-            OverloadTxt.SetActive(false);
-            OverloadTxt_anim.SetActive(true);
+            if (currentState != State.Bomb)
+            {
+                currentState = State.Bomb;
+                GameEventManager.Instance.RunEvent(GameEventType.MinionBomb);
+                OverloadTxt.SetActive(false);
+                OverloadTxt_anim.SetActive(true);
+            }
         }
         else
         {
-            GameEventManager.Instance.StopEvent();
-            OverloadTxt.SetActive(true);
-            OverloadTxt_anim.SetActive(false);
-            MopeTxt_anim.SetActive(false);
-            MopeTxt.SetActive(true);
+            if (currentState != State.Normal)
+            {
+                currentState = State.Normal;
+                GameEventManager.Instance.StopEvent();
+                OverloadTxt.SetActive(true);
+                OverloadTxt_anim.SetActive(false);
+                MopeTxt_anim.SetActive(false);
+                MopeTxt.SetActive(true);
+            }
         }
     }
 
@@ -75,50 +92,36 @@ public class MinionCounterSystem : MonoBehaviour
     {
         float targetZ = isIncrease ? 160f : 200f;
 
-        if (rotateSequence != null && rotateSequence.IsActive())
-            rotateSequence.Kill();
+        rotateSequence?.Kill();
 
-        rotateSequence = DOTween.Sequence();
-        rotateSequence.Append(handle.DORotate(new Vector3(0, 0, targetZ), 0.2f).SetEase(Ease.OutCubic));
-        rotateSequence.Append(handle.DORotate(new Vector3(0, 0, 180f), 0.2f).SetEase(Ease.OutCubic));
+        rotateSequence = DOTween.Sequence()
+            .Append(handle.DORotate(new Vector3(0, 0, targetZ), 0.2f).SetEase(Ease.OutCubic))
+            .Append(handle.DORotate(new Vector3(0, 0, 180f), 0.2f).SetEase(Ease.OutCubic));
     }
 
     private int CalculateValue()
     {
+        if (!MapManager.Instance || !MinionManager.Instance)
+            return 100;
+
         int tileCount = MapManager.Instance.GetTileCount();
         int minionCount = MinionManager.Instance.minionList.Count;
 
-        if (minionCount == 0) return 100;   // 미니언 없으면 당연히 정상
+        if (minionCount == 0)
+            return 100;
 
-        // ---- 비율 계산 ----
         float ratio = (float)tileCount / minionCount;
-
-        //  최소 비율 바닥(보정) — 미니언 많아도 ratio가 너무 떨어지지 않게
-        float minSafeRatio = 1.5f;
-        ratio = Mathf.Max(ratio, minSafeRatio);
-
-        // ---- 튜닝 가능한 수치 ----
-        float goodRatio = 6f;          // 적당
-        float normalRatio = 20f;       // 보통
-        float highRatio = 80f;         // 매우 넓음
-
         float sliderValue;
 
-        //  비율이 낮을 때도 50 아래로 너무 급하게 떨어지지 않도록 완화
-        if (ratio <= normalRatio)
-        {
-            float t = Mathf.InverseLerp(minSafeRatio, normalRatio, ratio);
-            sliderValue = Mathf.Lerp(80f, 50f, t);   // 기존의 100 → 50이 너무 급함 → 80 → 50으로 완화
-        }
+        if (ratio <= 1f)
+            sliderValue = 100f;
+        else if (ratio >= 40f)
+            sliderValue = 0f;
+        else if (ratio < 20f)
+            sliderValue = Mathf.Lerp(100f, 50f, Mathf.InverseLerp(1f, 10f, ratio));
         else
-        {
-            float t = Mathf.InverseLerp(normalRatio, highRatio, ratio);
-            sliderValue = Mathf.Lerp(50f, 0f, t);    // 넓을수록 안정적
-        }
+            sliderValue = Mathf.Lerp(50f, 0f, Mathf.InverseLerp(10f, 20f, ratio));
 
-        return Mathf.RoundToInt(Mathf.Clamp(sliderValue, 0f, 100f));
+        return Mathf.RoundToInt(sliderValue);
     }
-
 }
-
-

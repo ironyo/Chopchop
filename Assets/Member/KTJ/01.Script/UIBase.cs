@@ -43,7 +43,8 @@ public abstract class UIBase : MonoBehaviour
         SoundManager.Instance.ClickSound_01();
 
         if (TutorialManager.Instance != null
-            && TutorialManager.Instance.GetCurrentStepId() == "build1")
+            && TutorialManager.Instance.GetCurrentStepId() == "build1"
+            || TutorialManager.Instance.GetCurrentStepId() == "build3")
             TutorialManager.Instance.CompleteCurrentStepExternally();
     }
 

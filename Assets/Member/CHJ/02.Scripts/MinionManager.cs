@@ -12,7 +12,6 @@ namespace Member.CHJ._02.Scripts
     public class MinionManager : MonoSingleton<MinionManager>
     {
         public List<Minion> minionList = new List<Minion>();
-        public int MinionMaxCount => minionList.Count;
         [SerializeField] public BuildingSO houseSo;
         [SerializeField] public BuildingSO schoolSo;
 
@@ -44,6 +43,8 @@ namespace Member.CHJ._02.Scripts
             currentTime += Time.deltaTime;
             if (duration <= currentTime)
             {
+                List<TestMinion> r_list = new List<TestMinion>();
+
                 foreach(Minion minion in minionList)
                 {
                     TestMinion tm = minion.gameObject.GetComponent<TestMinion>();
@@ -51,14 +52,18 @@ namespace Member.CHJ._02.Scripts
                     tm.Thirsty--;
                     tm.Dirty--;
 
-                    if (tm.Hungry <= 0 && tm.Thirsty <= 0 && tm.Dirty <= 0)
+                    if (tm.Hungry <= 0 || tm.Thirsty <= 0 || tm.Dirty <= 0)
                     {
-                        tm.Die("주인이 날 관리하지 않았어..");
+                        r_list.Add(tm);
                     }
                 }
+
+                r_list.ForEach(x => x.Die("주인이 날 관리하지 않았어.."));
+
                 SetMinionAverageState();
                 currentTime = 0;
             }
+
         }
 
         private void SetMinionAverageState()
@@ -76,6 +81,8 @@ namespace Member.CHJ._02.Scripts
                 dAdd += tm.Dirty;
             }
 
+            if (minionList.Count == 0) return;
+
             hAdd /= minionList.Count;
             tAdd /= minionList.Count;
             dAdd /= minionList.Count;
@@ -90,7 +97,7 @@ namespace Member.CHJ._02.Scripts
             if (!minionList.Contains(minion))
             {
                 minionList.Add(minion);
-                if (minionList.Count >= 2)
+                if (minionList.Count >= 1000)
                 {
                     Debug.Log("GameClear");
                     GameFinishManager.Instance.onGameClear?.Invoke();
@@ -103,7 +110,7 @@ namespace Member.CHJ._02.Scripts
             
             minionList.Remove(minion);
             if(minionList.Count == 0)
-                GameFinishManager.Instance.onGameClear?.Invoke();
+                GameFinishManager.Instance.onGameOver?.Invoke();
             
         }
         private void UpdateTime(int time)
@@ -135,6 +142,5 @@ namespace Member.CHJ._02.Scripts
         
 
         #endregion
-
     }
 }

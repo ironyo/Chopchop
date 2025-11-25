@@ -60,7 +60,7 @@ public class Minion : MonoBehaviour
         LevelManager.Instance.MinionSetWeapon();
     }
 
-    private void InitializeDay()
+    public void InitializeDay()
     {
         firstWork = Random.Range(10, 16);
         patrol = Random.Range(10, 20);
@@ -116,12 +116,6 @@ public class Minion : MonoBehaviour
         transform.position = p;
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log(MinionManager.Instance);
-        MinionManager.Instance.UnRegisterMinion(this);
-        TimeManager.Instance.OnDayStarted -= InitializeDay;
-    } 
         
 
     private void OnDrawGizmos()
