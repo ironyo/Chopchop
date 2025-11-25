@@ -20008,8 +20008,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minCount: 3
   maxCount: 6
-  minTime: 100
-  maxTime: 300
+  minTime: 30
+  maxTime: 40
   invasionWarning: {fileID: 1391319070}
   isLanding: 0
 --- !u!1 &1077823103
@@ -20786,7 +20786,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC6B0\uC790\uCC28\uCE74(\uC12C)\uC5D0\uC11C \uCE68\uB7B5\uD574\uC635\uB2C8\uB2E4!"
+  m_text: "\uC801\uB4E4\uC774 \uCE68\uB7B5\uD574\uC635\uB2C8\uB2E4!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a18b38a8afa03394ca672a1c31410aee, type: 2}
   m_sharedMaterial: {fileID: 5781016758703151564, guid: a18b38a8afa03394ca672a1c31410aee, type: 2}

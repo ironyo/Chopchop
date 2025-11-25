@@ -69,7 +69,6 @@ public class DialogManager : MonoSingleton<DialogManager>
     {
         string ranName = RandomName.CreateIslandName();
         enemyName.text = ranName + " 섬의 왕";
-        warningText.text = ranName + " 섬에서 침략해옵니다!";
         
         string result = rawText
             .Replace("{RANDOM}", ranName)
