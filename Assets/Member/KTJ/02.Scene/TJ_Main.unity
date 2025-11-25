@@ -5793,7 +5793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1256782262029858369, guid: 75e8173ebf8f299499b2e54fb10ce738, type: 3}
       propertyPath: onGameClear.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GameClear
+      value: Gameover
       objectReference: {fileID: 0}
     - target: {fileID: 1256782262029858369, guid: 75e8173ebf8f299499b2e54fb10ce738, type: 3}
       propertyPath: onGameOver.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -8526,6 +8526,10 @@ PrefabInstance:
     - target: {fileID: 8828131096513390634, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
       propertyPath: m_Name
       value: JW_Ending_Failed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8828131096513390634, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28845,6 +28849,10 @@ PrefabInstance:
     - target: {fileID: 5342783706766946546, guid: c120c61b0043595489803b7a0717fee8, type: 3}
       propertyPath: m_Name
       value: JW_Ending_Success
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342783706766946546, guid: c120c61b0043595489803b7a0717fee8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

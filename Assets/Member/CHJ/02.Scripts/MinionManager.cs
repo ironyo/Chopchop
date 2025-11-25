@@ -94,8 +94,9 @@ namespace Member.CHJ._02.Scripts
             if (!minionList.Contains(minion))
             {
                 minionList.Add(minion);
-                if (MinionMaxCount >= 300)
+                if (minionList.Count >= 2)
                 {
+                    Debug.Log("GameClear");
                     GameFinishManager.Instance.onGameClear?.Invoke();
                 }
             }
