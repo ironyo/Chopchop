@@ -58,12 +58,11 @@ public class GameClearUI : MonoSingleton<GameClearUI>
         _sequence = DOTween.Sequence().SetUpdate(true);
 
         // 시작 시 위치 초기화 (중복트윈 방지)
-        _mainText.anchoredPosition = new Vector2(_mainText.anchoredPosition.x, 0);
-        _subText.anchoredPosition = new Vector2(_subText.anchoredPosition.x, 0);
-        _restart.anchoredPosition = new Vector2(_restart.anchoredPosition.x, 0);
-        _menu.anchoredPosition = new Vector2(_menu.anchoredPosition.x, 0);
-        _exit.anchoredPosition = new Vector2(_exit.anchoredPosition.x, 0);
-
+        _mainText.anchoredPosition = new Vector2(_mainText.anchoredPosition.x, -1000);
+        _subText.anchoredPosition = new Vector2(_subText.anchoredPosition.x, -1000);
+        _restart.anchoredPosition = new Vector2(_restart.anchoredPosition.x, -1000);
+        _menu.anchoredPosition = new Vector2(_menu.anchoredPosition.x, -1000);
+        _exit.anchoredPosition = new Vector2(_exit.anchoredPosition.x, -1000);
         // 애니메이션 시퀀스
         _sequence.Append(_mainText.DOAnchorPosY(_mainTextMoveValue, 0.9f));
         _sequence.Append(_subText.DOAnchorPosY(_subTextMoveValue, 0.9f));
