@@ -18,6 +18,7 @@ public class DialogManager : MonoSingleton<DialogManager>
     [SerializeField] private TextMeshProUGUI enemyName;
     [SerializeField] private TextMeshProUGUI warningText;
     [SerializeField] private float typingSpeed = 0.1f;
+    [SerializeField] private int waitTime = 5;
 
     [Header("Dialog Data")]
     [SerializeField] private DialogDataSO tutorialDialogData;
@@ -85,9 +86,9 @@ public class DialogManager : MonoSingleton<DialogManager>
         {
             state = DialogState.Choosing;
             StopAllCoroutines();
-            StartCoroutine(Typing(invasionDialogData.explain[index]));
             choiceBox.SetActive(true);
             spaceBar.SetActive(false);
+            StartCoroutine(TimeLimit());
             return;
         }
         
@@ -100,6 +101,23 @@ public class DialogManager : MonoSingleton<DialogManager>
         {
             EndDialog();
         }
+    }
+
+    private IEnumerator TimeLimit()
+    {
+        string timeLimitText = invasionDialogData.explain[index].Replace("{WAIT}", waitTime.ToString());
+        StartCoroutine(Typing(timeLimitText));
+        yield return new WaitForSeconds(1f);
+        
+        for (int i = waitTime - 1; i > 0; i--)
+        {
+            yield return new WaitForSeconds(1f);
+            
+            timeLimitText = invasionDialogData.explain[index].Replace("{WAIT}", i.ToString());
+            _text.text = timeLimitText;
+        }
+
+        waitTime = 5;
     }
 
     private void NextTutorialLine()

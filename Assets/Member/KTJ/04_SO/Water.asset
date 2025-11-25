@@ -20,8 +20,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fde6ca8e0e3e43c4bbc6f4aa6910a28c, type: 3}
   - {fileID: 21300000, guid: 928ce9ead4b25cd42b34b5f2264db76f, type: 3}
   - {fileID: 21300000, guid: fc5c19bbc12658a41a39e6d4c8e369ad, type: 3}
-  Amount: 0a0000000a0000000a000000
-  Price: 140000006400000019000000
+  Amount: 0a000000140000001e000000
+  Price: 64000000f401000019000000
   ToolDesc:
   - "\uBAA9\uB9C8\uB984+5"
   - "\uBAA9\uB9C8\uB984+15, \uBC94\uC70410"
