@@ -10,13 +10,23 @@ namespace Member.CHJ._02.Scripts.Ui
         [SerializeField] private SettingUI _setting;
         [SerializeField] private GameObject background;
         private bool _isOpened;
+        private bool _isCanClose;
         private void Update()
         {
             if(_isOpened) return;
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                _isOpened = true;
-                background.SetActive(true);
+                if (_isCanClose == false)
+                {
+                    _isCanClose = true;
+                    background.SetActive(true);
+                }
+                else if(_isCanClose == true)
+                {
+                    _isCanClose = false;
+                    _isOpened = false;
+                    background.SetActive(false);
+                }
             }
         }
 
@@ -35,7 +45,7 @@ namespace Member.CHJ._02.Scripts.Ui
         public void MainMenu()
         {
             _isOpened = false;
-            SceneManager.LoadScene("TJ_Start");
+            SceneChangeManager.Instance.OnSceneEnd(0);
         }
 
         public void Setting()
