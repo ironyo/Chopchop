@@ -103,9 +103,6 @@ public class TestMinion : MonoBehaviour
     }
     public void UnMope()
     {
-        if (!this || this.gameObject == null) return;
-        if (MopeParticles == null) return;
-
         MopeParticles.Stop();
 
         minionChat.AddMessage("이제 우울하지 않아!");
