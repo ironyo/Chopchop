@@ -33,7 +33,7 @@ public class GameClearUI : MonoSingleton<GameClearUI>
     }
     public void GameOverStart()
     {
-        GameFinishManager.Instance.onGameOver?.Invoke();
+        GameEndPlay.Instance.OnGameEndEvent?.Invoke(GameEndType.GameClear, " ");
     }
     public void Gameover()
     {
