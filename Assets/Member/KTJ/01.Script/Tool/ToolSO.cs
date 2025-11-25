@@ -10,16 +10,16 @@ public enum ItemType
 
 public abstract class ToolSO : ScriptableObject
 {
-    [Header("µµ±¸ ·¹º§º° Á¤º¸")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public string[] ToolName = new string[3];
     public Sprite[] HighlitedIcon = new Sprite[3];
     public int[] Amount = new int[3];
     public int[] Price = new int[3];
     public string[] ToolDesc = new string[3];
 
-    [Header("µµ±¸ Á¤º¸")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public ItemType ItemType;
     public float defaultRadius;
 
-    public abstract void ToolApply(TestMinion minion, int amount); // minion.EatApple(Amount) ¿©µû°¡ ½ÇÁ¦·Î ¾î¶² Çàµ¿À» ÇÒÁö ÀûÀ¸¸é µÊ.
+    public abstract void ToolApply(TestMinion minion, int amount); // minion.EatApple(Amount) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 }
