@@ -8523,6 +8523,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2008458922233002257, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925307967208599753, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564858298915913697, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165332756181644546, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203554266483376946, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2000
+      objectReference: {fileID: 0}
     - target: {fileID: 8828131096513390634, guid: 6a99012435da10e4ebe35fe9cc5cc6e3, type: 3}
       propertyPath: m_Name
       value: JW_Ending_Failed
