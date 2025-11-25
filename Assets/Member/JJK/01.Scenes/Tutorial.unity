@@ -2331,16 +2331,16 @@ MonoBehaviour:
     highlightTarget: {fileID: 72639980}
     allowedButtons:
     - {fileID: 0}
-  - id: aaa
+  - id: build3
     message: "\uB9DD\uCE58\uC544\uC774\uCF58\uC744 \uD55C \uBC88 \uB354 \uD074\uB9AD\uD558\uC5EC
-      \uB04C \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-    conditionType: 1
+      \uAEBC\uC8FC\uC138\uC694"
+    conditionType: 3
     waitSeconds: 5
     waitKey: 0
     lockOtherUI: 1
-    highlightTarget: {fileID: 0}
+    highlightTarget: {fileID: 268283556}
     allowedButtons:
-    - {fileID: 0}
+    - {fileID: 1219888059}
   - id: explain
     message: "\uC544\uB798 UI\uB294 \uB545\uC5D0 \uBD84\uD3EC\uB41C \uBBF8\uB2C8\uC5B8\uC758
       \uBC00\uC9D1\uB3C4\uB97C \uB098\uD0C0\uB0C5\uB2C8\uB2E4."
@@ -20741,8 +20741,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minCount: 3
   maxCount: 6
-  minTime: 100
-  maxTime: 300
+  minTime: 1000
+  maxTime: 1100
   invasionWarning: {fileID: 0}
   isLanding: 0
 --- !u!1 &1077823103
@@ -28113,7 +28113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbaded97d9decc458f9f64b7918c9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipPrefab: {fileID: 5351807106936120375, guid: 76a50706eb8eb0f4fb3efc06d61787f6, type: 3}
+  shipPrefab: {fileID: 5351807106936120375, guid: 77f6d93dd0e00e4459a33909fbb20b0c, type: 3}
   distance: 20
   increaseHpRatio: 0.15
 --- !u!1 &1537834606
