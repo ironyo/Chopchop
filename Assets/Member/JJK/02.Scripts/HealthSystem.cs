@@ -37,8 +37,8 @@ public class HealthSystem : MonoBehaviour
 
         if (HP <= 0)
         {
-            if(gameObject.CompareTag("HQ"))
-                GameFinishManager.Instance.onGameOver?.Invoke();
+            if (gameObject.CompareTag("HQ"))
+                GameEndPlay.Instance.OnGameEndEvent?.Invoke(GameEndType.GameOver, "본부를 지키지 못했습니다.");
             
             OnDead.Invoke();
         }
