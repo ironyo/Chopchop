@@ -32,22 +32,7 @@ public class ToolTip : MonoSingleton<ToolTip>
         Vector2 size = _text.GetRenderedValues(false); //텍스트의 길이
         _background.sizeDelta = size + _offset;
     }
-
-    private void Update()
-    {
-        //_rectTrm.anchoredPosition = Mouse.current.position.ReadValue()/ _canvas.localScale.x;
-        
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            SetToolTipText("qqqq");
-        }
-        
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            SetToolTipText("eeeeeeeeeeeeee");
-        }
-    }
-
+    
     public void Show(string text)
     {
         gameObject.SetActive(true);
