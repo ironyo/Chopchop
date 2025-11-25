@@ -100,7 +100,7 @@ namespace Member.CHJ._02.Scripts
                 if (minionList.Count >= 1000)
                 {
                     Debug.Log("GameClear");
-                    GameFinishManager.Instance.onGameClear?.Invoke();
+                    
                 }
             }
         }
@@ -110,7 +110,7 @@ namespace Member.CHJ._02.Scripts
             
             minionList.Remove(minion);
             if(minionList.Count == 0)
-                GameFinishManager.Instance.onGameOver?.Invoke();
+                GameEndPlay.Instance.OnGameEndEvent?.Invoke(GameEndType.GameOver, "미니언이 다 죽었습니다.");
             
         }
         private void UpdateTime(int time)
