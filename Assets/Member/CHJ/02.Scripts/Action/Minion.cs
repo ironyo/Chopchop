@@ -116,7 +116,6 @@ public class Minion : MonoBehaviour
         transform.position = p;
     }
 
-        
 
     private void OnDrawGizmos()
     {
