@@ -26,14 +26,13 @@ public class DailyReport : MonoBehaviour
 
     public void RunReport()
     {
-        Debug.Log("ASDWASd");
         if (seq != null)
         {
             seq.Kill();
             seq = DOTween.Sequence();
         }
         CheckImage.gameObject.SetActive(false);
-        reportTxt.text = "�Ϸ簡 �������ϴ�.\n\n���� �Ϸ絵 �� ���߳��̱���!.\n�����ε� ����� ���ڽ��ϴ�.\n������";
+        reportTxt.text = "하루가 끝났습니다!\n\n오늘도 잘 버텨내셨군요.\n미니언들은 항상 당신에게 감사합니다.\nㅅㄱ";
         seq.Append(Anchor.DOAnchorPosY(0f, 1f));
         seq.Insert(0.2f ,Base_front.DOAnchorPosY(0f, 1f).SetEase(Ease.OutBack));
     }
