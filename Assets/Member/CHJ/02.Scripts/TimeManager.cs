@@ -13,6 +13,11 @@ public class TimeManager : MonoSingleton<TimeManager>
     private const float Tick = 1;
     private WaitForSeconds _waitT = new WaitForSeconds(Tick);
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     private void Start()
     {
         StartCoroutine(TimeLoop());
@@ -31,8 +36,8 @@ public class TimeManager : MonoSingleton<TimeManager>
                 Day++;
                 CurrentTime = 0;
                 OnDayStarted?.Invoke();
-
-                if (Day == 2)
+                Debug.Log("Day Start");
+                if (Day >= 2)
                 {
                     OnDayEnded?.Invoke();
                 }
