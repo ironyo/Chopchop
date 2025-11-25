@@ -6,7 +6,7 @@ public class PlayerUnit : MonoBehaviour
 {
     public HealthSystem HealthCompo {get; private set;}
     [SerializeField] private UnitDataSO data;
-    
+    private TestMinion _minion;
     private Transform _target;
     private WeaponHolder _weaponHolder;
     private Chase _chase;
@@ -17,6 +17,7 @@ public class PlayerUnit : MonoBehaviour
     
     private void Awake()
     {
+        _minion = GetComponent<TestMinion>();
         HealthCompo = GetComponent<HealthSystem>();
         HealthCompo.OnDead += Die;
         HealthCompo.OnDead += HitEffect;
@@ -25,6 +26,10 @@ public class PlayerUnit : MonoBehaviour
         _combat = GetComponent<Combat>();
     }
 
+    private void Die()  
+    {
+        _minion.Die("아퍼");
+    }
     private void HitEffect()
     {
         //GetComponentInChildren<SpriteRenderer>().color = Color.red;
@@ -66,10 +71,5 @@ public class PlayerUnit : MonoBehaviour
                 _combat.TryAttack(_target, data.attackSpeed);
             }
         }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
     }
 }
