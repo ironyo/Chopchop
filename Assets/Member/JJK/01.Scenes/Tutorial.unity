@@ -2332,8 +2332,8 @@ MonoBehaviour:
     allowedButtons:
     - {fileID: 0}
   - id: aaa
-    message: "\uB9DD\uCE58\uC544\uC774\uCF58\uC744 \uD074\uB9AD\uD558\uC5EC \uBE4C\uB4DC\uBAA8\uB4DC\uB97C
-      \uAEBC\uC8FC\uC138\uC694."
+    message: "\uB9DD\uCE58\uC544\uC774\uCF58\uC744 \uD55C \uBC88 \uB354 \uD074\uB9AD\uD558\uC5EC
+      \uB04C \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     conditionType: 1
     waitSeconds: 5
     waitKey: 0
@@ -4897,6 +4897,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307287986}
   m_CullTransparentMesh: 1
+--- !u!1 &314182783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314182785}
+  - component: {fileID: 314182784}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &314182784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314182783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a34afd8061f294a9d9bb4983fd4977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &314182785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314182783}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1004.6766, y: 541.5161, z: -1.211372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &324745275
 GameObject:
   m_ObjectHideFlags: 0
@@ -7605,7 +7649,7 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: c9d4a7910328f2a4ca990820da09b32f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 22aa5188d35fb2a46b3dc2968db87be4, type: 2}
 --- !u!4 &452579193
 Transform:
   m_ObjectHideFlags: 0
@@ -16070,6 +16114,7 @@ MonoBehaviour:
   cameraSystem: {fileID: 1048117528}
   _tilemapCollider: {fileID: 229691195}
   _timerPref: {fileID: 8747916955394836689, guid: b1213292ec97db54ba574c361cbeb0ee, type: 3}
+  _enterPref: {fileID: 7889020894324273730, guid: 310d40c4782f1714592f5bf0c02b86ef, type: 3}
   _logPrefab: {fileID: 2771450961624996316, guid: 116f71d165d942f4ab869102ec0887a4, type: 3}
   grid: {fileID: 963334338}
   _clone: {fileID: 8059996653622618337, guid: 0df1f6f7cd0d2bb4281297b634b3314b, type: 3}
@@ -16078,7 +16123,7 @@ MonoBehaviour:
   _helpUI: {fileID: 992393149}
   _buildingUI: {fileID: 4529460439877213536, guid: bbd78c4eeb78ec34ca70b2eeab3f6022, type: 3}
   _buildingCanvus: {fileID: 733236812}
-  _blockTilemap: {fileID: 859211351503538524, guid: 7c960064dcd688345a1e7ccb09bd942d, type: 3}
+  _blockTilemap: {fileID: 8302005975961553429, guid: 953988d4bbff3404d9dc1d6f15a5f602, type: 3}
   buildingParent: []
   _moveDistance: 600
   _moveSpeed: 2
@@ -16095,6 +16140,7 @@ MonoBehaviour:
   _buildingBtn: {fileID: 1219888059}
   colliderColor: {r: 0, g: 1, b: 0, a: 1}
   lineWidth: 0.05
+  surface: {fileID: 0}
   healthBar: {fileID: 501050490448884764, guid: 030298648fdcbd54cb2a858f27a9236e, type: 3}
   isMoveInv: 0
 --- !u!4 &736060522
@@ -20559,6 +20605,7 @@ MonoBehaviour:
   LevelTxt: {fileID: 1926018835}
   ShadowLevelTxt: {fileID: 1351526214}
   expSlider: {fileID: 1949866504}
+  weaponDataList: {fileID: 11400000, guid: 13a972d99197d3c4fb4527f73d72d6e2, type: 2}
 --- !u!4 &1051206338
 Transform:
   m_ObjectHideFlags: 0
@@ -20696,7 +20743,7 @@ MonoBehaviour:
   maxCount: 6
   minTime: 100
   maxTime: 300
-  invasionWarningBox: {fileID: 0}
+  invasionWarning: {fileID: 0}
   isLanding: 0
 --- !u!1 &1077823103
 GameObject:
@@ -32936,6 +32983,9 @@ MonoBehaviour:
   choiceBox: {fileID: 6011987574470829907}
   dialogBox: {fileID: 3763959798340062971}
   spaceBar: {fileID: 3435253073908381477}
+  name: {fileID: 0}
+  enemyName: {fileID: 0}
+  warningText: {fileID: 0}
   typingSpeed: 0.08
   tutorialDialogData: {fileID: 11400000, guid: 99acc5070a98a214fb5d8806b6fe1635, type: 2}
   invasionDialogData: {fileID: 11400000, guid: 046a5a3999d67b24fb41fe305fce21b1, type: 2}
@@ -38882,6 +38932,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1062661475}
   - {fileID: 1203245999}
+  - {fileID: 314182785}
   - {fileID: 1165987442}
   - {fileID: 264741168}
   - {fileID: 384551704}

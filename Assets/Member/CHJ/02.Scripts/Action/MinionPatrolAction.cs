@@ -43,7 +43,7 @@ namespace Member.CHJ._02.Scripts.Action
               
             if (Navmesh.Value.remainingDistance <= 0.1f && Time.time - _lastT >= _waitT)
             {
-                RandomPatrol(Self.Value.transform.position, 3);
+                RandomPatrol(Self.Value.transform.position, 6);
             }
             
             if (_minion.currentState != AiStates.Patrol) return Status.Success;

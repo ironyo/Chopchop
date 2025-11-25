@@ -15,7 +15,7 @@ public class ToolSlot // ���������
     public int count;
 }
 
-public class ToolManager : MonoBehaviour
+public class ToolManager : MonoSingleton<ToolManager>
 {
     public static ToolManager Instance { get; private set; }
     public List<Tool> MainTools { get; private set; } = new List<Tool>(); // ��¥ ���� ��Ƶδ� ��
@@ -42,8 +42,9 @@ public class ToolManager : MonoBehaviour
     private List<UISlot> toolSlotList = new List<UISlot>();
     private Tool currentTool = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
 
         if (Instance == null)

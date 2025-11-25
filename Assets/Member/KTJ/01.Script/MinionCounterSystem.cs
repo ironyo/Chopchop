@@ -88,29 +88,37 @@ public class MinionCounterSystem : MonoBehaviour
         int tileCount = MapManager.Instance.GetTileCount();
         int minionCount = MinionManager.Instance.minionList.Count;
 
-        if (minionCount == 0) return 0;
+        if (minionCount == 0) return 100;   // 미니언 없으면 당연히 정상
 
+        // ---- 비율 계산 ----
         float ratio = (float)tileCount / minionCount;
 
-        float minRatio = 4f;
-        float midRatio = 32f;
-        float maxRatio = 200f;
+        //  최소 비율 바닥(보정) — 미니언 많아도 ratio가 너무 떨어지지 않게
+        float minSafeRatio = 1.5f;
+        ratio = Mathf.Max(ratio, minSafeRatio);
+
+        // ---- 튜닝 가능한 수치 ----
+        float goodRatio = 6f;          // 적당
+        float normalRatio = 20f;       // 보통
+        float highRatio = 80f;         // 매우 넓음
 
         float sliderValue;
 
-        if (ratio <= midRatio)
+        //  비율이 낮을 때도 50 아래로 너무 급하게 떨어지지 않도록 완화
+        if (ratio <= normalRatio)
         {
-            float t = Mathf.InverseLerp(minRatio, midRatio, ratio);
-            sliderValue = Mathf.Lerp(100f, 50f, t);
+            float t = Mathf.InverseLerp(minSafeRatio, normalRatio, ratio);
+            sliderValue = Mathf.Lerp(80f, 50f, t);   // 기존의 100 → 50이 너무 급함 → 80 → 50으로 완화
         }
         else
         {
-            float t = Mathf.InverseLerp(midRatio, maxRatio, ratio);
-            sliderValue = Mathf.Lerp(50f, 0f, t);
+            float t = Mathf.InverseLerp(normalRatio, highRatio, ratio);
+            sliderValue = Mathf.Lerp(50f, 0f, t);    // 넓을수록 안정적
         }
 
         return Mathf.RoundToInt(Mathf.Clamp(sliderValue, 0f, 100f));
     }
+
 }
 
 

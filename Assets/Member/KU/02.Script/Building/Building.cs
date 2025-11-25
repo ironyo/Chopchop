@@ -147,11 +147,6 @@ public class Building : MonoBehaviour
     {
         UpdateColliderView();
 
-
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            MinionPlus(1);
-        }
         if(buildingSO != null)
         {
             if (buildingSO.levelResourceType.Length != 0)
