@@ -28,6 +28,7 @@ namespace Member.CHJ._02.Scripts.Ui
 
         private void Awake()
         {
+            bool _isCalled = false;
             GameFinishManager.Instance.onGameOver.AddListener(Gameover);
         }
 

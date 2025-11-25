@@ -76,7 +76,10 @@ public class TestMinion : MonoBehaviour
         {
             minionChat.AddMessage(message);
         }
-        MinionManager.Instance.minionList.Remove(gameObject.GetComponent<Minion>());
+
+        var minion = gameObject.GetComponent<Minion>();
+        MinionManager.Instance.UnRegisterMinion(minion);
+        TimeManager.Instance.OnDayStarted -= minion.InitializeDay;
         StartCoroutine(WaitDestroy(1));
     }
     public void Bomb()
