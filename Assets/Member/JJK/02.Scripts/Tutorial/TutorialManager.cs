@@ -123,8 +123,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
     private void CacheAllButtons()
     {
         if (_buttonsCached) return;
-
-        // 씬 안의 모든 버튼 가져오기 (비활성 포함)
+        
         _allButtons = FindObjectsOfType<Button>(true).ToList();
         _buttonsCached = true;
     }
@@ -132,8 +131,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
     private void ApplyUILock(TutorialStep step)
     {
         CacheAllButtons();
-
-        // 이 단계에서 UI 잠금 안 쓰면 → 전부 활성화
+        
         if (!step.lockOtherUI)
         {
             foreach (var btn in _allButtons)
@@ -143,8 +141,7 @@ public class TutorialManager : MonoSingleton<TutorialManager>
             }
             return;
         }
-
-        // 잠금 사용하는 경우 → allowedButtons만 활성
+        
         foreach (var btn in _allButtons)
         {
             if (btn == null) continue;
