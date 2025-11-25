@@ -12,7 +12,7 @@ public enum GameEndType
     GameClear, GameOver
 }
 
-public class GameEndPlay : MonoBehaviour
+public class GameEndPlay : MonoSingleton<GameEndPlay>
 {
     public UnityEvent<GameEndType, string> OnGameEndEvent;
     private bool isGameEnded = false;
@@ -28,8 +28,9 @@ public class GameEndPlay : MonoBehaviour
     //    OnGameEndEvent.Invoke(GameEndType.GameClear, "¼º°ø");
     //}
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         OnGameEndEvent.AddListener((type, msg) =>
         {
             StartCoroutine(RunGameOverUI(type, msg));

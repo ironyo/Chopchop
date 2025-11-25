@@ -111,7 +111,8 @@ namespace Member.CHJ._02.Scripts
             
             minionList.Remove(minion);
             if(minionList.Count == 0)
-                GameFinishManager.Instance.onGameOver?.Invoke();
+                GameEndPlay.Instance.OnGameEndEvent?.Invoke(GameEndType.GameOver, "미니언이 전부 죽었습니다.");
+                
             
         }
         private void UpdateTime(int time)
