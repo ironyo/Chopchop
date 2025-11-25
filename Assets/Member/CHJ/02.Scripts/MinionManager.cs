@@ -105,7 +105,7 @@ namespace Member.CHJ._02.Scripts
             
             minionList.Remove(minion);
             if(minionList.Count == 0)
-                GameFinishManager.Instance.onGameClear?.Invoke();
+                GameFinishManager.Instance.onGameOver?.Invoke();
             
         }
         private void UpdateTime(int time)
