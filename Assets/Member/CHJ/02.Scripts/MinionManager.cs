@@ -13,7 +13,6 @@ namespace Member.CHJ._02.Scripts
     {
         public List<Minion> minionList = new List<Minion>();
         [SerializeField] public BuildingSO houseSo;
-        [SerializeField] public BuildingSO schoolSo;
 
         [SerializeField] private TextMeshProUGUI hungryTxt;
         [SerializeField] private TextMeshProUGUI thirstyTxt;
@@ -47,14 +46,16 @@ namespace Member.CHJ._02.Scripts
 
                 foreach(Minion minion in minionList)
                 {
-                    TestMinion tm = minion.gameObject.GetComponent<TestMinion>();
-                    tm.Hungry--;
-                    tm.Thirsty--;
-                    tm.Dirty--;
-
-                    if (tm.Hungry <= 0 || tm.Thirsty <= 0 || tm.Dirty <= 0)
+                    if (minion.TryGetComponent<TestMinion>(out var tm))
                     {
-                        r_list.Add(tm);
+                        tm.Hungry--;
+                        tm.Thirsty--;
+                        tm.Dirty--;
+
+                        if (tm.Hungry <= 0 || tm.Thirsty <= 0 || tm.Dirty <= 0)
+                        {
+                            r_list.Add(tm);
+                        }
                     }
                 }
 
