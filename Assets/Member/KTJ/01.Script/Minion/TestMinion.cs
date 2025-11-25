@@ -57,9 +57,9 @@ public class TestMinion : MonoBehaviour
 
     private void Start() // 만땅으로 채우기
     {
-        Hungry = 100;
-        Thirsty = 100;
-        Dirty = 100;
+        Hungry = 50;
+        Thirsty = 50;
+        Dirty = 50;
     }
     IEnumerator WaitDestroy(int wait)
     {
@@ -100,10 +100,15 @@ public class TestMinion : MonoBehaviour
     }
     public void UnMope()
     {
+        if (!this || this.gameObject == null) return;
+        if (MopeParticles == null) return;
+
         MopeParticles.Stop();
+
         minionChat.AddMessage("이제 우울하지 않아!");
         minionChat.AddMessage("이동속도가 {5}로 정상화");
     }
+
 
     public void EatApple(int amount)
     {
