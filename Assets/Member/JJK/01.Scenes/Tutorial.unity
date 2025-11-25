@@ -19677,7 +19677,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionList: []
   houseSo: {fileID: 11400000, guid: 89b179836d1313a418906fa8c604b321, type: 2}
-  schoolSo: {fileID: 11400000, guid: b8ba7c08cea242644a725245c2fa1461, type: 2}
   hungryTxt: {fileID: 1092023905}
   thirstyTxt: {fileID: 1617504273}
   dirtyTxt: {fileID: 1623363524}
@@ -32987,6 +32986,7 @@ MonoBehaviour:
   enemyName: {fileID: 0}
   warningText: {fileID: 0}
   typingSpeed: 0.08
+  waitTime: 5
   tutorialDialogData: {fileID: 11400000, guid: 99acc5070a98a214fb5d8806b6fe1635, type: 2}
   invasionDialogData: {fileID: 11400000, guid: 046a5a3999d67b24fb41fe305fce21b1, type: 2}
 --- !u!1 &1904300548

@@ -113,14 +113,31 @@ public class MinionCounterSystem : MonoBehaviour
         float ratio = (float)tileCount / minionCount;
         float sliderValue;
 
+        // 1:1 이하 → 100
         if (ratio <= 1f)
+        {
             sliderValue = 100f;
+        }
+        // 1:40 이상 → 0
         else if (ratio >= 40f)
+        {
             sliderValue = 0f;
-        else if (ratio < 20f)
-            sliderValue = Mathf.Lerp(100f, 50f, Mathf.InverseLerp(1f, 10f, ratio));
+        }
         else
-            sliderValue = Mathf.Lerp(50f, 0f, Mathf.InverseLerp(10f, 20f, ratio));
+        {
+            // 1~20 → 100~50
+            if (ratio <= 20f)
+            {
+                float t = Mathf.InverseLerp(1f, 20f, ratio);
+                sliderValue = Mathf.Lerp(100f, 50f, t);
+            }
+            // 20~40 → 50~0
+            else
+            {
+                float t = Mathf.InverseLerp(20f, 40f, ratio);
+                sliderValue = Mathf.Lerp(50f, 0f, t);
+            }
+        }
 
         return Mathf.RoundToInt(sliderValue);
     }
