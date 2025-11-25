@@ -17,7 +17,6 @@ public class ToolSlot // ���������
 
 public class ToolManager : MonoSingleton<ToolManager>
 {
-    public static ToolManager Instance { get; private set; }
     public List<Tool> MainTools { get; private set; } = new List<Tool>(); // ��¥ ���� ��Ƶδ� ��
 
     #region �ν����� ����
@@ -47,15 +46,6 @@ public class ToolManager : MonoSingleton<ToolManager>
         base.Awake();
         Init();
 
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // �� �̵� �ÿ��� ����
-        }
-        else
-        {
-            Destroy(gameObject); // �ߺ� ����
-        }
 
         playerInput.OnItemInvenKeyReleased += ToolGive;
     }
