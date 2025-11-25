@@ -12,7 +12,6 @@ namespace Member.CHJ._02.Scripts
     public class MinionManager : MonoSingleton<MinionManager>
     {
         public List<Minion> minionList = new List<Minion>();
-        public int MinionMaxCount => minionList.Count;
         [SerializeField] public BuildingSO houseSo;
         [SerializeField] public BuildingSO schoolSo;
 
@@ -135,6 +134,5 @@ namespace Member.CHJ._02.Scripts
         
 
         #endregion
-
     }
 }
